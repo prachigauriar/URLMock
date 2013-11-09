@@ -8,6 +8,4 @@
 
 #import <Foundation/Foundation.h>
 
-@interface URLMock : NSObject
-
-@end
+extern NSString *const UMOErrorDomain;

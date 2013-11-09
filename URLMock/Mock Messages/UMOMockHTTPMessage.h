@@ -1,8 +1,8 @@
 //
-//  PGMockHTTPResponse.m
+//  UMOMockHTTPMessage.h
 //  URLMock
 //
-//  Created by Prachi Gauriar on 11/8/2013.
+//  Created by Prachi Gauriar on 11/9/2013.
 //  Copyright (c) 2013 Prachi Gauriar. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,43 +24,34 @@
 //  THE SOFTWARE.
 //
 
-#import "PGMockHTTPResponse.h"
+#import <Foundation/Foundation.h>
 
-@implementation PGMockHTTPResponse
+#pragma mark Constants
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        _headers = [[NSMutableDictionary alloc] init];
-    }
-    
-    return self;
+extern NSString *const kUMOMockHTTPMessageAcceptsHeaderField;
+extern NSString *const kUMOMockHTTPMessageContentTypeHeaderField;
+extern NSString *const kUMOMockHTTPMessageCookieHeaderField;
+extern NSString *const kUMOMockHTTPMessageSetCookieHeaderField;
+
+extern NSString *const kUMOMockHTTPMessageUTF8JSONContentTypeHeaderValue;
+extern NSString *const kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue;
+
+
+#pragma mark -
+
+@interface UMOMockHTTPMessage : NSObject {
+@protected
+    NSMutableDictionary *_headers;
 }
 
+@property (readwrite, copy, nonatomic) NSData *body;
+@property (readwrite, copy, nonatomic) NSDictionary *headers;
 
-+ (instancetype)mockResponseWithError:(NSError *)error
-{
-    PGMockHTTPResponse *response = [[self alloc] init];
-    response.error = error;
-    return response;
-}
+- (void)setValue:(NSString *)value forHeaderField:(NSString *)field;
+- (void)removeValueForHeaderField:(NSString *)field;
 
-
-+ (instancetype)mockResponseWithStatusCode:(NSUInteger)status body:(NSData *)data
-{
-    return [self mockResponseWithStatusCode:status body:data headers:nil];
-}
-
-
-+ (instancetype)mockResponseWithStatusCode:(NSUInteger)status body:(NSData *)body headers:(NSDictionary *)headers
-{
-    PGMockHTTPResponse *response = [[self alloc] init];
-    response.statusCode = status;
-    response.body = body;
-    response.headers = headers;
-    return response;
-}
-
+- (void)setJSONBody:(id)JSONObject;
+- (void)setStringBody:(NSString *)string;
+- (void)setStringBody:(NSString *)string encoding:(NSStringEncoding)encoding;
 
 @end

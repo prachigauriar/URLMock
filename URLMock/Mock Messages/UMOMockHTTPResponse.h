@@ -1,8 +1,8 @@
 //
-//  PGURLEncodingUtilities.h
+//  UMOMockHTTPResponse.h
 //  URLMock
 //
-//  Created by Prachi Gauriar on 11/9/2013.
+//  Created by Prachi Gauriar on 11/8/2013.
 //  Copyright (c) 2013 Prachi Gauriar. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,6 +25,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <URLMock/UMOMockHTTPMessage.h>
 
-extern NSString *PGURLEncodedStringRepresentation(NSDictionary *parameters);
-extern NSString *PGURLEncodedStringRepresentationWithEncoding(NSDictionary *parameters, NSStringEncoding encoding);
+@interface UMOMockHTTPResponse : UMOMockHTTPMessage
+
+@property (readwrite, nonatomic) NSUInteger statusCode;
+@property (readwrite, copy, nonatomic) NSError *error;
+
++ (instancetype)mockResponseWithError:(NSError *)error;
++ (instancetype)mockResponseWithStatusCode:(NSUInteger)status body:(NSData *)data;
++ (instancetype)mockResponseWithStatusCode:(NSUInteger)status body:(NSData *)body headers:(NSDictionary *)headers;
+
+@end

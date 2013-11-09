@@ -1,5 +1,5 @@
 //
-//  PGMockHTTPMessage.m
+//  UMOMockHTTPMessage.m
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/9/2013.
@@ -24,23 +24,23 @@
 //  THE SOFTWARE.
 //
 
-#import "PGMockHTTPMessage.h"
+#import <URLMock/UMOMockHTTPMessage.h>
 #import "PGUtilities.h"
 
 #pragma mark Constants
 
-NSString *const kPGMockHTTPMessageAcceptsHeaderField = @"accepts";
-NSString *const kPGMockHTTPMessageContentTypeHeaderField = @"content-type";
-NSString *const kPGMockHTTPMessageCookieHeaderField = @"cookie";
-NSString *const kPGMockHTTPMessageSetCookieHeaderField = @"set-cookie";
+NSString *const kUMOMockHTTPMessageAcceptsHeaderField = @"accepts";
+NSString *const kUMOMockHTTPMessageContentTypeHeaderField = @"content-type";
+NSString *const kUMOMockHTTPMessageCookieHeaderField = @"cookie";
+NSString *const kUMOMockHTTPMessageSetCookieHeaderField = @"set-cookie";
 
-NSString *const kPGMockHTTPMessageUTF8JSONContentTypeHeaderValue = @"application/json; charset=utf-8";
-NSString *const kPGMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue = @"application/x-www-form-urlencoded; charset=utf-8";
+NSString *const kUMOMockHTTPMessageUTF8JSONContentTypeHeaderValue = @"application/json; charset=utf-8";
+NSString *const kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue = @"application/x-www-form-urlencoded; charset=utf-8";
 
 
 #pragma mark -
 
-@implementation PGMockHTTPMessage
+@implementation UMOMockHTTPMessage
 
 - (instancetype)init
 {
@@ -95,8 +95,8 @@ NSString *const kPGMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue = 
     }
     
     self.body = JSONData;
-    if (!_headers[kPGMockHTTPMessageContentTypeHeaderField]) {
-        [self setValue:kPGMockHTTPMessageUTF8JSONContentTypeHeaderValue forHeaderField:kPGMockHTTPMessageContentTypeHeaderField];
+    if (!_headers[kUMOMockHTTPMessageContentTypeHeaderField]) {
+        [self setValue:kUMOMockHTTPMessageUTF8JSONContentTypeHeaderValue forHeaderField:kUMOMockHTTPMessageContentTypeHeaderField];
     }
 }
 

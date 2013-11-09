@@ -10,16 +10,21 @@
 		4C45E815182EAF44002F2096 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E814182EAF44002F2096 /* Foundation.framework */; };
 		4C45E823182EAF44002F2096 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E822182EAF44002F2096 /* XCTest.framework */; };
 		4C45E824182EAF44002F2096 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E814182EAF44002F2096 /* Foundation.framework */; };
-		4C45E826182EAF44002F2096 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E825182EAF44002F2096 /* UIKit.framework */; };
 		4C45E829182EAF44002F2096 /* libURLMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E811182EAF44002F2096 /* libURLMock.a */; };
 		4C45E82F182EAF44002F2096 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C45E82D182EAF44002F2096 /* InfoPlist.strings */; };
 		4C45E831182EAF44002F2096 /* URLMockTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E830182EAF44002F2096 /* URLMockTests.m */; };
-		4C45E840182EAFCB002F2096 /* PGMockHTTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E83B182EAFCB002F2096 /* PGMockHTTPMessage.m */; };
-		4C45E841182EAFCB002F2096 /* PGMockHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E83D182EAFCB002F2096 /* PGMockHTTPRequest.m */; };
-		4C45E842182EAFCB002F2096 /* PGMockHTTPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E83F182EAFCB002F2096 /* PGMockHTTPResponse.m */; };
-		4C45E849182EAFEB002F2096 /* PGURLEncodingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E846182EAFEB002F2096 /* PGURLEncodingUtilities.m */; };
+		4C45E840182EAFCB002F2096 /* UMOMockHTTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E83B182EAFCB002F2096 /* UMOMockHTTPMessage.m */; };
+		4C45E841182EAFCB002F2096 /* UMOMockHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E83D182EAFCB002F2096 /* UMOMockHTTPRequest.m */; };
+		4C45E842182EAFCB002F2096 /* UMOMockHTTPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E83F182EAFCB002F2096 /* UMOMockHTTPResponse.m */; };
+		4C45E849182EAFEB002F2096 /* UMOURLEncodingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E846182EAFEB002F2096 /* UMOURLEncodingUtilities.m */; };
 		4C45E84A182EAFEB002F2096 /* PGUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E848182EAFEB002F2096 /* PGUtilities.m */; };
 		4C45E84D182EB00A002F2096 /* URLMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E84C182EB00A002F2096 /* URLMock.m */; };
+		4C45E850182EB48B002F2096 /* URLMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E84B182EB00A002F2096 /* URLMock.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C45E851182EB48B002F2096 /* UMOMockHTTPMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E83A182EAFCB002F2096 /* UMOMockHTTPMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C45E852182EB48B002F2096 /* UMOMockHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E83C182EAFCB002F2096 /* UMOMockHTTPRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C45E853182EB48B002F2096 /* UMOMockHTTPResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E83E182EAFCB002F2096 /* UMOMockHTTPResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C45E854182EB48B002F2096 /* UMOURLEncodingUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E84E182EB29D002F2096 /* UMOURLEncodingUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C45E855182EB499002F2096 /* PGUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E847182EAFEB002F2096 /* PGUtilities.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,23 +54,22 @@
 		4C45E814182EAF44002F2096 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4C45E821182EAF44002F2096 /* URLMockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLMockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C45E822182EAF44002F2096 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		4C45E825182EAF44002F2096 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		4C45E82C182EAF44002F2096 /* URLMockTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "URLMockTests-Info.plist"; sourceTree = "<group>"; };
 		4C45E82E182EAF44002F2096 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4C45E830182EAF44002F2096 /* URLMockTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = URLMockTests.m; sourceTree = "<group>"; };
 		4C45E838182EAFBC002F2096 /* URLMock-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "URLMock-Prefix.pch"; sourceTree = "<group>"; };
-		4C45E83A182EAFCB002F2096 /* PGMockHTTPMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGMockHTTPMessage.h; sourceTree = "<group>"; };
-		4C45E83B182EAFCB002F2096 /* PGMockHTTPMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGMockHTTPMessage.m; sourceTree = "<group>"; };
-		4C45E83C182EAFCB002F2096 /* PGMockHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGMockHTTPRequest.h; sourceTree = "<group>"; };
-		4C45E83D182EAFCB002F2096 /* PGMockHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGMockHTTPRequest.m; sourceTree = "<group>"; };
-		4C45E83E182EAFCB002F2096 /* PGMockHTTPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGMockHTTPResponse.h; sourceTree = "<group>"; };
-		4C45E83F182EAFCB002F2096 /* PGMockHTTPResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGMockHTTPResponse.m; sourceTree = "<group>"; };
-		4C45E845182EAFEB002F2096 /* PGURLEncodingUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGURLEncodingUtilities.h; sourceTree = "<group>"; };
-		4C45E846182EAFEB002F2096 /* PGURLEncodingUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGURLEncodingUtilities.m; sourceTree = "<group>"; };
+		4C45E83A182EAFCB002F2096 /* UMOMockHTTPMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMOMockHTTPMessage.h; sourceTree = "<group>"; };
+		4C45E83B182EAFCB002F2096 /* UMOMockHTTPMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMOMockHTTPMessage.m; sourceTree = "<group>"; };
+		4C45E83C182EAFCB002F2096 /* UMOMockHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMOMockHTTPRequest.h; sourceTree = "<group>"; };
+		4C45E83D182EAFCB002F2096 /* UMOMockHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMOMockHTTPRequest.m; sourceTree = "<group>"; };
+		4C45E83E182EAFCB002F2096 /* UMOMockHTTPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMOMockHTTPResponse.h; sourceTree = "<group>"; };
+		4C45E83F182EAFCB002F2096 /* UMOMockHTTPResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMOMockHTTPResponse.m; sourceTree = "<group>"; };
+		4C45E846182EAFEB002F2096 /* UMOURLEncodingUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMOURLEncodingUtilities.m; sourceTree = "<group>"; };
 		4C45E847182EAFEB002F2096 /* PGUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGUtilities.h; sourceTree = "<group>"; };
 		4C45E848182EAFEB002F2096 /* PGUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGUtilities.m; sourceTree = "<group>"; };
 		4C45E84B182EB00A002F2096 /* URLMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLMock.h; sourceTree = "<group>"; };
 		4C45E84C182EB00A002F2096 /* URLMock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLMock.m; sourceTree = "<group>"; };
+		4C45E84E182EB29D002F2096 /* UMOURLEncodingUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMOURLEncodingUtilities.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +86,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C45E823182EAF44002F2096 /* XCTest.framework in Frameworks */,
-				4C45E826182EAF44002F2096 /* UIKit.framework in Frameworks */,
 				4C45E824182EAF44002F2096 /* Foundation.framework in Frameworks */,
 				4C45E829182EAF44002F2096 /* libURLMock.a in Frameworks */,
 			);
@@ -115,7 +118,6 @@
 			children = (
 				4C45E814182EAF44002F2096 /* Foundation.framework */,
 				4C45E822182EAF44002F2096 /* XCTest.framework */,
-				4C45E825182EAF44002F2096 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -161,12 +163,12 @@
 		4C45E839182EAFBD002F2096 /* Mock Messages */ = {
 			isa = PBXGroup;
 			children = (
-				4C45E83A182EAFCB002F2096 /* PGMockHTTPMessage.h */,
-				4C45E83B182EAFCB002F2096 /* PGMockHTTPMessage.m */,
-				4C45E83C182EAFCB002F2096 /* PGMockHTTPRequest.h */,
-				4C45E83D182EAFCB002F2096 /* PGMockHTTPRequest.m */,
-				4C45E83E182EAFCB002F2096 /* PGMockHTTPResponse.h */,
-				4C45E83F182EAFCB002F2096 /* PGMockHTTPResponse.m */,
+				4C45E83A182EAFCB002F2096 /* UMOMockHTTPMessage.h */,
+				4C45E83B182EAFCB002F2096 /* UMOMockHTTPMessage.m */,
+				4C45E83C182EAFCB002F2096 /* UMOMockHTTPRequest.h */,
+				4C45E83D182EAFCB002F2096 /* UMOMockHTTPRequest.m */,
+				4C45E83E182EAFCB002F2096 /* UMOMockHTTPResponse.h */,
+				4C45E83F182EAFCB002F2096 /* UMOMockHTTPResponse.m */,
 			);
 			path = "Mock Messages";
 			sourceTree = "<group>";
@@ -176,13 +178,29 @@
 			children = (
 				4C45E847182EAFEB002F2096 /* PGUtilities.h */,
 				4C45E848182EAFEB002F2096 /* PGUtilities.m */,
-				4C45E845182EAFEB002F2096 /* PGURLEncodingUtilities.h */,
-				4C45E846182EAFEB002F2096 /* PGURLEncodingUtilities.m */,
+				4C45E84E182EB29D002F2096 /* UMOURLEncodingUtilities.h */,
+				4C45E846182EAFEB002F2096 /* UMOURLEncodingUtilities.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4C45E84F182EB477002F2096 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C45E850182EB48B002F2096 /* URLMock.h in Headers */,
+				4C45E851182EB48B002F2096 /* UMOMockHTTPMessage.h in Headers */,
+				4C45E852182EB48B002F2096 /* UMOMockHTTPRequest.h in Headers */,
+				4C45E853182EB48B002F2096 /* UMOMockHTTPResponse.h in Headers */,
+				4C45E854182EB48B002F2096 /* UMOURLEncodingUtilities.h in Headers */,
+				4C45E855182EB499002F2096 /* PGUtilities.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		4C45E810182EAF44002F2096 /* URLMock */ = {
@@ -192,6 +210,7 @@
 				4C45E80D182EAF44002F2096 /* Sources */,
 				4C45E80E182EAF44002F2096 /* Frameworks */,
 				4C45E80F182EAF44002F2096 /* CopyFiles */,
+				4C45E84F182EB477002F2096 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -226,7 +245,7 @@
 		4C45E807182EAEFC002F2096 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = PG;
+				CLASSPREFIX = UMO;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Prachi Gauriar";
 			};
@@ -264,10 +283,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C45E849182EAFEB002F2096 /* PGURLEncodingUtilities.m in Sources */,
-				4C45E841182EAFCB002F2096 /* PGMockHTTPRequest.m in Sources */,
-				4C45E842182EAFCB002F2096 /* PGMockHTTPResponse.m in Sources */,
-				4C45E840182EAFCB002F2096 /* PGMockHTTPMessage.m in Sources */,
+				4C45E849182EAFEB002F2096 /* UMOURLEncodingUtilities.m in Sources */,
+				4C45E841182EAFCB002F2096 /* UMOMockHTTPRequest.m in Sources */,
+				4C45E842182EAFCB002F2096 /* UMOMockHTTPResponse.m in Sources */,
+				4C45E840182EAFCB002F2096 /* UMOMockHTTPMessage.m in Sources */,
 				4C45E84A182EAFEB002F2096 /* PGUtilities.m in Sources */,
 				4C45E84D182EB00A002F2096 /* URLMock.m in Sources */,
 			);
@@ -338,7 +357,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "URLMock/URLMock-Prefix.pch";
+				GCC_PREFIX_HEADER = "URLMock/Supporting Files/URLMock-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -381,7 +400,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "URLMock/URLMock-Prefix.pch";
+				GCC_PREFIX_HEADER = "URLMock/Supporting Files/URLMock-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -506,6 +525,7 @@
 				4C45E834182EAF44002F2096 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4C45E835182EAF44002F2096 /* Build configuration list for PBXNativeTarget "URLMockTests" */ = {
 			isa = XCConfigurationList;
@@ -514,6 +534,7 @@
 				4C45E837182EAF44002F2096 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

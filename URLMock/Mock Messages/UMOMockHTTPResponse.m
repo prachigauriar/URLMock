@@ -1,5 +1,5 @@
 //
-//  PGMockHTTPResponse.h
+//  UMOMockHTTPResponse.m
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/8/2013.
@@ -24,16 +24,43 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-#import "PGMockHTTPMessage.h"
+#import <URLMock/UMOMockHTTPResponse.h>
 
-@interface PGMockHTTPResponse : PGMockHTTPMessage
+@implementation UMOMockHTTPResponse
 
-@property (readwrite, nonatomic) NSUInteger statusCode;
-@property (readwrite, copy, nonatomic) NSError *error;
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _headers = [[NSMutableDictionary alloc] init];
+    }
+    
+    return self;
+}
 
-+ (instancetype)mockResponseWithError:(NSError *)error;
-+ (instancetype)mockResponseWithStatusCode:(NSUInteger)status body:(NSData *)data;
-+ (instancetype)mockResponseWithStatusCode:(NSUInteger)status body:(NSData *)body headers:(NSDictionary *)headers;
+
++ (instancetype)mockResponseWithError:(NSError *)error
+{
+    UMOMockHTTPResponse *response = [[self alloc] init];
+    response.error = error;
+    return response;
+}
+
+
++ (instancetype)mockResponseWithStatusCode:(NSUInteger)status body:(NSData *)data
+{
+    return [self mockResponseWithStatusCode:status body:data headers:nil];
+}
+
+
++ (instancetype)mockResponseWithStatusCode:(NSUInteger)status body:(NSData *)body headers:(NSDictionary *)headers
+{
+    UMOMockHTTPResponse *response = [[self alloc] init];
+    response.statusCode = status;
+    response.body = body;
+    response.headers = headers;
+    return response;
+}
+
 
 @end

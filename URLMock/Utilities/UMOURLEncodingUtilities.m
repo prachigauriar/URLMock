@@ -1,5 +1,5 @@
 //
-//  PGURLEncodingUtilities.m
+//  UMOURLEncodingUtilities.m
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/9/2013.
@@ -24,14 +24,14 @@
 //  THE SOFTWARE.
 //
 
-#import "PGURLEncodingUtilities.h"
+#import <URLMock/UMOURLEncodingUtilities.h>
 
 // Note: Most of this code was shamelessly taken from AFNetworking.
 
 
 #pragma mark Constants
 
-static NSString *const kPGEscapedCharacters = @":/?&=;+!@#$()',*";
+static NSString *const kUMOEscapedCharacters = @":/?&=;+!@#$()',*";
 
 
 #pragma mark - Private Functions
@@ -44,13 +44,13 @@ static NSString *const kPGEscapedCharacters = @":/?&=;+!@#$()',*";
  @param NSStringEncoding The encoding to use when escaping the string.
  @result A percent-escaped representation of key.
  */
-static NSString *PGPercentEscapedKeyStringWithEncoding(NSString *key, NSStringEncoding encoding)
+static NSString *UMOPercentEscapedKeyStringWithEncoding(NSString *key, NSStringEncoding encoding)
 {
-    static NSString *const kPGUnescapedCharacters = @".[]";
+    static NSString *const kUMOUnescapedCharacters = @".[]";
 	return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
                                                                                  (__bridge CFStringRef)key,
-                                                                                 (__bridge CFStringRef)kPGUnescapedCharacters,
-                                                                                 (__bridge CFStringRef)kPGEscapedCharacters,
+                                                                                 (__bridge CFStringRef)kUMOUnescapedCharacters,
+                                                                                 (__bridge CFStringRef)kUMOEscapedCharacters,
                                                                                  CFStringConvertNSStringEncodingToEncoding(encoding));
 }
 
@@ -63,25 +63,25 @@ static NSString *PGPercentEscapedKeyStringWithEncoding(NSString *key, NSStringEn
  @param NSStringEncoding The encoding to use when escaping the string.
  @result A percent-escaped representation of value.
  */
-static NSString *PGPercentEscapedValueStringWithEncoding(NSString *value, NSStringEncoding encoding)
+static NSString *UMOPercentEscapedValueStringWithEncoding(NSString *value, NSStringEncoding encoding)
 {
     return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
                                                                                  (__bridge CFStringRef)value,
                                                                                  NULL,
-                                                                                 (__bridge CFStringRef)kPGEscapedCharacters,
+                                                                                 (__bridge CFStringRef)kUMOEscapedCharacters,
                                                                                  CFStringConvertNSStringEncodingToEncoding(encoding));
 }
 
 
 #pragma mark - Public Functions
 
-NSString *PGURLEncodedStringRepresentation(NSDictionary *parameters)
+NSString *UMOURLEncodedStringRepresentation(NSDictionary *parameters)
 {
-    return PGURLEncodedStringRepresentationWithEncoding(parameters, NSUTF8StringEncoding);
+    return UMOURLEncodedStringRepresentationWithEncoding(parameters, NSUTF8StringEncoding);
 }
 
 
-NSString *PGURLEncodedStringRepresentationWithEncoding(NSDictionary *parameters, NSStringEncoding encoding)
+NSString *UMOURLEncodedStringRepresentationWithEncoding(NSDictionary *parameters, NSStringEncoding encoding)
 {
     NSMutableArray *encodedPairs = [[NSMutableArray alloc] initWithCapacity:parameters.count];
 
@@ -89,10 +89,10 @@ NSString *PGURLEncodedStringRepresentationWithEncoding(NSDictionary *parameters,
     for (NSString *key in sortedKeys) {
         id value = parameters[value];
         if (value == [NSNull null]) {
-            [encodedPairs addObject:PGPercentEscapedKeyStringWithEncoding(key, encoding)];
+            [encodedPairs addObject:UMOPercentEscapedKeyStringWithEncoding(key, encoding)];
         } else {
-            NSString *encodedKey = PGPercentEscapedKeyStringWithEncoding(key, encoding);
-            NSString *encodedValue = PGPercentEscapedValueStringWithEncoding(value, encoding);
+            NSString *encodedKey = UMOPercentEscapedKeyStringWithEncoding(key, encoding);
+            NSString *encodedValue = UMOPercentEscapedValueStringWithEncoding(value, encoding);
             [encodedPairs addObject:[NSString stringWithFormat:@"%@=%@", encodedKey, encodedValue]];
         }
     }

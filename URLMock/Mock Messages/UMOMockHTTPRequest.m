@@ -1,5 +1,5 @@
 //
-//  PGMockHTTPRequest.m
+//  UMOMockHTTPRequest.m
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/8/2013.
@@ -24,22 +24,22 @@
 //  THE SOFTWARE.
 //
 
-#import "PGMockHTTPRequest.h"
-#import "PGURLEncodingUtilities.h"
+#import <URLMock/UMOMockHTTPRequest.h>
+#import <URLMock/UMOURLEncodingUtilities.h>
 
 #pragma mark Constants
 
-NSString *const kPGMockHTTPRequestDeleteMethod = @"DELETE";
-NSString *const kPGMockHTTPRequestGetMethod = @"GET";
-NSString *const kPGMockHTTPRequestHeadMethod = @"HEAD";
-NSString *const kPGMockHTTPRequestPatchMethod = @"PATCH";
-NSString *const kPGMockHTTPRequestPostMethod = @"POST";
-NSString *const kPGMockHTTPRequestPutMethod = @"PUT";
+NSString *const kUMOMockHTTPRequestDeleteMethod = @"DELETE";
+NSString *const kUMOMockHTTPRequestGetMethod = @"GET";
+NSString *const kUMOMockHTTPRequestHeadMethod = @"HEAD";
+NSString *const kUMOMockHTTPRequestPatchMethod = @"PATCH";
+NSString *const kUMOMockHTTPRequestPostMethod = @"POST";
+NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
 
 
 #pragma mark -
 
-@implementation PGMockHTTPRequest
+@implementation UMOMockHTTPRequest
 
 - (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL
 {
@@ -55,45 +55,45 @@ NSString *const kPGMockHTTPRequestPutMethod = @"PUT";
 
 + (instancetype)mockDeleteRequestWithURLString:(NSString *)string
 {
-    return [[self alloc] initWithHTTPMethod:kPGMockHTTPRequestDeleteMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestDeleteMethod URL:[NSURL URLWithString:string]];
 }
 
 
 + (instancetype)mockGetRequestWithURLString:(NSString *)string
 {
-    return [[self alloc] initWithHTTPMethod:kPGMockHTTPRequestGetMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestGetMethod URL:[NSURL URLWithString:string]];
 }
 
 
 + (instancetype)mockHeadRequestWithURLString:(NSString *)string
 {
-    return [[self alloc] initWithHTTPMethod:kPGMockHTTPRequestHeadMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestHeadMethod URL:[NSURL URLWithString:string]];
 }
 
 
 + (instancetype)mockPatchRequestWithURLString:(NSString *)string
 {
-    return [[self alloc] initWithHTTPMethod:kPGMockHTTPRequestPatchMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestPatchMethod URL:[NSURL URLWithString:string]];
 }
 
 
 + (instancetype)mockPostRequestWithURLString:(NSString *)string
 {
-    return [[self alloc] initWithHTTPMethod:kPGMockHTTPRequestPostMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestPostMethod URL:[NSURL URLWithString:string]];
 }
 
 
 + (instancetype)mockPutRequestWithURLString:(NSString *)string
 {
-    return [[self alloc] initWithHTTPMethod:kPGMockHTTPRequestPutMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestPutMethod URL:[NSURL URLWithString:string]];
 }
 
 
 - (void)setBodyByURLEncodingParameters:(NSDictionary *)parameters
 {
-    [self setStringBody:PGURLEncodedStringRepresentation(parameters)];
-    if (!_headers[kPGMockHTTPMessageContentTypeHeaderField]) {
-        [self setValue:kPGMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue forHeaderField:kPGMockHTTPMessageContentTypeHeaderField];
+    [self setStringBody:UMOURLEncodedStringRepresentation(parameters)];
+    if (!_headers[kUMOMockHTTPMessageContentTypeHeaderField]) {
+        [self setValue:kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue forHeaderField:kUMOMockHTTPMessageContentTypeHeaderField];
     }
 }
 

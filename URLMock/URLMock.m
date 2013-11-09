@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Prachi Gauriar. All rights reserved.
 //
 
-#import "URLMock.h"
+#import <URLMock/URLMock.h>
 
-@implementation URLMock
-
-@end
+NSString *const UMOErrorDomain = @"UMOErrorDomain";

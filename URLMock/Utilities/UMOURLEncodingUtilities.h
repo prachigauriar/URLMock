@@ -1,5 +1,5 @@
 //
-//  PGMockHTTPMessage.h
+//  UMOURLEncodingUtilities.h
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/9/2013.
@@ -26,32 +26,5 @@
 
 #import <Foundation/Foundation.h>
 
-#pragma mark Constants
-
-extern NSString *const kPGMockHTTPMessageAcceptsHeaderField;
-extern NSString *const kPGMockHTTPMessageContentTypeHeaderField;
-extern NSString *const kPGMockHTTPMessageCookieHeaderField;
-extern NSString *const kPGMockHTTPMessageSetCookieHeaderField;
-
-extern NSString *const kPGMockHTTPMessageUTF8JSONContentTypeHeaderValue;
-extern NSString *const kPGMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue;
-
-
-#pragma mark -
-
-@interface PGMockHTTPMessage : NSObject {
-@protected
-    NSMutableDictionary *_headers;
-}
-
-@property (readwrite, copy, nonatomic) NSData *body;
-@property (readwrite, copy, nonatomic) NSDictionary *headers;
-
-- (void)setValue:(NSString *)value forHeaderField:(NSString *)field;
-- (void)removeValueForHeaderField:(NSString *)field;
-
-- (void)setJSONBody:(id)JSONObject;
-- (void)setStringBody:(NSString *)string;
-- (void)setStringBody:(NSString *)string encoding:(NSStringEncoding)encoding;
-
-@end
+extern NSString *UMOURLEncodedStringRepresentation(NSDictionary *parameters);
+extern NSString *UMOURLEncodedStringRepresentationWithEncoding(NSDictionary *parameters, NSStringEncoding encoding);

@@ -1,5 +1,5 @@
 //
-//  PGMockHTTPRequest.h
+//  UMOMockHTTPRequest.h
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/8/2013.
@@ -25,27 +25,27 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PGMockHTTPMessage.h"
+#import <URLMock/UMOMockHTTPMessage.h>
 
 #pragma mark Constants
 
-extern NSString *const kPGMockHTTPRequestDeleteMethod;
-extern NSString *const kPGMockHTTPRequestGetMethod;
-extern NSString *const kPGMockHTTPRequestHeadMethod;
-extern NSString *const kPGMockHTTPRequestPatchMethod;
-extern NSString *const kPGMockHTTPRequestPostMethod;
-extern NSString *const kPGMockHTTPRequestPutMethod;
+extern NSString *const kUMOMockHTTPRequestDeleteMethod;
+extern NSString *const kUMOMockHTTPRequestGetMethod;
+extern NSString *const kUMOMockHTTPRequestHeadMethod;
+extern NSString *const kUMOMockHTTPRequestPatchMethod;
+extern NSString *const kUMOMockHTTPRequestPostMethod;
+extern NSString *const kUMOMockHTTPRequestPutMethod;
 
 
 #pragma mark -
 
-@class PGMockHTTPResponse;
+@class UMOMockHTTPResponse;
 
-@interface PGMockHTTPRequest : PGMockHTTPMessage
+@interface UMOMockHTTPRequest : UMOMockHTTPMessage
 
 @property (readonly, copy, nonatomic) NSString *method;
 @property (readonly, strong, nonatomic) NSURL *URL;
-@property (readwrite, strong, nonatomic) PGMockHTTPResponse *response;
+@property (readwrite, strong, nonatomic) UMOMockHTTPResponse *response;
 
 - (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL;
 
