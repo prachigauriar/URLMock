@@ -25,6 +25,7 @@
 //
 
 #import <URLMock/UMOMockHTTPRequest.h>
+#import <URLMock/UMOMockURLProtocol.h>
 #import <URLMock/UMOURLEncodingUtilities.h>
 
 #pragma mark Constants
@@ -45,8 +46,9 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
 {
     self = [super init];
     if (self) {
-        _method = method;
+        _HTTPMethod = method;
         _URL = URL;
+        _canonicalURL = [UMOMockURLProtocol canonicalURLForURL:URL];
     }
     
     return self;
@@ -89,12 +91,46 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
 }
 
 
+#pragma mark - URL-Encoded Parameters
+
+- (NSDictionary *)parametersFromURLEncodedBody
+{
+    return UMODictionaryForURLEncodedParametersString([self stringFromBody]);
+}
+
+
 - (void)setBodyByURLEncodingParameters:(NSDictionary *)parameters
 {
-    [self setStringBody:UMOURLEncodedStringRepresentation(parameters)];
+    [self setBodyWithString:UMOURLEncodedStringForParameters(parameters)];
     if (!_headers[kUMOMockHTTPMessageContentTypeHeaderField]) {
         [self setValue:kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue forHeaderField:kUMOMockHTTPMessageContentTypeHeaderField];
     }
+}
+
+
+#pragma mark - Request Matching
+
+- (BOOL)bodyMatchesBodyOfURLRequest:(NSURLRequest *)request
+{
+    // If the content type is either JSON or WWW Form URL Encoded, do a content-type-specific equality check.
+    // This is because we know JSON and form parameters are equivalent even if their orders are not.
+    NSString *contentType = [request valueForHTTPHeaderField:kUMOMockHTTPMessageContentTypeHeaderField];
+    if ([contentType rangeOfString:kUMOMockHTTPMessageJSONContentTypeHeaderValue].location != NSNotFound) {
+        return [[self JSONObjectFromBody] isEqual:[NSJSONSerialization JSONObjectWithData:request.HTTPBody options:0 error:NULL]];
+    } else if ([contentType rangeOfString:kUMOMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValue].location != NSNotFound) {
+        NSString *requestBodyString = [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding];
+        return [[self parametersFromURLEncodedBody] isEqualToDictionary:UMODictionaryForURLEncodedParametersString(requestBodyString)];;
+    }
+    
+    // Otherwise just compare bytes
+    return [self.body isEqualToData:request.HTTPBody];
+}
+
+
+- (BOOL)matchesURLRequest:(NSURLRequest *)request
+{
+    return [self.canonicalURL isEqual:[UMOMockURLProtocol canonicalURLForURL:request.URL]] && [self.HTTPMethod isEqualToString:request.HTTPMethod] &&
+        [self.headers isEqualToDictionary:request.allHTTPHeaderFields] && [self bodyMatchesBodyOfURLRequest:request];
 }
 
 @end

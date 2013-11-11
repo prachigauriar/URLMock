@@ -25,7 +25,7 @@
 //
 
 #import <URLMock/UMOMockHTTPMessage.h>
-#import "PGUtilities.h"
+#import <URLMock/PGUtilities.h>
 
 #pragma mark Constants
 
@@ -34,7 +34,9 @@ NSString *const kUMOMockHTTPMessageContentTypeHeaderField = @"content-type";
 NSString *const kUMOMockHTTPMessageCookieHeaderField = @"cookie";
 NSString *const kUMOMockHTTPMessageSetCookieHeaderField = @"set-cookie";
 
+NSString *const kUMOMockHTTPMessageJSONContentTypeHeaderValue = @"application/json";
 NSString *const kUMOMockHTTPMessageUTF8JSONContentTypeHeaderValue = @"application/json; charset=utf-8";
+NSString *const kUMOMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValue = @"application/x-www-form-urlencoded";
 NSString *const kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue = @"application/x-www-form-urlencoded; charset=utf-8";
 
 
@@ -85,7 +87,13 @@ NSString *const kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue =
 
 #pragma mark - Body
 
-- (void)setJSONBody:(id)JSONObject
+- (id)JSONObjectFromBody
+{
+    return [NSJSONSerialization JSONObjectWithData:self.body options:0 error:NULL];
+}
+
+
+- (void)setBodyWithJSONObject:(id)JSONObject
 {
     NSData *JSONData = [NSJSONSerialization dataWithJSONObject:JSONObject options:0 error:NULL];
     if (!JSONData) {
@@ -101,13 +109,25 @@ NSString *const kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue =
 }
 
 
-- (void)setStringBody:(NSString *)string
+- (NSString *)stringFromBody
 {
-    [self setStringBody:string encoding:NSUTF8StringEncoding];
+    return [self stringFromBodyWithEncoding:NSUTF8StringEncoding];
 }
 
 
-- (void)setStringBody:(NSString *)string encoding:(NSStringEncoding)encoding
+- (void)setBodyWithString:(NSString *)string
+{
+    [self setBodyWithString:string encoding:NSUTF8StringEncoding];
+}
+
+
+- (NSString *)stringFromBodyWithEncoding:(NSStringEncoding)encoding
+{
+    return [[NSString alloc] initWithData:self.body encoding:encoding];
+}
+
+
+- (void)setBodyWithString:(NSString *)string encoding:(NSStringEncoding)encoding
 {
     self.body = [string dataUsingEncoding:encoding];
 }

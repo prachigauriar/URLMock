@@ -33,7 +33,9 @@ extern NSString *const kUMOMockHTTPMessageContentTypeHeaderField;
 extern NSString *const kUMOMockHTTPMessageCookieHeaderField;
 extern NSString *const kUMOMockHTTPMessageSetCookieHeaderField;
 
+extern NSString *const kUMOMockHTTPMessageJSONContentTypeHeaderValue;
 extern NSString *const kUMOMockHTTPMessageUTF8JSONContentTypeHeaderValue;
+extern NSString *const kUMOMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValue;
 extern NSString *const kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue;
 
 
@@ -44,14 +46,19 @@ extern NSString *const kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
     NSMutableDictionary *_headers;
 }
 
-@property (readwrite, copy, nonatomic) NSData *body;
-@property (readwrite, copy, nonatomic) NSDictionary *headers;
+@property (copy, nonatomic) NSData *body;
+@property (copy, nonatomic) NSDictionary *headers;
 
 - (void)setValue:(NSString *)value forHeaderField:(NSString *)field;
 - (void)removeValueForHeaderField:(NSString *)field;
 
-- (void)setJSONBody:(id)JSONObject;
-- (void)setStringBody:(NSString *)string;
-- (void)setStringBody:(NSString *)string encoding:(NSStringEncoding)encoding;
+- (id)JSONObjectFromBody;
+- (void)setBodyWithJSONObject:(id)JSONObject;
+
+- (NSString *)stringFromBody;
+- (void)setBodyWithString:(NSString *)string;
+
+- (NSString *)stringFromBodyWithEncoding:(NSStringEncoding)encoding;
+- (void)setBodyWithString:(NSString *)string encoding:(NSStringEncoding)encoding;
 
 @end

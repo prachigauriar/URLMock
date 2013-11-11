@@ -75,13 +75,13 @@ static NSString *UMOPercentEscapedValueStringWithEncoding(NSString *value, NSStr
 
 #pragma mark - Public Functions
 
-NSString *UMOURLEncodedStringRepresentation(NSDictionary *parameters)
+NSString *UMOURLEncodedStringForParameters(NSDictionary *parameters)
 {
-    return UMOURLEncodedStringRepresentationWithEncoding(parameters, NSUTF8StringEncoding);
+    return UMOURLEncodedStringForParametersUsingEncoding(parameters, NSUTF8StringEncoding);
 }
 
 
-NSString *UMOURLEncodedStringRepresentationWithEncoding(NSDictionary *parameters, NSStringEncoding encoding)
+NSString *UMOURLEncodedStringForParametersUsingEncoding(NSDictionary *parameters, NSStringEncoding encoding)
 {
     NSMutableArray *encodedPairs = [[NSMutableArray alloc] initWithCapacity:parameters.count];
 
@@ -98,4 +98,26 @@ NSString *UMOURLEncodedStringRepresentationWithEncoding(NSDictionary *parameters
     }
     
     return [encodedPairs componentsJoinedByString:@"&"];
+}
+
+
+NSDictionary *UMODictionaryForURLEncodedParametersString(NSString *string)
+{
+    return UMODictionaryForURLEncodedParametersStringUsingEncoding(string, NSUTF8StringEncoding);
+}
+
+
+NSDictionary *UMODictionaryForURLEncodedParametersStringUsingEncoding(NSString *string, NSStringEncoding encoding)
+{
+    NSArray *keyValueStrings = [string componentsSeparatedByString:@"&"];
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithCapacity:keyValueStrings.count];
+    
+    for (NSString *keyValueString in keyValueStrings) {
+        NSArray *keyValuePair = [keyValueString componentsSeparatedByString:@"="];
+        NSString *key = [keyValuePair[0] stringByReplacingPercentEscapesUsingEncoding:encoding];
+        NSString *value = [keyValuePair[1] stringByReplacingPercentEscapesUsingEncoding:encoding];
+        dictionary[key] = value;
+    }
+    
+    return dictionary;
 }

@@ -27,13 +27,19 @@
 #import <Foundation/Foundation.h>
 #import <URLMock/UMOMockHTTPMessage.h>
 
+@class UMOMockHTTPRequest;
+
 @interface UMOMockHTTPResponse : UMOMockHTTPMessage
 
-@property (readwrite, nonatomic) NSUInteger statusCode;
-@property (readwrite, copy, nonatomic) NSError *error;
-
 + (instancetype)mockResponseWithError:(NSError *)error;
-+ (instancetype)mockResponseWithStatusCode:(NSUInteger)status body:(NSData *)data;
-+ (instancetype)mockResponseWithStatusCode:(NSUInteger)status body:(NSData *)body headers:(NSDictionary *)headers;
+
++ (instancetype)mockResponseWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers;
++ (instancetype)mockResponseWithStatusCode:(NSInteger)statusCode body:(NSData *)body;
++ (instancetype)mockResponseWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body;
++ (instancetype)mockResponseWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body chunkCount:(NSUInteger)chunkCount;
+
+// TODO: Mock responses for redirects and authentication challenges
+
+- (void)respondToMockRequest:(UMOMockHTTPRequest *)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol;
 
 @end

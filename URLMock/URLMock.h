@@ -9,3 +9,9 @@
 #import <Foundation/Foundation.h>
 
 extern NSString *const UMOErrorDomain;
+
+#import <URLMock/UMOMockHTTPMessage.h>
+#import <URLMock/UMOMockHTTPRequest.h>
+#import <URLMock/UMOMockHTTPResponse.h>
+#import <URLMock/UMOMockURLProtocol.h>
+#import <URLMock/UMOURLEncodingUtilities.h>

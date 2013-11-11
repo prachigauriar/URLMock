@@ -43,8 +43,9 @@ extern NSString *const kUMOMockHTTPRequestPutMethod;
 
 @interface UMOMockHTTPRequest : UMOMockHTTPMessage
 
-@property (readonly, copy, nonatomic) NSString *method;
+@property (readonly, copy, nonatomic) NSString *HTTPMethod;
 @property (readonly, strong, nonatomic) NSURL *URL;
+@property (readonly, strong, nonatomic) NSURL *canonicalURL;
 @property (readwrite, strong, nonatomic) UMOMockHTTPResponse *response;
 
 - (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL;
@@ -56,6 +57,10 @@ extern NSString *const kUMOMockHTTPRequestPutMethod;
 + (instancetype)mockPostRequestWithURLString:(NSString *)string;
 + (instancetype)mockPutRequestWithURLString:(NSString *)string;
 
+- (NSDictionary *)parametersFromURLEncodedBody;
 - (void)setBodyByURLEncodingParameters:(NSDictionary *)parameters;
+
+- (BOOL)bodyMatchesBodyOfURLRequest:(NSURLRequest *)request;
+- (BOOL)matchesURLRequest:(NSURLRequest *)request;
 
 @end

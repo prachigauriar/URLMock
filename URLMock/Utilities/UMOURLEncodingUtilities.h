@@ -26,5 +26,8 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *UMOURLEncodedStringRepresentation(NSDictionary *parameters);
-extern NSString *UMOURLEncodedStringRepresentationWithEncoding(NSDictionary *parameters, NSStringEncoding encoding);
+extern NSString *UMOURLEncodedStringForParameters(NSDictionary *parameters);
+extern NSString *UMOURLEncodedStringForParametersUsingEncoding(NSDictionary *parameters, NSStringEncoding encoding);
+
+extern NSDictionary *UMODictionaryForURLEncodedParametersString(NSString *string);
+extern NSDictionary *UMODictionaryForURLEncodedParametersStringUsingEncoding(NSString *string, NSStringEncoding encoding);
