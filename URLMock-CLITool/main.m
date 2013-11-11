@@ -14,10 +14,24 @@ int main(int argc, const char *argv[])
     @autoreleasepool {
         [UMOMockURLProtocol enable];
 
-        UMOMockHTTPRequest *request = [UMOMockHTTPRequest mockGetRequestWithURLString:@"http://api.host.com:1234/v1/blah"];
-        [request setBodyByURLEncodingParameters:@{ @"param1" : @"value1", @"param2" : @"value2" };
-        
-         
+        [UMOMockURLProtocol setInterceptsAllRequests:YES];
+
+        UMOMockHTTPRequest *request = [UMOMockHTTPRequest mockGetRequestWithURLString:@"http://api.host.com:1234/v1/path/to/resource"];
+
+        // This automatically sets the content-type header if it hasn't previously been set
+        [request setBodyByURLEncodingParameters:@{ @"param1" : @"value1", @"param2" : @"value2" }];
+
+        // Respond with an error
+        request.response = [UMOMockHTTPResponse mockResponseWithError:[NSError errorWithDomain:NSURLErrorDomain code:123 userInfo:nil]];
+
+        // Respond with an actual body
+        request.response = [UMOMockHTTPResponse mockResponseWithStatusCode:200 body:nil];
+
+        // Also sets content-type header if it hasn't previously been set
+        [request.response setBodyWithJSONObject:@{ @"mind" : @"blown", @"or": @"not" }];
+
+        [UMOMockURLProtocol expectMockRequest:request];
+        [UMOMockURLProtocol resetAndDisable];
     }
 
     return 0;
