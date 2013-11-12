@@ -150,27 +150,13 @@ static BOOL _interceptsAllRequests = NO;
 
 + (UMOMockHTTPRequest *)expectedMockRequestMatchingURLRequest:(NSURLRequest *)request
 {
-    // Because we're storing requests in arrays, our worst-case lokup time is going to be O(n),
-    // where n is the number of mock requests for the given canonical URL. Worse still, for
-    // each mock request, we're going to incur this overhead twice: once in +canInitWithRequest:
-    // and then again in -startLoading. We can avoid the overhead of the second call by saving
-    // the last result. This is only really useful in the pathological case where we have lots
-    // of mock requests for the exact same URL, but if we ever add requests that match based
-    // on a pattern, this could pay off then too, especially since checking whether it matches
-    // would be more expensive.
-    static UMOMockHTTPRequest *lastFoundMockRequest = nil;
-    if ([lastFoundMockRequest matchesURLRequest:request]) {
-        return lastFoundMockRequest;
-    }
-    
     // If we can find a mock request for this URL that matches the URL request, update lastFoundMockRequest
     NSMutableArray *mockRequests = [self expectedMockRequestsForCanonicalURL:[self canonicalURLForURL:request.URL]];
     NSUInteger index = [mockRequests indexOfObjectPassingTest:^BOOL(UMOMockHTTPRequest *mockRequest, NSUInteger idx, BOOL *stop) {
         return [mockRequest matchesURLRequest:request];
     }];
-    
-    lastFoundMockRequest = (index != NSNotFound) ? mockRequests[index] : nil;
-    return lastFoundMockRequest;
+
+    return (index != NSNotFound) ? mockRequests[index] : nil;
 }
 
 

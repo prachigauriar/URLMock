@@ -112,16 +112,28 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
 
 - (BOOL)bodyMatchesBodyOfURLRequest:(NSURLRequest *)request
 {
+    // If one of these is nil and the other isn't, they don't match
+    if ((self.body != nil) != (request.HTTPBody != nil)) {
+        return NO;
+    }
+
+    // If one is nil, they're both nil, so return YES
+    if (!self.body) {
+        return YES;
+    }
+
     // If the content type is either JSON or WWW Form URL Encoded, do a content-type-specific equality check.
     // This is because we know JSON and form parameters are equivalent even if their orders are not.
     NSString *contentType = [request valueForHTTPHeaderField:kUMOMockHTTPMessageContentTypeHeaderField];
-    if ([contentType rangeOfString:kUMOMockHTTPMessageJSONContentTypeHeaderValue].location != NSNotFound) {
-        return [[self JSONObjectFromBody] isEqual:[NSJSONSerialization JSONObjectWithData:request.HTTPBody options:0 error:NULL]];
-    } else if ([contentType rangeOfString:kUMOMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValue].location != NSNotFound) {
-        NSString *requestBodyString = [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding];
-        return [[self parametersFromURLEncodedBody] isEqualToDictionary:UMODictionaryForURLEncodedParametersString(requestBodyString)];;
+    if (contentType) {
+        if ([contentType rangeOfString:kUMOMockHTTPMessageJSONContentTypeHeaderValue].location != NSNotFound) {
+            return [[self JSONObjectFromBody] isEqual:[NSJSONSerialization JSONObjectWithData:request.HTTPBody options:0 error:NULL]];
+        } else if ([contentType rangeOfString:kUMOMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValue].location != NSNotFound) {
+            NSString *requestBodyString = [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding];
+            return [[self parametersFromURLEncodedBody] isEqualToDictionary:UMODictionaryForURLEncodedParametersString(requestBodyString)];;
+        }
     }
-    
+
     // Otherwise just compare bytes
     return [self.body isEqualToData:request.HTTPBody];
 }

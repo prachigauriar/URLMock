@@ -30,6 +30,12 @@
 
 #pragma mark Constants
 
+// This was arrived at empirically. The NSURL system appears to coalesce payloads smaller than 2048 bytes
+static const NSUInteger kUMOMinimumBodyLengthToChunk = 2048;
+
+// This was arrived at empirically as well
+static const NSTimeInterval kUMOMinimumDelayBetweenChunks = 0.0001;
+
 static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
 
 
@@ -55,8 +61,9 @@ static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
 
 @property (readonly, nonatomic) NSInteger statusCode;
 @property (readonly, nonatomic) NSUInteger chunkCount;
+@property (readonly, nonatomic) NSTimeInterval delay;
 
-- (instancetype)initWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body chunkCount:(NSUInteger)chunkCount;
+- (instancetype)initWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body chunkCountHint:(NSUInteger)hint delayBetweenChunks:(NSTimeInterval)delay;
 
 @end
 
@@ -77,15 +84,21 @@ static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
 }
 
 
++ (instancetype)mockResponseWithStatusCode:(NSInteger)statusCode
+{
+    return [self mockResponseWithStatusCode:statusCode headers:nil body:nil chunkCountHint:1 delayBetweenChunks:0.0];
+}
+
+
 + (instancetype)mockResponseWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers
 {
-    return [self mockResponseWithStatusCode:statusCode headers:headers body:nil chunkCount:1];
+    return [self mockResponseWithStatusCode:statusCode headers:headers body:nil chunkCountHint:1 delayBetweenChunks:0.0];
 }
 
 
 + (instancetype)mockResponseWithStatusCode:(NSInteger)statusCode body:(NSData *)body
 {
-    return [self mockResponseWithStatusCode:statusCode headers:nil body:body chunkCount:1];
+    return [self mockResponseWithStatusCode:statusCode headers:nil body:body chunkCountHint:1 delayBetweenChunks:0.0];
 }
 
 
@@ -93,19 +106,26 @@ static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
 {
     
     
-    return [self mockResponseWithStatusCode:statusCode headers:headers body:body chunkCount:1];
+    return [self mockResponseWithStatusCode:statusCode headers:headers body:body chunkCountHint:1 delayBetweenChunks:0.0];
 }
 
 
-+ (instancetype)mockResponseWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body chunkCount:(NSUInteger)chunkCount;
++ (instancetype)mockResponseWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body chunkCountHint:(NSUInteger)chunkCountHint
 {
-    if (chunkCount == 0) {
-        [NSException raise:NSInvalidArgumentException format:@"%@", PGExceptionString(self, _cmd, @"chunkCount must be positive")];
-    }
-    
-    return [[UMOMockHTTPDataResponse alloc] initWithStatusCode:statusCode headers:headers body:body chunkCount:chunkCount];
+    return [self mockResponseWithStatusCode:statusCode headers:headers body:body chunkCountHint:chunkCountHint delayBetweenChunks:0.0];
 }
 
+
++ (instancetype)mockResponseWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body chunkCountHint:(NSUInteger)chunkCountHint delayBetweenChunks:(NSTimeInterval)delay
+{
+    if (chunkCountHint == 0) {
+        [NSException raise:NSInvalidArgumentException format:@"%@", PGExceptionString(self, _cmd, @"chunkCountHint must be positive")];
+    } else if (delay < 0.0) {
+        [NSException raise:NSInvalidArgumentException format:@"%@", PGExceptionString(self, _cmd, @"delay must be non-negative")];
+    }
+
+    return [[UMOMockHTTPDataResponse alloc] initWithStatusCode:statusCode headers:headers body:body chunkCountHint:chunkCountHint delayBetweenChunks:delay];
+}
 
 - (void)respondToMockRequest:(UMOMockHTTPRequest *)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
 {
@@ -148,16 +168,22 @@ static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
 
 @implementation UMOMockHTTPDataResponse
 
-- (instancetype)initWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body chunkCount:(NSUInteger)chunkCount
+- (instancetype)initWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body chunkCountHint:(NSUInteger)hint delayBetweenChunks:(NSTimeInterval)delay
 {
-    NSParameterAssert(chunkCount > 0);
-    
+    NSParameterAssert(hint > 0);
+    NSParameterAssert(delay >= 0.0);
+
     self = [super init];
     if (self) {
-        _statusCode = statusCode;
-        _chunkCount = chunkCount;
         self.body = body;
         self.headers = headers;
+        _statusCode = statusCode;
+
+        // If the body length exceeds the minimum to chunk, break the data into at least 1-byte chunks
+        _chunkCount = body.length >= kUMOMinimumBodyLengthToChunk ? MAX(body.length, hint) : 1;
+
+        // If we have more than one chunk, delay at least the minimum amount. Otherwise don't delay
+        _delay = _chunkCount > 1 ? MAX(kUMOMinimumDelayBetweenChunks, _delay) : 0.0;
     }
     
     return self;
@@ -168,10 +194,8 @@ static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
 {
     self.responding = YES;
 
-    NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:request.URL
-                                                              statusCode:self.statusCode
-                                                             HTTPVersion:kUMOHTTP11VersionString
-                                                            headerFields:self.headers];
+    NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:request.URL statusCode:self.statusCode
+                                                             HTTPVersion:kUMOHTTP11VersionString headerFields:self.headers];
 
     // Stop if we were canceled
     if (!self.responding) return;
@@ -185,6 +209,10 @@ static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
         
         for (NSUInteger i = 0; i < self.chunkCount - 1 && self.responding; ++i) {
             [client URLProtocol:protocol didLoadData:[self.body subdataWithRange:NSMakeRange(i * bytesPerChunk, bytesPerChunk)]];
+
+            if (self.delay > 0.0) {
+                [NSThread sleepForTimeInterval:self.delay];
+            }
         }
 
         if (!self.responding) return;

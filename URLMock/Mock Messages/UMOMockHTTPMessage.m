@@ -78,7 +78,7 @@ NSString *const kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue =
     NSDictionary *headerFields = [request allHTTPHeaderFields];
 
     if (headerFields.count != self.headers.count) return NO;
-    
+
     for (NSString *key in headerFields) {
         if (![[headerFields objectForKey:key] isEqualToString:[self.headers objectForKey:key.lowercaseString]]) {
             return NO;
@@ -104,7 +104,7 @@ NSString *const kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue =
 
 - (id)JSONObjectFromBody
 {
-    return [NSJSONSerialization JSONObjectWithData:self.body options:0 error:NULL];
+    return self.body ? [NSJSONSerialization JSONObjectWithData:self.body options:0 error:NULL] : nil;
 }
 
 

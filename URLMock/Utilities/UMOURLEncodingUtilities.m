@@ -85,14 +85,14 @@ NSString *UMOURLEncodedStringForParametersUsingEncoding(NSDictionary *parameters
 {
     NSMutableArray *encodedPairs = [[NSMutableArray alloc] initWithCapacity:parameters.count];
 
-    NSArray *sortedKeys = [parameters keysSortedByValueUsingSelector:@selector(compare:)];
+    NSArray *sortedKeys = [[parameters allKeys] sortedArrayUsingSelector:@selector(compare:)];
     for (NSString *key in sortedKeys) {
-        id value = parameters[value];
+        id value = parameters[key];
         if (value == [NSNull null]) {
             [encodedPairs addObject:UMOPercentEscapedKeyStringWithEncoding(key, encoding)];
         } else {
             NSString *encodedKey = UMOPercentEscapedKeyStringWithEncoding(key, encoding);
-            NSString *encodedValue = UMOPercentEscapedValueStringWithEncoding(value, encoding);
+            NSString *encodedValue = UMOPercentEscapedValueStringWithEncoding([value description], encoding);
             [encodedPairs addObject:[NSString stringWithFormat:@"%@=%@", encodedKey, encodedValue]];
         }
     }

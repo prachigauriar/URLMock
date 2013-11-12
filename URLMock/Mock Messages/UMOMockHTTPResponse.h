@@ -33,10 +33,12 @@
 
 + (instancetype)mockResponseWithError:(NSError *)error;
 
++ (instancetype)mockResponseWithStatusCode:(NSInteger)statusCode;
 + (instancetype)mockResponseWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers;
 + (instancetype)mockResponseWithStatusCode:(NSInteger)statusCode body:(NSData *)body;
 + (instancetype)mockResponseWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body;
-+ (instancetype)mockResponseWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body chunkCount:(NSUInteger)chunkCount;
++ (instancetype)mockResponseWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body chunkCountHint:(NSUInteger)hint;
++ (instancetype)mockResponseWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body chunkCountHint:(NSUInteger)hint delayBetweenChunks:(NSTimeInterval)delay;
 
 // TODO: Mock responses for redirects and authentication challenges
 
