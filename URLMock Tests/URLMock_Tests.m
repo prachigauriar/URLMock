@@ -106,7 +106,7 @@ BOOL UMOWaitForCondition(NSTimeInterval timeoutInterval, BOOL(^condition)(void))
     NSMutableData *data = [[NSMutableData alloc] init];
     [data setLength:2048];
 
-    getRequest.response = [UMOMockHTTPResponse mockResponseWithStatusCode:200 headers:nil body:data chunkCountHint:4];
+    getRequest.response = [UMOMockHTTPResponse mockResponseWithStatusCode:200 headers:nil body:data chunkCountHint:4 delayBetweenChunks:1.0];
     [UMOMockURLProtocol expectMockRequest:getRequest];
 
     id validator = [[[UMOURLConnectionDelegateValidator alloc] init] messageCountingProxy];
@@ -115,7 +115,7 @@ BOOL UMOWaitForCondition(NSTimeInterval timeoutInterval, BOOL(^condition)(void))
 
     UMOAssertTrueBeforeTimeout(1, [validator receivedMessageCountForSelector:@selector(connection:didReceiveResponse:)] == 1,
                                @"Validator received -connection:didReceiveResponse: wrong number of times.");
-    UMOAssertTrueBeforeTimeout(1, [validator receivedMessageCountForSelector:@selector(connection:didReceiveData:)] > 1,
+    UMOAssertTrueBeforeTimeout(4, [validator receivedMessageCountForSelector:@selector(connection:didReceiveData:)] == 4,
                                @"Validator received -connection:didReceiveData: wrong number of times.");
     UMOAssertTrueBeforeTimeout(1, [validator receivedMessageCountForSelector:@selector(connectionDidFinishLoading:)] == 1,
                                @"Validator received -connectionDidFinishLoading: wrong number of times.");
