@@ -29,6 +29,17 @@
 #import <URLMock/UMOMockHTTPResponse.h>
 #import <URLMock/UMOURLEncodingUtilities.h>
 
+#pragma mark Constants
+
+static NSString *const kUMOMockURLProtocolMockRequestKey = @"UMOMockURLProtocolMockRequestKey";
+
+
+#pragma mark -
+
+@interface UMOMockURLProtocol ()
+@property (readwrite, strong, nonatomic) UMOMockHTTPRequest *mockRequest;
+@end
+
 
 #pragma mark -
 
@@ -200,20 +211,20 @@ static BOOL _interceptsAllRequests = NO;
 
 - (void)startLoading
 {
-    UMOMockHTTPRequest *mockRequest = [[self class] expectedMockRequestMatchingURLRequest:self.request];
-    [mockRequest.response respondToMockRequest:mockRequest client:self.client protocol:self];
+    self.mockRequest = [[self class] expectedMockRequestMatchingURLRequest:self.request];
+    [self.mockRequest.response respondToMockRequest:self.mockRequest client:self.client protocol:self];
     
     NSURL *canonicalURL = [[self class] canonicalURLForURL:self.request.URL];
     NSMutableArray *mockRequests = [[self class] expectedMockRequestsForCanonicalURL:canonicalURL];
-    [mockRequests removeObject:mockRequest];
+    [mockRequests removeObject:self.mockRequest];
     
-    [[[self class] fulfilledMockRequests] addObject:mockRequest];
+    [[[self class] fulfilledMockRequests] addObject:self.mockRequest];
 }
 
 
 - (void)stopLoading
 {
-    // TODO: Figure out what to do here
+    [self.mockRequest.response cancelResponse];
 }
 
 @end

@@ -49,6 +49,7 @@ extern NSString *const kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
 @property (copy, nonatomic) NSData *body;
 @property (copy, nonatomic) NSDictionary *headers;
 
+- (BOOL)headersAreEqualToHeadersOfRequest:(NSURLRequest *)request;
 - (void)setValue:(NSString *)value forHeaderField:(NSString *)field;
 - (void)removeValueForHeaderField:(NSString *)field;
 

@@ -73,6 +73,21 @@ NSString *const kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue =
 }
 
 
+- (BOOL)headersAreEqualToHeadersOfRequest:(NSURLRequest *)request
+{
+    NSDictionary *headerFields = [request allHTTPHeaderFields];
+
+    if (headerFields.count != self.headers.count) return NO;
+    
+    for (NSString *key in headerFields) {
+        if (![[headerFields objectForKey:key] isEqualToString:[self.headers objectForKey:key.lowercaseString]]) {
+            return NO;
+        }
+    }
+
+    return YES;
+}
+
 - (void)setValue:(NSString *)value forHeaderField:(NSString *)field
 {
     _headers[field.lowercaseString] = value;

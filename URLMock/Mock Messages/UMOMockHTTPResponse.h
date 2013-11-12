@@ -41,5 +41,6 @@
 // TODO: Mock responses for redirects and authentication challenges
 
 - (void)respondToMockRequest:(UMOMockHTTPRequest *)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol;
+- (void)cancelResponse;
 
 @end

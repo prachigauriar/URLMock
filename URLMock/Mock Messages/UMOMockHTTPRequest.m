@@ -130,7 +130,8 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
 - (BOOL)matchesURLRequest:(NSURLRequest *)request
 {
     return [self.canonicalURL isEqual:[UMOMockURLProtocol canonicalURLForURL:request.URL]] && [self.HTTPMethod isEqualToString:request.HTTPMethod] &&
-        [self.headers isEqualToDictionary:request.allHTTPHeaderFields] && [self bodyMatchesBodyOfURLRequest:request];
+           [self headersAreEqualToHeadersOfRequest:request] && [self bodyMatchesBodyOfURLRequest:request];
+
 }
 
 @end
