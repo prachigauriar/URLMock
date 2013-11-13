@@ -44,6 +44,9 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
 
 - (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL
 {
+    NSParameterAssert(method);
+    NSParameterAssert(URL);
+    
     self = [super init];
     if (self) {
         _HTTPMethod = method;
@@ -95,12 +98,14 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
 
 - (NSDictionary *)parametersFromURLEncodedBody
 {
-    return UMODictionaryForURLEncodedParametersString([self stringFromBody]);
+    return self.body ? UMODictionaryForURLEncodedParametersString([self stringFromBody]) : nil;
 }
 
 
 - (void)setBodyByURLEncodingParameters:(NSDictionary *)parameters
 {
+    NSParameterAssert(parameters);
+    
     [self setBodyWithString:UMOURLEncodedStringForParameters(parameters)];
     if (!_headers[kUMOMockHTTPMessageContentTypeHeaderField]) {
         [self setValue:kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue forHeaderField:kUMOMockHTTPMessageContentTypeHeaderField];
@@ -110,18 +115,24 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
 
 #pragma mark - Request Matching
 
+- (BOOL)matchesURLRequest:(NSURLRequest *)request
+{
+    return [self.canonicalURL isEqual:[UMOMockURLProtocol canonicalURLForURL:request.URL]] && [self.HTTPMethod isEqualToString:request.HTTPMethod] &&
+           [self headersAreEqualToHeadersOfRequest:request] && [self bodyMatchesBodyOfURLRequest:request];
+
+}
+
+
 - (BOOL)bodyMatchesBodyOfURLRequest:(NSURLRequest *)request
 {
-    // If one of these is nil and the other isn't, they don't match
+    // If one of these is nil and the other isn't, they don't match. Otherwise, if one is nil,
+    // they're both nil, so they do match.
     if ((self.body != nil) != (request.HTTPBody != nil)) {
         return NO;
-    }
-
-    // If one is nil, they're both nil, so return YES
-    if (!self.body) {
+    } else if (!self.body) {
         return YES;
     }
-
+    
     // If the content type is either JSON or WWW Form URL Encoded, do a content-type-specific equality check.
     // This is because we know JSON and form parameters are equivalent even if their orders are not.
     NSString *contentType = [request valueForHTTPHeaderField:kUMOMockHTTPMessageContentTypeHeaderField];
@@ -133,17 +144,9 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
             return [[self parametersFromURLEncodedBody] isEqualToDictionary:UMODictionaryForURLEncodedParametersString(requestBodyString)];;
         }
     }
-
+    
     // Otherwise just compare bytes
     return [self.body isEqualToData:request.HTTPBody];
-}
-
-
-- (BOOL)matchesURLRequest:(NSURLRequest *)request
-{
-    return [self.canonicalURL isEqual:[UMOMockURLProtocol canonicalURLForURL:request.URL]] && [self.HTTPMethod isEqualToString:request.HTTPMethod] &&
-           [self headersAreEqualToHeadersOfRequest:request] && [self bodyMatchesBodyOfURLRequest:request];
-
 }
 
 @end

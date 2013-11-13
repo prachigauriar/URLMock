@@ -115,8 +115,7 @@ NSDictionary *UMODictionaryForURLEncodedParametersStringUsingEncoding(NSString *
     for (NSString *keyValueString in keyValueStrings) {
         NSArray *keyValuePair = [keyValueString componentsSeparatedByString:@"="];
         NSString *key = [keyValuePair[0] stringByReplacingPercentEscapesUsingEncoding:encoding];
-        NSString *value = [keyValuePair[1] stringByReplacingPercentEscapesUsingEncoding:encoding];
-        dictionary[key] = value;
+        dictionary[key] = (keyValuePair.count > 1) ? [keyValuePair[1] stringByReplacingPercentEscapesUsingEncoding:encoding] : [NSNull null];
     }
     
     return dictionary;
