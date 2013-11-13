@@ -30,6 +30,7 @@
 
 @interface UMOMockURLProtocol : NSURLProtocol
 
+
 + (void)enable;
 + (void)resetAndEnable;
 + (void)reset;
@@ -39,9 +40,13 @@
 + (BOOL)interceptsAllRequests;
 + (void)setInterceptsAllRequests:(BOOL)interceptsAllRequests;
 
-+ (NSURL *)canonicalURLForURL:(NSURL *)URL;
++ (BOOL)automaticallyRemovesServicedMockRequests;
++ (void)setAutomaticallyRemovesServicedMockRequests:(BOOL)removesServicedRequests;
 
 + (void)expectMockRequest:(UMOMockHTTPRequest *)request;
-+ (BOOL)hasRespondedToMockRequest:(UMOMockHTTPRequest *)request;
++ (BOOL)hasServicedMockRequest:(UMOMockHTTPRequest *)request;
++ (void)removeExpectedMockRequest:(UMOMockHTTPRequest *)request;
+
++ (NSURL *)canonicalURLForURL:(NSURL *)URL;
 
 @end
