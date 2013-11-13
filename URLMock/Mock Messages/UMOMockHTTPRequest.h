@@ -26,6 +26,7 @@
 
 #import <Foundation/Foundation.h>
 #import <URLMock/UMOMockHTTPMessage.h>
+#import <URLMock/UMOMockURLProtocol.h>
 
 #pragma mark Constants
 
@@ -50,8 +51,6 @@ extern NSString *const kUMOMockHTTPRequestPutMethod;
 
 #pragma mark -
 
-@class UMOMockHTTPResponse;
-
 /*!
  Instances of UMOMockHTTPRequest, or simply mock requests, represent mock HTTP requests. They are used to tell 
  UMOMockURLProtocol which requests to expect and how to respond to them.
@@ -59,7 +58,7 @@ extern NSString *const kUMOMockHTTPRequestPutMethod;
  Each mock request has an associated HTTP method, URL, and response, plus methods to determine whether the instance
  matches an NSURLRequest.
  */
-@interface UMOMockHTTPRequest : UMOMockHTTPMessage
+@interface UMOMockHTTPRequest : UMOMockHTTPMessage <UMOMockURLRequest>
 
 /*! The instance's HTTP method. */
 @property (readonly, copy, nonatomic) NSString *HTTPMethod;
@@ -67,11 +66,8 @@ extern NSString *const kUMOMockHTTPRequestPutMethod;
 /*! The instance's URL. */
 @property (readonly, strong, nonatomic) NSURL *URL;
 
-/*! A canonical version of the instance's URL. */
-@property (readonly, strong, nonatomic) NSURL *canonicalURL;
-
 /*! The mock response associated with the instance. */
-@property (readwrite, strong, nonatomic) UMOMockHTTPResponse *response;
+@property (readwrite, strong, nonatomic) id <UMOMockURLResponder> responder;
 
 /*!
  @abstract Initializes a newly allocated instance with the specified HTTP method and URL.
@@ -85,44 +81,44 @@ extern NSString *const kUMOMockHTTPRequestPutMethod;
 /*!
  @abstract Creates and returns a new mock HTTP DELETE request to the specified URL.
  @param string A string representation of the new request's URL. May not be nil.
- @result A new mock DELETE HTTP request with the specified URL.
+ @result A new mock HTTP DELETE request with the specified URL.
  */
-+ (instancetype)mockDeleteRequestWithURLString:(NSString *)string;
++ (instancetype)mockHTTPDeleteRequestWithURLString:(NSString *)string;
 
 /*!
  @abstract Creates and returns a new mock HTTP DELETE request to the specified URL.
  @param string A string representation of the new request's URL. May not be nil.
- @result A new mock DELETE HTTP request with the specified URL.
+ @result A new mock HTTP DELETE request with the specified URL.
  */
-+ (instancetype)mockGetRequestWithURLString:(NSString *)string;
++ (instancetype)mockHTTPGetRequestWithURLString:(NSString *)string;
 
 /*!
  @abstract Creates and returns a new mock HTTP HEAD request to the specified URL.
  @param string A string representation of the new request's URL. May not be nil.
- @result A new mock HEAD HTTP request with the specified URL.
+ @result A new mock HTTP HEAD request with the specified URL.
  */
-+ (instancetype)mockHeadRequestWithURLString:(NSString *)string;
++ (instancetype)mockHTTPHeadRequestWithURLString:(NSString *)string;
 
 /*!
  @abstract Creates and returns a new mock HTTP PATCH request to the specified URL.
  @param string A string representation of the new request's URL. May not be nil.
- @result A new mock PATCH HTTP request with the specified URL.
+ @result A new mock HTTP PATCH request with the specified URL.
  */
-+ (instancetype)mockPatchRequestWithURLString:(NSString *)string;
++ (instancetype)mockHTTPPatchRequestWithURLString:(NSString *)string;
 
 /*!
  @abstract Creates and returns a new mock HTTP POST request to the specified URL.
  @param string A string representation of the new request's URL. May not be nil.
- @result A new mock POST HTTP request with the specified URL.
+ @result A new mock HTTP POST request with the specified URL.
  */
-+ (instancetype)mockPostRequestWithURLString:(NSString *)string;
++ (instancetype)mockHTTPPostRequestWithURLString:(NSString *)string;
 
 /*!
  @abstract Creates and returns a new mock HTTP PUT request to the specified URL.
  @param string A string representation of the new request's URL. May not be nil.
- @result A new mock PUT HTTP request with the specified URL.
+ @result A new mock HTTP PUT request with the specified URL.
  */
-+ (instancetype)mockPutRequestWithURLString:(NSString *)string;
++ (instancetype)mockHTTPPutRequestWithURLString:(NSString *)string;
 
 
 /*!
@@ -151,15 +147,5 @@ extern NSString *const kUMOMockHTTPRequestPutMethod;
  @result Whether the receiver matches the specified URL request.
  */
 - (BOOL)matchesURLRequest:(NSURLRequest *)request;
-
-/*!
- @abstract Returns whether the receiver's body matches that of the specified URL request.
- @discussion If the URL request's content-type contains "application/json" or "application/x-www-form-urlencoded", 
-     this method will interpret the bodies of both the receiver and the URL request as JSON or URL-encoded parameters
-     and compare them that way. Otherwise, the bodies' bytes are compared.
- @param request The URL request.
- @result Whether the receiver's body matches that of the specified URL request.
- */
-- (BOOL)bodyMatchesBodyOfURLRequest:(NSURLRequest *)request;
 
 @end

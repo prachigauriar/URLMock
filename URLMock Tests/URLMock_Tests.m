@@ -59,10 +59,10 @@ BOOL UMOWaitForCondition(NSTimeInterval timeoutInterval, BOOL(^condition)(void))
 
 - (void)testMockGetRequestWithErrorResponse
 {
-    UMOMockHTTPRequest *getRequest = [UMOMockHTTPRequest mockGetRequestWithURLString:kURLMockTestsURLString];
+    UMOMockHTTPRequest *getRequest = [UMOMockHTTPRequest mockHTTPGetRequestWithURLString:kURLMockTestsURLString];
 
     NSError *error = [NSError errorWithDomain:UMOErrorDomain code:1234 userInfo:nil];
-    getRequest.response = [UMOMockHTTPResponse mockResponseWithError:error];
+    getRequest.responder = [UMOMockHTTPResponder mockHTTPResponderWithError:error];
     [UMOMockURLProtocol expectMockRequest:getRequest];
 
     id validator = [[[UMOURLConnectionDelegateValidator alloc] init] messageCountingProxy];
@@ -78,9 +78,10 @@ BOOL UMOWaitForCondition(NSTimeInterval timeoutInterval, BOOL(^condition)(void))
 
 - (void)testMockGetRequestWithDataResponseInOneChunk
 {
-    UMOMockHTTPRequest *getRequest = [UMOMockHTTPRequest mockGetRequestWithURLString:kURLMockTestsURLString];
-    getRequest.response = [UMOMockHTTPResponse mockResponseWithStatusCode:200];
-    [getRequest.response setBodyWithString:@"1234"];
+    UMOMockHTTPRequest *getRequest = [UMOMockHTTPRequest mockHTTPGetRequestWithURLString:kURLMockTestsURLString];
+    UMOMockHTTPResponder *responder = [UMOMockHTTPResponder mockHTTPResponderWithStatusCode:200];
+    [responder setBodyWithString:@"1234"];
+    getRequest.responder = responder;
 
     [UMOMockURLProtocol expectMockRequest:getRequest];
 
@@ -101,12 +102,13 @@ BOOL UMOWaitForCondition(NSTimeInterval timeoutInterval, BOOL(^condition)(void))
 
 - (void)testMockGetRequestWithDataResponseInMultipleChunks
 {
-    UMOMockHTTPRequest *getRequest = [UMOMockHTTPRequest mockGetRequestWithURLString:kURLMockTestsURLString];
+    UMOMockHTTPRequest *getRequest = [UMOMockHTTPRequest mockHTTPGetRequestWithURLString:kURLMockTestsURLString];
 
     NSMutableData *data = [[NSMutableData alloc] init];
     [data setLength:2048];
 
-    getRequest.response = [UMOMockHTTPResponse mockResponseWithStatusCode:200 headers:nil body:data chunkCountHint:4 delayBetweenChunks:1.0];
+    UMOMockHTTPResponder *responder = [UMOMockHTTPResponder mockHTTPResponderWithStatusCode:200 headers:nil body:data chunkCountHint:4 delayBetweenChunks:1.0];
+    getRequest.responder = responder;
     [UMOMockURLProtocol expectMockRequest:getRequest];
 
     id validator = [[[UMOURLConnectionDelegateValidator alloc] init] messageCountingProxy];
@@ -115,7 +117,7 @@ BOOL UMOWaitForCondition(NSTimeInterval timeoutInterval, BOOL(^condition)(void))
 
     UMOAssertTrueBeforeTimeout(1, [validator receivedMessageCountForSelector:@selector(connection:didReceiveResponse:)] == 1,
                                @"Validator received -connection:didReceiveResponse: wrong number of times.");
-    UMOAssertTrueBeforeTimeout(4, [validator receivedMessageCountForSelector:@selector(connection:didReceiveData:)] == 4,
+    UMOAssertTrueBeforeTimeout(10, [validator receivedMessageCountForSelector:@selector(connection:didReceiveData:)] == 4,
                                @"Validator received -connection:didReceiveData: wrong number of times.");
     UMOAssertTrueBeforeTimeout(1, [validator receivedMessageCountForSelector:@selector(connectionDidFinishLoading:)] == 1,
                                @"Validator received -connectionDidFinishLoading: wrong number of times.");

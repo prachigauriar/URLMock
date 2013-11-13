@@ -26,27 +26,152 @@
 
 #import <Foundation/Foundation.h>
 
-@class UMOMockHTTPRequest, UMOMockHTTPResponse;
+@protocol UMOMockURLRequest, UMOMockURLResponder;
 
+/*!
+ UMOMockURLProtocol is the primary class in the URLMock framework. It has methods for enabling and disabling
+ mock responses, adding and removing expected mock requests, and configuring the behavior of the framework.
+ */
 @interface UMOMockURLProtocol : NSURLProtocol
 
-
+/*!
+ @abstract Enables mock responses by registering the mock protocol with the NSURL system.
+ */
 + (void)enable;
-+ (void)resetAndEnable;
-+ (void)reset;
-+ (void)resetAndDisable;
+
+/*!
+ @abstract Disables mock responses by unregistering the mock protocol with the NSURL system.
+ */
 + (void)disable;
 
+/*!
+ @abstract Removes all expected mock requests and information about serviced requests.
+ */
++ (void)reset;
+
+/*!
+ @abstract Resets and enables the system.
+ @discussion This is equivalent to invoking +reset followed by +enable.
+ */
++ (void)resetAndEnable;
+
+/*!
+ @abstract Resets and disables the system.
+ @discussion This is equivalent to invoking +reset followed by +disable.
+ */
++ (void)resetAndDisable;
+
+
+/*!
+ @abstract Returns whether the mock protocol intercepts all requests.
+ @discussion This is NO by default. If YES, the protocol intercepts all requests that go through the NSURL 
+     system and raises an exception whenever an unexpected request is received.
+ @result Whether the mock protocol intercepts all requests.
+ */
 + (BOOL)interceptsAllRequests;
+
+/*!
+ @abstract Sets whether the mock protocol intercepts all requests.
+ @discussion This is NO by default. If YES, the protocol intercepts all requests that go through the NSURL
+     system and raises an exception whenever an unexpected request is received.
+ @param interceptsAllRequests Whether the protocol should intercept all requests.
+ */
 + (void)setInterceptsAllRequests:(BOOL)interceptsAllRequests;
 
+
+/*!
+ @abstract Returns whether the mock protocol automatically removes serviced mock requests from the set of 
+     expected mock requests.
+ @discussion This is NO by default. If YES, the protocol will only service a given mock request once. 
+     Servicing the same request again will require that it be added again using +expectMockRequest:.
+ @result Whether the mock protocol automatically removes serviced mock requests.
+ */
 + (BOOL)automaticallyRemovesServicedMockRequests;
+
+/*!
+ @abstract Sets whether the mock protocol automatically removes serviced mock requests from the set of
+ expected mock requests.
+ @discussion This is NO by default. If YES, the protocol will only service a given mock request once.
+ Servicing the same request again will require that it be added again using +expectMockRequest:.
+ @param removesServicedRequest Whether the protocol should remove serviced mock requests.
+ */
 + (void)setAutomaticallyRemovesServicedMockRequests:(BOOL)removesServicedRequests;
 
-+ (void)expectMockRequest:(UMOMockHTTPRequest *)request;
-+ (BOOL)hasServicedMockRequest:(UMOMockHTTPRequest *)request;
-+ (void)removeExpectedMockRequest:(UMOMockHTTPRequest *)request;
+/*!
+ @abstract Adds the specified mock request to the protocol's set of expected mock requests.
+ @discussion This is how mock requests are registered with the mock protocol.
+ @param request The mock request to expect. May not be nil.
+ */
++ (void)expectMockRequest:(id <UMOMockURLRequest>)request;
 
+/*!
+ @abstract Returns whether the specified mock request has been serviced.
+ @param request The mock request.
+ @result Whether a response to the specified mock request has been sent.
+ */
++ (BOOL)hasServicedMockRequest:(id <UMOMockURLRequest>)request;
+
+/*!
+ @abstract Removes the specified mock request from the protocol's set of expected mock requests.
+ @discussion This is how mock requests are unregistered from the mock protocol.
+ @param request The mock request to expect.
+ */
++ (void)removeExpectedMockRequest:(id <UMOMockURLRequest>)request;
+
+
+/*!
+ @abstract Returns the canonical version of the specified URL.
+ @param URL The URL. May not be nil.
+ @result The canonical version of the specified URL.
+ */
 + (NSURL *)canonicalURLForURL:(NSURL *)URL;
+
+@end
+
+
+/*!
+ The UMOMockURLRequest protocol declares messages that mock requests in the MockURL system must respond to.
+ */
+@protocol UMOMockURLRequest <NSObject>
+
+/*!
+ @abstract Returns whether the receiver matches the specified URL request.
+ @param request The URL request. May not be nil.
+ @result Whether the receiver matches the specified URL request.
+ */
+- (BOOL)matchesURLRequest:(NSURLRequest *)request;
+
+/*!
+ @abstract Returns a suitable mock URL responder for the specified URL request.
+ @discussion This will only be invoked on the receiver with requests for which the receiver returns
+ true for -matchesURLRequest:.
+ @param request The URL request. May not be nil.
+ @result A mock URL responder for the specified request.
+ */
+- (id <UMOMockURLResponder>)responderForURLRequest:(NSURLRequest *)request;
+
+@end
+
+
+/*!
+ The UMOMockURLResponder protocol declares messages that responders in the MockURL system to mock requests must respond to.
+ */
+@protocol UMOMockURLResponder <NSObject>
+
+/*!
+ @abstract Responds to the specified mock request on behalf of the specified protocol object.
+ @discussion The receiver should respond to this message by sending the client methods in the NSURLProtocolClient protocol.
+ It should stop responding after it receives the -cancelResponse message.
+ @param request The mock request. May not be nil.
+ @param client The protocol client. May not be nil.
+ @param protocol The URL protocol. May not be nil.
+ */
+- (void)respondToMockRequest:(id <UMOMockURLRequest>)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol;
+
+/*!
+ @abstract Cancels any current mock request responses.
+ @discussion Does nothing if the receiver is not currently responding to any mock requests.
+ */
+- (void)cancelResponse;
 
 @end

@@ -40,6 +40,26 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
 
 #pragma mark -
 
+@interface UMOMockHTTPRequest ()
+
+/*! A canonical version of the instance's URL. */
+@property (readonly, strong, nonatomic) NSURL *canonicalURL;
+
+/*!
+ @abstract Returns whether the receiver's body matches that of the specified URL request.
+ @discussion If the URL request's content-type contains "application/json" or "application/x-www-form-urlencoded",
+     this method will interpret the bodies of both the receiver and the URL request as JSON or URL-encoded parameters
+     and compare them that way. Otherwise, the bodies' bytes are compared.
+ @param request The URL request.
+ @result Whether the receiver's body matches that of the specified URL request.
+ */
+- (BOOL)bodyMatchesBodyOfURLRequest:(NSURLRequest *)request;
+
+@end
+
+
+#pragma mark -
+
 @implementation UMOMockHTTPRequest
 
 - (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL
@@ -58,37 +78,37 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
 }
 
 
-+ (instancetype)mockDeleteRequestWithURLString:(NSString *)string
++ (instancetype)mockHTTPDeleteRequestWithURLString:(NSString *)string
 {
     return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestDeleteMethod URL:[NSURL URLWithString:string]];
 }
 
 
-+ (instancetype)mockGetRequestWithURLString:(NSString *)string
++ (instancetype)mockHTTPGetRequestWithURLString:(NSString *)string
 {
     return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestGetMethod URL:[NSURL URLWithString:string]];
 }
 
 
-+ (instancetype)mockHeadRequestWithURLString:(NSString *)string
++ (instancetype)mockHTTPHeadRequestWithURLString:(NSString *)string
 {
     return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestHeadMethod URL:[NSURL URLWithString:string]];
 }
 
 
-+ (instancetype)mockPatchRequestWithURLString:(NSString *)string
++ (instancetype)mockHTTPPatchRequestWithURLString:(NSString *)string
 {
     return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestPatchMethod URL:[NSURL URLWithString:string]];
 }
 
 
-+ (instancetype)mockPostRequestWithURLString:(NSString *)string
++ (instancetype)mockHTTPPostRequestWithURLString:(NSString *)string
 {
     return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestPostMethod URL:[NSURL URLWithString:string]];
 }
 
 
-+ (instancetype)mockPutRequestWithURLString:(NSString *)string
++ (instancetype)mockHTTPPutRequestWithURLString:(NSString *)string
 {
     return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestPutMethod URL:[NSURL URLWithString:string]];
 }
@@ -113,7 +133,7 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
 }
 
 
-#pragma mark - Request Matching
+#pragma mark - UMOMockURLRequest Protocol
 
 - (BOOL)matchesURLRequest:(NSURLRequest *)request
 {
@@ -122,6 +142,14 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
 
 }
 
+
+- (id <UMOMockURLResponder>)responderForURLRequest:(NSURLRequest *)request
+{
+    return self.responder;
+}
+
+
+#pragma mark - Private Methods
 
 - (BOOL)bodyMatchesBodyOfURLRequest:(NSURLRequest *)request
 {

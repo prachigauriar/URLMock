@@ -25,28 +25,56 @@
 //
 
 #import <URLMock/UMOMockURLProtocol.h>
-#import <URLMock/UMOMockHTTPRequest.h>
-#import <URLMock/UMOMockHTTPResponse.h>
 #import <URLMock/UMOURLEncodingUtilities.h>
 
-#pragma mark Constants
-
-static NSString *const kUMOMockURLProtocolMockRequestKey = @"UMOMockURLProtocolMockRequestKey";
-
-
-#pragma mark -
-
 @interface UMOMockURLProtocol ()
-@property (readwrite, strong, nonatomic) UMOMockHTTPRequest *mockRequest;
+
+/*! The instance's mock request. */
+@property (readwrite, strong, nonatomic) id <UMOMockURLRequest> mockRequest;
+
+/*! The instance's mock responder. */
+@property (readwrite, strong, nonatomic) id <UMOMockURLResponder> mockResponder;
+
+/*!
+ @abstract Returns the first expected mock request that matches the specified URL request.
+ @param request The URL request to find a mock request for. May not be nil.
+ @result The first expected mock request that matches the specified URL request.
+ */
++ (id <UMOMockURLRequest>)expectedMockRequestMatchingURLRequest:(NSURLRequest *)request;
+
 @end
 
 
+#pragma mark - Class Variables
+
+/*! Whether the class should intercept all requests to the NSURL system. */
+static BOOL _interceptsAllRequests;
+
+/*! Whether instances of the class automatically remove serviced mock requests from the class's set of expected mock requests */
+static BOOL _automaticallyRemovesServicedMockRequests;
+
+
 #pragma mark -
 
-static BOOL _interceptsAllRequests = NO;
-static BOOL _automaticallyRemovesServicedMockRequests = NO;
-
 @implementation UMOMockURLProtocol
+
+- (id)initWithRequest:(NSURLRequest *)request cachedResponse:(NSCachedURLResponse *)cachedResponse client:(id <NSURLProtocolClient>)client
+{
+    self = [super initWithRequest:request cachedResponse:cachedResponse client:client];
+    if (self) {
+        _mockRequest = [[self class] expectedMockRequestMatchingURLRequest:request];
+        _mockResponder = [_mockRequest responderForURLRequest:request];
+
+        if ([[self class] automaticallyRemovesServicedMockRequests]) {
+            [[[self class] expectedMockRequests] removeObject:_mockRequest];
+        }
+    }
+
+    return self;
+}
+
+
+#pragma mark - Enable, Disable, and Reset
 
 + (void)enable
 {
@@ -83,27 +111,15 @@ static BOOL _automaticallyRemovesServicedMockRequests = NO;
 
 #pragma mark - Accessors
 
-+ (NSMutableDictionary *)expectedMockRequests
++ (NSMutableArray *)expectedMockRequests
 {
-    static NSMutableDictionary *expectedMockRequests = nil;
+    static NSMutableArray *expectedMockRequests = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        expectedMockRequests = [[NSMutableDictionary alloc] init];
+        expectedMockRequests = [[NSMutableArray alloc] init];
     });
     
     return expectedMockRequests;
-}
-
-
-+ (NSMutableArray *)expectedMockRequestsForCanonicalURL:(NSURL *)canonicalURL
-{
-    NSMutableArray *mockRequests = [[self expectedMockRequests] objectForKey:canonicalURL];
-    if (!mockRequests) {
-        mockRequests = [NSMutableArray array];
-        [[self expectedMockRequests] setObject:mockRequests forKey:canonicalURL];
-    }
-    
-    return mockRequests;
 }
 
 
@@ -143,12 +159,48 @@ static BOOL _automaticallyRemovesServicedMockRequests = NO;
 }
 
 
+#pragma mark - Adding and Removing Expectations
+
++ (id <UMOMockURLRequest>)expectedMockRequestMatchingURLRequest:(NSURLRequest *)request
+{
+    NSParameterAssert(request);
+    NSUInteger index = [[self expectedMockRequests] indexOfObjectPassingTest:^BOOL(id <UMOMockURLRequest> mockRequest, NSUInteger idx, BOOL *stop) {
+        return [mockRequest matchesURLRequest:request];
+    }];
+
+    return (index != NSNotFound) ? [[self expectedMockRequests] objectAtIndex:index] : nil;
+}
+
+
++ (void)expectMockRequest:(id <UMOMockURLRequest>)request
+{
+    NSParameterAssert(request);
+    [[self expectedMockRequests] addObject:request];
+}
+
+
++ (BOOL)hasServicedMockRequest:(id <UMOMockURLRequest>)request
+{
+    return [[self servicedMockRequests] containsObject:request];
+}
+
+
++ (void)removeExpectedMockRequest:(id <UMOMockURLRequest>)request
+{
+    [[self expectedMockRequests] removeObject:request];
+}
+
+
+#pragma mark - Canonical URLs
+
 + (NSURL *)canonicalURLForURL:(NSURL *)URL
 {
+    NSParameterAssert(URL);
+
     // Always use the absolute URL
     NSURL *canonicalURL = URL.absoluteURL;
     NSString *query = canonicalURL.query;
-    
+
     // If there's a query, make sure the order of the parameters is consistent
     if (query) {
         NSString *canonicalQueryString = UMOURLEncodedStringForParameters(UMODictionaryForURLEncodedParametersString(query));
@@ -156,39 +208,8 @@ static BOOL _automaticallyRemovesServicedMockRequests = NO;
         canonicalURL = [NSURL URLWithString:[URLString stringByReplacingCharactersInRange:[URLString rangeOfString:query]
                                                                                withString:canonicalQueryString]];
     }
-    
+
     return canonicalURL;
-}
-
-
-+ (UMOMockHTTPRequest *)expectedMockRequestMatchingURLRequest:(NSURLRequest *)request
-{
-    NSMutableArray *mockRequests = [self expectedMockRequestsForCanonicalURL:[self canonicalURLForURL:request.URL]];
-    NSUInteger index = [mockRequests indexOfObjectPassingTest:^BOOL(UMOMockHTTPRequest *mockRequest, NSUInteger idx, BOOL *stop) {
-        return [mockRequest matchesURLRequest:request];
-    }];
-
-    return (index != NSNotFound) ? mockRequests[index] : nil;
-}
-
-
-+ (void)expectMockRequest:(UMOMockHTTPRequest *)request
-{
-    NSMutableArray *mockRequestsForCanonicalURL = [self expectedMockRequestsForCanonicalURL:request.canonicalURL];
-    [mockRequestsForCanonicalURL addObject:request];
-}
-
-
-+ (BOOL)hasServicedMockRequest:(UMOMockHTTPRequest *)request
-{
-    return [[self servicedMockRequests] containsObject:request];
-}
-
-
-+ (void)removeExpectedMockRequest:(UMOMockHTTPRequest *)request
-{
-    NSMutableArray *mockRequestsForCanonicalURL = [self expectedMockRequestsForCanonicalURL:request.canonicalURL];
-    [mockRequestsForCanonicalURL removeObject:request];
 }
 
 
@@ -203,7 +224,7 @@ static BOOL _automaticallyRemovesServicedMockRequests = NO;
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request
 {
     NSMutableURLRequest *canonicalRequest = [request mutableCopy];
-    [canonicalRequest setURL:[self canonicalURLForURL:request.URL]];
+    [canonicalRequest setURL:[self canonicalURLForURL:[request URL]]];
     return canonicalRequest;
 }
 
@@ -216,22 +237,14 @@ static BOOL _automaticallyRemovesServicedMockRequests = NO;
 
 - (void)startLoading
 {
-    self.mockRequest = [[self class] expectedMockRequestMatchingURLRequest:self.request];
-    [self.mockRequest.response respondToMockRequest:self.mockRequest client:self.client protocol:self];
-    
-    if ([[self class] automaticallyRemovesServicedMockRequests]) {
-        NSURL *canonicalURL = [[self class] canonicalURLForURL:self.request.URL];
-        NSMutableArray *mockRequests = [[self class] expectedMockRequestsForCanonicalURL:canonicalURL];
-        [mockRequests removeObject:self.mockRequest];
-    }
-        
+    [self.mockResponder respondToMockRequest:self.mockRequest client:self.client protocol:self];
     [[[self class] servicedMockRequests] addObject:self.mockRequest];
 }
 
 
 - (void)stopLoading
 {
-    [self.mockRequest.response cancelResponse];
+    [self.mockResponder cancelResponse];
 }
 
 @end
