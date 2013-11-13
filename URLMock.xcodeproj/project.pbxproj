@@ -12,6 +12,7 @@
 		4C1C1496183289C700DE8195 /* URLMock_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C1495183289C700DE8195 /* URLMock_Tests.m */; };
 		4C1C14A11832953300DE8195 /* UMOURLConnectionDelegateValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C14A01832953300DE8195 /* UMOURLConnectionDelegateValidator.m */; };
 		4C1C14A4183298F200DE8195 /* UMOMessageCountingProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C14A3183298F200DE8195 /* UMOMessageCountingProxy.m */; };
+		4C34F62B183346FB00AD2A6D /* PGTestUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C34F62A183346FB00AD2A6D /* PGTestUtilities.m */; };
 		4C45E815182EAF44002F2096 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E814182EAF44002F2096 /* Foundation.framework */; };
 		4C45E840182EAFCB002F2096 /* UMOMockHTTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E83B182EAFCB002F2096 /* UMOMockHTTPMessage.m */; };
 		4C45E841182EAFCB002F2096 /* UMOMockHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E83D182EAFCB002F2096 /* UMOMockHTTPRequest.m */; };
@@ -95,6 +96,8 @@
 		4C1C14A01832953300DE8195 /* UMOURLConnectionDelegateValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMOURLConnectionDelegateValidator.m; sourceTree = "<group>"; };
 		4C1C14A2183298F200DE8195 /* UMOMessageCountingProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMOMessageCountingProxy.h; sourceTree = "<group>"; };
 		4C1C14A3183298F200DE8195 /* UMOMessageCountingProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMOMessageCountingProxy.m; sourceTree = "<group>"; };
+		4C34F629183346FB00AD2A6D /* PGTestUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGTestUtilities.h; sourceTree = "<group>"; };
+		4C34F62A183346FB00AD2A6D /* PGTestUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGTestUtilities.m; sourceTree = "<group>"; };
 		4C45E811182EAF44002F2096 /* libURLMock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libURLMock.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C45E814182EAF44002F2096 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4C45E822182EAF44002F2096 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -119,7 +122,7 @@
 		4C45E887182FF1AA002F2096 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		4C45E8AF182FF1E1002F2096 /* URLMock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLMock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C45E8E2182FF397002F2096 /* URLMock-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "URLMock-Info.plist"; sourceTree = "<group>"; };
-		4C45E8E8182FF503002F2096 /* URLMock-CLITool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "URLMock-CLITool"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C45E8E8182FF503002F2096 /* URLMock-CLITool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = "URLMock-CLITool"; path = "URLMock (CLI Tool)"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C45E8EB182FF503002F2096 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4C45E8EE182FF503002F2096 /* URLMock-CLITool-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "URLMock-CLITool-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,6 +167,8 @@
 		4C1C148F183289C700DE8195 /* URLMock Tests */ = {
 			isa = PBXGroup;
 			children = (
+				4C34F629183346FB00AD2A6D /* PGTestUtilities.h */,
+				4C34F62A183346FB00AD2A6D /* PGTestUtilities.m */,
 				4C1C1495183289C700DE8195 /* URLMock_Tests.m */,
 				4C1C14A2183298F200DE8195 /* UMOMessageCountingProxy.h */,
 				4C1C14A3183298F200DE8195 /* UMOMessageCountingProxy.m */,
@@ -461,6 +466,7 @@
 				4C1C1496183289C700DE8195 /* URLMock_Tests.m in Sources */,
 				4C1C14A11832953300DE8195 /* UMOURLConnectionDelegateValidator.m in Sources */,
 				4C1C14A4183298F200DE8195 /* UMOMessageCountingProxy.m in Sources */,
+				4C34F62B183346FB00AD2A6D /* PGTestUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -881,6 +887,7 @@
 				4C1C149B183289C700DE8195 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4C45E80A182EAEFC002F2096 /* Build configuration list for PBXProject "URLMock" */ = {
 			isa = XCConfigurationList;
