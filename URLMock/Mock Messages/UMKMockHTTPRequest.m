@@ -1,5 +1,5 @@
 //
-//  UMOMockHTTPRequest.m
+//  UMKMockHTTPRequest.m
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/8/2013.
@@ -24,23 +24,23 @@
 //  THE SOFTWARE.
 //
 
-#import <URLMock/UMOMockHTTPRequest.h>
-#import <URLMock/UMOMockURLProtocol.h>
-#import <URLMock/UMOURLEncodingUtilities.h>
+#import <URLMock/UMKMockHTTPRequest.h>
+#import <URLMock/UMKMockURLProtocol.h>
+#import <URLMock/UMKURLEncodingUtilities.h>
 
 #pragma mark Constants
 
-NSString *const kUMOMockHTTPRequestDeleteMethod = @"DELETE";
-NSString *const kUMOMockHTTPRequestGetMethod = @"GET";
-NSString *const kUMOMockHTTPRequestHeadMethod = @"HEAD";
-NSString *const kUMOMockHTTPRequestPatchMethod = @"PATCH";
-NSString *const kUMOMockHTTPRequestPostMethod = @"POST";
-NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
+NSString *const kUMKMockHTTPRequestDeleteMethod = @"DELETE";
+NSString *const kUMKMockHTTPRequestGetMethod = @"GET";
+NSString *const kUMKMockHTTPRequestHeadMethod = @"HEAD";
+NSString *const kUMKMockHTTPRequestPatchMethod = @"PATCH";
+NSString *const kUMKMockHTTPRequestPostMethod = @"POST";
+NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 
 
 #pragma mark -
 
-@interface UMOMockHTTPRequest ()
+@interface UMKMockHTTPRequest ()
 
 /*! A canonical version of the instance's URL. */
 @property (readonly, strong, nonatomic) NSURL *canonicalURL;
@@ -60,7 +60,7 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
 
 #pragma mark -
 
-@implementation UMOMockHTTPRequest
+@implementation UMKMockHTTPRequest
 
 - (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL
 {
@@ -71,7 +71,7 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
     if (self) {
         _HTTPMethod = method;
         _URL = URL;
-        _canonicalURL = [UMOMockURLProtocol canonicalURLForURL:URL];
+        _canonicalURL = [UMKMockURLProtocol canonicalURLForURL:URL];
     }
     
     return self;
@@ -80,37 +80,37 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
 
 + (instancetype)mockHTTPDeleteRequestWithURLString:(NSString *)string
 {
-    return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestDeleteMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestDeleteMethod URL:[NSURL URLWithString:string]];
 }
 
 
 + (instancetype)mockHTTPGetRequestWithURLString:(NSString *)string
 {
-    return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestGetMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestGetMethod URL:[NSURL URLWithString:string]];
 }
 
 
 + (instancetype)mockHTTPHeadRequestWithURLString:(NSString *)string
 {
-    return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestHeadMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestHeadMethod URL:[NSURL URLWithString:string]];
 }
 
 
 + (instancetype)mockHTTPPatchRequestWithURLString:(NSString *)string
 {
-    return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestPatchMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestPatchMethod URL:[NSURL URLWithString:string]];
 }
 
 
 + (instancetype)mockHTTPPostRequestWithURLString:(NSString *)string
 {
-    return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestPostMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestPostMethod URL:[NSURL URLWithString:string]];
 }
 
 
 + (instancetype)mockHTTPPutRequestWithURLString:(NSString *)string
 {
-    return [[self alloc] initWithHTTPMethod:kUMOMockHTTPRequestPutMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestPutMethod URL:[NSURL URLWithString:string]];
 }
 
 
@@ -118,7 +118,7 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
 
 - (NSDictionary *)parametersFromURLEncodedBody
 {
-    return self.body ? UMODictionaryForURLEncodedParametersString([self stringFromBody]) : nil;
+    return self.body ? UMKDictionaryForURLEncodedParametersString([self stringFromBody]) : nil;
 }
 
 
@@ -126,24 +126,24 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
 {
     NSParameterAssert(parameters);
     
-    [self setBodyWithString:UMOURLEncodedStringForParameters(parameters)];
-    if (!_headers[kUMOMockHTTPMessageContentTypeHeaderField]) {
-        [self setValue:kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue forHeaderField:kUMOMockHTTPMessageContentTypeHeaderField];
+    [self setBodyWithString:UMKURLEncodedStringForParameters(parameters)];
+    if (!_headers[kUMKMockHTTPMessageContentTypeHeaderField]) {
+        [self setValue:kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue forHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
     }
 }
 
 
-#pragma mark - UMOMockURLRequest Protocol
+#pragma mark - UMKMockURLRequest Protocol
 
 - (BOOL)matchesURLRequest:(NSURLRequest *)request
 {
-    return [self.canonicalURL isEqual:[UMOMockURLProtocol canonicalURLForURL:request.URL]] && [self.HTTPMethod isEqualToString:request.HTTPMethod] &&
+    return [self.canonicalURL isEqual:[UMKMockURLProtocol canonicalURLForURL:request.URL]] && [self.HTTPMethod isEqualToString:request.HTTPMethod] &&
            [self headersAreEqualToHeadersOfRequest:request] && [self bodyMatchesBodyOfURLRequest:request];
 
 }
 
 
-- (id <UMOMockURLResponder>)responderForURLRequest:(NSURLRequest *)request
+- (id <UMKMockURLResponder>)responderForURLRequest:(NSURLRequest *)request
 {
     return self.responder;
 }
@@ -163,13 +163,13 @@ NSString *const kUMOMockHTTPRequestPutMethod = @"PUT";
     
     // If the content type is either JSON or WWW Form URL Encoded, do a content-type-specific equality check.
     // This is because we know JSON and form parameters are equivalent even if their orders are not.
-    NSString *contentType = [request valueForHTTPHeaderField:kUMOMockHTTPMessageContentTypeHeaderField];
+    NSString *contentType = [request valueForHTTPHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
     if (contentType) {
-        if ([contentType rangeOfString:kUMOMockHTTPMessageJSONContentTypeHeaderValue].location != NSNotFound) {
+        if ([contentType rangeOfString:kUMKMockHTTPMessageJSONContentTypeHeaderValue].location != NSNotFound) {
             return [[self JSONObjectFromBody] isEqual:[NSJSONSerialization JSONObjectWithData:request.HTTPBody options:0 error:NULL]];
-        } else if ([contentType rangeOfString:kUMOMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValue].location != NSNotFound) {
+        } else if ([contentType rangeOfString:kUMKMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValue].location != NSNotFound) {
             NSString *requestBodyString = [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding];
-            return [[self parametersFromURLEncodedBody] isEqualToDictionary:UMODictionaryForURLEncodedParametersString(requestBodyString)];;
+            return [[self parametersFromURLEncodedBody] isEqualToDictionary:UMKDictionaryForURLEncodedParametersString(requestBodyString)];;
         }
     }
     

@@ -1,5 +1,5 @@
 //
-//  UMOMockURLProtocol.m
+//  UMKMockURLProtocol.m
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/9/2013.
@@ -24,23 +24,23 @@
 //  THE SOFTWARE.
 //
 
-#import <URLMock/UMOMockURLProtocol.h>
-#import <URLMock/UMOURLEncodingUtilities.h>
+#import <URLMock/UMKMockURLProtocol.h>
+#import <URLMock/UMKURLEncodingUtilities.h>
 
-@interface UMOMockURLProtocol ()
+@interface UMKMockURLProtocol ()
 
 /*! The instance's mock request. */
-@property (readwrite, strong, nonatomic) id <UMOMockURLRequest> mockRequest;
+@property (readwrite, strong, nonatomic) id <UMKMockURLRequest> mockRequest;
 
 /*! The instance's mock responder. */
-@property (readwrite, strong, nonatomic) id <UMOMockURLResponder> mockResponder;
+@property (readwrite, strong, nonatomic) id <UMKMockURLResponder> mockResponder;
 
 /*!
  @abstract Returns the first expected mock request that matches the specified URL request.
  @param request The URL request to find a mock request for. May not be nil.
  @result The first expected mock request that matches the specified URL request.
  */
-+ (id <UMOMockURLRequest>)expectedMockRequestMatchingURLRequest:(NSURLRequest *)request;
++ (id <UMKMockURLRequest>)expectedMockRequestMatchingURLRequest:(NSURLRequest *)request;
 
 @end
 
@@ -56,7 +56,7 @@ static BOOL _automaticallyRemovesServicedMockRequests;
 
 #pragma mark -
 
-@implementation UMOMockURLProtocol
+@implementation UMKMockURLProtocol
 
 - (id)initWithRequest:(NSURLRequest *)request cachedResponse:(NSCachedURLResponse *)cachedResponse client:(id <NSURLProtocolClient>)client
 {
@@ -161,10 +161,10 @@ static BOOL _automaticallyRemovesServicedMockRequests;
 
 #pragma mark - Adding and Removing Expectations
 
-+ (id <UMOMockURLRequest>)expectedMockRequestMatchingURLRequest:(NSURLRequest *)request
++ (id <UMKMockURLRequest>)expectedMockRequestMatchingURLRequest:(NSURLRequest *)request
 {
     NSParameterAssert(request);
-    NSUInteger index = [[self expectedMockRequests] indexOfObjectPassingTest:^BOOL(id <UMOMockURLRequest> mockRequest, NSUInteger idx, BOOL *stop) {
+    NSUInteger index = [[self expectedMockRequests] indexOfObjectPassingTest:^BOOL(id <UMKMockURLRequest> mockRequest, NSUInteger idx, BOOL *stop) {
         return [mockRequest matchesURLRequest:request];
     }];
 
@@ -172,20 +172,20 @@ static BOOL _automaticallyRemovesServicedMockRequests;
 }
 
 
-+ (void)expectMockRequest:(id <UMOMockURLRequest>)request
++ (void)expectMockRequest:(id <UMKMockURLRequest>)request
 {
     NSParameterAssert(request);
     [[self expectedMockRequests] addObject:request];
 }
 
 
-+ (BOOL)hasServicedMockRequest:(id <UMOMockURLRequest>)request
++ (BOOL)hasServicedMockRequest:(id <UMKMockURLRequest>)request
 {
     return [[self servicedMockRequests] containsObject:request];
 }
 
 
-+ (void)removeExpectedMockRequest:(id <UMOMockURLRequest>)request
++ (void)removeExpectedMockRequest:(id <UMKMockURLRequest>)request
 {
     [[self expectedMockRequests] removeObject:request];
 }
@@ -203,7 +203,7 @@ static BOOL _automaticallyRemovesServicedMockRequests;
 
     // If there's a query, make sure the order of the parameters is consistent
     if (query) {
-        NSString *canonicalQueryString = UMOURLEncodedStringForParameters(UMODictionaryForURLEncodedParametersString(query));
+        NSString *canonicalQueryString = UMKURLEncodedStringForParameters(UMKDictionaryForURLEncodedParametersString(query));
         NSString *URLString = [canonicalURL absoluteString];
         canonicalURL = [NSURL URLWithString:[URLString stringByReplacingCharactersInRange:[URLString rangeOfString:query]
                                                                                withString:canonicalQueryString]];
@@ -217,7 +217,12 @@ static BOOL _automaticallyRemovesServicedMockRequests;
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request
 {
-    return [self interceptsAllRequests] || [self expectedMockRequestMatchingURLRequest:request] != nil;
+    id <UMKMockURLRequest> mockRequest = [self expectedMockRequestMatchingURLRequest:request];
+    if (!mockRequest && [self interceptsAllRequests]) {
+        [NSException raise:NSInternalInconsistencyException format:@"Unexpected request received: %@", request];
+    }
+
+    return mockRequest != nil;
 }
 
 

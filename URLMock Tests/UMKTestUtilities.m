@@ -1,5 +1,5 @@
 //
-//  PGTestUtilities.m
+//  UMKTestUtilities.m
 //
 //  Created by Prachi Gauriar on 5/29/2013.
 //  Copyright (c) 2013 Prachi Gauriar.
@@ -23,18 +23,20 @@
 //  THE SOFTWARE.
 //
 
-#import "PGTestUtilities.h"
+#import "UMKTestUtilities.h"
 
 #pragma mark Functions
 
-NSString *PGRandomAlphanumericString(void)
+NSString *UMKRandomAlphanumericString(void)
 {
-    return PGRandomAlphanumericStringWithLength(1 + random() % 128);
+    return UMKRandomAlphanumericStringWithLength(1 + random() % 128);
 }
 
 
-NSString *PGRandomAlphanumericStringWithLength(NSUInteger length)
+NSString *UMKRandomAlphanumericStringWithLength(NSUInteger length)
 {
+    NSCParameterAssert(length > 0);
+
     static const char *alphanumericCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     static const NSUInteger alphanumericCharacterCount = 62;
 
@@ -47,34 +49,67 @@ NSString *PGRandomAlphanumericStringWithLength(NSUInteger length)
 }
 
 
-BOOL PGRandomBoolean()
+BOOL UMKRandomBoolean()
 {
     return random() & 01;
 }
 
 
-NSNumber *PGRandomNumber(void)
+NSNumber *UMKRandomUnsignedNumber(void)
 {
     return [NSNumber numberWithUnsignedInteger:random()];
 }
 
 
-NSNumber *PGRandomNumberInRange(NSRange range)
+NSNumber *UMKRandomUnsignedNumberInRange(NSRange range)
 {
+    NSCParameterAssert(range.length > 0);
     return [NSNumber numberWithUnsignedInteger:(range.location + random() % range.length)];
+}
+
+
+BOOL UMKWaitForCondition(NSTimeInterval timeoutInterval, BOOL (^condition)(void))
+{
+    NSCParameterAssert(timeoutInterval >= 0.0);
+    NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];
+
+    BOOL conditionResult = NO;
+    while(!(conditionResult = condition()) && [NSDate timeIntervalSinceReferenceDate] - start <= timeoutInterval) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate date]];
+    }
+
+    return conditionResult;
 }
 
 
 #pragma mark - Tests
 
-static const NSUInteger PGIterationCount = 512;
+@interface UMKTestUtilitiesTest : XCTestCase
 
-@implementation PGTestUtilitiesTest
+- (void)testRandomAlphanumericString;
+- (void)testRandomAlphanumericStringWithLength;
+- (void)testRandomBoolean;
+- (void)testRandomUnsignedNumber;
+- (void)testRandomUnsignedNumberInRange;
+- (void)testWaitForCondition;
+
+@end
+
+
+static const NSUInteger UMKIterationCount = 512;
+
+@implementation UMKTestUtilitiesTest
+
++ (void)setUp
+{
+    srandomdev();
+}
+
 
 - (void)setUp
 {
     unsigned seed = (unsigned)random();
-    NSLog(@"Using seed %du", seed);
+    NSLog(@"Using seed %d", seed);
     srandom(seed);
 }
 
@@ -84,8 +119,8 @@ static const NSUInteger PGIterationCount = 512;
     NSCharacterSet *alphanumerics = [NSCharacterSet characterSetWithCharactersInString:@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"];
     NSCharacterSet *nonAlphanumerics = [alphanumerics invertedSet];
     
-    for (NSUInteger i = 0; i < PGIterationCount; ++i) {
-        NSString *randomString = PGRandomAlphanumericString();
+    for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
+        NSString *randomString = UMKRandomAlphanumericString();
         XCTAssertNotNil(randomString, @"Randomly generated string was nil");
         XCTAssertTrue([randomString length] >= 1, @"Randomly generated string did not contain at least one character");
         XCTAssertTrue([randomString length] <= 128, @"Randomly generated string contained more than 128 characters");
@@ -101,10 +136,10 @@ static const NSUInteger PGIterationCount = 512;
     NSCharacterSet *alphanumerics = [NSCharacterSet characterSetWithCharactersInString:@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"];
     NSCharacterSet *nonAlphanumerics = [alphanumerics invertedSet];
 
-    for (NSUInteger i = 0; i < PGIterationCount; ++i) {
-        NSUInteger length = random() % 1024;
+    for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
+        NSUInteger length = random() % 1024 + 1;
         
-        NSString *randomString = PGRandomAlphanumericStringWithLength(length);
+        NSString *randomString = UMKRandomAlphanumericStringWithLength(length);
         XCTAssertNotNil(randomString, @"Randomly generated string was nil");
         XCTAssertTrue([randomString length] == length, @"Randomly generated string had incorrect length");
         
@@ -119,39 +154,60 @@ static const NSUInteger PGIterationCount = 512;
     BOOL foundYes = NO;
     BOOL foundNo = NO;
 
-    for (NSUInteger i = 0; i < 32; ++i) {
-        BOOL boolean = PGRandomBoolean();
+    for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
+        BOOL boolean = UMKRandomBoolean();
         XCTAssertTrue(boolean == YES || boolean == NO, @"Randomly generated boolean is not YES or NO");
         foundYes = foundYes || boolean == YES;
         foundNo = foundNo || boolean == NO;
     }
-    
+
     XCTAssertTrue(foundYes, @"No randomly generated booleans were YES");
     XCTAssertTrue(foundNo, @"No randomly generated booleans were NO");
 }
 
 
-- (void)testRandomNumber
+- (void)testRandomUnsignedNumber
 {
-    const NSUInteger maxRandomNumber = exp2(31) - 1;
+    const NSUInteger RANDOM_MAX = exp2(31) - 1;
     
-    for (NSUInteger i = 0; i < PGIterationCount; ++i) {
-        NSNumber *number = PGRandomNumber();
-        XCTAssertTrue([number unsignedIntegerValue] <= maxRandomNumber, @"Randomly generated number is beyond 2**31 - 1");
+    for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
+        NSNumber *number = UMKRandomUnsignedNumber();
+        XCTAssertTrue([number unsignedIntegerValue] <= RANDOM_MAX, @"Randomly generated number is beyond 2**31 - 1");
     }
 }
 
 
-- (void)testRandomNumberInRange
+- (void)testRandomUnsignedNumberInRange
 {
-    for (NSUInteger i = 0; i < PGIterationCount; ++i) {
-        NSUInteger location = random();
-        NSUInteger length = random();
+    const NSUInteger RANDOM_MAX = exp2(31) - 1;
+
+    for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
+        NSUInteger location = random() % (RANDOM_MAX / 2);
+        NSUInteger length = random() % (RANDOM_MAX / 2) + 1;
         
-        NSNumber *number = PGRandomNumberInRange(NSMakeRange(location, length));
+        NSNumber *number = UMKRandomUnsignedNumberInRange(NSMakeRange(location, length));
         XCTAssertTrue([number unsignedIntegerValue] >= location, @"Randomly generated number is less than the range minimum");
         XCTAssertTrue([number unsignedIntegerValue] <= location + length, @"Randomly generated number is greater than the range maximum");
     }
 }
+
+
+- (void)testWaitForCondition
+{
+    // Note: this probably needs to be better tested
+    NSTimeInterval timeout = 0.5;
+
+    NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];
+    XCTAssertFalse(UMKWaitForCondition(timeout, ^BOOL{ return NO; }));
+    NSTimeInterval end = [NSDate timeIntervalSinceReferenceDate];
+    XCTAssertTrue(end - start >= timeout, @"Elapsed time (%f) was less than timeout (%f)", end - start, timeout);
+
+    start = [NSDate timeIntervalSinceReferenceDate];
+    XCTAssertTrue(UMKWaitForCondition(timeout, ^BOOL{ return YES; }));
+    end = [NSDate timeIntervalSinceReferenceDate];
+    XCTAssertTrue(end - start < timeout, @"Elapsed time (%f) was greater than timeout (%f)", end - start, timeout);
+}
+
+
 
 @end

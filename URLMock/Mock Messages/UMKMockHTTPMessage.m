@@ -1,5 +1,5 @@
 //
-//  UMOMockHTTPMessage.m
+//  UMKMockHTTPMessage.m
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/9/2013.
@@ -24,25 +24,25 @@
 //  THE SOFTWARE.
 //
 
-#import <URLMock/UMOMockHTTPMessage.h>
-#import <URLMock/PGUtilities.h>
+#import <URLMock/UMKMockHTTPMessage.h>
+#import <URLMock/UMKErrorUtilities.h>
 
 #pragma mark Constants
 
-NSString *const kUMOMockHTTPMessageAcceptsHeaderField = @"accepts";
-NSString *const kUMOMockHTTPMessageContentTypeHeaderField = @"content-type";
-NSString *const kUMOMockHTTPMessageCookieHeaderField = @"cookie";
-NSString *const kUMOMockHTTPMessageSetCookieHeaderField = @"set-cookie";
+NSString *const kUMKMockHTTPMessageAcceptsHeaderField = @"accepts";
+NSString *const kUMKMockHTTPMessageContentTypeHeaderField = @"content-type";
+NSString *const kUMKMockHTTPMessageCookieHeaderField = @"cookie";
+NSString *const kUMKMockHTTPMessageSetCookieHeaderField = @"set-cookie";
 
-NSString *const kUMOMockHTTPMessageJSONContentTypeHeaderValue = @"application/json";
-NSString *const kUMOMockHTTPMessageUTF8JSONContentTypeHeaderValue = @"application/json; charset=utf-8";
-NSString *const kUMOMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValue = @"application/x-www-form-urlencoded";
-NSString *const kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue = @"application/x-www-form-urlencoded; charset=utf-8";
+NSString *const kUMKMockHTTPMessageJSONContentTypeHeaderValue = @"application/json";
+NSString *const kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue = @"application/json; charset=utf-8";
+NSString *const kUMKMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValue = @"application/x-www-form-urlencoded";
+NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue = @"application/x-www-form-urlencoded; charset=utf-8";
 
 
 #pragma mark -
 
-@implementation UMOMockHTTPMessage
+@implementation UMKMockHTTPMessage
 
 - (instancetype)init
 {
@@ -113,13 +113,13 @@ NSString *const kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue =
     NSData *JSONData = [NSJSONSerialization dataWithJSONObject:JSONObject options:0 error:NULL];
     if (!JSONData) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                       reason:PGExceptionString(self, _cmd, @"Invalid JSON object")
+                                       reason:UMKExceptionString(self, _cmd, @"Invalid JSON object")
                                      userInfo:nil];
     }
     
     self.body = JSONData;
-    if (!_headers[kUMOMockHTTPMessageContentTypeHeaderField]) {
-        [self setValue:kUMOMockHTTPMessageUTF8JSONContentTypeHeaderValue forHeaderField:kUMOMockHTTPMessageContentTypeHeaderField];
+    if (!_headers[kUMKMockHTTPMessageContentTypeHeaderField]) {
+        [self setValue:kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue forHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
     }
 }
 

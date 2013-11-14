@@ -1,19 +1,19 @@
 //
-//  UMOMessageCountingProxy.m
+//  UMKMessageCountingProxy.m
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/12/2013.
 //  Copyright (c) 2013 Prachi Gauriar. All rights reserved.
 //
 
-#import "UMOMessageCountingProxy.h"
+#import "UMKMessageCountingProxy.h"
 
-@interface UMOMessageCountingProxy ()
+@interface UMKMessageCountingProxy ()
 @property (readwrite, strong, nonatomic) NSMutableDictionary *receivedMessageCounts;
 @end
 
 
-@implementation UMOMessageCountingProxy
+@implementation UMKMessageCountingProxy
 
 + (instancetype)messageCountingProxyWithObject:(NSObject *)object
 {
@@ -26,10 +26,8 @@
     NSParameterAssert(object);
 
     // Don't call [super init], as NSProxy does not recognize -init.
-    if (self) {
-        _object = object;
-        _receivedMessageCounts = [[NSMutableDictionary alloc] init];
-    }
+    _object = object;
+    _receivedMessageCounts = [[NSMutableDictionary alloc] init];
 
     return self;
 }

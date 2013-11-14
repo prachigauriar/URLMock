@@ -1,5 +1,5 @@
 //
-//  UMOMockHTTPResponder.m
+//  UMKMockHTTPResponder.m
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/8/2013.
@@ -24,24 +24,24 @@
 //  THE SOFTWARE.
 //
 
-#import <URLMock/UMOMockHTTPResponder.h>
-#import <URLMock/PGUtilities.h>
+#import <URLMock/UMKMockHTTPResponder.h>
+#import <URLMock/UMKErrorUtilities.h>
 
 #pragma mark Constants
 
 /*! The minimum body length for chunking. The NSURL system seems to coalesce payloads smaller than 2048 bytes. */
-static const NSUInteger kUMOMinimumBodyLengthToChunk = 2048;
+static const NSUInteger kUMKMinimumBodyLengthToChunk = 2048;
 
 /*! The minimum delay between chunks. The NSURL system seems to coalesce data that is received within 0.0001 seconds of the previous chunk. */
-static const NSTimeInterval kUMOMinimumDelayBetweenChunks = 0.0001;
+static const NSTimeInterval kUMKMinimumDelayBetweenChunks = 0.0001;
 
 /*! The HTTP 1.1 version string. */
-static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
+static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 
 
 #pragma mark -
 
-@interface UMOMockHTTPResponder ()
+@interface UMKMockHTTPResponder ()
 
 /*! Whether the responder is currently responding to a request. */
 @property (nonatomic, getter = isResponding) BOOL responding;
@@ -52,20 +52,20 @@ static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
 #pragma mark - Private Subclass Interfaces
 
 /*!
- Instances of UMOMockHTTPErrorResponder respond to mock HTTP URL requests with errors.
+ Instances of UMKMockHTTPErrorResponder respond to mock HTTP URL requests with errors.
  */
-@interface UMOMockHTTPErrorResponder : UMOMockHTTPResponder
+@interface UMKMockHTTPErrorResponder : UMKMockHTTPResponder
 
 /*! The error that the instance responds with. */
 @property (readonly, strong, nonatomic) NSError *error;
 
 /*!
- @abstract Initializes a newly-created UMOMockHTTPErrorResponder instance with the specified error.
+ @abstract Initializes a newly-created UMKMockHTTPErrorResponder instance with the specified error.
  @discussion This is the error that is sent to the NSURL system in response to a mock URL request. The NSURL system may modify it by adding 
      fields to the error's userInfo or even changing the error's code. As such, expectations about the actual error that will be received 
      should be limited. Equality checks should not be used; at best, individual fields in the error should be examined.
  @param error The error to respond with. May not be nil.
- @result A newly initialized UMOMockHTTPErrorResponder with the specified error.
+ @result A newly initialized UMKMockHTTPErrorResponder with the specified error.
  */
 - (instancetype)initWithError:(NSError *)error;
 
@@ -73,9 +73,9 @@ static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
 
 
 /*!
- UMOMockHTTPResponseResponder instances respond to mock HTTP requests with an HTTP response.
+ UMKMockHTTPResponseResponder instances respond to mock HTTP requests with an HTTP response.
  */
-@interface UMOMockHTTPResponseResponder : UMOMockHTTPResponder
+@interface UMKMockHTTPResponseResponder : UMKMockHTTPResponder
 
 /*! The HTTP status code that the instance responds with. */
 @property (readonly, nonatomic) NSInteger statusCode;
@@ -87,7 +87,7 @@ static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
 @property (readonly, nonatomic) NSTimeInterval delayBetweenChunks;
 
 /*!
- @abstract Initializes a newly-created UMOMockHTTPResponseResponder instance with the specified status code, headers, body, chunk count hint,
+ @abstract Initializes a newly-created UMKMockHTTPResponseResponder instance with the specified status code, headers, body, chunk count hint,
      and delay between chunks.
  @param statusCode The HTTP status code to respond with.
  @param headers The HTTP headers to respond with.
@@ -96,7 +96,7 @@ static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
      on the size of the body and the whims of the NSURL system. May not be 0.
  @param delayBetweenChunks The amount of time the responder should wait between sending chunks of data. This is only used if chunks is more 
      than 1. Must be non-negative.
- @result A newly initialized UMOMockHTTPResponseResponder with the specified parameters.
+ @result A newly initialized UMKMockHTTPResponseResponder with the specified parameters.
  */
 - (instancetype)initWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body chunkCountHint:(NSUInteger)hint delayBetweenChunks:(NSTimeInterval)delay;
 
@@ -105,12 +105,12 @@ static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
 
 #pragma mark - Base Class Implementation
 
-@implementation UMOMockHTTPResponder
+@implementation UMKMockHTTPResponder
 
 + (instancetype)mockHTTPResponderWithError:(NSError *)error
 {
     NSParameterAssert(error);
-    return [[UMOMockHTTPErrorResponder alloc] initWithError:error];
+    return [[UMKMockHTTPErrorResponder alloc] initWithError:error];
 }
 
 
@@ -142,13 +142,13 @@ static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
 {
     NSParameterAssert(chunkCountHint != 0);
     NSParameterAssert(delay >= 0.0);
-    return [[UMOMockHTTPResponseResponder alloc] initWithStatusCode:statusCode headers:headers body:body chunkCountHint:chunkCountHint delayBetweenChunks:delay];
+    return [[UMKMockHTTPResponseResponder alloc] initWithStatusCode:statusCode headers:headers body:body chunkCountHint:chunkCountHint delayBetweenChunks:delay];
 }
 
 
-- (void)respondToMockRequest:(id <UMOMockURLRequest>)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
+- (void)respondToMockRequest:(id <UMKMockURLRequest>)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
 {
-    [NSException raise:NSInternalInconsistencyException format:@"%@", PGExceptionString(self, _cmd, @"subclass responsibility")];
+    @throw [NSException umk_subclassResponsibilityExceptionWithReceiver:self selector:_cmd];
 }
 
 
@@ -162,7 +162,7 @@ static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
 
 #pragma mark - Private Subclass Implementations
 
-@implementation UMOMockHTTPErrorResponder
+@implementation UMKMockHTTPErrorResponder
 
 - (instancetype)initWithError:(NSError *)error
 {
@@ -175,7 +175,7 @@ static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
 }
 
 
-- (void)respondToMockRequest:(id <UMOMockURLRequest>)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
+- (void)respondToMockRequest:(id <UMKMockURLRequest>)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
 {
     self.responding = YES;
     [client URLProtocol:protocol didFailWithError:self.error];
@@ -185,7 +185,7 @@ static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
 @end
 
 
-@implementation UMOMockHTTPResponseResponder
+@implementation UMKMockHTTPResponseResponder
 
 - (instancetype)initWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body chunkCountHint:(NSUInteger)hint delayBetweenChunks:(NSTimeInterval)delay
 {
@@ -205,12 +205,12 @@ static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
 }
 
 
-- (void)respondToMockRequest:(id <UMOMockURLRequest>)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
+- (void)respondToMockRequest:(id <UMKMockURLRequest>)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
 {
     self.responding = YES;
 
     NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:protocol.request.URL statusCode:self.statusCode
-                                                             HTTPVersion:kUMOHTTP11VersionString headerFields:self.headers];
+                                                             HTTPVersion:kUMKHTTP11VersionString headerFields:self.headers];
 
     // Stop if we were canceled in another thread.
     if (!self.responding) return;
@@ -219,10 +219,10 @@ static NSString *const kUMOHTTP11VersionString = @"HTTP/1.1";
 
     if (self.body) {
         // Don't break the data into more chunks than there are bytes. If the body length is below the minimum, just use one chunk.
-        NSUInteger chunkCount = self.body.length >= kUMOMinimumBodyLengthToChunk ? MIN(self.body.length, self.chunkCountHint) : 1;
+        NSUInteger chunkCount = self.body.length >= kUMKMinimumBodyLengthToChunk ? MIN(self.body.length, self.chunkCountHint) : 1;
 
         // If we have more than one chunk, delay at least the minimum amount. Otherwise don't delay
-        NSTimeInterval delay = chunkCount > 1 ? MAX(kUMOMinimumDelayBetweenChunks, self.delayBetweenChunks) : 0.0;
+        NSTimeInterval delay = chunkCount > 1 ? MAX(kUMKMinimumDelayBetweenChunks, self.delayBetweenChunks) : 0.0;
 
         // Because body.length may not be evenly divisible by chunkCount, we write all but the last chunk out in
         // bytesPerChunk-sized chunks. On the last chunk, we just write whatever's left.

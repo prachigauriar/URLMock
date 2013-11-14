@@ -1,5 +1,5 @@
 //
-//  UMOURLEncodingUtilities.m
+//  UMKURLEncodingUtilities.m
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/9/2013.
@@ -24,17 +24,16 @@
 //  THE SOFTWARE.
 //
 
-#import <URLMock/UMOURLEncodingUtilities.h>
-
-// Note: Most of this code was shamelessly taken from AFNetworking.
-
+#import <URLMock/UMKURLEncodingUtilities.h>
 
 #pragma mark Constants
 
-static NSString *const kUMOEscapedCharacters = @":/?&=;+!@#$()',*";
+static NSString *const kUMKEscapedCharacters = @":/?&=;+!@#$()',*";
 
 
 #pragma mark - Private Functions
+
+// Note: Most of the code for these functions was adapted from AFNetworking.
 
 /*!
  @abstract Returns a percent-escaped representation of the string in the specified encoding.
@@ -44,13 +43,13 @@ static NSString *const kUMOEscapedCharacters = @":/?&=;+!@#$()',*";
  @param NSStringEncoding The encoding to use when escaping the string.
  @result A percent-escaped representation of key.
  */
-static NSString *UMOPercentEscapedKeyStringWithEncoding(NSString *key, NSStringEncoding encoding)
+static NSString *UMKPercentEscapedKeyStringWithEncoding(NSString *key, NSStringEncoding encoding)
 {
-    static NSString *const kUMOUnescapedCharacters = @".[]";
+    static NSString *const kUMKUnescapedCharacters = @".[]";
 	return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
                                                                                  (__bridge CFStringRef)key,
-                                                                                 (__bridge CFStringRef)kUMOUnescapedCharacters,
-                                                                                 (__bridge CFStringRef)kUMOEscapedCharacters,
+                                                                                 (__bridge CFStringRef)kUMKUnescapedCharacters,
+                                                                                 (__bridge CFStringRef)kUMKEscapedCharacters,
                                                                                  CFStringConvertNSStringEncodingToEncoding(encoding));
 }
 
@@ -63,36 +62,38 @@ static NSString *UMOPercentEscapedKeyStringWithEncoding(NSString *key, NSStringE
  @param NSStringEncoding The encoding to use when escaping the string.
  @result A percent-escaped representation of value.
  */
-static NSString *UMOPercentEscapedValueStringWithEncoding(NSString *value, NSStringEncoding encoding)
+static NSString *UMKPercentEscapedValueStringWithEncoding(NSString *value, NSStringEncoding encoding)
 {
     return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
                                                                                  (__bridge CFStringRef)value,
                                                                                  NULL,
-                                                                                 (__bridge CFStringRef)kUMOEscapedCharacters,
+                                                                                 (__bridge CFStringRef)kUMKEscapedCharacters,
                                                                                  CFStringConvertNSStringEncodingToEncoding(encoding));
 }
 
 
 #pragma mark - Public Functions
 
-NSString *UMOURLEncodedStringForParameters(NSDictionary *parameters)
+NSString *UMKURLEncodedStringForParameters(NSDictionary *parameters)
 {
-    return UMOURLEncodedStringForParametersUsingEncoding(parameters, NSUTF8StringEncoding);
+    return UMKURLEncodedStringForParametersUsingEncoding(parameters, NSUTF8StringEncoding);
 }
 
 
-NSString *UMOURLEncodedStringForParametersUsingEncoding(NSDictionary *parameters, NSStringEncoding encoding)
+NSString *UMKURLEncodedStringForParametersUsingEncoding(NSDictionary *parameters, NSStringEncoding encoding)
 {
+    NSCParameterAssert(parameters);
+
     NSMutableArray *encodedPairs = [[NSMutableArray alloc] initWithCapacity:parameters.count];
 
     NSArray *sortedKeys = [[parameters allKeys] sortedArrayUsingSelector:@selector(compare:)];
     for (NSString *key in sortedKeys) {
         id value = parameters[key];
         if (value == [NSNull null]) {
-            [encodedPairs addObject:UMOPercentEscapedKeyStringWithEncoding(key, encoding)];
+            [encodedPairs addObject:UMKPercentEscapedKeyStringWithEncoding(key, encoding)];
         } else {
-            NSString *encodedKey = UMOPercentEscapedKeyStringWithEncoding(key, encoding);
-            NSString *encodedValue = UMOPercentEscapedValueStringWithEncoding([value description], encoding);
+            NSString *encodedKey = UMKPercentEscapedKeyStringWithEncoding(key, encoding);
+            NSString *encodedValue = UMKPercentEscapedValueStringWithEncoding([value description], encoding);
             [encodedPairs addObject:[NSString stringWithFormat:@"%@=%@", encodedKey, encodedValue]];
         }
     }
@@ -101,14 +102,16 @@ NSString *UMOURLEncodedStringForParametersUsingEncoding(NSDictionary *parameters
 }
 
 
-NSDictionary *UMODictionaryForURLEncodedParametersString(NSString *string)
+NSDictionary *UMKDictionaryForURLEncodedParametersString(NSString *string)
 {
-    return UMODictionaryForURLEncodedParametersStringUsingEncoding(string, NSUTF8StringEncoding);
+    return UMKDictionaryForURLEncodedParametersStringUsingEncoding(string, NSUTF8StringEncoding);
 }
 
 
-NSDictionary *UMODictionaryForURLEncodedParametersStringUsingEncoding(NSString *string, NSStringEncoding encoding)
+NSDictionary *UMKDictionaryForURLEncodedParametersStringUsingEncoding(NSString *string, NSStringEncoding encoding)
 {
+    NSCParameterAssert(string);
+
     NSArray *keyValueStrings = [string componentsSeparatedByString:@"&"];
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithCapacity:keyValueStrings.count];
     

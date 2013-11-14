@@ -1,5 +1,6 @@
 //
-//  PGUtilities.m
+//  UMKErrorUtilities.m
+//  URLMock
 //
 //  Created by Prachi Gauriar on 12/6/2012.
 //  Copyright (c) 2013 Prachi Gauriar.
@@ -23,57 +24,51 @@
 //  THE SOFTWARE.
 //
 
-#import "PGUtilities.h"
+#import <URLMock/UMKErrorUtilities.h>
 
-#pragma mark Constants
-
-NSString *const PGErrorDomain = @"PGErrorDomain";
-
-
-#pragma mark - Functions
-
-NSArray *PGCommandLineArgumentsAsStrings(int argc, const char *argv[])
-{
-    NSMutableArray *args = [NSMutableArray arrayWithCapacity:argc];
-    for (NSUInteger i = 0; i < argc; ++i) {
-        [args addObject:@(argv[i])];
-    }
-    
-    return args;
-}
-
-
-NSString *PGPrettySelector(id receiver, SEL selector)
+NSString *UMKPrettySelector(id receiver, SEL selector)
 {
     char methodType = [receiver isMemberOfClass:[receiver class]] ? '-' : '+';
     return [NSString stringWithFormat:@"%c%@", methodType, NSStringFromSelector(selector)];
 }
 
 
-NSString *PGPrettyMethodName(id receiver, SEL selector)
+NSString *UMKPrettyMethodName(id receiver, SEL selector)
 {
     char methodType = [receiver isMemberOfClass:[receiver class]] ? '-' : '+';
     return [NSString stringWithFormat:@"%c[%@ %@]", methodType, NSStringFromClass([receiver class]), NSStringFromSelector(selector)];
 }
 
 
-NSString *PGAssertionString(id receiver, SEL selector, NSString *format, ...)
+NSString *UMKAssertionString(id receiver, SEL selector, NSString *format, ...)
 {
     va_list arguments;
     va_start(arguments, format);
     NSString *messageString = [[NSString alloc] initWithFormat:format arguments:arguments];
     va_end(arguments);
     
-    return [NSString stringWithFormat:@"*** %@: %@", PGPrettyMethodName(receiver, selector), messageString];
+    return [NSString stringWithFormat:@"*** %@: %@", UMKPrettyMethodName(receiver, selector), messageString];
 }
 
 
-NSString *PGExceptionString(id receiver, SEL selector, NSString *format, ...)
+NSString *UMKExceptionString(id receiver, SEL selector, NSString *format, ...)
 {
     va_list arguments;
     va_start(arguments, format);
     NSString *messageString = [[NSString alloc] initWithFormat:format arguments:arguments];
     va_end(arguments);
 
-    return [NSString stringWithFormat:@"*** %@: %@", PGPrettyMethodName(receiver, selector), messageString];
+    return [NSString stringWithFormat:@"*** %@: %@", UMKPrettyMethodName(receiver, selector), messageString];
 }
+
+
+@implementation NSException (UMKSubclassResponsibility)
+
++ (instancetype)umk_subclassResponsibilityExceptionWithReceiver:(id)receiver selector:(SEL)selector
+{
+    return [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:UMKExceptionString(receiver, selector, @"subclasses must provide an implementation of this method")
+                                 userInfo:nil];
+}
+
+@end

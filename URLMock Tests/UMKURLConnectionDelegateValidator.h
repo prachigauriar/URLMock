@@ -1,5 +1,5 @@
 //
-//  UMOURLConnectionDelegateValidator.h
+//  UMKURLConnectionDelegateValidator.h
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/12/2013.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface UMOURLConnectionDelegateValidator : NSObject <NSURLConnectionDataDelegate>
+@interface UMKURLConnectionDelegateValidator : NSObject <NSURLConnectionDataDelegate>
 
 @property (readonly, strong, nonatomic) id messageCountingProxy;
 @property (readonly, strong, nonatomic) NSURLResponse *response;

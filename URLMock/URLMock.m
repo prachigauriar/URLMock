@@ -8,4 +8,4 @@
 
 #import <URLMock/URLMock.h>
 
-NSString *const UMOErrorDomain = @"UMOErrorDomain";
+NSString *const UMKErrorDomain = @"UMKErrorDomain";

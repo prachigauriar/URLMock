@@ -1,5 +1,5 @@
 //
-//  UMOMockURLProtocol.h
+//  UMKMockURLProtocol.h
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/9/2013.
@@ -26,13 +26,13 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol UMOMockURLRequest, UMOMockURLResponder;
+@protocol UMKMockURLRequest, UMKMockURLResponder;
 
 /*!
- UMOMockURLProtocol is the primary class in the URLMock framework. It has methods for enabling and disabling
+ UMKMockURLProtocol is the primary class in the URLMock framework. It has methods for enabling and disabling
  mock responses, adding and removing expected mock requests, and configuring the behavior of the framework.
  */
-@interface UMOMockURLProtocol : NSURLProtocol
+@interface UMKMockURLProtocol : NSURLProtocol
 
 /*!
  @abstract Enables mock responses by registering the mock protocol with the NSURL system.
@@ -102,21 +102,21 @@
  @discussion This is how mock requests are registered with the mock protocol.
  @param request The mock request to expect. May not be nil.
  */
-+ (void)expectMockRequest:(id <UMOMockURLRequest>)request;
++ (void)expectMockRequest:(id <UMKMockURLRequest>)request;
 
 /*!
  @abstract Returns whether the specified mock request has been serviced.
  @param request The mock request.
  @result Whether a response to the specified mock request has been sent.
  */
-+ (BOOL)hasServicedMockRequest:(id <UMOMockURLRequest>)request;
++ (BOOL)hasServicedMockRequest:(id <UMKMockURLRequest>)request;
 
 /*!
  @abstract Removes the specified mock request from the protocol's set of expected mock requests.
  @discussion This is how mock requests are unregistered from the mock protocol.
  @param request The mock request to expect.
  */
-+ (void)removeExpectedMockRequest:(id <UMOMockURLRequest>)request;
++ (void)removeExpectedMockRequest:(id <UMKMockURLRequest>)request;
 
 
 /*!
@@ -130,9 +130,9 @@
 
 
 /*!
- The UMOMockURLRequest protocol declares messages that mock requests in the MockURL system must respond to.
+ The UMKMockURLRequest protocol declares messages that mock requests in the MockURL system must respond to.
  */
-@protocol UMOMockURLRequest <NSObject>
+@protocol UMKMockURLRequest <NSObject>
 
 /*!
  @abstract Returns whether the receiver matches the specified URL request.
@@ -148,15 +148,15 @@
  @param request The URL request. May not be nil.
  @result A mock URL responder for the specified request.
  */
-- (id <UMOMockURLResponder>)responderForURLRequest:(NSURLRequest *)request;
+- (id <UMKMockURLResponder>)responderForURLRequest:(NSURLRequest *)request;
 
 @end
 
 
 /*!
- The UMOMockURLResponder protocol declares messages that responders in the MockURL system to mock requests must respond to.
+ The UMKMockURLResponder protocol declares messages that responders in the MockURL system to mock requests must respond to.
  */
-@protocol UMOMockURLResponder <NSObject>
+@protocol UMKMockURLResponder <NSObject>
 
 /*!
  @abstract Responds to the specified mock request on behalf of the specified protocol object.
@@ -166,7 +166,7 @@
  @param client The protocol client. May not be nil.
  @param protocol The URL protocol. May not be nil.
  */
-- (void)respondToMockRequest:(id <UMOMockURLRequest>)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol;
+- (void)respondToMockRequest:(id <UMKMockURLRequest>)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol;
 
 /*!
  @abstract Cancels any current mock request responses.

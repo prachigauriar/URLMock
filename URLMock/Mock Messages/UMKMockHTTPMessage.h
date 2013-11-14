@@ -1,5 +1,5 @@
 //
-//  UMOMockHTTPMessage.h
+//  UMKMockHTTPMessage.h
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/9/2013.
@@ -29,37 +29,37 @@
 #pragma mark Constants
 
 /*! The HTTP header field for the Accepts header. */
-extern NSString *const kUMOMockHTTPMessageAcceptsHeaderField;
+extern NSString *const kUMKMockHTTPMessageAcceptsHeaderField;
 
 /*! The HTTP header field for the Content-Type header. */
-extern NSString *const kUMOMockHTTPMessageContentTypeHeaderField;
+extern NSString *const kUMKMockHTTPMessageContentTypeHeaderField;
 
 /*! The HTTP header field for the Cookie header. */
-extern NSString *const kUMOMockHTTPMessageCookieHeaderField;
+extern NSString *const kUMKMockHTTPMessageCookieHeaderField;
 
 /*! The HTTP header field for the Set-Cookie header. */
-extern NSString *const kUMOMockHTTPMessageSetCookieHeaderField;
+extern NSString *const kUMKMockHTTPMessageSetCookieHeaderField;
 
 /*! The HTTP header value for the JSON content type. */
-extern NSString *const kUMOMockHTTPMessageJSONContentTypeHeaderValue;
+extern NSString *const kUMKMockHTTPMessageJSONContentTypeHeaderValue;
 
 /*! The HTTP header value for the UTF8-encoded JSON content type. */
-extern NSString *const kUMOMockHTTPMessageUTF8JSONContentTypeHeaderValue;
+extern NSString *const kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue;
 
 /*! The HTTP header value for the WWW Form URL-Encoded content type. */
-extern NSString *const kUMOMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValue;
+extern NSString *const kUMKMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValue;
 
 /*! The HTTP header value for the UTF8-encoded WWW Form URL-Encoded content type. */
-extern NSString *const kUMOMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue;
+extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue;
 
 
 #pragma mark -
 
 /*!
- UMOMockHTTPMessage is an abstract class that collects common data and behavior for mock HTTP requests and responses.
- Each UMOMockHTTPMessage has a body and headers and methods to access and modify them.
+ UMKMockHTTPMessage is an abstract class that collects common data and behavior for mock HTTP requests and responses.
+ Each UMKMockHTTPMessage has a body and headers and methods to access and modify them.
  */
-@interface UMOMockHTTPMessage : NSObject {
+@interface UMKMockHTTPMessage : NSObject {
 @protected
     NSMutableDictionary *_headers;
 }

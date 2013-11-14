@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const UMOErrorDomain;
+extern NSString *const UMKErrorDomain;
 
-#import <URLMock/UMOMockHTTPMessage.h>
-#import <URLMock/UMOMockHTTPRequest.h>
-#import <URLMock/UMOMockHTTPResponder.h>
-#import <URLMock/UMOMockURLProtocol.h>
-#import <URLMock/UMOURLEncodingUtilities.h>
+#import <URLMock/UMKMockHTTPMessage.h>
+#import <URLMock/UMKMockHTTPRequest.h>
+#import <URLMock/UMKMockHTTPResponder.h>
+#import <URLMock/UMKMockURLProtocol.h>
+#import <URLMock/UMKURLEncodingUtilities.h>

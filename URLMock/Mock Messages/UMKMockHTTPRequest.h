@@ -1,5 +1,5 @@
 //
-//  UMOMockHTTPRequest.h
+//  UMKMockHTTPRequest.h
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/8/2013.
@@ -25,40 +25,40 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <URLMock/UMOMockHTTPMessage.h>
-#import <URLMock/UMOMockURLProtocol.h>
+#import <URLMock/UMKMockHTTPMessage.h>
+#import <URLMock/UMKMockURLProtocol.h>
 
 #pragma mark Constants
 
 /*! The DELETE HTTP method. */
-extern NSString *const kUMOMockHTTPRequestDeleteMethod;
+extern NSString *const kUMKMockHTTPRequestDeleteMethod;
 
 /*! The GET HTTP method. */
-extern NSString *const kUMOMockHTTPRequestGetMethod;
+extern NSString *const kUMKMockHTTPRequestGetMethod;
 
 /*! The HEAD HTTP method. */
-extern NSString *const kUMOMockHTTPRequestHeadMethod;
+extern NSString *const kUMKMockHTTPRequestHeadMethod;
 
 /*! The PATCH HTTP method. */
-extern NSString *const kUMOMockHTTPRequestPatchMethod;
+extern NSString *const kUMKMockHTTPRequestPatchMethod;
 
 /*! The POST HTTP method. */
-extern NSString *const kUMOMockHTTPRequestPostMethod;
+extern NSString *const kUMKMockHTTPRequestPostMethod;
 
 /*! The PUT HTTP method. */
-extern NSString *const kUMOMockHTTPRequestPutMethod;
+extern NSString *const kUMKMockHTTPRequestPutMethod;
 
 
 #pragma mark -
 
 /*!
- Instances of UMOMockHTTPRequest, or simply mock requests, represent mock HTTP requests. They are used to tell 
- UMOMockURLProtocol which requests to expect and how to respond to them.
+ Instances of UMKMockHTTPRequest, or simply mock requests, represent mock HTTP requests. They are used to tell 
+ UMKMockURLProtocol which requests to expect and how to respond to them.
  
  Each mock request has an associated HTTP method, URL, and response, plus methods to determine whether the instance
  matches an NSURLRequest.
  */
-@interface UMOMockHTTPRequest : UMOMockHTTPMessage <UMOMockURLRequest>
+@interface UMKMockHTTPRequest : UMKMockHTTPMessage <UMKMockURLRequest>
 
 /*! The instance's HTTP method. */
 @property (readonly, copy, nonatomic) NSString *HTTPMethod;
@@ -67,7 +67,7 @@ extern NSString *const kUMOMockHTTPRequestPutMethod;
 @property (readonly, strong, nonatomic) NSURL *URL;
 
 /*! The mock response associated with the instance. */
-@property (readwrite, strong, nonatomic) id <UMOMockURLResponder> responder;
+@property (readwrite, strong, nonatomic) id <UMKMockURLResponder> responder;
 
 /*!
  @abstract Initializes a newly allocated instance with the specified HTTP method and URL.

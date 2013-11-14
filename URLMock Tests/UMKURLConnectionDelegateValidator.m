@@ -1,15 +1,15 @@
 //
-//  UMOURLConnectionDelegateValidator.m
+//  UMKURLConnectionDelegateValidator.m
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/12/2013.
 //  Copyright (c) 2013 Prachi Gauriar. All rights reserved.
 //
 
-#import "UMOURLConnectionDelegateValidator.h"
-#import "UMOMessageCountingProxy.h"
+#import "UMKURLConnectionDelegateValidator.h"
+#import "UMKMessageCountingProxy.h"
 
-@interface UMOURLConnectionDelegateValidator ()
+@interface UMKURLConnectionDelegateValidator ()
 
 @property (readwrite, strong, nonatomic) NSURLResponse *response;
 @property (readwrite, strong, nonatomic) NSError *error;
@@ -19,13 +19,13 @@
 @end
 
 
-@implementation UMOURLConnectionDelegateValidator
+@implementation UMKURLConnectionDelegateValidator
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        _messageCountingProxy = [UMOMessageCountingProxy messageCountingProxyWithObject:self];
+        _messageCountingProxy = [UMKMessageCountingProxy messageCountingProxyWithObject:self];
     }
 
     return self;
