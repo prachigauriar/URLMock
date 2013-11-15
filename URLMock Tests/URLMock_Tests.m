@@ -74,7 +74,7 @@
     NSURL *requestURL = [self randomURL];
     UMKMockHTTPRequest *getRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURLString:[requestURL description]];
 
-    NSError *error = [NSError errorWithDomain:UMKErrorDomain code:1234 userInfo:nil];
+    NSError *error = [NSError errorWithDomain:@"UMKError" code:1234 userInfo:nil];
     getRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithError:error];
     [UMKMockURLProtocol expectMockRequest:getRequest];
 
@@ -155,7 +155,7 @@
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyJSON options:0 error:NULL];
     [request setValue:kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue forHTTPHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
 
-    [NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:requestURL] delegate:self.validator];
+    [NSURLConnection connectionWithRequest:request delegate:self.validator];
 
     UMKAssertTrueBeforeTimeout(1, [self.validator receivedMessageCountForSelector:@selector(connection:didReceiveResponse:)] == 1,
                                @"Validator received -connection:didReceiveResponse: wrong number of times.");
@@ -165,7 +165,7 @@
                                @"Validator received -connectionDidFinishLoading: wrong number of times.");
 
     XCTAssertTrue([(NSHTTPURLResponse *)[self.validator response] statusCode] == 200, @"Validator received wrong status code");
-    XCTAssertEqualObjects([self.validator body], nil, @"Validator received wrong body");
+    XCTAssertNil([self.validator body], @"Validator received wrong body");
 }
 
 

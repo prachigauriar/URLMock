@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const UMKErrorDomain;
-
 #import <URLMock/UMKMockHTTPMessage.h>
 #import <URLMock/UMKMockHTTPRequest.h>
 #import <URLMock/UMKMockHTTPResponder.h>

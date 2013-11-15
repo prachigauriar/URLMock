@@ -127,7 +127,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
     NSParameterAssert(parameters);
     
     [self setBodyWithString:UMKURLEncodedStringForParameters(parameters)];
-    if (!_headers[kUMKMockHTTPMessageContentTypeHeaderField]) {
+    if (![self valueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField]) {
         [self setValue:kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue forHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
     }
 }

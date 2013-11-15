@@ -50,6 +50,10 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
+    if (!self.dataBeingBuilt) {
+        self.dataBeingBuilt = [[NSMutableData alloc] init];
+    }
+
     [self.dataBeingBuilt appendData:data];
 }
 
@@ -57,7 +61,6 @@
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
     self.response = response;
-    self.dataBeingBuilt = [[NSMutableData alloc] init];
 }
 
 

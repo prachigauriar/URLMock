@@ -40,6 +40,20 @@ NSString *const kUMKMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValue = @"a
 NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue = @"application/x-www-form-urlencoded; charset=utf-8";
 
 
+#pragma mark - Custom NSPointerFunctions
+
+static NSUInteger UMKCaseInsensitiveStringHashFunction(const void *item, NSUInteger (*size)(const void *item))
+{
+    return [[(__bridge NSString *)item lowercaseString] hash];
+}
+
+
+static BOOL UMKCaseInsensitiveStringIsEqualFunction(const void *item1, const void *item2, NSUInteger (*size)(const void *item))
+{
+    return [(__bridge NSString *)item1 caseInsensitiveCompare:(__bridge NSString *)item2] == NSOrderedSame;
+}
+
+
 #pragma mark -
 
 @implementation UMKMockHTTPMessage
@@ -48,28 +62,56 @@ NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue =
 {
     self = [super init];
     if (self) {
-        _headers = [[NSMutableDictionary alloc] init];
+        NSPointerFunctions *keyFunctions = [NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsCopyIn|NSPointerFunctionsStrongMemory|NSPointerFunctionsObjectPersonality];
+        keyFunctions.hashFunction = UMKCaseInsensitiveStringHashFunction;
+        keyFunctions.isEqualFunction = UMKCaseInsensitiveStringIsEqualFunction;
+
+        NSPointerFunctions *valueFunctions = [NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsStrongMemory|NSPointerFunctionsObjectPersonality];
+        _headers = [[NSMapTable alloc] initWithKeyPointerFunctions:keyFunctions valuePointerFunctions:valueFunctions capacity:16];
     }
     
     return self;
 }
 
+
 #pragma mark - Headers
 
 - (NSDictionary *)headers
 {
-    return _headers;
+    return [_headers dictionaryRepresentation];
 }
 
 
 - (void)setHeaders:(NSDictionary *)headers
 {
-    if (_headers == headers) return;
-    
     [_headers removeAllObjects];
     [headers enumerateKeysAndObjectsUsingBlock:^(NSString *field, NSString *value, BOOL *stop) {
-        [self setValue:value.lowercaseString forHeaderField:field];
+        [self setValue:value forHeaderField:field];
     }];
+}
+
+
+- (NSString *)valueForHeaderField:(NSString *)field
+{
+    return [_headers objectForKey:field];
+}
+
+
+- (void)setValue:(NSString *)value forHeaderField:(NSString *)field
+{
+    if (!value) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"nil value" userInfo:nil];
+    } else if (!field) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"nil field" userInfo:nil];
+    }
+
+    [_headers setObject:value forKey:field];
+}
+
+
+- (void)removeValueForHeaderField:(NSString *)field
+{
+    [_headers removeObjectForKey:field];
 }
 
 
@@ -77,26 +119,15 @@ NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue =
 {
     NSDictionary *headerFields = [request allHTTPHeaderFields];
 
-    if (headerFields.count != self.headers.count) return NO;
+    if (!request || headerFields.count != self.headers.count) return NO;
 
     for (NSString *key in headerFields) {
-        if (![[headerFields objectForKey:key] isEqualToString:[self.headers objectForKey:key.lowercaseString]]) {
+        if (![[headerFields objectForKey:key] isEqualToString:[self valueForHeaderField:key]]) {
             return NO;
         }
     }
 
     return YES;
-}
-
-- (void)setValue:(NSString *)value forHeaderField:(NSString *)field
-{
-    _headers[field.lowercaseString] = value;
-}
-
-
-- (void)removeValueForHeaderField:(NSString *)field
-{
-    [_headers removeObjectForKey:field.lowercaseString];
 }
 
 
@@ -118,7 +149,7 @@ NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue =
     }
     
     self.body = JSONData;
-    if (!_headers[kUMKMockHTTPMessageContentTypeHeaderField]) {
+    if (![self valueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField]) {
         [self setValue:kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue forHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
     }
 }

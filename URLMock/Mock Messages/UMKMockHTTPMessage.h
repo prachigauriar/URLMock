@@ -61,7 +61,7 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
  */
 @interface UMKMockHTTPMessage : NSObject {
 @protected
-    NSMutableDictionary *_headers;
+    NSMapTable *_headers;
 }
 
 /*! The instance's body. */
@@ -70,14 +70,15 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
 /*! The instance's HTTP headers. */
 @property (copy, nonatomic) NSDictionary *headers;
 
+
+#pragma mark - Headers
+
 /*!
- @abstract Returns whether the specified request's headers are equal to the receiver's.
- @discussion The receiver and the request have equal headers if they have the same number of them, their header fields
-     are the same (case-insensitively), and the header values for those fields identical.
- @param request The request whose headers are being compared to the receiver's.
- @result Whether the receiver's and request's headers are equal.
+ @abstract Returns the receiver's value for the specified header field.
+ @param field The header field whose value should be retrieved.
+ @result The value for the specified header field or nil if the receiver has no such header.
  */
-- (BOOL)headersAreEqualToHeadersOfRequest:(NSURLRequest *)request;
+- (NSString *)valueForHeaderField:(NSString *)field;
 
 /*!
  @abstract Sets the receiver's header value for the specified header field.
@@ -92,6 +93,17 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
  */
 - (void)removeValueForHeaderField:(NSString *)field;
 
+/*!
+ @abstract Returns whether the specified request's headers are equal to the receiver's.
+ @discussion The receiver and the request have equal headers if they have the same number of them, their header fields
+     are the same (case-insensitively), and the header values for those fields identical.
+ @param request The request whose headers are being compared to the receiver's.
+ @result Whether the receiver's and request's headers are equal. Returns NO if request is nil.
+ */
+- (BOOL)headersAreEqualToHeadersOfRequest:(NSURLRequest *)request;
+
+
+#pragma mark - Body
 
 /*!
  @abstract Returns the receiver's body as a JSON object.
