@@ -68,6 +68,23 @@ extern NSNumber *UMKRandomUnsignedNumber(void);
  */
 extern NSNumber *UMKRandomUnsignedNumberInRange(NSRange range);
 
+/*!
+ @abstract Returns a new NSDictionary instance with the specified number of random string key-value pairs.
+ @param count The number of entries in the newly created dictionary. Must be positive.
+ @result A dictionary of random string key-value pairs.
+ */
+extern NSDictionary *UMKRandomDictionaryOfStringsWithElementCount(NSUInteger count);
+
+/*!
+ @abstract Returns a new random JSON object.
+ @discussion The type of the object is randomly chosen. 
+ @param maxNestingDepth The maximum nesting depth in the returned object. For example, a maximum nesting depth of 2
+     means that it would be impossible to return a number in an array in a dictionary. Must be positive.
+ @param maxElementCountPerCollection The maximum number of elements allowed in a given collection in the returned 
+     object. Must be positive.
+ @result A new random JSON object.
+ */
+extern id UMKRandomJSONObject(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection);
 
 /*!
  @abstract Waits no longer than the specified timeout interval for the given condition block to evaluate to YES.

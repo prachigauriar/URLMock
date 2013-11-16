@@ -28,24 +28,19 @@
 
 @implementation UMKMockHTTPMessageTests
 
-- (void)setUp
++ (void)setUp
 {
-    self.message = [[UMKMockHTTPMessage alloc] init];
+    srandomdev();
 }
 
 
-- (NSDictionary *)randomDictionaryOfStringsWithMinimumCount:(NSUInteger)minimumCount
+- (void)setUp
 {
-    const NSUInteger MAX_KEY_COUNT = 32;
+    unsigned seed = (unsigned)random();
+    NSLog(@"Using seed %d", seed);
+    srandom(seed);
 
-    NSUInteger keyValueCount = random() % (MAX_KEY_COUNT - minimumCount) + minimumCount;
-    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithCapacity:keyValueCount];
-
-    for (NSUInteger i = 0; i < keyValueCount; ++i) {
-        dictionary[UMKRandomAlphanumericString()] = UMKRandomAlphanumericString();
-    }
-
-    return dictionary;
+    self.message = [[UMKMockHTTPMessage alloc] init];
 }
 
 
@@ -62,7 +57,7 @@
 - (void)testHeadersAccessors
 {
     // Getting and setting headers as a dictionary
-    NSDictionary *headers = [self randomDictionaryOfStringsWithMinimumCount:12];
+    NSDictionary *headers = UMKRandomDictionaryOfStringsWithElementCount(12);
     self.message.headers = headers;
     XCTAssertEqualObjects(self.message.headers, headers, @"Headers not set correctly");
 
@@ -130,9 +125,11 @@
 
 - (void)testHeadersAreEqualToHeadersOfRequest
 {
-    NSDictionary *headers = [self randomDictionaryOfStringsWithMinimumCount:12];
-    self.message.headers = headers;
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    XCTAssertTrue([self.message headersAreEqualToHeadersOfRequest:request], @"Headers are not equal");
+    
+    NSDictionary *headers = UMKRandomDictionaryOfStringsWithElementCount(12);
+    self.message.headers = headers;
 
     NSUInteger i = 0;
     for (NSString *field in headers) {
@@ -165,6 +162,44 @@
 
 
 #pragma mark - Body
+
+- (void)testBodyAccessors
+{
+    NSData *data = [UMKRandomAlphanumericStringWithLength(1024) dataUsingEncoding:NSUTF8StringEncoding];
+    self.message.body = data;
+    XCTAssertEqualObjects(self.message.body, data, @"Body is not set correctly");
+
+    self.message.body = nil;
+    XCTAssertNil(self.message.body, @"Body is not set to nil");
+}
+
+
+- (void)testJSONObjectBodyAccessors
+{
+    XCTAssertNil([self.message JSONObjectFromBody], @"Does not return nil JSON body when body is nil");
+    XCTAssertThrowsSpecificNamed([self.message setBodyWithJSONObject:[NSNull null]], NSException, NSInvalidArgumentException,
+                                 @"Set does not throw exception with invalid JSON");
+    
+    NSString *contentType = UMKRandomAlphanumericStringWithLength(8);
+    [self.message setValue:contentType forHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
+    
+    id JSONObject = UMKRandomJSONObject(random() % 10 + 1, random() % 10 + 1);
+    [self.message setBodyWithJSONObject:JSONObject];
+
+    XCTAssertEqualObjects([self.message JSONObjectFromBody], JSONObject, @"Did not set JSON body correctly");
+    XCTAssertEqualObjects([self.message valueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField], contentType,
+                          @"Content-Type header value was overwritten");
+    
+    [self.message removeValueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
+    [self.message setBodyWithJSONObject:JSONObject];
+    XCTAssertEqualObjects([self.message JSONObjectFromBody], JSONObject, @"Did not set JSON body correctly");
+    XCTAssertEqualObjects([self.message valueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField], kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue,
+                          @"Content-Type header value was not set correctly");
+    
+}
+
+
+//- (void)testStringBodyAccessors;
 
 
 @end

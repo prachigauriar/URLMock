@@ -25,6 +25,54 @@
 
 #import "UMKTestUtilities.h"
 
+#pragma mark Private Types and Function Declarations
+
+/*! 
+ @abstract The function pointer type for complex JSON object generator functions.
+ @param maxNestingDepth The maximum nesting depth for the complex JSON object.
+ @param maxElementCountPerCollection The maximum element count per collection in the complex JSON object.
+ @param elementCount The number of elements in the generated JSON object.
+ @result A complex JSON object.
+ */
+typedef id (*UMKRandomComplexJSONObjectGeneratorFunction)(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection, NSUInteger elementCount);
+
+/*!
+ @abstract Returns a random simple JSON object.
+ @discussion Simple JSON objects are either NSStrings, NSNumbers, or NSNull.
+ @result A simple JSON object.
+ */
+static id UMKRandomSimpleJSONObject(void);
+
+/*!
+ @abstract Returns a random JSON array.
+ @param maxNestingDepth The maximum nesting depth for the array.
+ @param maxElementCountPerCollection The maximum element count per collection in the array.
+ @param elementCount The number of elements to create in the array.
+ @result A random JSON array.
+ */
+static id UMKRandomJSONArray(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection, NSUInteger elementCount);
+
+/*!
+ @abstract Returns a random JSON dictionary.
+ @param maxNestingDepth The maximum nesting depth for the dictionary.
+ @param maxElementCountPerCollection The maximum element count per collection in the dictionary.
+ @param elementCount The number of elements to create in the dictionary.
+ @result A random JSON dictionary.
+ */
+static id UMKRandomJSONDictionary(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection, NSUInteger elementCount);
+
+/*!
+ @abstract Recursively builds a random JSON object.
+ @param maxNestingDepth The maximum nesting depth for the JSON object.
+ @param maxElementCountPerCollection The maximum element count per collection in the JSON object.
+ @param complexObject Whether the returned object is a complex object, i.e., an array or dictionary.
+ @result A random JSON object.
+ */
+static id UMKRecursiveRandomJSONObject(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection, BOOL complexObject);
+
+
+#pragma mark - Alphanumeric Strings
+
 NSString *UMKRandomAlphanumericString(void)
 {
     return UMKRandomAlphanumericStringWithLength(1 + random() % 128);
@@ -47,6 +95,8 @@ NSString *UMKRandomAlphanumericStringWithLength(NSUInteger length)
 }
 
 
+#pragma mark - Booleans and Numbers
+
 BOOL UMKRandomBoolean()
 {
     return random() & 01;
@@ -65,6 +115,76 @@ NSNumber *UMKRandomUnsignedNumberInRange(NSRange range)
     return [NSNumber numberWithUnsignedInteger:(range.location + random() % range.length)];
 }
 
+
+#pragma mark - Dictionaries
+
+NSDictionary *UMKRandomDictionaryOfStringsWithElementCount(NSUInteger count)
+{
+    NSCParameterAssert(count > 0);
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithCapacity:count];
+    for (NSUInteger i = 0; i < count; ++i) {
+        dictionary[UMKRandomAlphanumericString()] = UMKRandomAlphanumericString();
+    }
+    
+    return dictionary;
+}
+
+
+#pragma mark - JSON Objects
+
+static id UMKRandomSimpleJSONObject(void)
+{
+    NSUInteger typeChooser = random() % 3;
+    switch (typeChooser) {
+        case 0:
+            return [NSNull null];
+        case 1:
+            return UMKRandomAlphanumericString();
+        default:
+            return UMKRandomUnsignedNumber();
+    }
+}
+
+
+static id UMKRandomJSONArray(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection, NSUInteger elementCount)
+{
+    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:elementCount];
+    for (NSUInteger i = 0; i < elementCount; ++i) {
+        [array addObject:UMKRecursiveRandomJSONObject(maxNestingDepth - 1, maxElementCountPerCollection, UMKRandomBoolean())];
+    }
+    
+    return array;
+}
+
+
+static id UMKRandomJSONDictionary(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection, NSUInteger elementCount)
+{
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithCapacity:elementCount];
+    for (NSUInteger i = 0; i < elementCount; ++i) {
+        dictionary[UMKRandomAlphanumericString()] = UMKRecursiveRandomJSONObject(maxNestingDepth - 1, maxElementCountPerCollection, UMKRandomBoolean());
+    }
+    
+    return dictionary;
+}
+
+
+static id UMKRecursiveRandomJSONObject(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection, BOOL complexObject)
+{
+    if (maxNestingDepth == 0 || !complexObject) return UMKRandomSimpleJSONObject();
+    UMKRandomComplexJSONObjectGeneratorFunction complexObjectFunction = UMKRandomBoolean() ? UMKRandomJSONArray : UMKRandomJSONDictionary;
+    return complexObjectFunction(maxNestingDepth, maxElementCountPerCollection, random() % maxElementCountPerCollection + 1);
+}
+
+
+id UMKRandomJSONObject(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection)
+{
+    NSCParameterAssert(maxNestingDepth > 0);
+    NSCParameterAssert(maxElementCountPerCollection > 0);
+    return UMKRecursiveRandomJSONObject(maxNestingDepth, maxElementCountPerCollection, YES);
+}
+
+
+#pragma mark - Wait for Condition
 
 BOOL UMKWaitForCondition(NSTimeInterval timeoutInterval, BOOL (^condition)(void))
 {

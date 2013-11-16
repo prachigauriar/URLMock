@@ -28,28 +28,28 @@
 
 #pragma mark Constants
 
-/*! The HTTP header field for the Accepts header. */
+/*! The HTTP header field for the Accepts header, i.e., "Accepts". */
 extern NSString *const kUMKMockHTTPMessageAcceptsHeaderField;
 
-/*! The HTTP header field for the Content-Type header. */
+/*! The HTTP header field for the Content-Type header, i.e., "Content-Type". */
 extern NSString *const kUMKMockHTTPMessageContentTypeHeaderField;
 
-/*! The HTTP header field for the Cookie header. */
+/*! The HTTP header field for the Cookie header, i.e., "Cookie". */
 extern NSString *const kUMKMockHTTPMessageCookieHeaderField;
 
-/*! The HTTP header field for the Set-Cookie header. */
+/*! The HTTP header field for the Set-Cookie header, i.e. "Set-Cookie". */
 extern NSString *const kUMKMockHTTPMessageSetCookieHeaderField;
 
-/*! The HTTP header value for the JSON content type. */
+/*! The HTTP header value for the JSON content type, i.e., "application/json". */
 extern NSString *const kUMKMockHTTPMessageJSONContentTypeHeaderValue;
 
-/*! The HTTP header value for the UTF8-encoded JSON content type. */
+/*! The HTTP header value for the UTF8-encoded JSON content type, i.e., "application/json; charset=utf-8".  */
 extern NSString *const kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue;
 
-/*! The HTTP header value for the WWW Form URL-Encoded content type. */
+/*! The HTTP header value for the WWW Form URL-Encoded content type, i.e., "application/x-www-form-urlencoded". */
 extern NSString *const kUMKMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValue;
 
-/*! The HTTP header value for the UTF8-encoded WWW Form URL-Encoded content type. */
+/*! The HTTP header value for the UTF8-encoded WWW Form URL-Encoded content type, i.e., "application/x-www-form-urlencoded; charset=utf-8". */
 extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue;
 
 

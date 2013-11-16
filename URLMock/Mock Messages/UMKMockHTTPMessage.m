@@ -29,10 +29,10 @@
 
 #pragma mark Constants
 
-NSString *const kUMKMockHTTPMessageAcceptsHeaderField = @"accepts";
-NSString *const kUMKMockHTTPMessageContentTypeHeaderField = @"content-type";
-NSString *const kUMKMockHTTPMessageCookieHeaderField = @"cookie";
-NSString *const kUMKMockHTTPMessageSetCookieHeaderField = @"set-cookie";
+NSString *const kUMKMockHTTPMessageAcceptsHeaderField = @"Accepts";
+NSString *const kUMKMockHTTPMessageContentTypeHeaderField = @"Content-Type";
+NSString *const kUMKMockHTTPMessageCookieHeaderField = @"Cookie";
+NSString *const kUMKMockHTTPMessageSetCookieHeaderField = @"Set-Cookie";
 
 NSString *const kUMKMockHTTPMessageJSONContentTypeHeaderValue = @"application/json";
 NSString *const kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue = @"application/json; charset=utf-8";

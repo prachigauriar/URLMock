@@ -19,6 +19,8 @@ static const NSUInteger UMKIterationCount = 512;
 - (void)testRandomBoolean;
 - (void)testRandomUnsignedNumber;
 - (void)testRandomUnsignedNumberInRange;
+- (void)testRandomDictionaryOfStringsWithElementCount;
+- (void)testRandomJSONObject;
 - (void)testWaitForCondition;
 
 @end
@@ -118,6 +120,65 @@ static const NSUInteger UMKIterationCount = 512;
 }
 
 
+- (void)testRandomDictionaryOfStringsWithElementCount
+{
+    XCTAssertThrows(UMKRandomDictionaryOfStringsWithElementCount(0), @"Does not throw an exception when element count is 0");
+    
+    NSUInteger elementCount = random() % 100 + 1;
+    NSDictionary *dictionary = UMKRandomDictionaryOfStringsWithElementCount(elementCount);
+    
+    XCTAssertEqual(dictionary.count, elementCount, @"Returned dictionary's element count is incorrect");
+    [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+        XCTAssertTrue([key isKindOfClass:[NSString class]], @"Key is not a string");
+        XCTAssertTrue([value isKindOfClass:[NSString class]], @"Key is not a string");
+    }];
+}
+
+
+- (void)testRandomJSONObject
+{
+    // Parameter assertions
+    XCTAssertThrows(UMKRandomJSONObject(0, 1), @"Does not throw an exception when maxNestingDepth is 0");
+    XCTAssertThrows(UMKRandomJSONObject(1, 0), @"Does not throw an exception when maxElementCountPerCollection is 0");
+
+    NSUInteger maxNestingDepth = random() % 10 + 1;
+    NSUInteger maxElementCountPerCollection = random() % 10 + 1;
+
+    // Valid JSON Object
+    id JSONObject = UMKRandomJSONObject(maxNestingDepth, maxElementCountPerCollection);
+    XCTAssertTrue([NSJSONSerialization isValidJSONObject:JSONObject], @"Returned object is not a valid JSON object");
+    
+    // maxNestingDepth and maxElementCountPerCollection are respected
+    NSUInteger depthCount = 0;
+    
+    // We use these as a way
+    NSMutableArray *currentDepthObjects = [NSMutableArray arrayWithObject:JSONObject];
+    NSMutableArray *nextDepthObjects = [NSMutableArray array];
+    
+    id complexObject = nil;
+    while ((complexObject = [currentDepthObjects lastObject])) {
+        XCTAssertTrue([complexObject count] <= maxElementCountPerCollection, @"Collection has more elements than maxElementCountPerCollection");
+
+        id element = nil;
+        NSEnumerator *objectEnumerator = [complexObject objectEnumerator];
+        while ((element = [objectEnumerator nextObject])) {
+            if ([element isKindOfClass:[NSDictionary class]] || [element isKindOfClass:[NSArray class]]) {
+                [nextDepthObjects addObject:element];
+            }
+        }
+        
+        [currentDepthObjects removeLastObject];
+        if ([currentDepthObjects count] == 0) {
+            ++depthCount;
+            currentDepthObjects = nextDepthObjects;
+            nextDepthObjects = [NSMutableArray array];
+        }
+    }
+    
+    XCTAssertTrue(depthCount <= maxNestingDepth, @"Depth (%lu) exceeds max nesting depth (%lu)", depthCount, maxNestingDepth);
+}
+
+
 - (void)testWaitForCondition
 {
     // Note: this probably needs to be better tested
@@ -133,7 +194,5 @@ static const NSUInteger UMKIterationCount = 512;
     end = [NSDate timeIntervalSinceReferenceDate];
     XCTAssertTrue(end - start < timeout, @"Elapsed time (%f) was greater than timeout (%f)", end - start, timeout);
 }
-
-
 
 @end
