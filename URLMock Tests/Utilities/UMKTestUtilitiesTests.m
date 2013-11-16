@@ -151,7 +151,8 @@ static const NSUInteger UMKIterationCount = 512;
     // maxNestingDepth and maxElementCountPerCollection are respected
     NSUInteger depthCount = 0;
     
-    // We use these as a way
+    // We use these as a way to do a breadth-first search without recursion. We don't move on to the objects in
+    // nextDepthObjects until after currentDepthObjects is empty.
     NSMutableArray *currentDepthObjects = [NSMutableArray arrayWithObject:JSONObject];
     NSMutableArray *nextDepthObjects = [NSMutableArray array];
     
@@ -167,6 +168,8 @@ static const NSUInteger UMKIterationCount = 512;
             }
         }
         
+        // If this was the last object in currentDepthObjects, move on to the objects in the next depth.
+        // Also increment our depth count, which is the whole point of this.
         [currentDepthObjects removeLastObject];
         if ([currentDepthObjects count] == 0) {
             ++depthCount;
