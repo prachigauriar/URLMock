@@ -30,10 +30,10 @@
 @interface UMKMockURLProtocol ()
 
 /*! The instance's mock request. */
-@property (readwrite, strong, nonatomic) id <UMKMockURLRequest> mockRequest;
+@property (strong, nonatomic) id <UMKMockURLRequest> mockRequest;
 
 /*! The instance's mock responder. */
-@property (readwrite, strong, nonatomic) id <UMKMockURLResponder> mockResponder;
+@property (strong, nonatomic) id <UMKMockURLResponder> mockResponder;
 
 /*!
  @abstract Returns the first expected mock request that matches the specified URL request.

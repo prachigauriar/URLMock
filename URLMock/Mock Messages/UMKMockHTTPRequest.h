@@ -67,7 +67,7 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
 @property (readonly, strong, nonatomic) NSURL *URL;
 
 /*! The mock response associated with the instance. */
-@property (readwrite, strong, nonatomic) id <UMKMockURLResponder> responder;
+@property (strong, nonatomic) id <UMKMockURLResponder> responder;
 
 /*!
  @abstract Initializes a newly allocated instance with the specified HTTP method and URL.

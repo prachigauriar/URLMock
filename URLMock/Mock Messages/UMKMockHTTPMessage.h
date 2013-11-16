@@ -84,6 +84,7 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
  @abstract Sets the receiver's header value for the specified header field.
  @param value The value to set for the header field. May not be nil.
  @param field The header field for which to set the value. May not be nil.
+ @throws NSInvalidArgumentException if either value or field is nil.
  */
 - (void)setValue:(NSString *)value forHeaderField:(NSString *)field;
 

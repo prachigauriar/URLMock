@@ -24,6 +24,7 @@
 //
 
 #import "UMKTestUtilities.h"
+#import <URLMock/UMKURLEncodingUtilities.h>
 
 #pragma mark Private Types and Function Declarations
 
@@ -251,6 +252,40 @@ id UMKRandomJSONObject(NSUInteger maxNestingDepth, NSUInteger maxElementCountPer
     NSCParameterAssert(maxElementCountPerCollection > 0);
     return UMKRecursiveRandomJSONObject(maxNestingDepth, maxElementCountPerCollection, YES);
 }
+
+
+#pragma mark - URLs
+
+NSURL *UMKRandomHTTPURL(void)
+{
+    NSMutableString *URLString = [NSMutableString stringWithFormat:@"%@://subdomain%@.domain%@.com", UMKRandomBoolean() ? @"http" : @"https",
+                                                                   UMKRandomUnsignedNumber(), UMKRandomUnsignedNumber()];
+
+    // Path components
+    NSUInteger pathComponents = random() % 10 + 1;
+    for (NSUInteger i = 0; i < pathComponents; ++i) {
+        [URLString appendFormat:@"/%@", UMKRandomAlphanumericStringWithLength((random() % 10 + 1))];
+    }
+    
+    // Parameters
+    NSUInteger parameterCount = random() % 5;
+    if (parameterCount > 0) {
+        NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithCapacity:parameterCount];
+        for (NSUInteger i = 0; i < parameterCount; ++i) {
+            parameters[UMKRandomAlphanumericStringWithLength(random() % 10 + 1)] = UMKRandomAlphanumericStringWithLength(random() % 10 + 1);
+        }
+        
+        [URLString appendFormat:@"?%@", UMKURLEncodedStringForParameters(parameters)];
+    }
+ 
+    // Fragment
+    if (UMKRandomBoolean()) {
+        [URLString appendFormat:@"#%@", UMKRandomAlphanumericStringWithLength(random() % 10 + 1)];
+    }
+    
+    return [NSURL URLWithString:URLString];
+}
+
 
 
 #pragma mark - Wait for Condition

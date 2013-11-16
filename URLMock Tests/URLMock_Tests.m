@@ -47,31 +47,9 @@
 }
 
 
-- (NSURL *)randomURL
-{
-    NSMutableString *URLString = [NSMutableString stringWithFormat:@"http://subdomain%@.domain%@.com", UMKRandomUnsignedNumber(), UMKRandomUnsignedNumber()];
-    NSUInteger pathComponents = random() % 10 + 1;
-    for (NSUInteger i = 0; i < pathComponents; ++i) {
-        [URLString appendFormat:@"/%@", UMKRandomAlphanumericStringWithLength((random() % 10 + 1))];
-    }
-
-    NSUInteger parameterCount = random() % 5;
-    if (parameterCount > 0) {
-        NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithCapacity:parameterCount];
-        for (NSUInteger i = 0; i < parameterCount; ++i) {
-            parameters[UMKRandomAlphanumericStringWithLength(random() % 10 + 1)] = UMKRandomAlphanumericStringWithLength(random() % 10 + 1);
-        }
-
-        [URLString appendFormat:@"?%@", UMKURLEncodedStringForParameters(parameters)];
-    }
-
-    return [NSURL URLWithString:URLString];
-}
-
-
 - (void)testMockGetRequestWithErrorResponse
 {
-    NSURL *requestURL = [self randomURL];
+    NSURL *requestURL = UMKRandomHTTPURL();
     UMKMockHTTPRequest *getRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURLString:[requestURL description]];
 
     NSError *error = [NSError errorWithDomain:@"UMKError" code:1234 userInfo:nil];
@@ -89,7 +67,7 @@
 
 - (void)testMockGetRequestWithDataResponseInOneChunk
 {
-    NSURL *requestURL = [self randomURL];
+    NSURL *requestURL = UMKRandomHTTPURL();
     NSString *bodyString = UMKRandomAlphanumericString();
 
     UMKMockHTTPRequest *getRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURLString:[requestURL description]];
@@ -115,7 +93,7 @@
 
 - (void)testMockGetRequestWithDataResponseInMultipleChunks
 {
-    NSURL *requestURL = [self randomURL];
+    NSURL *requestURL = UMKRandomHTTPURL();
 
     UMKMockHTTPRequest *getRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURLString:[requestURL description]];
     NSString *bodyString = UMKRandomAlphanumericStringWithLength(2048);
@@ -141,7 +119,7 @@
 
 - (void)testMockPostRequestWithNoResponse
 {
-    NSURL *requestURL = [self randomURL];
+    NSURL *requestURL = UMKRandomHTTPURL();
     id bodyJSON = @[@1, @2, @3];
 
     UMKMockHTTPRequest *postRequest = [UMKMockHTTPRequest mockHTTPPostRequestWithURLString:[requestURL description]];

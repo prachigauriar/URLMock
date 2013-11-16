@@ -189,8 +189,7 @@ static const NSUInteger UMKIterationCount = 512;
 
 - (void)testRandomDictionaryOfStringsWithElementCount
 {
-    XCTAssertThrowsSpecificNamed(UMKRandomDictionaryOfStringsWithElementCount(0), NSException,
-                                 NSInternalInconsistencyException, @"Does not throw an exception when element count is 0");
+    XCTAssertThrows(UMKRandomDictionaryOfStringsWithElementCount(0), @"Does not throw an exception when element count is 0");
     
     NSUInteger elementCount = random() % 100 + 1;
     NSDictionary *dictionary = UMKRandomDictionaryOfStringsWithElementCount(elementCount);
@@ -206,10 +205,8 @@ static const NSUInteger UMKIterationCount = 512;
 - (void)testRandomJSONObject
 {
     // Parameter assertions
-    XCTAssertThrowsSpecificNamed(UMKRandomJSONObject(0, 1), NSException, NSInternalInconsistencyException,
-                                 @"Does not throw an exception when maxNestingDepth is 0");
-    XCTAssertThrowsSpecificNamed(UMKRandomJSONObject(1, 0), NSException, NSInternalInconsistencyException,
-                                 @"Does not throw an exception when maxElementCountPerCollection is 0");
+    XCTAssertThrows(UMKRandomJSONObject(0, 1), @"Does not throw an exception when maxNestingDepth is 0");
+    XCTAssertThrows(UMKRandomJSONObject(1, 0), @"Does not throw an exception when maxElementCountPerCollection is 0");
 
     NSUInteger maxNestingDepth = random() % 10 + 1;
     NSUInteger maxElementCountPerCollection = random() % 10 + 1;

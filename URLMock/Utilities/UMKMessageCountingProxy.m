@@ -9,7 +9,7 @@
 #import "UMKMessageCountingProxy.h"
 
 @interface UMKMessageCountingProxy ()
-@property (readwrite, strong, nonatomic) NSMutableDictionary *receivedMessageCounts;
+@property (strong, nonatomic) NSMutableDictionary *receivedMessageCounts;
 @end
 
 

@@ -41,6 +41,7 @@
 		4C45E8DF182FF271002F2096 /* UMKMockURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E859182EBE12002F2096 /* UMKMockURLProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C45E8E0182FF271002F2096 /* UMKURLEncodingUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E84E182EB29D002F2096 /* UMKURLEncodingUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C45E8E1182FF28A002F2096 /* UMKErrorUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E847182EAFEB002F2096 /* UMKErrorUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C6841A11838173A00BACE61 /* UMKMockHTTPRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6841A01838173A00BACE61 /* UMKMockHTTPRequestTests.m */; };
 		4CC86F1518354AD500B878D6 /* UMKTestUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C34F629183346FB00AD2A6D /* UMKTestUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CC86F1618354AD600B878D6 /* UMKTestUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C34F629183346FB00AD2A6D /* UMKTestUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CC86F1718354D5200B878D6 /* UMKMessageCountingProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C1C14A2183298F200DE8195 /* UMKMessageCountingProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -110,8 +111,9 @@
 		4C45E887182FF1AA002F2096 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		4C45E8AF182FF1E1002F2096 /* URLMock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLMock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C45E8E2182FF397002F2096 /* URLMock-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "URLMock-Info.plist"; sourceTree = "<group>"; };
+		4C6841A01838173A00BACE61 /* UMKMockHTTPRequestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UMKMockHTTPRequestTests.m; path = "Mock Messages/UMKMockHTTPRequestTests.m"; sourceTree = "<group>"; };
 		4CC86F1C1836785100B878D6 /* UMKMockHTTPMessageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UMKMockHTTPMessageTests.m; path = "Mock Messages/UMKMockHTTPMessageTests.m"; sourceTree = "<group>"; };
-		4CC86F1F18367A7A00B878D6 /* UMKTestUtilitiesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UMKTestUtilitiesTests.m; path = Utilities/UMKTestUtilitiesTests.m; sourceTree = "<group>"; };
+		4CC86F1F18367A7A00B878D6 /* UMKTestUtilitiesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKTestUtilitiesTests.m; sourceTree = "<group>"; };
 		4CC86F211836813500B878D6 /* URLMockUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLMockUtilities.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,9 +148,9 @@
 		4C1C148F183289C700DE8195 /* URLMock Tests */ = {
 			isa = PBXGroup;
 			children = (
+				4C1C1495183289C700DE8195 /* URLMock_Tests.m */,
 				4CC86F1B1836783A00B878D6 /* Mock Messages */,
 				4CC86F1E18367A5200B878D6 /* Utilities */,
-				4C1C1495183289C700DE8195 /* URLMock_Tests.m */,
 				4C1C1490183289C700DE8195 /* Supporting Files */,
 			);
 			path = "URLMock Tests";
@@ -270,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				4CC86F1C1836785100B878D6 /* UMKMockHTTPMessageTests.m */,
+				4C6841A01838173A00BACE61 /* UMKMockHTTPRequestTests.m */,
 			);
 			name = "Mock Messages";
 			sourceTree = "<group>";
@@ -279,7 +282,7 @@
 			children = (
 				4CC86F1F18367A7A00B878D6 /* UMKTestUtilitiesTests.m */,
 			);
-			name = Utilities;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -430,6 +433,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C6841A11838173A00BACE61 /* UMKMockHTTPRequestTests.m in Sources */,
 				4C1C1496183289C700DE8195 /* URLMock_Tests.m in Sources */,
 				4C1C14A11832953300DE8195 /* UMKURLConnectionDelegateValidator.m in Sources */,
 				4CC86F2018367A7A00B878D6 /* UMKTestUtilitiesTests.m in Sources */,
