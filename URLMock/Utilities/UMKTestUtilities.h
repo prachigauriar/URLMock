@@ -48,6 +48,23 @@ extern NSString *UMKRandomAlphanumericString(void);
  */
 extern NSString *UMKRandomAlphanumericStringWithLength(NSUInteger length);
 
+/*!
+ @abstract Returns a random string of Unicode characters.
+ @discussion The length of the returned string is (randomly) between 1 and 128. It may contain characters
+     from the Basic Latin, Latin-1 Supplement, Greek and Coptic, Cyrillic, Hebrew, Arabic, Devanagari,
+     Hiragana, and Katakana character sets.
+ @result A random string of Unicode characters.
+ */
+extern NSString *UMKRandomUnicodeString(void);
+
+/*!
+ @abstract Returns a random string of Unicode characters of the specified length.
+ @discussion The returned string may contain characters from the Basic Latin, Latin-1 Supplement, Greek and
+     Coptic, Cyrillic, Hebrew, Arabic, Devanagari, Hiragana, and Katakana character sets.
+ @param length The length of the random string. Must be non-zero.
+ @result A random string of Unicode characters of the specified length.
+ */
+extern NSString *UMKRandomUnicodeStringWithLength(NSUInteger length);
 
 /*!
  @abstract Returns a random boolean value.
@@ -95,7 +112,6 @@ extern id UMKRandomJSONObject(NSUInteger maxNestingDepth, NSUInteger maxElementC
  @result YES if the condition block returned YES before the timeout; NO otherwise.
  */
 extern BOOL UMKWaitForCondition(NSTimeInterval timeoutInterval, BOOL (^condition)(void));
-
 
 /*!
  @abstract XCTAsserts that the given expression evaluates to YES before the given timeout interval elapses.

@@ -73,9 +73,12 @@
         XCTAssertEqualObjects([self.message valueForHeaderField:field.capitalizedString], value, @"Incorrect header value for capitalized field");
     }];
 
-
-    XCTAssertThrows([self.message setValue:nil forHeaderField:UMKRandomAlphanumericString()], @"Does not throw when given nil value");
-    XCTAssertThrows([self.message setValue:UMKRandomAlphanumericString() forHeaderField:nil], @"Does not throw when given nil field");
+    
+    // Setting nil keys or values
+    XCTAssertThrowsSpecificNamed([self.message setValue:nil forHeaderField:UMKRandomAlphanumericString()], NSException,
+                                 NSInvalidArgumentException, @"Does not throw when given nil value");
+    XCTAssertThrowsSpecificNamed([self.message setValue:UMKRandomAlphanumericString() forHeaderField:nil], NSException,
+                                 NSInvalidArgumentException, @"Does not throw when given nil field");
 
     // Case-insensitivity for setting field values
     [headers enumerateKeysAndObjectsUsingBlock:^(NSString *field, NSString *value, BOOL *stop) {
@@ -199,7 +202,18 @@
 }
 
 
-//- (void)testStringBodyAccessors;
+- (void)testStringBodyAccessors
+{
+    NSDictionary *beforeHeaders = self.message.headers;
+    NSString *bodyString = UMKRandomUnicodeString();
+    [self.message setBodyWithString:bodyString];
+    XCTAssertEqualObjects(self.message.body, [bodyString dataUsingEncoding:NSUTF8StringEncoding], @"Body string was not set correctly");
+    XCTAssertEqualObjects(self.message.headers, beforeHeaders, @"Headers changed after setting body string");
+
+    [self.message setBodyWithString:bodyString encoding:NSUTF16BigEndianStringEncoding];
+    XCTAssertEqualObjects(self.message.body, [bodyString dataUsingEncoding:NSUTF16BigEndianStringEncoding], @"Body string was not set correctly");
+    XCTAssertEqualObjects(self.message.headers, beforeHeaders, @"Headers changed after setting body string");
+}
 
 
 @end
