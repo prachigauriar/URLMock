@@ -26,7 +26,7 @@
  @param object The object for which the proxy will count messages. May not be nil.
  @result An initialized proxy object that counts the messages for the specified object.
  */
-- (id)initWithObject:(NSObject *)object;
+- (instancetype)initWithObject:(NSObject *)object;
 
 /*! 
  @abstract Creates and returns a proxy that counts messages for the specified object.

@@ -21,7 +21,7 @@
 }
 
 
-- (id)initWithObject:(NSObject *)object
+- (instancetype)initWithObject:(NSObject *)object
 {
     NSParameterAssert(object);
 
