@@ -21,6 +21,7 @@
 
 - (void)testBodyAccessors;
 - (void)testJSONObjectBodyAccessors;
+- (void)testParameterBodyAccessors;
 - (void)testStringBodyAccessors;
 
 @end
@@ -189,9 +190,10 @@
     id JSONObject = UMKRandomJSONObject(random() % 10 + 1, random() % 10 + 1);
     [self.message setBodyWithJSONObject:JSONObject];
 
+    id manuallyDecodedBody = [NSJSONSerialization JSONObjectWithData:self.message.body options:0 error:NULL];
     XCTAssertEqualObjects([self.message JSONObjectFromBody], JSONObject, @"Did not set JSON body correctly");
-    XCTAssertEqualObjects([self.message valueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField], contentType,
-                          @"Content-Type header value was overwritten");
+    XCTAssertEqualObjects([self.message JSONObjectFromBody], manuallyDecodedBody, @"Did not set JSON body correctly");
+    XCTAssertEqualObjects([self.message valueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField], contentType, @"Content-Type header value was overwritten");
     
     [self.message removeValueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
     [self.message setBodyWithJSONObject:JSONObject];
@@ -199,6 +201,30 @@
     XCTAssertEqualObjects([self.message valueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField], kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue,
                           @"Content-Type header value was not set correctly");
     
+}
+
+
+- (void)testParameterBodyAccessors
+{
+    XCTAssertNil([self.message parametersFromURLEncodedBody], @"Does not return nil parameters when body is nil");
+    XCTAssertThrows([self.message setBodyByURLEncodingParameters:nil], @"Set does not throw exception with nil parameters");
+
+    NSString *contentType = UMKRandomAlphanumericStringWithLength(8);
+    [self.message setValue:contentType forHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
+
+    NSDictionary *parameters = UMKRandomDictionaryOfStringsWithElementCount(10);
+    [self.message setBodyByURLEncodingParameters:parameters];
+
+    NSDictionary *manuallyDecodedBody = UMKDictionaryForURLEncodedParametersString([[NSString alloc] initWithData:self.message.body encoding:NSUTF8StringEncoding]);
+    XCTAssertEqualObjects([self.message parametersFromURLEncodedBody], parameters, @"Did not set body correctly");
+    XCTAssertEqualObjects([self.message parametersFromURLEncodedBody], manuallyDecodedBody, @"Did not set body correctly");
+    XCTAssertEqualObjects([self.message valueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField], contentType, @"Content-Type header value was overwritten");
+
+    [self.message removeValueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
+    [self.message setBodyByURLEncodingParameters:parameters];
+    XCTAssertEqualObjects([self.message parametersFromURLEncodedBody], parameters, @"Did not set body correctly");
+    XCTAssertEqualObjects([self.message valueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField], kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue,
+                          @"Content-Type header value was not set correctly");
 }
 
 

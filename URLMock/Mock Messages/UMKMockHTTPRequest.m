@@ -120,25 +120,6 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 }
 
 
-#pragma mark - URL-Encoded Parameters
-
-- (NSDictionary *)parametersFromURLEncodedBody
-{
-    return self.body ? UMKDictionaryForURLEncodedParametersString([self stringFromBody]) : nil;
-}
-
-
-- (void)setBodyByURLEncodingParameters:(NSDictionary *)parameters
-{
-    NSParameterAssert(parameters);
-    
-    [self setBodyWithString:UMKURLEncodedStringForParameters(parameters)];
-    if (![self valueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField]) {
-        [self setValue:kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue forHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
-    }
-}
-
-
 #pragma mark - UMKMockURLRequest Protocol
 
 - (BOOL)matchesURLRequest:(NSURLRequest *)request

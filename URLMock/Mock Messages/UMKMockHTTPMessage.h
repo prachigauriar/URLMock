@@ -123,6 +123,23 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
 
 
 /*!
+ @abstract Returns a dictionary representation of the receiver's body intepreted as URL-encoded WWW form parameters.
+ @result A dictionary of the receiver's body as form parameters. Keys are strings. Values are either strings or the
+     NSNull instance.
+ */
+- (NSDictionary *)parametersFromURLEncodedBody;
+
+/*!
+ @abstract Sets the receiver's body as a WWW Form URL-encoded representation of the specified dictionary.
+ @discussion If the receiver does not already have a value for the Content-type header field, sets the value of that
+     header to "application/x-www-form-urlencoded; charset=utf-8".
+ @param parameters The dictionary of parameters to set as the receiver's body. May not be nil. Keys must be strings.
+     Values may be any object type; the value used in the receiver's body will be the result of invoking -description
+     on the value.
+ */
+- (void)setBodyByURLEncodingParameters:(NSDictionary *)parameters;
+
+/*!
  @abstract Returns the receiver's body as a UTF-8-encoded string.
  @result The receiver's body as a UTF-8 encoded string.
  */

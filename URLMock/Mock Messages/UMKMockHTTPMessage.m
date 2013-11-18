@@ -25,6 +25,7 @@
 //
 
 #import <URLMock/UMKMockHTTPMessage.h>
+#import <URLMock/UMKURLEncodingUtilities.h>
 #import <URLMock/UMKErrorUtilities.h>
 
 #pragma mark Constants
@@ -151,6 +152,23 @@ static BOOL UMKCaseInsensitiveStringIsEqualFunction(const void *item1, const voi
     self.body = JSONData;
     if (![self valueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField]) {
         [self setValue:kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue forHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
+    }
+}
+
+
+- (NSDictionary *)parametersFromURLEncodedBody
+{
+    return self.body ? UMKDictionaryForURLEncodedParametersString([self stringFromBody]) : nil;
+}
+
+
+- (void)setBodyByURLEncodingParameters:(NSDictionary *)parameters
+{
+    NSParameterAssert(parameters);
+    
+    [self setBodyWithString:UMKURLEncodedStringForParameters(parameters)];
+    if (![self valueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField]) {
+        [self setValue:kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue forHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
     }
 }
 
