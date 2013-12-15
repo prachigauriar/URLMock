@@ -7,10 +7,12 @@
 //
 
 #import <XCTest/XCTest.h>
+
+#import "UMKRandomizedTestCase.h"
 #import <URLMock/URLMock.h>
 #import <URLMock/URLMockUtilities.h>
 
-@interface UMKMockHTTPMessageTests : XCTestCase
+@interface UMKMockHTTPMessageTests : UMKRandomizedTestCase
 
 @property (strong, nonatomic) UMKMockHTTPMessage *message;
 
@@ -29,18 +31,9 @@
 
 @implementation UMKMockHTTPMessageTests
 
-+ (void)setUp
-{
-    srandomdev();
-}
-
-
 - (void)setUp
 {
-    unsigned seed = (unsigned)random();
-    NSLog(@"Using seed %d", seed);
-    srandom(seed);
-
+    [super setUp];
     self.message = [[UMKMockHTTPMessage alloc] init];
 }
 

@@ -7,11 +7,13 @@
 //
 
 #import <XCTest/XCTest.h>
+
+#import "UMKRandomizedTestCase.h"
 #import <URLMock/UMKTestUtilities.h>
 
 static const NSUInteger UMKIterationCount = 512;
 
-@interface UMKTestUtilitiesTest : XCTestCase
+@interface UMKTestUtilitiesTest : UMKRandomizedTestCase
 
 - (void)testRandomAlphanumericString;
 - (void)testRandomAlphanumericStringWithLength;
@@ -29,36 +31,22 @@ static const NSUInteger UMKIterationCount = 512;
 
 @implementation UMKTestUtilitiesTest
 
-+ (void)setUp
++ (NSCharacterSet *)invertedAlphanumericCharacterSet
 {
-    srandomdev();
-}
-
-
-- (void)setUp
-{
-    unsigned seed = (unsigned)random();
-    NSLog(@"Using seed %d", seed);
-    srandom(seed);
-}
-
-
-+ (NSCharacterSet *)nonAlphanumericCharacterSet
-{
-    static NSCharacterSet *nonAlphanumericCharacterSet = nil;
+    static NSCharacterSet *invertedAlphanumericCharacterSet = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSCharacterSet *alphanumerics = [NSCharacterSet characterSetWithCharactersInString:@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"];
-        nonAlphanumericCharacterSet = [alphanumerics invertedSet];
+        invertedAlphanumericCharacterSet = [alphanumerics invertedSet];
     });
     
-    return nonAlphanumericCharacterSet;
+    return invertedAlphanumericCharacterSet;
 }
 
 
-+ (NSCharacterSet *)nonRandomUnicodeCharacterSet
++ (NSCharacterSet *)invertedRandomUnicodeCharacterSet
 {
-    static NSCharacterSet *nonRandomUnicodeCharacterSet = nil;
+    static NSCharacterSet *invertedRandomUnicodeCharacterSet = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSMutableCharacterSet *randomUnicodeCharacters = [[NSMutableCharacterSet alloc] init];
@@ -71,16 +59,16 @@ static const NSUInteger UMKIterationCount = 512;
         [randomUnicodeCharacters addCharactersInRange:NSMakeRange(0x0900, 0x097F - 0x0900)];  // Devanagari
         [randomUnicodeCharacters addCharactersInRange:NSMakeRange(0x3040, 0x30FF - 0x03040)];  // Hiragana and Katakana
         
-        nonRandomUnicodeCharacterSet = [randomUnicodeCharacters invertedSet];
+        invertedRandomUnicodeCharacterSet = [randomUnicodeCharacters invertedSet];
     });
     
-    return nonRandomUnicodeCharacterSet;
+    return invertedRandomUnicodeCharacterSet;
 }
 
 
 - (void)testRandomAlphanumericString
 {
-    NSCharacterSet *nonAlphanumerics = [[self class] nonAlphanumericCharacterSet];
+    NSCharacterSet *invertedAlphanumerics = [[self class] invertedAlphanumericCharacterSet];
     
     for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
         NSString *randomString = UMKRandomAlphanumericString();
@@ -88,7 +76,7 @@ static const NSUInteger UMKIterationCount = 512;
         XCTAssertTrue([randomString length] >= 1, @"Randomly generated string did not contain at least one character");
         XCTAssertTrue([randomString length] <= 128, @"Randomly generated string contained more than 128 characters");
 
-        NSRange foundRange = [randomString rangeOfCharacterFromSet:nonAlphanumerics];
+        NSRange foundRange = [randomString rangeOfCharacterFromSet:invertedAlphanumerics];
         XCTAssertEqual(foundRange.location, NSNotFound, @"Randomly generated string contained non-alphanumeric characters");
     }
 }
@@ -96,7 +84,7 @@ static const NSUInteger UMKIterationCount = 512;
 
 - (void)testRandomAlphanumericStringWithLength
 {
-    NSCharacterSet *nonAlphanumerics = [[self class] nonAlphanumericCharacterSet];
+    NSCharacterSet *invertedAlphanumerics = [[self class] invertedAlphanumericCharacterSet];
 
     for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
         NSUInteger length = random() % 1024 + 1;
@@ -105,7 +93,7 @@ static const NSUInteger UMKIterationCount = 512;
         XCTAssertNotNil(randomString, @"Randomly generated string was nil");
         XCTAssertTrue([randomString length] == length, @"Randomly generated string had incorrect length");
 
-        NSRange foundRange = [randomString rangeOfCharacterFromSet:nonAlphanumerics];
+        NSRange foundRange = [randomString rangeOfCharacterFromSet:invertedAlphanumerics];
         XCTAssertEqual(foundRange.location, NSNotFound, @"Randomly generated string contained non-alphanumeric characters");
     }
 }
@@ -113,7 +101,7 @@ static const NSUInteger UMKIterationCount = 512;
 
 - (void)testRandomUnicodeString
 {
-    NSCharacterSet *nonRandomUnicodeCharacters = [[self class] nonRandomUnicodeCharacterSet];
+    NSCharacterSet *invertedRandomUnicodeCharacters = [[self class] invertedRandomUnicodeCharacterSet];
     
     for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
         NSString *randomString = UMKRandomUnicodeString();
@@ -121,7 +109,7 @@ static const NSUInteger UMKIterationCount = 512;
         XCTAssertTrue([randomString length] >= 1, @"Randomly generated string did not contain at least one character");
         XCTAssertTrue([randomString length] <= 128, @"Randomly generated string contained more than 128 characters");
         
-        NSRange foundRange = [randomString rangeOfCharacterFromSet:nonRandomUnicodeCharacters];
+        NSRange foundRange = [randomString rangeOfCharacterFromSet:invertedRandomUnicodeCharacters];
         XCTAssertEqual(foundRange.location, NSNotFound, @"Randomly generated string contained Unicode characters outside the specified range");
     }
 }
@@ -129,7 +117,7 @@ static const NSUInteger UMKIterationCount = 512;
 
 - (void)testRandomUnicodeStringWithLength
 {
-    NSCharacterSet *nonRandomUnicodeCharacters = [[self class] nonRandomUnicodeCharacterSet];
+    NSCharacterSet *invertedRandomUnicodeCharacters = [[self class] invertedRandomUnicodeCharacterSet];
     
     for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
         NSUInteger length = random() % 1024 + 1;
@@ -138,7 +126,7 @@ static const NSUInteger UMKIterationCount = 512;
         XCTAssertNotNil(randomString, @"Randomly generated string was nil");
         XCTAssertTrue([randomString length] == length, @"Randomly generated string had incorrect length");
         
-        NSRange foundRange = [randomString rangeOfCharacterFromSet:nonRandomUnicodeCharacters];
+        NSRange foundRange = [randomString rangeOfCharacterFromSet:invertedRandomUnicodeCharacters];
         XCTAssertEqual(foundRange.location, NSNotFound, @"Randomly generated string contained Unicode characters outside the specified range");
     }
 }

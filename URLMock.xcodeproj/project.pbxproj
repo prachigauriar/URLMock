@@ -52,6 +52,7 @@
 		4CC86F2018367A7A00B878D6 /* UMKTestUtilitiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC86F1F18367A7A00B878D6 /* UMKTestUtilitiesTests.m */; };
 		4CC86F221836813500B878D6 /* URLMockUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CC86F211836813500B878D6 /* URLMockUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CC86F231836813500B878D6 /* URLMockUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CC86F211836813500B878D6 /* URLMockUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4CD82AD5185CF94300825779 /* UMKRandomizedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD82AD4185CF94300825779 /* UMKRandomizedTestCase.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +116,8 @@
 		4CC86F1C1836785100B878D6 /* UMKMockHTTPMessageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UMKMockHTTPMessageTests.m; path = "Mock Messages/UMKMockHTTPMessageTests.m"; sourceTree = "<group>"; };
 		4CC86F1F18367A7A00B878D6 /* UMKTestUtilitiesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKTestUtilitiesTests.m; sourceTree = "<group>"; };
 		4CC86F211836813500B878D6 /* URLMockUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLMockUtilities.h; sourceTree = "<group>"; };
+		4CD82AD3185CF94300825779 /* UMKRandomizedTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKRandomizedTestCase.h; sourceTree = "<group>"; };
+		4CD82AD4185CF94300825779 /* UMKRandomizedTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKRandomizedTestCase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				4C1C1495183289C700DE8195 /* URLMock_Tests.m */,
+				4CD82AD6185D293600825779 /* Test Case Class */,
 				4CC86F1B1836783A00B878D6 /* Mock Messages */,
 				4CC86F1E18367A5200B878D6 /* Utilities */,
 				4C1C1490183289C700DE8195 /* Supporting Files */,
@@ -202,8 +206,8 @@
 			children = (
 				4C45E84B182EB00A002F2096 /* URLMock.h */,
 				4CC86F211836813500B878D6 /* URLMockUtilities.h */,
-				4C45E839182EAFBD002F2096 /* Mock Messages */,
 				4C45E858182EBDC8002F2096 /* Mock URL Protocol */,
+				4C45E839182EAFBD002F2096 /* Mock Messages */,
 				4C45E844182EAFDA002F2096 /* Utilities */,
 				4C45E817182EAF44002F2096 /* Supporting Files */,
 			);
@@ -283,6 +287,15 @@
 				4CC86F1F18367A7A00B878D6 /* UMKTestUtilitiesTests.m */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		4CD82AD6185D293600825779 /* Test Case Class */ = {
+			isa = PBXGroup;
+			children = (
+				4CD82AD3185CF94300825779 /* UMKRandomizedTestCase.h */,
+				4CD82AD4185CF94300825779 /* UMKRandomizedTestCase.m */,
+			);
+			name = "Test Case Class";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -433,6 +446,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CD82AD5185CF94300825779 /* UMKRandomizedTestCase.m in Sources */,
 				4C6841A11838173A00BACE61 /* UMKMockHTTPRequestTests.m in Sources */,
 				4C1C1496183289C700DE8195 /* URLMock_Tests.m in Sources */,
 				4C1C14A11832953300DE8195 /* UMKURLConnectionDelegateValidator.m in Sources */,

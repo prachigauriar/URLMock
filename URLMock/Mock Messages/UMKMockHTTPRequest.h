@@ -55,7 +55,7 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
  Instances of UMKMockHTTPRequest, or simply mock requests, represent mock HTTP requests. They are used to tell 
  UMKMockURLProtocol which requests to expect and how to respond to them.
  
- Each mock request has an associated HTTP method, URL, and response, plus methods to determine whether the instance
+ Each mock request has an associated HTTP method, URL, and responder, plus methods to determine whether the instance
  matches an NSURLRequest.
  */
 @interface UMKMockHTTPRequest : UMKMockHTTPMessage <UMKMockURLRequest>
@@ -66,7 +66,7 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
 /*! The instance's URL. */
 @property (readonly, strong, nonatomic) NSURL *URL;
 
-/*! The mock response associated with the instance. */
+/*! The mock responder associated with the instance. This is the object returned by -responderForURLRequest:. */
 @property (strong, nonatomic) id <UMKMockURLResponder> responder;
 
 /*!

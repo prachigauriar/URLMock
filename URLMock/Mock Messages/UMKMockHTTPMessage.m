@@ -119,7 +119,6 @@ static BOOL UMKCaseInsensitiveStringIsEqualFunction(const void *item1, const voi
 - (BOOL)headersAreEqualToHeadersOfRequest:(NSURLRequest *)request
 {
     NSDictionary *headerFields = [request allHTTPHeaderFields];
-
     if (!request || headerFields.count != self.headers.count) return NO;
 
     for (NSString *key in headerFields) {

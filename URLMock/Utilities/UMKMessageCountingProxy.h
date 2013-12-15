@@ -31,7 +31,7 @@
 /*! 
  @abstract Creates and returns a proxy that counts messages for the specified object.
  @param object The object for which the proxy will count messages. May not be nil.
- @result An new proxy object that counts the messages for the specified object.
+ @result A new proxy object that counts the messages for the specified object.
  */
 + (instancetype)messageCountingProxyWithObject:(NSObject *)object;
 
