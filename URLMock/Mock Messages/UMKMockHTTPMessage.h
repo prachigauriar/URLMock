@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/9/2013.
-//  Copyright (c) 2013 Prachi Gauriar. All rights reserved.
+//  Copyright (c) 2013 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -65,10 +65,10 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
 }
 
 /*! The instance's body. */
-@property (copy, nonatomic) NSData *body;
+@property (nonatomic, copy) NSData *body;
 
 /*! The instance's HTTP headers. */
-@property (copy, nonatomic) NSDictionary *headers;
+@property (nonatomic, copy) NSDictionary *headers;
 
 
 #pragma mark - Headers

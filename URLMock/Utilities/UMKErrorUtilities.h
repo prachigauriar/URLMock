@@ -29,7 +29,6 @@
  @abstract Defines utility functions and categories for use when creating assertions and exceptions.
  @discussion The utility functions allow for easily formatting selectors, method names, and assertion/exception reasons, 
      among other tasks.
- @author Prachi Gauriar
  */
 
 #import <Foundation/Foundation.h>

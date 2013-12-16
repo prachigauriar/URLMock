@@ -3,16 +3,34 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/12/2013.
-//  Copyright (c) 2013 Prachi Gauriar. All rights reserved.
+//  Copyright (c) 2013 Prachi Gauriar.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 //
 
 #import <Foundation/Foundation.h>
 
 @interface UMKURLConnectionDelegateValidator : NSObject <NSURLConnectionDataDelegate>
 
-@property (readonly, strong, nonatomic) id messageCountingProxy;
-@property (readonly, strong, nonatomic) NSURLResponse *response;
-@property (readonly, strong, nonatomic) NSError *error;
-@property (readonly, strong, nonatomic) NSData *body;
+@property (nonatomic, strong, readonly) id messageCountingProxy;
+@property (nonatomic, strong, readonly) NSURLResponse *response;
+@property (nonatomic, strong, readonly) NSError *error;
+@property (nonatomic, strong, readonly) NSData *body;
 
 @end

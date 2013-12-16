@@ -3,7 +3,25 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/15/2013.
-//  Copyright (c) 2013 Prachi Gauriar. All rights reserved.
+//  Copyright (c) 2013 Prachi Gauriar.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 //
 
 #import <XCTest/XCTest.h>
@@ -24,6 +42,8 @@ static const NSUInteger UMKIterationCount = 512;
 - (void)testRandomUnsignedNumberInRange;
 - (void)testRandomDictionaryOfStringsWithElementCount;
 - (void)testRandomJSONObject;
+- (void)testRandomHTTPURL;
+- (void)testRandomHTTPMethod;
 - (void)testWaitForCondition;
 
 @end
@@ -57,7 +77,7 @@ static const NSUInteger UMKIterationCount = 512;
         [randomUnicodeCharacters addCharactersInRange:NSMakeRange(0x0590, 0x05FF - 0x0590)];  // Hebrew
         [randomUnicodeCharacters addCharactersInRange:NSMakeRange(0x0600, 0x06FF - 0x0600)];  // Arabic
         [randomUnicodeCharacters addCharactersInRange:NSMakeRange(0x0900, 0x097F - 0x0900)];  // Devanagari
-        [randomUnicodeCharacters addCharactersInRange:NSMakeRange(0x3040, 0x30FF - 0x03040)];  // Hiragana and Katakana
+        [randomUnicodeCharacters addCharactersInRange:NSMakeRange(0x3040, 0x30FF - 0x3040)];  // Hiragana and Katakana
         
         invertedRandomUnicodeCharacterSet = [randomUnicodeCharacters invertedSet];
     });
@@ -177,8 +197,6 @@ static const NSUInteger UMKIterationCount = 512;
 
 - (void)testRandomDictionaryOfStringsWithElementCount
 {
-    XCTAssertThrows(UMKRandomDictionaryOfStringsWithElementCount(0), @"Does not throw an exception when element count is 0");
-    
     NSUInteger elementCount = random() % 100 + 1;
     NSDictionary *dictionary = UMKRandomDictionaryOfStringsWithElementCount(elementCount);
     
@@ -193,9 +211,6 @@ static const NSUInteger UMKIterationCount = 512;
 - (void)testRandomJSONObject
 {
     // Parameter assertions
-    XCTAssertThrows(UMKRandomJSONObject(0, 1), @"Does not throw an exception when maxNestingDepth is 0");
-    XCTAssertThrows(UMKRandomJSONObject(1, 0), @"Does not throw an exception when maxElementCountPerCollection is 0");
-
     NSUInteger maxNestingDepth = random() % 10 + 1;
     NSUInteger maxElementCountPerCollection = random() % 10 + 1;
 
@@ -234,6 +249,53 @@ static const NSUInteger UMKIterationCount = 512;
     }
     
     XCTAssertTrue(depthCount <= maxNestingDepth, @"Depth (%lu) exceeds max nesting depth (%lu)", depthCount, maxNestingDepth);
+}
+
+
+- (void)testRandomHTTPURL
+{
+    NSMutableSet *URLs = [[NSMutableSet alloc] initWithCapacity:UMKIterationCount];
+    NSMutableSet *hosts = [[NSMutableSet alloc] initWithCapacity:UMKIterationCount];
+    
+    NSUInteger fragmentCount = 0;
+    for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
+        NSURL *URL = UMKRandomHTTPURL();
+        XCTAssertNotNil(URL, @"URL is nil");
+        
+        XCTAssertTrue([URL.scheme isEqualToString:@"http"] || [URL.scheme isEqualToString:@"https"], @"Non-HTTP scheme");
+
+        // Test for 2 and 11 because / is always a component
+        XCTAssertTrue(URL.pathComponents.count >= 2 && URL.pathComponents.count <= 11, @"Incorrect number of path components");
+        
+        NSArray *parameters = [URL.query componentsSeparatedByString:@"&"];
+        XCTAssertTrue(parameters.count >= 0 && parameters.count <= 5, @"Incorrect number of query parameters");
+        
+        if (URL.fragment.length > 0) {
+            ++fragmentCount;
+        }
+        
+        if (URL) {
+            [URLs addObject:URL];
+            [hosts addObject:URL.host];
+        }
+    }
+    
+    XCTAssertEqual(URLs.count, UMKIterationCount, @"Duplicate URL occurred within the iteration count.");
+    XCTAssertEqual(hosts.count, UMKIterationCount, @"Duplicate hosts occurred within the iteration count.");
+    XCTAssertNotEqual(fragmentCount, 0, @"No fragments within the iteration count");
+    XCTAssertNotEqual(fragmentCount, UMKIterationCount, @"No non-fragments within the iteration count");
+}
+
+
+- (void)testRandomHTTPMethod
+{
+    NSSet *methods = [NSSet setWithObjects:@"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT", nil];
+    NSMutableSet *returnedValues = [NSMutableSet setWithCapacity:methods.count];
+    for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
+        [returnedValues addObject:UMKRandomHTTPMethod()];
+    }
+    
+    XCTAssertEqualObjects(returnedValues, methods, @"Returned values don't match HTTP methods");
 }
 
 

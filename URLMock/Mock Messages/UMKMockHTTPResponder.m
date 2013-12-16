@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/8/2013.
-//  Copyright (c) 2013 Prachi Gauriar. All rights reserved.
+//  Copyright (c) 2013 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -138,7 +138,8 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 }
 
 
-+ (instancetype)mockHTTPResponderWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body chunkCountHint:(NSUInteger)chunkCountHint delayBetweenChunks:(NSTimeInterval)delay
++ (instancetype)mockHTTPResponderWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body
+                                 chunkCountHint:(NSUInteger)chunkCountHint delayBetweenChunks:(NSTimeInterval)delay
 {
     NSParameterAssert(chunkCountHint != 0);
     NSParameterAssert(delay >= 0.0);

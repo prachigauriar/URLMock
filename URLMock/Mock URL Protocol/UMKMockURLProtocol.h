@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/9/2013.
-//  Copyright (c) 2013 Prachi Gauriar. All rights reserved.
+//  Copyright (c) 2013 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -129,6 +129,8 @@
 @end
 
 
+#pragma mark
+
 /*!
  The UMKMockURLRequest protocol declares messages that mock requests in the MockURL system must respond to.
  */
@@ -152,6 +154,8 @@
 
 @end
 
+
+#pragma mark
 
 /*!
  The UMKMockURLResponder protocol declares messages that responders in the MockURL system to mock requests must respond to.

@@ -3,7 +3,25 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/16/2013.
-//  Copyright (c) 2013 Prachi Gauriar. All rights reserved.
+//  Copyright (c) 2013 Prachi Gauriar.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 //
 
 #import <XCTest/XCTest.h>
@@ -29,14 +47,11 @@
     NSString *HTTPMethod = UMKRandomAlphanumericStringWithLength(10);
     NSURL *URL = UMKRandomHTTPURL();
     
-    XCTAssertThrows([[UMKMockHTTPRequest alloc] init], @"Does not raise an exception");
-    XCTAssertThrows([[UMKMockHTTPRequest alloc] initWithHTTPMethod:nil URL:URL], @"Does not raise an exception when HTTP method is nil");
-    XCTAssertThrows([[UMKMockHTTPRequest alloc] initWithHTTPMethod:HTTPMethod URL:nil], @"Does not raise an exception when HTTP method is nil");
-
     UMKMockHTTPRequest *mockRequest = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:HTTPMethod URL:URL];
     XCTAssertNotNil(mockRequest, "Returns nil");
     XCTAssertEqualObjects(mockRequest.HTTPMethod, HTTPMethod, @"HTTP Method not set correctly");
     XCTAssertEqualObjects(mockRequest.URL, URL, @"URL not set correctly");
+    XCTAssertTrue([mockRequest conformsToProtocol:@protocol(UMKMockURLRequest)], @"Does not conform to UMKMockURLRequest protocol");
 }
 
 
@@ -50,7 +65,6 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        XCTAssertThrows([[UMKMockHTTPRequest class] performSelector:selector withObject:nil], @"Does not raise exception when URL string is nil");
         UMKMockHTTPRequest *mockRequest = [[UMKMockHTTPRequest class] performSelector:selector withObject:URLString];
 #pragma clang diagnostic pop
         

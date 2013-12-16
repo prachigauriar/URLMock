@@ -1,5 +1,6 @@
 //
 //  UMKTestUtilities.h
+//  URLMock
 //
 //  Created by Prachi Gauriar on 5/29/2013.
 //  Copyright (c) 2013 Prachi Gauriar.
@@ -104,9 +105,15 @@ extern NSDictionary *UMKRandomDictionaryOfStringsWithElementCount(NSUInteger cou
 extern id UMKRandomJSONObject(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection);
 
 /*!
+ @abstract Randomly returns one of @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", and @"PUT".
+ @result A random HTTP method.
+ */
+extern NSString *UMKRandomHTTPMethod(void);
+
+/*!
  @abstract Returns a new random HTTP URL.
- @discussion The returned URL will either use the HTTP or HTTPS scheme, have between 1 and 10 path components, at most
-     5 query parameters, and potentially a fragment.
+ @discussion The returned URL will either use the HTTP or HTTPS scheme, have between 1 and 10 path components (excluding
+     /), at most 5 query parameters, and potentially a fragment.
  @result A new random HTTP URL.
  */
 extern NSURL *UMKRandomHTTPURL(void);

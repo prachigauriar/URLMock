@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/8/2013.
-//  Copyright (c) 2013 Prachi Gauriar. All rights reserved.
+//  Copyright (c) 2013 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -61,13 +61,13 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
 @interface UMKMockHTTPRequest : UMKMockHTTPMessage <UMKMockURLRequest>
 
 /*! The instance's HTTP method. */
-@property (readonly, copy, nonatomic) NSString *HTTPMethod;
+@property (nonatomic, copy, readonly) NSString *HTTPMethod;
 
 /*! The instance's URL. */
-@property (readonly, strong, nonatomic) NSURL *URL;
+@property (nonatomic, strong, readonly) NSURL *URL;
 
 /*! The mock responder associated with the instance. This is the object returned by -responderForURLRequest:. */
-@property (strong, nonatomic) id <UMKMockURLResponder> responder;
+@property (nonatomic, strong) id <UMKMockURLResponder> responder;
 
 /*!
  @abstract Initializes a newly allocated instance with the specified HTTP method and URL.

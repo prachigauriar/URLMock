@@ -1,5 +1,6 @@
 //
 //  UMKTestUtilities.m
+//  URLMock
 //
 //  Created by Prachi Gauriar on 5/29/2013.
 //  Copyright (c) 2013 Prachi Gauriar.
@@ -254,6 +255,15 @@ id UMKRandomJSONObject(NSUInteger maxNestingDepth, NSUInteger maxElementCountPer
 }
 
 
+#pragma mark - HTTP Methods
+
+NSString *UMKRandomHTTPMethod(void)
+{
+    static NSString *methods[] = { @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" };
+    return methods[random() % 6];
+}
+
+
 #pragma mark - URLs
 
 NSURL *UMKRandomHTTPURL(void)
@@ -268,7 +278,7 @@ NSURL *UMKRandomHTTPURL(void)
     }
     
     // Parameters
-    NSUInteger parameterCount = random() % 5;
+    NSUInteger parameterCount = random() % 6;
     if (parameterCount > 0) {
         NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithCapacity:parameterCount];
         for (NSUInteger i = 0; i < parameterCount; ++i) {
