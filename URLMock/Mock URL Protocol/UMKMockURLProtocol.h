@@ -90,9 +90,9 @@
 
 /*!
  @abstract Sets whether the mock protocol automatically removes serviced mock requests from the set of
- expected mock requests.
+     expected mock requests.
  @discussion This is NO by default. If YES, the protocol will only service a given mock request once.
- Servicing the same request again will require that it be added again using +expectMockRequest:.
+     Servicing the same request again will require that it be added again using +expectMockRequest:.
  @param removesServicedRequest Whether the protocol should remove serviced mock requests.
  */
 + (void)setAutomaticallyRemovesServicedMockRequests:(BOOL)removesServicedRequests;
@@ -146,7 +146,7 @@
 /*!
  @abstract Returns a suitable mock URL responder for the specified URL request.
  @discussion This will only be invoked on the receiver with requests for which the receiver returns
- true for -matchesURLRequest:.
+     true for -matchesURLRequest:.
  @param request The URL request. May not be nil.
  @result A mock URL responder for the specified request.
  */
@@ -158,14 +158,14 @@
 #pragma mark
 
 /*!
- The UMKMockURLResponder protocol declares messages that responders in the MockURL system to mock requests must respond to.
+ The UMKMockURLResponder protocol declares messages that responders to mock requests in the MockURL system must respond to.
  */
 @protocol UMKMockURLResponder <NSObject>
 
 /*!
  @abstract Responds to the specified mock request on behalf of the specified protocol object.
  @discussion The receiver should respond to this message by sending the client methods in the NSURLProtocolClient protocol.
- It should stop responding after it receives the -cancelResponse message.
+     It should stop responding after it receives the -cancelResponse message.
  @param request The mock request. May not be nil.
  @param client The protocol client. May not be nil.
  @param protocol The URL protocol. May not be nil.

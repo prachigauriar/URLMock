@@ -39,6 +39,11 @@
 @property (nonatomic, strong) id URLProtocol;
 
 - (void)testMockHTTPResponderWithError;
+- (void)testMockHTTPResponderWithStatusCode;
+- (void)testMockHTTPResponderWithStatusCodeHeaders;
+- (void)testMockHTTPResponderWithStatusCodeBody;
+- (void)testMockHTTPResponderWithStatusCodeHeadersBody;
+- (void)testMockHTTPResponderWithStatusCodeHeadersBodyChunkCountHintDelayBetweenChunks;
 
 @end
 
@@ -53,6 +58,8 @@
     
     self.mockRequest = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:UMKRandomAlphanumericString() URL:URL];
     self.URLProtocolClient = [OCMockObject mockForProtocol:@protocol(NSURLProtocolClient)];
+    [self.URLProtocolClient setExpectationOrderMatters:YES];
+
     self.URLProtocol = [OCMockObject mockForClass:[NSURLProtocol class]];
     
     [[[self.URLProtocol stub] andReturn:[[NSURLRequest alloc] initWithURL:URL]] request];
@@ -67,7 +74,11 @@
                                      userInfo:UMKRandomDictionaryOfStringsWithElementCount(10)];
     
     UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithError:error];
+
     XCTAssertTrue([responder conformsToProtocol:@protocol(UMKMockURLResponder)], @"Does not conform to UMKMockURLResponder protocol");
+    XCTAssertNil(responder.body, @"Body is not nil");
+    XCTAssertEqual(responder.headers.count, (NSUInteger)0, @"Headers is not empty");
+
     self.mockRequest.responder = responder;
 
     [[self.URLProtocolClient expect] URLProtocol:self.URLProtocol didFailWithError:error];
@@ -79,16 +90,122 @@
 - (void)testMockHTTPResponderWithStatusCode
 {
     NSUInteger statusCode = random() % 500 + 100;
+
     UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:statusCode];
+
     XCTAssertTrue([responder conformsToProtocol:@protocol(UMKMockURLResponder)], @"Does not conform to UMKMockURLResponder protocol");
+    XCTAssertNil(responder.body, @"Body is not nil");
+    XCTAssertEqual(responder.headers.count, (NSUInteger)0, @"Headers is not empty");
+
     self.mockRequest.responder = responder;
     
-    // Can't predict value of response because NSHTTPURLResponse does not override isEqual:. We have to check this using
-    // integration tests.
+    // Can't check value of response because NSHTTPURLResponse does not override isEqual:. We have to check this using
+    // integration tests. This makes these tests sort of dumb, but some is better than none, right?
     [[self.URLProtocolClient expect] URLProtocol:self.URLProtocol didReceiveResponse:[OCMArg any] cacheStoragePolicy:NSURLCacheStorageNotAllowed];
     [[self.URLProtocolClient expect] URLProtocolDidFinishLoading:self.URLProtocol];
     [responder respondToMockRequest:self.mockRequest client:self.URLProtocolClient protocol:self.URLProtocol];
     XCTAssertNoThrow([self.URLProtocolClient verify], @"Mock protocol client did not receive the correct messages");
 }
+
+
+- (void)testMockHTTPResponderWithStatusCodeHeaders
+{
+    NSUInteger statusCode = random() % 500 + 100;
+    NSDictionary *headers = UMKRandomDictionaryOfStringsWithElementCount(10);
+
+    UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:statusCode headers:headers];
+
+    XCTAssertTrue([responder conformsToProtocol:@protocol(UMKMockURLResponder)], @"Does not conform to UMKMockURLResponder protocol");
+    XCTAssertNil(responder.body, @"Body is not nil");
+    XCTAssertEqualObjects(headers, responder.headers, @"Headers is not set correctly");
+
+    self.mockRequest.responder = responder;
+
+    // Can't check value of response because NSHTTPURLResponse does not override isEqual:. We have to check this using
+    // integration tests. This makes these tests sort of dumb, but some is better than none, right?
+    [[self.URLProtocolClient expect] URLProtocol:self.URLProtocol didReceiveResponse:[OCMArg any] cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+    [[self.URLProtocolClient expect] URLProtocolDidFinishLoading:self.URLProtocol];
+    [responder respondToMockRequest:self.mockRequest client:self.URLProtocolClient protocol:self.URLProtocol];
+    XCTAssertNoThrow([self.URLProtocolClient verify], @"Mock protocol client did not receive the correct messages");
+}
+
+
+- (void)testMockHTTPResponderWithStatusCodeBody
+{
+    NSUInteger statusCode = random() % 500 + 100;
+    NSData *body = [UMKRandomUnicodeStringWithLength(1024) dataUsingEncoding:NSUTF8StringEncoding];
+
+    UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:statusCode body:body];
+
+    XCTAssertTrue([responder conformsToProtocol:@protocol(UMKMockURLResponder)], @"Does not conform to UMKMockURLResponder protocol");
+    XCTAssertEqualObjects(responder.body, body, @"Body is not set correctly");
+    XCTAssertEqual(responder.headers.count, (NSUInteger)0, @"Headers is not empty");
+
+    self.mockRequest.responder = responder;
+
+    // Can't check value of response because NSHTTPURLResponse does not override isEqual:. We have to check this using
+    // integration tests. This makes these tests sort of dumb, but some is better than none, right?
+    [[self.URLProtocolClient expect] URLProtocol:self.URLProtocol didReceiveResponse:[OCMArg any] cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+    [[self.URLProtocolClient expect] URLProtocol:self.URLProtocol didLoadData:body];
+    [[self.URLProtocolClient expect] URLProtocolDidFinishLoading:self.URLProtocol];
+    [responder respondToMockRequest:self.mockRequest client:self.URLProtocolClient protocol:self.URLProtocol];
+    XCTAssertNoThrow([self.URLProtocolClient verify], @"Mock protocol client did not receive the correct messages");
+}
+
+
+- (void)testMockHTTPResponderWithStatusCodeHeadersBody
+{
+    NSUInteger statusCode = random() % 500 + 100;
+    NSDictionary *headers = UMKRandomDictionaryOfStringsWithElementCount(10);
+    NSData *body = [UMKRandomUnicodeStringWithLength(1024) dataUsingEncoding:NSUTF8StringEncoding];
+
+    UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:statusCode headers:headers body:body];
+
+    XCTAssertTrue([responder conformsToProtocol:@protocol(UMKMockURLResponder)], @"Does not conform to UMKMockURLResponder protocol");
+    XCTAssertEqualObjects(responder.body, body, @"Body is not set correctly");
+    XCTAssertEqualObjects(headers, responder.headers, @"Headers is not set correctly");
+
+    self.mockRequest.responder = responder;
+
+    // Can't check value of response because NSHTTPURLResponse does not override isEqual:. We have to check this using
+    // integration tests. This makes these tests sort of dumb, but some is better than none, right?
+    [[self.URLProtocolClient expect] URLProtocol:self.URLProtocol didReceiveResponse:[OCMArg any] cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+    [[self.URLProtocolClient expect] URLProtocol:self.URLProtocol didLoadData:body];
+    [[self.URLProtocolClient expect] URLProtocolDidFinishLoading:self.URLProtocol];
+    [responder respondToMockRequest:self.mockRequest client:self.URLProtocolClient protocol:self.URLProtocol];
+    XCTAssertNoThrow([self.URLProtocolClient verify], @"Mock protocol client did not receive the correct messages");
+}
+
+
+- (void)testMockHTTPResponderWithStatusCodeHeadersBodyChunkCountHintDelayBetweenChunks
+{
+    NSUInteger statusCode = random() % 500 + 100;
+    NSDictionary *headers = UMKRandomDictionaryOfStringsWithElementCount(10);
+    NSData *body = [UMKRandomUnicodeStringWithLength(1024) dataUsingEncoding:NSUTF8StringEncoding];
+
+    UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:statusCode headers:headers body:body];
+
+    XCTAssertTrue([responder conformsToProtocol:@protocol(UMKMockURLResponder)], @"Does not conform to UMKMockURLResponder protocol");
+    XCTAssertEqualObjects(responder.body, body, @"Body is not set correctly");
+    XCTAssertEqualObjects(headers, responder.headers, @"Headers is not set correctly");
+
+    self.mockRequest.responder = responder;
+
+    // Can't check value of response because NSHTTPURLResponse does not override isEqual:. We have to check this using
+    // integration tests. This makes these tests sort of dumb, but some is better than none, right?
+    self.URLProtocolClient = [OCMockObject niceMockForProtocol:@protocol(NSURLProtocolClient)];
+    [self.URLProtocolClient setExpectationOrderMatters:YES];
+
+    [[self.URLProtocolClient expect] URLProtocol:self.URLProtocol didReceiveResponse:[OCMArg any] cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+
+    // This may be called multiple times, so we need to protect against that
+    [[self.URLProtocolClient expect] URLProtocol:self.URLProtocol didLoadData:body];
+
+    [[self.URLProtocolClient expect] URLProtocolDidFinishLoading:self.URLProtocol];
+    [responder respondToMockRequest:self.mockRequest client:self.URLProtocolClient protocol:self.URLProtocol];
+    XCTAssertNoThrow([self.URLProtocolClient verify], @"Mock protocol client did not receive the correct messages");
+}
+
+
 
 @end
