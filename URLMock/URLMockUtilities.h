@@ -29,4 +29,3 @@
 #import <URLMock/UMKErrorUtilities.h>
 #import <URLMock/UMKTestUtilities.h>
 #import <URLMock/UMKMessageCountingProxy.h>
-#import <URLMock/UMKURLConnectionDelegateValidator.h>

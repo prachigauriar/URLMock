@@ -26,6 +26,7 @@
 
 #import <XCTest/XCTest.h>
 
+#import "UMKURLConnectionDelegateValidator.h"
 #import <URLMock/URLMock.h>
 #import <URLMock/URLMockUtilities.h>
 
