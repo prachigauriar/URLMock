@@ -92,13 +92,14 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
  @param statusCode The HTTP status code to respond with.
  @param headers The HTTP headers to respond with.
  @param body The HTTP body to respond with.
- @param chunkCountHint A hint as to how many chunks the HTTP body should be broken into when responding. The actual number of chunks depends
+ @param hint A hint as to how many chunks the HTTP body should be broken into when responding. The actual number of chunks depends
      on the size of the body and the whims of the NSURL system. May not be 0.
- @param delayBetweenChunks The amount of time the responder should wait between sending chunks of data. This is only used if chunks is more 
+ @param delay The amount of time the responder should wait between sending chunks of data. This is only used if chunks is more
      than 1. Must be non-negative.
  @result A newly initialized UMKMockHTTPResponseResponder with the specified parameters.
  */
-- (instancetype)initWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body chunkCountHint:(NSUInteger)hint delayBetweenChunks:(NSTimeInterval)delay;
+- (instancetype)initWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body
+                    chunkCountHint:(NSUInteger)hint delayBetweenChunks:(NSTimeInterval)delay;
 
 @end
 
@@ -188,7 +189,8 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 
 @implementation UMKMockHTTPResponseResponder
 
-- (instancetype)initWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body chunkCountHint:(NSUInteger)hint delayBetweenChunks:(NSTimeInterval)delay
+- (instancetype)initWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body
+                    chunkCountHint:(NSUInteger)hint delayBetweenChunks:(NSTimeInterval)delay
 {
     NSParameterAssert(hint > 0);
     NSParameterAssert(delay >= 0.0);

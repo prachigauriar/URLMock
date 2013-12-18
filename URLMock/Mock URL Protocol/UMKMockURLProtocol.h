@@ -93,7 +93,7 @@
      expected mock requests.
  @discussion This is NO by default. If YES, the protocol will only service a given mock request once.
      Servicing the same request again will require that it be added again using +expectMockRequest:.
- @param removesServicedRequest Whether the protocol should remove serviced mock requests.
+ @param removesServicedRequests Whether the protocol should remove serviced mock requests.
  */
 + (void)setAutomaticallyRemovesServicedMockRequests:(BOOL)removesServicedRequests;
 

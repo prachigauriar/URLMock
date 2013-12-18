@@ -102,9 +102,9 @@
  @param statusCode The HTTP status code to respond with.
  @param headers The HTTP headers to respond with.
  @param body The HTTP body to respond with.
- @param chunkCountHint A hint as to how many chunks the HTTP body should be broken into when responding. The 
+ @param hint A hint as to how many chunks the HTTP body should be broken into when responding. The
      actual number of chunks depends on the size of the body and the whims of the NSURL system. May not be 0.
- @param delayBetweenChunks The amount of time the responder should wait between sending chunks of data. This
+ @param delay The amount of time the responder should wait between sending chunks of data. This
      is only used if chunks is more than 1. Must be non-negative.
  @result A newly initialized UMKMockHTTPResponder with the specified parameters.
  */
