@@ -86,7 +86,6 @@ extern NSString *UMKExceptionString(id receiver, SEL selector, NSString *format,
 /*!
  @abstract Creates and returns a new NSInternalInconsistencyException indicating that implementing
      the method specified by the given receiver-selector pair is a subclass's responsibility.
- @param receiver The object that received the message.
  @param receiver The object responding to the selector. This is typically self.
  @param selector The selector to which the receiver will be responding. This is typically _cmd.
  @result A new NSInternalInconsistencyException

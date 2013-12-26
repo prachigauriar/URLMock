@@ -40,7 +40,7 @@ static NSString *const kUMKEscapedCharacters = @":/?&=;+!@#$()',*";
  @discussion This function should be used for percent-escaping keys in URL-encoded parameter lists.
      As such, the following characters are left unescaped: '.', '[', ']'.
  @param key The key string to be encoded.
- @param NSStringEncoding The encoding to use when escaping the string.
+ @param encoding The encoding to use when escaping the string.
  @result A percent-escaped representation of key.
  */
 static NSString *UMKPercentEscapedKeyStringWithEncoding(NSString *key, NSStringEncoding encoding)
@@ -59,7 +59,7 @@ static NSString *UMKPercentEscapedKeyStringWithEncoding(NSString *key, NSStringE
  @discussion This function should be used for percent-escaping values in URL-encoded parameter lists. 
      No characters are left unescaped.
  @param value The value string to be encoded.
- @param NSStringEncoding The encoding to use when escaping the string.
+ @param encoding The encoding to use when escaping the string.
  @result A percent-escaped representation of value.
  */
 static NSString *UMKPercentEscapedValueStringWithEncoding(NSString *value, NSStringEncoding encoding)
