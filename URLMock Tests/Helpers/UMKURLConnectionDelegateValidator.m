@@ -43,7 +43,6 @@
 {
     self = [super init];
     if (self) {
-        _messageCountingProxy = [UMKMessageCountingProxy messageCountingProxyWithObject:self];
     }
 
     return self;

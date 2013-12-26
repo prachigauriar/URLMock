@@ -45,7 +45,7 @@
 
 - (void)setUp
 {
-    self.validator = [[[UMKURLConnectionDelegateValidator alloc] init] messageCountingProxy];
+    self.validator = [UMKMessageCountingProxy messageCountingProxyWithObject:[[UMKURLConnectionDelegateValidator alloc] init]];
 }
 
 

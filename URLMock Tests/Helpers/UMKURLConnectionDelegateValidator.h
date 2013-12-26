@@ -28,7 +28,6 @@
 
 @interface UMKURLConnectionDelegateValidator : NSObject <NSURLConnectionDataDelegate>
 
-@property (nonatomic, strong, readonly) id messageCountingProxy;
 @property (nonatomic, strong, readonly) NSURLResponse *response;
 @property (nonatomic, strong, readonly) NSError *error;
 @property (nonatomic, strong, readonly) NSData *body;

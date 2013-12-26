@@ -49,18 +49,6 @@
  */
 + (void)reset;
 
-/*!
- @abstract Resets and enables the system.
- @discussion This is equivalent to invoking +reset followed by +enable.
- */
-+ (void)resetAndEnable;
-
-/*!
- @abstract Resets and disables the system.
- @discussion This is equivalent to invoking +reset followed by +disable.
- */
-+ (void)resetAndDisable;
-
 
 /*!
  @abstract Returns whether the mock protocol intercepts all requests.
@@ -98,6 +86,12 @@
 + (void)setAutomaticallyRemovesServicedMockRequests:(BOOL)removesServicedRequests;
 
 /*!
+ @abstract Returns all expected mock requests.
+ @result An array of all mock requests that are currently expected.
+ */
++ (NSArray *)allExpectedMockRequests;
+
+/*!
  @abstract Adds the specified mock request to the protocol's set of expected mock requests.
  @discussion This is how mock requests are registered with the mock protocol.
  @param request The mock request to expect. May not be nil.
@@ -105,18 +99,25 @@
 + (void)expectMockRequest:(id <UMKMockURLRequest>)request;
 
 /*!
- @abstract Returns whether the specified mock request has been serviced.
- @param request The mock request.
- @result Whether a response to the specified mock request has been sent.
- */
-+ (BOOL)hasServicedMockRequest:(id <UMKMockURLRequest>)request;
-
-/*!
  @abstract Removes the specified mock request from the protocol's set of expected mock requests.
  @discussion This is how mock requests are unregistered from the mock protocol.
  @param request The mock request to expect.
  */
 + (void)removeExpectedMockRequest:(id <UMKMockURLRequest>)request;
+
+
+/*!
+ @abstract Returns all serviced mock requests since the last reset.
+ @result A set of all mock requests that have been serviced since the receiver last received the +reset message.
+ */
++ (NSSet *)allServicedMockRequests;
+
+/*!
+ @abstract Returns whether the specified mock request has been serviced.
+ @param request The mock request.
+ @result Whether a response to the specified mock request has been sent.
+ */
++ (BOOL)hasServicedMockRequest:(id <UMKMockURLRequest>)request;
 
 
 /*!

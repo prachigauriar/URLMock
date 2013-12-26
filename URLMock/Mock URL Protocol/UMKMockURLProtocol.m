@@ -82,24 +82,10 @@ static BOOL _automaticallyRemovesServicedMockRequests;
 }
 
 
-+ (void)resetAndEnable
-{
-    [self reset];
-    [self enable];
-}
-
-
 + (void)reset
 {
     [[self expectedMockRequests] removeAllObjects];
     [[self servicedMockRequests] removeAllObjects];
-}
-
-
-+ (void)resetAndDisable
-{
-    [self reset];
-    [self disable];
 }
 
 
@@ -111,6 +97,12 @@ static BOOL _automaticallyRemovesServicedMockRequests;
 
 #pragma mark - Accessors
 
++ (NSArray *)allExpectedMockRequests
+{
+    return [[self expectedMockRequests] copy];
+}
+
+
 + (NSMutableArray *)expectedMockRequests
 {
     static NSMutableArray *expectedMockRequests = nil;
@@ -120,6 +112,12 @@ static BOOL _automaticallyRemovesServicedMockRequests;
     });
     
     return expectedMockRequests;
+}
+
+
++ (NSSet *)allServicedMockRequests
+{
+    return [[self servicedMockRequests] copy];
 }
 
 
