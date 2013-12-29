@@ -29,14 +29,6 @@
 
 #pragma mark Private Types and Function Declarations
 
-/*!
- @abstract Returns a random Unicode character.
- @discussion The character may be in the Basic Latin, Latin-1 Supplement, Greek and Coptic, Cyrillic, Hebrew, Arabic, 
-     Devanagari, Hiragana, or Katakana character sets.
- @result A random Unicde character.
- */
-static unichar UMKRandomUnicodeCharacter(void);
-
 /*! 
  @abstract The function pointer type for complex JSON object generator functions.
  @param maxNestingDepth The maximum nesting depth for the complex JSON object.
@@ -94,56 +86,16 @@ NSString *UMKRandomAlphanumericStringWithLength(NSUInteger length)
     NSCParameterAssert(length > 0);
 
     static const char *alphanumericCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    static const NSUInteger alphanumericCharacterCount = 62;
+    static const NSUInteger kUMKAlphanumericCharacterCount = 62;
 
     char *randomCString = calloc(length + 1, sizeof(char));
     for (NSUInteger i = 0; i < length; ++i) {
-        randomCString[i] = alphanumericCharacters[random() % alphanumericCharacterCount];
+        randomCString[i] = alphanumericCharacters[random() % kUMKAlphanumericCharacterCount];
     }
-    
-    return [NSString stringWithUTF8String:randomCString];
-}
 
-
-static unichar UMKRandomUnicodeCharacter(void)
-{
-    // The Unicode ranges here are not meant to be complete. They were just good runs of contiguous code points
-    // for the given character sets.
-    unichar first, last;
-    switch (random() % 10) {
-        case 0:
-            // Basic Latin: 0x0020-0x007E
-            first = 0x0020; last = 0x007E; break;
-        case 1:
-            // Latin-1 Supplement: 0x00A0-0x00FF
-            first = 0x00A0; last = 0x00FF; break;
-        case 2:
-            // Greek and Coptic: 0x0391-0x03A1
-            first = 0x0391; last = 0x03A1; break;
-        case 3:
-            // More Greek and Coptic: 0x03A3-0x03FF
-            first = 0x03A3; last = 0x03FF; break;
-        case 4:
-            // Cyrillic: 0x0400-0x046F
-            first = 0x0400; last = 0x046F; break;
-        case 5:
-            // Hebrew: 0x05D0-0x05EA
-            first = 0x05D0; last = 0x05EA; break;
-        case 6:
-            // Arabic: 0x0621-0x063A
-            first = 0x0621; last = 0x063A; break;
-        case 7:
-            // Devanagari: 0x0904-0x0939
-            first = 0x0904; last = 0x0939; break;
-        case 8:
-            // Hiragana: 0x3041-0x3096
-            first = 0x3041; last = 0x3096; break;
-        default:
-            // Katakana: 0x30A0-0x30F0
-            first = 0x30A0; last = 0x30F0; break;
-    }
-    
-    return first + random() % (last - first);
+    NSString *randomString = [NSString stringWithUTF8String:randomCString];
+    free(randomCString);
+    return randomString;
 }
 
 
@@ -156,13 +108,24 @@ NSString *UMKRandomUnicodeString(void)
 NSString *UMKRandomUnicodeStringWithLength(NSUInteger length)
 {
     NSCParameterAssert(length > 0);
+
+    // These arrays give the first and last characters of the following character sets:
+    //     Basic Latin: 0x0020-0x007E; Latin-1 Supplement: 0x00A0-0x00FF; Greek and Coptic: 0x0391-0x03A1;
+    //     More Greek and Coptic: 0x03A3-0x03FF; Cyrillic: 0x0400-0x046F; Hebrew: 0x05D0-0x05EA;
+    //     Arabic: 0x0621-0x063A; Devanagari: 0x0904-0x0939; Hiragana: 0x3041-0x3096; Katakana: 0x30A0-0x30F0
+    static const NSUInteger kUMKCharacterSetCount = 10;
+    static const unichar characterSetFirst[kUMKCharacterSetCount] = { 0x0020, 0x00A0, 0x0391, 0x03A3, 0x0400, 0x05D0, 0x0621, 0x0904, 0x3041, 0x30A0 };
+    static const unichar characterSetLast[kUMKCharacterSetCount] = { 0x007E, 0x00FF, 0x03A1, 0x03FF, 0x046F, 0x05EA, 0x063A, 0x0939, 0x3096, 0x30F0 };
     
     unichar *randomUnicodeString = calloc(length, sizeof(unichar));
     for (NSUInteger i = 0; i < length; ++i) {
-        randomUnicodeString[i] = UMKRandomUnicodeCharacter();
+        NSUInteger characterSet = random() % kUMKCharacterSetCount;
+        randomUnicodeString[i] = characterSetFirst[characterSet] + random() % (characterSetLast[characterSet] - characterSetFirst[characterSet]);
     }
 
-    return [NSString stringWithCharacters:randomUnicodeString length:length];
+    NSString *randomString = [NSString stringWithCharacters:randomUnicodeString length:length];
+    free(randomUnicodeString);
+    return randomString;
 }
 
 
@@ -176,14 +139,14 @@ BOOL UMKRandomBoolean()
 
 NSNumber *UMKRandomUnsignedNumber(void)
 {
-    return [NSNumber numberWithUnsignedInteger:random()];
+    return @(random());
 }
 
 
 NSNumber *UMKRandomUnsignedNumberInRange(NSRange range)
 {
     NSCParameterAssert(range.length > 0);
-    return [NSNumber numberWithUnsignedInteger:(range.location + random() % range.length)];
+    return @(range.location + random() % range.length);
 }
 
 
@@ -232,7 +195,7 @@ static id UMKRandomJSONDictionary(NSUInteger maxNestingDepth, NSUInteger maxElem
 {
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithCapacity:elementCount];
     for (NSUInteger i = 0; i < elementCount; ++i) {
-        dictionary[UMKRandomAlphanumericString()] = UMKRecursiveRandomJSONObject(maxNestingDepth - 1, maxElementCountPerCollection, UMKRandomBoolean());
+        dictionary[UMKRandomUnicodeString()] = UMKRecursiveRandomJSONObject(maxNestingDepth - 1, maxElementCountPerCollection, UMKRandomBoolean());
     }
     
     return dictionary;
@@ -259,7 +222,7 @@ id UMKRandomJSONObject(NSUInteger maxNestingDepth, NSUInteger maxElementCountPer
 
 NSString *UMKRandomHTTPMethod(void)
 {
-    static NSString *methods[] = { @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" };
+    static NSString * const methods[] = { @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" };
     return methods[random() % 6];
 }
 

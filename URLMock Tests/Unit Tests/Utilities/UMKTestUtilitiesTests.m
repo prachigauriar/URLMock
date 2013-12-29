@@ -111,7 +111,7 @@ static const NSUInteger UMKIterationCount = 512;
 
         NSString *randomString = UMKRandomAlphanumericStringWithLength(length);
         XCTAssertNotNil(randomString, @"Randomly generated string was nil");
-        XCTAssertTrue([randomString length] == length, @"Randomly generated string had incorrect length");
+        XCTAssertEqual([randomString length], length, @"Randomly generated string had incorrect length");
 
         NSRange foundRange = [randomString rangeOfCharacterFromSet:invertedAlphanumerics];
         XCTAssertEqual(foundRange.location, NSNotFound, @"Randomly generated string contained non-alphanumeric characters");
@@ -144,7 +144,7 @@ static const NSUInteger UMKIterationCount = 512;
         
         NSString *randomString = UMKRandomUnicodeStringWithLength(length);
         XCTAssertNotNil(randomString, @"Randomly generated string was nil");
-        XCTAssertTrue([randomString length] == length, @"Randomly generated string had incorrect length");
+        XCTAssertEqual([randomString length], length, @"Randomly generated string had incorrect length");
         
         NSRange foundRange = [randomString rangeOfCharacterFromSet:invertedRandomUnicodeCharacters];
         XCTAssertEqual(foundRange.location, NSNotFound, @"Randomly generated string contained Unicode characters outside the specified range");

@@ -62,6 +62,8 @@ NSString *UMKExceptionString(id receiver, SEL selector, NSString *format, ...)
 }
 
 
+#pragma mark 
+
 @implementation NSException (UMKSubclassResponsibility)
 
 + (instancetype)umk_subclassResponsibilityExceptionWithReceiver:(id)receiver selector:(SEL)selector
