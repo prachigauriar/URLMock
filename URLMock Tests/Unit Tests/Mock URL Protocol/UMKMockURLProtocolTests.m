@@ -31,7 +31,7 @@
 #import <URLMock/URLMock.h>
 #import <URLMock/URLMockUtilities.h>
 
-@interface UMKUMKMockURLProtocolTests : UMKRandomizedTestCase
+@interface UMKMockURLProtocolTests : UMKRandomizedTestCase
 
 - (void)testReset;
 - (void)testExpectedMockRequestsAccessors;
@@ -41,7 +41,7 @@
 @end
 
 
-@implementation UMKUMKMockURLProtocolTests
+@implementation UMKMockURLProtocolTests
 
 - (void)testReset
 {

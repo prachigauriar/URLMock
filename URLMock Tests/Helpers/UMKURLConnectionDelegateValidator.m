@@ -25,7 +25,6 @@
 //
 
 #import "UMKURLConnectionDelegateValidator.h"
-#import "UMKMessageCountingProxy.h"
 
 @interface UMKURLConnectionDelegateValidator ()
 
