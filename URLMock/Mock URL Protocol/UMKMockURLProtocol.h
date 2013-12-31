@@ -51,41 +51,6 @@
 
 
 /*!
- @abstract Returns whether the mock protocol intercepts all requests.
- @discussion This is NO by default. If YES, the protocol intercepts all requests that go through the NSURL 
-     system and raises an exception whenever an unexpected request is received.
- @result Whether the mock protocol intercepts all requests.
- */
-+ (BOOL)interceptsAllRequests;
-
-/*!
- @abstract Sets whether the mock protocol intercepts all requests.
- @discussion This is NO by default. If YES, the protocol intercepts all requests that go through the NSURL
-     system and raises an exception whenever an unexpected request is received.
- @param interceptsAllRequests Whether the protocol should intercept all requests.
- */
-+ (void)setInterceptsAllRequests:(BOOL)interceptsAllRequests;
-
-
-/*!
- @abstract Returns whether the mock protocol automatically removes serviced mock requests from the set of 
-     expected mock requests.
- @discussion This is NO by default. If YES, the protocol will only service a given mock request once. 
-     Servicing the same request again will require that it be added again using +expectMockRequest:.
- @result Whether the mock protocol automatically removes serviced mock requests.
- */
-+ (BOOL)automaticallyRemovesServicedMockRequests;
-
-/*!
- @abstract Sets whether the mock protocol automatically removes serviced mock requests from the set of
-     expected mock requests.
- @discussion This is NO by default. If YES, the protocol will only service a given mock request once.
-     Servicing the same request again will require that it be added again using +expectMockRequest:.
- @param removesServicedRequests Whether the protocol should remove serviced mock requests.
- */
-+ (void)setAutomaticallyRemovesServicedMockRequests:(BOOL)removesServicedRequests;
-
-/*!
  @abstract Returns all expected mock requests.
  @result An array of all mock requests that are currently expected.
  */
@@ -107,18 +72,37 @@
 
 
 /*!
+ @abstract Returns whether verification is enabled.
+ @discussion Set to NO by default. See +setVerificationEnabled: for more information on what enabling verification means.
+ @result Whether verification is enabled.
+ */
++ (BOOL)isVerificationEnabled;
+
+/*!
+ @abstract Enables or disables verification.
+ @param enabled Whether to enable verification or not.
+ @discussion By default, verification is disabled. When enabled, the behavior of UMKMockURLProtocol changes to facilitate
+     verifying expected behavior. In particular, UMKMockURLProtocol will keep track of whether any unexpected requests are
+     received; mock requests are automatically removed from the set of expected requests when they are serviced.
+ 
+     When verification is enabled, +verify may be used to determine if things are behaving as expected.
+ */
++ (void)setVerificationEnabled:(BOOL)enabled;
+
+/*!
+ @abstract Verifies that mock requests are being serviced as expected.
+ @discussion Returns YES if and only if all expected requests have been serviced and no unexpected requests have been 
+     received since the last reset. Note: this method may only be used when verification is enabled. Invoking it otherwise 
+     will raise an exception.
+ @throws NSInternalInconsistencyException if verification is not enabled.
+ */
++ (BOOL)verify;
+
+/*!
  @abstract Returns all serviced mock requests since the last reset.
  @result A set of all mock requests that have been serviced since the receiver last received the +reset message.
  */
-+ (NSSet *)allServicedMockRequests;
-
-/*!
- @abstract Returns whether the specified mock request has been serviced.
- @param request The mock request.
- @result Whether a response to the specified mock request has been sent.
- */
-+ (BOOL)hasServicedMockRequest:(id <UMKMockURLRequest>)request;
-
++ (NSDictionary *)allServicedMockRequests;
 
 /*!
  @abstract Returns the canonical version of the specified URL.

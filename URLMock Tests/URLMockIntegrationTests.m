@@ -32,7 +32,14 @@
 #import <URLMock/URLMockUtilities.h>
 
 @interface URLMockIntegrationTests : UMKRandomizedTestCase
+
 @property (strong, nonatomic) id validator;
+
+- (void)testMockRequestsWithErrorResponse;
+- (void)testMockRequestsWithNoResponse;
+- (void)testMockRequestsWithDataResponseInOneChunk;
+- (void)testMockRequestsWithDataResponseInMultipleChunks;
+
 @end
 
 
@@ -52,6 +59,14 @@
 }
 
 
+- (void)reset
+{
+    // Need to reset the validator for the next iteration
+    self.validator = [UMKMessageCountingProxy messageCountingProxyWithObject:[[UMKURLConnectionDelegateValidator alloc] init]];
+    [UMKMockURLProtocol reset];
+}
+
+
 - (void)tearDown
 {
     self.validator = nil;
@@ -67,21 +82,25 @@
 }
 
 
-- (void)testMockGetRequestWithErrorResponse
+- (void)testMockRequestsWithErrorResponse
 {
-    NSURL *requestURL = UMKRandomHTTPURL();
-    UMKMockHTTPRequest *getRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURLString:[requestURL description]];
+    for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
+        NSURL *requestURL = UMKRandomHTTPURL();
+        UMKMockHTTPRequest *getRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURLString:[requestURL description]];
 
-    NSError *error = [NSError errorWithDomain:@"UMKError" code:1234 userInfo:nil];
-    getRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithError:error];
-    [UMKMockURLProtocol expectMockRequest:getRequest];
+        NSError *error = [NSError errorWithDomain:@"UMKError" code:1234 userInfo:nil];
+        getRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithError:error];
+        [UMKMockURLProtocol expectMockRequest:getRequest];
 
-    [NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:requestURL] delegate:self.validator];
-    
-    UMKAssertTrueBeforeTimeout(1, [self.validator receivedMessageCountForSelector:@selector(connection:didFailWithError:)] == 1,
-                               @"Delegate received -connection:didFailWithError: wrong number of times.");
-    XCTAssertEqualObjects([[self.validator error] domain], error.domain, @"Error domain was not set correctly");
-    XCTAssertEqual([[self.validator error] code], error.code, @"Error code was not set correctly");
+        [NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:requestURL] delegate:self.validator];
+        
+        UMKAssertTrueBeforeTimeout(1, [self.validator receivedMessageCountForSelector:@selector(connection:didFailWithError:)] == 1,
+                                   @"Delegate received -connection:didFailWithError: wrong number of times.");
+        XCTAssertEqualObjects([[self.validator error] domain], error.domain, @"Error domain was not set correctly");
+        XCTAssertEqual([[self.validator error] code], error.code, @"Error code was not set correctly");
+        
+        [self reset];
+    }
 }
 
 
@@ -115,8 +134,7 @@
         XCTAssertEqual([(NSHTTPURLResponse *)[self.validator response] statusCode], statusCode, @"Validator received wrong status code");
         XCTAssertNil([self.validator body], @"Validator received wrong body");
         
-        // Need to reset the validator for the next iteration
-        self.validator = [UMKMessageCountingProxy messageCountingProxyWithObject:[[UMKURLConnectionDelegateValidator alloc] init]];
+        [self reset];
     }
 }
 
@@ -154,8 +172,7 @@
         XCTAssertEqual([(NSHTTPURLResponse *)[self.validator response] statusCode], statusCode, @"Validator received wrong status code");
         XCTAssertEqualObjects([self.validator body], responseBody, @"Validator received wrong body");
         
-        // Need to reset the validator for the next iteration
-        self.validator = [UMKMessageCountingProxy messageCountingProxyWithObject:[[UMKURLConnectionDelegateValidator alloc] init]];
+        [self reset];
     }
 }
 
@@ -173,7 +190,7 @@
         
         NSInteger statusCode = random() % 500 + 1;
         UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:statusCode headers:nil body:responseBody
-                                                                                 chunkCountHint:4 delayBetweenChunks:0.25];
+                                                                                 chunkCountHint:4 delayBetweenChunks:0.1];
         mockRequest.responder = responder;
         [UMKMockURLProtocol expectMockRequest:mockRequest];
         
@@ -194,9 +211,82 @@
         XCTAssertEqual([(NSHTTPURLResponse *)[self.validator response] statusCode], statusCode, @"Validator received wrong status code");
         XCTAssertEqualObjects([self.validator body], responseBody, @"Validator received wrong body");
         
-        // Need to reset the validator for the next iteration
-        self.validator = [UMKMessageCountingProxy messageCountingProxyWithObject:[[UMKURLConnectionDelegateValidator alloc] init]];
+        [self reset];
     }
+}
+
+
+- (void)testVerifyWithUnexpectedRequest
+{
+    [UMKMockURLProtocol setVerificationEnabled:YES];
+
+    // We use localhost because we want this to fail fast
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:12345"]];
+    [NSURLConnection connectionWithRequest:request delegate:self.validator];
+    UMKAssertTrueBeforeTimeout(1, ![UMKMockURLProtocol verify], @"Returned YES despite unexpected request");
+    
+    [UMKMockURLProtocol setVerificationEnabled:NO];
+}
+
+
+- (void)testVerifyWithUnservicedRequest
+{
+    [UMKMockURLProtocol setVerificationEnabled:YES];
+
+    NSURL *URL = UMKRandomHTTPURL();
+    
+    UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURLString:[URL description]];
+    mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random() % 500];
+    [UMKMockURLProtocol expectMockRequest:mockRequest];
+    UMKAssertTrueBeforeTimeout(1, ![UMKMockURLProtocol verify], @"Returned YES despite un-serviced request");
+    
+    [UMKMockURLProtocol setVerificationEnabled:NO];
+}
+
+
+- (void)testVerifySuccess
+{
+    [UMKMockURLProtocol setVerificationEnabled:YES];
+    
+    NSURL *URL = UMKRandomHTTPURL();
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURLString:[URL description]];
+    mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random() % 500];
+    [UMKMockURLProtocol expectMockRequest:mockRequest];
+
+    [NSURLConnection connectionWithRequest:request delegate:self.validator];
+    
+    UMKAssertTrueBeforeTimeout(1, [UMKMockURLProtocol verify], @"Returned NO despite no unexpected or un-serviced requests");
+
+    [UMKMockURLProtocol setVerificationEnabled:NO];
+}
+
+- (void)testVerify
+{
+    [UMKMockURLProtocol setVerificationEnabled:YES];
+    
+    // We use localhost because we want this to fail fast
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:12345"]];
+    [NSURLConnection connectionWithRequest:request delegate:self.validator];
+    UMKAssertTrueBeforeTimeout(1, ![UMKMockURLProtocol verify], @"Returned YES despite unexpected request");
+    
+    [UMKMockURLProtocol reset];
+    
+    NSURL *URL = UMKRandomHTTPURL();
+    
+    request = [NSURLRequest requestWithURL:URL];
+
+    UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURLString:[URL description]];
+    mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random() % 500];
+    [UMKMockURLProtocol expectMockRequest:mockRequest];
+    UMKAssertTrueBeforeTimeout(1, ![UMKMockURLProtocol verify], @"Returned YES despite un-serviced request");
+
+    [NSURLConnection connectionWithRequest:request delegate:self.validator];
+    
+    UMKAssertTrueBeforeTimeout(1, [UMKMockURLProtocol verify], @"Returned NO despite no unexpected or un-serviced requests");
+    
+    [UMKMockURLProtocol setVerificationEnabled:NO];
 }
 
 @end

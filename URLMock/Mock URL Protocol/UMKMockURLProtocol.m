@@ -26,6 +26,7 @@
 
 #import <URLMock/UMKMockURLProtocol.h>
 #import <URLMock/UMKURLEncodingUtilities.h>
+#import <URLMock/UMKErrorUtilities.h>
 
 @interface UMKMockURLProtocol ()
 
@@ -47,11 +48,11 @@
 
 #pragma mark - Class Variables
 
-/*! Whether the class should intercept all requests to the NSURL system. */
-static BOOL _interceptsAllRequests;
+/*! Whether verification is enabled. */
+static BOOL _verificationEnabled;
 
-/*! Whether instances of the class automatically remove serviced mock requests from the class's set of expected mock requests */
-static BOOL _automaticallyRemovesServicedMockRequests;
+/*! Whether an unexpected request was received. */
+static BOOL _receivedUnexpectedRequest;
 
 
 #pragma mark -
@@ -65,8 +66,8 @@ static BOOL _automaticallyRemovesServicedMockRequests;
         _mockRequest = [[self class] expectedMockRequestMatchingURLRequest:request];
         _mockResponder = [_mockRequest responderForURLRequest:request];
 
-        if ([[self class] automaticallyRemovesServicedMockRequests]) {
-            [[[self class] expectedMockRequests] removeObject:_mockRequest];
+        if ([[self class] isVerificationEnabled]) {
+            [[self class] removeExpectedMockRequest:_mockRequest];
         }
     }
 
@@ -84,6 +85,7 @@ static BOOL _automaticallyRemovesServicedMockRequests;
 
 + (void)reset
 {
+    _receivedUnexpectedRequest = NO;
     [[self expectedMockRequests] removeAllObjects];
     [[self servicedMockRequests] removeAllObjects];
 }
@@ -115,45 +117,21 @@ static BOOL _automaticallyRemovesServicedMockRequests;
 }
 
 
-+ (NSSet *)allServicedMockRequests
++ (NSDictionary *)allServicedMockRequests
 {
     return [[self servicedMockRequests] copy];
 }
 
 
-+ (NSMutableSet *)servicedMockRequests
++ (NSMutableDictionary *)servicedMockRequests
 {
-    static NSMutableSet *servicedRequests = nil;
+    static NSMutableDictionary *servicedRequests = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        servicedRequests = [[NSMutableSet alloc] init];
+        servicedRequests = [[NSMutableDictionary alloc] init];
     });
     
     return servicedRequests;
-}
-
-
-+ (BOOL)interceptsAllRequests
-{
-    return _interceptsAllRequests;
-}
-
-
-+ (void)setInterceptsAllRequests:(BOOL)interceptsAllRequests
-{
-    _interceptsAllRequests = interceptsAllRequests;
-}
-
-
-+ (BOOL)automaticallyRemovesServicedMockRequests
-{
-    return _automaticallyRemovesServicedMockRequests;
-}
-
-
-+ (void)setAutomaticallyRemovesServicedMockRequests:(BOOL)removesServicedRequests
-{
-    _automaticallyRemovesServicedMockRequests = removesServicedRequests;
 }
 
 
@@ -177,15 +155,37 @@ static BOOL _automaticallyRemovesServicedMockRequests;
 }
 
 
-+ (BOOL)hasServicedMockRequest:(id <UMKMockURLRequest>)request
-{
-    return [[self servicedMockRequests] containsObject:request];
-}
-
-
 + (void)removeExpectedMockRequest:(id <UMKMockURLRequest>)request
 {
     [[self expectedMockRequests] removeObject:request];
+}
+
+
+#pragma mark - Verification
+
++ (BOOL)isVerificationEnabled
+{
+    return _verificationEnabled;
+}
+
+
++ (void)setVerificationEnabled:(BOOL)enabled
+{
+    if (enabled == _verificationEnabled) return;
+    _verificationEnabled = enabled;
+    _receivedUnexpectedRequest = NO;
+}
+
+
++ (BOOL)verify
+{
+    if (![self isVerificationEnabled]) {
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                       reason:UMKExceptionString(self, _cmd, @"Verification is not enabled.")
+                                     userInfo:nil];
+    }
+    
+    return !_receivedUnexpectedRequest && [[self expectedMockRequests] count] == 0;
 }
 
 
@@ -216,8 +216,8 @@ static BOOL _automaticallyRemovesServicedMockRequests;
 + (BOOL)canInitWithRequest:(NSURLRequest *)request
 {
     id <UMKMockURLRequest> mockRequest = [self expectedMockRequestMatchingURLRequest:request];
-    if (!mockRequest && [self interceptsAllRequests]) {
-        [NSException raise:NSInternalInconsistencyException format:@"Unexpected request received: %@", request];
+    if (!mockRequest && [self isVerificationEnabled]) {
+        _receivedUnexpectedRequest = YES;
     }
 
     return mockRequest != nil;
@@ -241,7 +241,7 @@ static BOOL _automaticallyRemovesServicedMockRequests;
 - (void)startLoading
 {
     [self.mockResponder respondToMockRequest:self.mockRequest client:self.client protocol:self];
-    [[[self class] servicedMockRequests] addObject:self.mockRequest];
+    [[[self class] servicedMockRequests] setObject:self.mockRequest forKey:self.request];
 }
 
 

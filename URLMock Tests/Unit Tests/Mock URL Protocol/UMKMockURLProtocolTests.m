@@ -34,9 +34,8 @@
 @interface UMKMockURLProtocolTests : UMKRandomizedTestCase
 
 - (void)testReset;
+- (void)testVerificationEnabledAccessors;
 - (void)testExpectedMockRequestsAccessors;
-- (void)testInterceptsAllRequestsAccessors;
-- (void)testAutomaticallyRemovesServicedMockRequestsAccessors;
 
 @end
 
@@ -51,12 +50,24 @@
     [UMKMockURLProtocol expectMockRequest:mockRequest1];
     [UMKMockURLProtocol expectMockRequest:mockRequest2];
     
-    NSArray *expectedMockRequests = @[ mockRequest1, mockRequest2 ];
-    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], expectedMockRequests, @"Mock requests not added");
+    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], (@[ mockRequest1, mockRequest2 ]), @"Mock requests not added");
 
     [UMKMockURLProtocol reset];
-    expectedMockRequests = @[ ];
-    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], expectedMockRequests, @"Mock requests not removed");
+    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], @[], @"Mock requests not removed");
+}
+
+
+- (void)testVerificationEnabledAccessors
+{
+    XCTAssertFalse([UMKMockURLProtocol isVerificationEnabled], @"Initial value is YES");
+    
+    XCTAssertThrowsSpecificNamed([UMKMockURLProtocol verify], NSException, NSInternalInconsistencyException,
+                                 @"Does not throw exception when verification is not enabled.");
+    
+    [UMKMockURLProtocol setVerificationEnabled:YES];
+    XCTAssertTrue([UMKMockURLProtocol isVerificationEnabled], @"Value is not set correctly");
+    [UMKMockURLProtocol setVerificationEnabled:NO];
+    XCTAssertFalse([UMKMockURLProtocol isVerificationEnabled], @"Value is not set correctly");
 }
 
 
@@ -66,41 +77,18 @@
 
     id <UMKMockURLRequest> mockRequest1 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
     [UMKMockURLProtocol expectMockRequest:mockRequest1];
-    NSArray *expectedMockRequests = @[ mockRequest1 ];
-    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], expectedMockRequests, @"Mock request not added");
+    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], @[ mockRequest1 ], @"Mock request not added");
     
     id <UMKMockURLRequest> mockRequest2 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
     [UMKMockURLProtocol expectMockRequest:mockRequest2];
-    expectedMockRequests = @[ mockRequest1, mockRequest2 ];
-    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], expectedMockRequests, @"Mock request not added");
+    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], (@[ mockRequest1, mockRequest2 ]), @"Mock request not added");
 
     [UMKMockURLProtocol removeExpectedMockRequest:mockRequest1];
-    expectedMockRequests = @[ mockRequest2 ];
-    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], expectedMockRequests, @"Mock request not removed");
+    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], @[ mockRequest2 ], @"Mock request not removed");
 
     [UMKMockURLProtocol removeExpectedMockRequest:mockRequest2];
-    expectedMockRequests = @[ ];
-    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], expectedMockRequests, @"Mock request not removed");
+    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], @[], @"Mock request not removed");
 }
 
-
-- (void)testInterceptsAllRequestsAccessors
-{
-    XCTAssertFalse([UMKMockURLProtocol interceptsAllRequests], @"Initial value is YES");
-    [UMKMockURLProtocol setInterceptsAllRequests:YES];
-    XCTAssertTrue([UMKMockURLProtocol interceptsAllRequests], @"Value is not set correctly");
-    [UMKMockURLProtocol setInterceptsAllRequests:NO];
-    XCTAssertFalse([UMKMockURLProtocol interceptsAllRequests], @"Value is not set correctly");
-}
-
-
-- (void)testAutomaticallyRemovesServicedMockRequestsAccessors
-{
-    XCTAssertFalse([UMKMockURLProtocol automaticallyRemovesServicedMockRequests], @"Initial value is YES");
-    [UMKMockURLProtocol setAutomaticallyRemovesServicedMockRequests:YES];
-    XCTAssertTrue([UMKMockURLProtocol automaticallyRemovesServicedMockRequests], @"Value is not set correctly");
-    [UMKMockURLProtocol setAutomaticallyRemovesServicedMockRequests:NO];
-    XCTAssertFalse([UMKMockURLProtocol automaticallyRemovesServicedMockRequests], @"Value is not set correctly");
-}
 
 @end
