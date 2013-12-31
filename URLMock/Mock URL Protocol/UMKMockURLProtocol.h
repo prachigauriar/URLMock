@@ -54,7 +54,7 @@
  @abstract Returns all expected mock requests.
  @result An array of all mock requests that are currently expected.
  */
-+ (NSArray *)allExpectedMockRequests;
++ (NSArray *)expectedMockRequests;
 
 /*!
  @abstract Adds the specified mock request to the protocol's set of expected mock requests.
@@ -99,10 +99,12 @@
 + (BOOL)verify;
 
 /*!
- @abstract Returns all serviced mock requests since the last reset.
- @result A set of all mock requests that have been serviced since the receiver last received the +reset message.
+ @abstract Returns a dictionary of requests serviced since the last reset.
+ @discussion The keys in this dictionary are the actual requests that were serviced; the keys are the mock requests that
+     serviced them.
+ @result A dictionary of requests serviced since the receiver last received the +reset message.
  */
-+ (NSDictionary *)allServicedMockRequests;
++ (NSDictionary *)servicedRequests;
 
 /*!
  @abstract Returns the canonical version of the specified URL.

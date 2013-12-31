@@ -28,10 +28,13 @@
 
 @interface UMKURLConnectionDelegateValidator ()
 
+@property (nonatomic, assign, readwrite, getter = isComplete) BOOL complete;
 @property (nonatomic, strong, readwrite) NSURLResponse *response;
 @property (nonatomic, strong, readwrite) NSError *error;
 @property (nonatomic, strong, readwrite) NSData *body;
+
 @property (nonatomic, strong) NSMutableData *dataBeingBuilt;
+@property (nonatomic, strong, readonly) NSCondition *completeCondition;
 
 @end
 
@@ -42,11 +45,49 @@
 {
     self = [super init];
     if (self) {
+        _completeCondition = [[NSCondition alloc] init];
     }
 
     return self;
 }
 
+
+- (void)waitUntilComplete
+{
+    [self.completeCondition lock];
+
+    while (!self.complete) {
+        [self.completeCondition wait];
+    }
+
+    [self.completeCondition unlock];
+}
+
+
+- (BOOL)waitForCompletionWithTimeout:(NSTimeInterval)timeout
+{
+    NSDate *endDate = [[NSDate date] dateByAddingTimeInterval:timeout];
+    
+    [self.completeCondition lock];
+    while (!self.complete && [self.completeCondition waitUntilDate:endDate]) {
+        NSLog(@"Going to sleep!");
+    }
+
+    [self.completeCondition unlock];
+    return self.complete;
+}
+
+
+- (void)setComplete:(BOOL)complete
+{
+    [self.completeCondition lock];
+    _complete = complete;
+    [self.completeCondition broadcast];
+    [self.completeCondition unlock];
+}
+
+
+#pragma mark - NSURLConnectionDataDelegate methods
 
 - (void)connection:(NSURLConnection *)connection didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
@@ -56,6 +97,7 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     self.error = error;
+    self.complete = YES;
 }
 
 
@@ -94,6 +136,7 @@
 {
     self.body = [self.dataBeingBuilt copy];
     self.dataBeingBuilt = nil;
+    self.complete = YES;
 }
 
 

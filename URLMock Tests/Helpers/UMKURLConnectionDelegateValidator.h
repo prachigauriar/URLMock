@@ -28,8 +28,12 @@
 
 @interface UMKURLConnectionDelegateValidator : NSObject <NSURLConnectionDataDelegate>
 
+@property (nonatomic, assign, readonly, getter = isComplete) BOOL complete;
 @property (nonatomic, strong, readonly) NSURLResponse *response;
 @property (nonatomic, strong, readonly) NSError *error;
 @property (nonatomic, strong, readonly) NSData *body;
+
+- (void)waitUntilComplete;
+- (BOOL)waitForCompletionWithTimeout:(NSTimeInterval)timeout;
 
 @end

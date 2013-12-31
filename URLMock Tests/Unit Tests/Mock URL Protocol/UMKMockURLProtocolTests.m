@@ -50,10 +50,10 @@
     [UMKMockURLProtocol expectMockRequest:mockRequest1];
     [UMKMockURLProtocol expectMockRequest:mockRequest2];
     
-    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], (@[ mockRequest1, mockRequest2 ]), @"Mock requests not added");
+    XCTAssertEqualObjects([UMKMockURLProtocol expectedMockRequests], (@[ mockRequest1, mockRequest2 ]), @"Mock requests not added");
 
     [UMKMockURLProtocol reset];
-    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], @[], @"Mock requests not removed");
+    XCTAssertEqualObjects([UMKMockURLProtocol expectedMockRequests], @[], @"Mock requests not removed");
 }
 
 
@@ -73,21 +73,21 @@
 
 - (void)testExpectedMockRequestsAccessors
 {
-    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], @[], @"Expected mock requests isn't empty");
+    XCTAssertEqualObjects([UMKMockURLProtocol expectedMockRequests], @[], @"Expected mock requests isn't empty");
 
     id <UMKMockURLRequest> mockRequest1 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
     [UMKMockURLProtocol expectMockRequest:mockRequest1];
-    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], @[ mockRequest1 ], @"Mock request not added");
+    XCTAssertEqualObjects([UMKMockURLProtocol expectedMockRequests], @[ mockRequest1 ], @"Mock request not added");
     
     id <UMKMockURLRequest> mockRequest2 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
     [UMKMockURLProtocol expectMockRequest:mockRequest2];
-    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], (@[ mockRequest1, mockRequest2 ]), @"Mock request not added");
+    XCTAssertEqualObjects([UMKMockURLProtocol expectedMockRequests], (@[ mockRequest1, mockRequest2 ]), @"Mock request not added");
 
     [UMKMockURLProtocol removeExpectedMockRequest:mockRequest1];
-    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], @[ mockRequest2 ], @"Mock request not removed");
+    XCTAssertEqualObjects([UMKMockURLProtocol expectedMockRequests], @[ mockRequest2 ], @"Mock request not removed");
 
     [UMKMockURLProtocol removeExpectedMockRequest:mockRequest2];
-    XCTAssertEqualObjects([UMKMockURLProtocol allExpectedMockRequests], @[], @"Mock request not removed");
+    XCTAssertEqualObjects([UMKMockURLProtocol expectedMockRequests], @[], @"Mock request not removed");
 }
 
 

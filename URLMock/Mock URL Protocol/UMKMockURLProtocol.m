@@ -28,6 +28,50 @@
 #import <URLMock/UMKURLEncodingUtilities.h>
 #import <URLMock/UMKErrorUtilities.h>
 
+
+@interface UMKMockURLProtocolSettings : NSObject
+
+@property (assign, getter = isEnabled) BOOL enabled;
+@property (assign, getter = isVerificationEnabled) BOOL verificationEnabled;
+@property (assign) BOOL receivedUnexpectedRequest;
+@property (nonatomic, strong, readonly) NSMutableArray *expectedMockRequests;
+@property (nonatomic, strong, readonly) NSMutableDictionary *servicedRequests;
+
+- (void)reset;
+
+@end
+
+
+#pragma mark
+
+@implementation UMKMockURLProtocolSettings
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _expectedMockRequests = [[NSMutableArray alloc] init];
+        _servicedRequests = [[NSMutableDictionary alloc] init];
+    }
+
+    return self;
+}
+
+
+- (void)reset
+{
+    @synchronized (self) {
+        self.receivedUnexpectedRequest = NO;
+        [self.expectedMockRequests removeAllObjects];
+        [self.servicedRequests removeAllObjects];
+    }
+}
+
+@end
+
+
+#pragma mark
+
 @interface UMKMockURLProtocol ()
 
 /*! The instance's mock request. */
@@ -36,26 +80,10 @@
 /*! The instance's mock responder. */
 @property (strong, nonatomic) id <UMKMockURLResponder> mockResponder;
 
-/*!
- @abstract Returns the first expected mock request that matches the specified URL request.
- @param request The URL request to find a mock request for. May not be nil.
- @result The first expected mock request that matches the specified URL request.
- */
-+ (id <UMKMockURLRequest>)expectedMockRequestMatchingURLRequest:(NSURLRequest *)request;
-
 @end
 
 
-#pragma mark - Class Variables
-
-/*! Whether verification is enabled. */
-static BOOL _verificationEnabled;
-
-/*! Whether an unexpected request was received. */
-static BOOL _receivedUnexpectedRequest;
-
-
-#pragma mark -
+#pragma mark
 
 @implementation UMKMockURLProtocol
 
@@ -75,89 +103,92 @@ static BOOL _receivedUnexpectedRequest;
 }
 
 
++ (UMKMockURLProtocolSettings *)settings
+{
+    static UMKMockURLProtocolSettings *settings = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        settings = [[UMKMockURLProtocolSettings alloc] init];
+    });
+
+    return settings;
+}
+
+
 #pragma mark - Enable, Disable, and Reset
 
 + (void)enable
 {
+    if (self.settings.isEnabled) return;
+    self.settings.enabled = YES;
     [super registerClass:self];
 }
 
 
 + (void)reset
 {
-    _receivedUnexpectedRequest = NO;
-    [[self expectedMockRequests] removeAllObjects];
-    [[self servicedMockRequests] removeAllObjects];
+    [self.settings reset];
 }
 
 
 + (void)disable
 {
+    if (!self.settings.isEnabled) return;
+    self.settings.enabled = NO;
     [super unregisterClass:self];
 }
 
 
 #pragma mark - Accessors
 
-+ (NSArray *)allExpectedMockRequests
++ (NSArray *)expectedMockRequests
 {
-    return [[self expectedMockRequests] copy];
+    return self.settings.expectedMockRequests;
 }
 
 
-+ (NSMutableArray *)expectedMockRequests
++ (NSDictionary *)servicedRequests
 {
-    static NSMutableArray *expectedMockRequests = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        expectedMockRequests = [[NSMutableArray alloc] init];
-    });
-    
-    return expectedMockRequests;
-}
-
-
-+ (NSDictionary *)allServicedMockRequests
-{
-    return [[self servicedMockRequests] copy];
-}
-
-
-+ (NSMutableDictionary *)servicedMockRequests
-{
-    static NSMutableDictionary *servicedRequests = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        servicedRequests = [[NSMutableDictionary alloc] init];
-    });
-    
-    return servicedRequests;
+    return self.settings.servicedRequests;
 }
 
 
 #pragma mark - Adding and Removing Expectations
 
+/*!
+ @abstract Returns the first expected mock request that matches the specified URL request.
+ @param request The URL request to find a mock request for. May not be nil.
+ @result The first expected mock request that matches the specified URL request.
+ */
 + (id <UMKMockURLRequest>)expectedMockRequestMatchingURLRequest:(NSURLRequest *)request
 {
     NSParameterAssert(request);
-    NSUInteger index = [[self expectedMockRequests] indexOfObjectPassingTest:^BOOL(id <UMKMockURLRequest> mockRequest, NSUInteger idx, BOOL *stop) {
-        return [mockRequest matchesURLRequest:request];
-    }];
 
-    return (index != NSNotFound) ? [[self expectedMockRequests] objectAtIndex:index] : nil;
+    NSMutableArray *expectedMockRequests = self.settings.expectedMockRequests;
+    @synchronized (expectedMockRequests) {
+        NSUInteger index = [expectedMockRequests indexOfObjectPassingTest:^BOOL(id <UMKMockURLRequest> mockRequest, NSUInteger idx, BOOL *stop) {
+            return [mockRequest matchesURLRequest:request];
+        }];
+
+        return (index != NSNotFound) ? expectedMockRequests[index] : nil;
+    }
 }
 
 
 + (void)expectMockRequest:(id <UMKMockURLRequest>)request
 {
     NSParameterAssert(request);
-    [[self expectedMockRequests] addObject:request];
+    @synchronized (self.settings.expectedMockRequests) {
+        [self.settings.expectedMockRequests addObject:request];
+    }
 }
 
 
 + (void)removeExpectedMockRequest:(id <UMKMockURLRequest>)request
 {
-    [[self expectedMockRequests] removeObject:request];
+    @synchronized (self.settings.expectedMockRequests) {
+        [self.settings.expectedMockRequests removeObject:request];
+    }
 }
 
 
@@ -165,15 +196,15 @@ static BOOL _receivedUnexpectedRequest;
 
 + (BOOL)isVerificationEnabled
 {
-    return _verificationEnabled;
+    return self.settings.isVerificationEnabled;
 }
 
 
 + (void)setVerificationEnabled:(BOOL)enabled
 {
-    if (enabled == _verificationEnabled) return;
-    _verificationEnabled = enabled;
-    _receivedUnexpectedRequest = NO;
+    if (enabled == self.settings.isVerificationEnabled) return;
+    self.settings.verificationEnabled = enabled;
+    self.settings.receivedUnexpectedRequest = NO;
 }
 
 
@@ -185,7 +216,7 @@ static BOOL _receivedUnexpectedRequest;
                                      userInfo:nil];
     }
     
-    return !_receivedUnexpectedRequest && [[self expectedMockRequests] count] == 0;
+    return !self.settings.receivedUnexpectedRequest && self.settings.expectedMockRequests.count == 0;
 }
 
 
@@ -217,7 +248,7 @@ static BOOL _receivedUnexpectedRequest;
 {
     id <UMKMockURLRequest> mockRequest = [self expectedMockRequestMatchingURLRequest:request];
     if (!mockRequest && [self isVerificationEnabled]) {
-        _receivedUnexpectedRequest = YES;
+        self.settings.receivedUnexpectedRequest = YES;
     }
 
     return mockRequest != nil;
@@ -226,8 +257,13 @@ static BOOL _receivedUnexpectedRequest;
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request
 {
+    NSURL *canonicalURL = [self canonicalURLForURL:request.URL];
+    if ([canonicalURL isEqual:request.URL]) {
+        return request;
+    }
+
     NSMutableURLRequest *canonicalRequest = [request mutableCopy];
-    [canonicalRequest setURL:[self canonicalURLForURL:[request URL]]];
+    canonicalRequest.URL = canonicalURL;
     return canonicalRequest;
 }
 
@@ -241,7 +277,11 @@ static BOOL _receivedUnexpectedRequest;
 - (void)startLoading
 {
     [self.mockResponder respondToMockRequest:self.mockRequest client:self.client protocol:self];
-    [[[self class] servicedMockRequests] setObject:self.mockRequest forKey:self.request];
+
+    NSMutableDictionary *servicedMockRequests = [[[self class] settings] servicedRequests];
+    @synchronized (servicedMockRequests) {
+        servicedMockRequests[self.request] = self.mockRequest;
+    }
 }
 
 

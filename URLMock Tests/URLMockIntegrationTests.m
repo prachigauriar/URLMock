@@ -223,7 +223,12 @@
     // We use localhost because we want this to fail fast
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:12345"]];
     [NSURLConnection connectionWithRequest:request delegate:self.validator];
-    UMKAssertTrueBeforeTimeout(1, ![UMKMockURLProtocol verify], @"Returned YES despite unexpected request");
+
+    UMKAssertTrueBeforeTimeout(1, [self.validator receivedMessageCountForSelector:@selector(connection:didFailWithError:)] == 1,
+                               @"Validator received -connection:didReceiveResponse: wrong number of times.");
+
+
+    XCTAssertFalse([UMKMockURLProtocol verify], @"Returned YES despite unexpected request");
     
     [UMKMockURLProtocol setVerificationEnabled:NO];
 }
@@ -238,7 +243,7 @@
     UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURLString:[URL description]];
     mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random() % 500];
     [UMKMockURLProtocol expectMockRequest:mockRequest];
-    UMKAssertTrueBeforeTimeout(1, ![UMKMockURLProtocol verify], @"Returned YES despite un-serviced request");
+    XCTAssertFalse([UMKMockURLProtocol verify], @"Returned YES despite un-serviced request");
     
     [UMKMockURLProtocol setVerificationEnabled:NO];
 }
@@ -256,7 +261,8 @@
     [UMKMockURLProtocol expectMockRequest:mockRequest];
 
     [NSURLConnection connectionWithRequest:request delegate:self.validator];
-    
+    // sleep(60);
+    // [self.validator waitForCompletion];
     UMKAssertTrueBeforeTimeout(1, [UMKMockURLProtocol verify], @"Returned NO despite no unexpected or un-serviced requests");
 
     [UMKMockURLProtocol setVerificationEnabled:NO];
@@ -267,25 +273,27 @@
     [UMKMockURLProtocol setVerificationEnabled:YES];
     
     // We use localhost because we want this to fail fast
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:12345"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:1"]];
+
     [NSURLConnection connectionWithRequest:request delegate:self.validator];
-    UMKAssertTrueBeforeTimeout(1, ![UMKMockURLProtocol verify], @"Returned YES despite unexpected request");
+    XCTAssertTrue([self.validator waitForCompletionWithTimeout:5.0], @"Unexpected request did not complete in time");
+    XCTAssertFalse([UMKMockURLProtocol verify], @"Returned YES despite unexpected request");
     
     [UMKMockURLProtocol reset];
     
     NSURL *URL = UMKRandomHTTPURL();
-    
     request = [NSURLRequest requestWithURL:URL];
 
     UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURLString:[URL description]];
     mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random() % 500];
     [UMKMockURLProtocol expectMockRequest:mockRequest];
-    UMKAssertTrueBeforeTimeout(1, ![UMKMockURLProtocol verify], @"Returned YES despite un-serviced request");
+    XCTAssertFalse([UMKMockURLProtocol verify], @"Returned YES despite un-serviced request");
 
     [NSURLConnection connectionWithRequest:request delegate:self.validator];
-    
-    UMKAssertTrueBeforeTimeout(1, [UMKMockURLProtocol verify], @"Returned NO despite no unexpected or un-serviced requests");
-    
+    XCTAssertTrue([self.validator waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
+    XCTAssertTrue([UMKMockURLProtocol verify], @"Returned NO despite no unexpected or un-serviced requests");
+
+
     [UMKMockURLProtocol setVerificationEnabled:NO];
 }
 
