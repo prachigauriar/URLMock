@@ -39,6 +39,8 @@
  */
 @interface UMKMockHTTPResponder : UMKMockHTTPMessage <UMKMockURLResponder>
 
+/*! @methodgroup Error Responders */
+
 /*!
  @abstract Returns a new UMKMockHTTPResponder instance that responds by sending the specified error.
  @discussion The specified error is the one that is _sent_ to the NSURL system in response to a mock
@@ -51,6 +53,8 @@
  */
 + (instancetype)mockHTTPResponderWithError:(NSError *)error;
 
+
+/*! @methodgroup Data Responders */
 
 /*!
  @abstract Returns a new UMKMockHTTPResponder instance that responds by sending an HTTP response with the

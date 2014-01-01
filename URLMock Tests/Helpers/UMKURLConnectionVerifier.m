@@ -1,5 +1,5 @@
 //
-//  UMKURLConnectionDelegateValidator.m
+//  UMKURLConnectionVerifier.m
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/12/2013.
@@ -24,9 +24,9 @@
 //  THE SOFTWARE.
 //
 
-#import "UMKURLConnectionDelegateValidator.h"
+#import "UMKURLConnectionVerifier.h"
 
-@interface UMKURLConnectionDelegateValidator ()
+@interface UMKURLConnectionVerifier ()
 
 @property (nonatomic, assign, readwrite, getter = isComplete) BOOL complete;
 @property (nonatomic, strong, readwrite) NSURLResponse *response;
@@ -39,7 +39,7 @@
 @end
 
 
-@implementation UMKURLConnectionDelegateValidator
+@implementation UMKURLConnectionVerifier
 
 - (instancetype)init
 {
@@ -67,11 +67,10 @@
 - (BOOL)waitForCompletionWithTimeout:(NSTimeInterval)timeout
 {
     NSDate *endDate = [[NSDate date] dateByAddingTimeInterval:timeout];
-    
     [self.completeCondition lock];
-
-    while (!self.complete && [self.completeCondition waitUntilDate:endDate]) {
-    }
+    
+    // Keep waiting until we're complete or we've timed out
+    while (!self.complete && [self.completeCondition waitUntilDate:endDate]);
 
     [self.completeCondition unlock];
     return self.complete;

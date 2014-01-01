@@ -50,6 +50,8 @@
 + (void)reset;
 
 
+/*! @methodgroup Getting and setting expectations */
+
 /*!
  @abstract Returns all expected mock requests.
  @result An array of all mock requests that are currently expected.
@@ -70,6 +72,8 @@
  */
 + (void)removeExpectedMockRequest:(id <UMKMockURLRequest>)request;
 
+
+/*! @methodgroup Verification */
 
 /*!
  @abstract Returns whether verification is enabled.
@@ -101,10 +105,13 @@
 /*!
  @abstract Returns a dictionary of requests serviced since the last reset.
  @discussion The keys in this dictionary are the actual requests that were serviced; the keys are the mock requests that
-     serviced them.
+ serviced them.
  @result A dictionary of requests serviced since the receiver last received the +reset message.
  */
 + (NSDictionary *)servicedRequests;
+
+
+/*! @methodgroup Getting canonical URLs */
 
 /*!
  @abstract Returns the canonical version of the specified URL.

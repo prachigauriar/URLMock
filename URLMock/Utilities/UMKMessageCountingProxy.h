@@ -54,6 +54,8 @@
 + (instancetype)messageCountingProxyWithObject:(NSObject *)object;
 
 
+/*! @methodgroup Counting messages */
+
 /*!
  @abstract Returns whether the receiver's object has received the specified selector.
  @discussion This is equivalent to checking if the return value of -receivedMessageCountForSelector:

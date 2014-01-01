@@ -35,6 +35,8 @@
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
 
+/*! @methodgroup Random strings */
+
 /*!
  @abstract Returns a random string of alphanumeric characters.
  @discussion The length of the string is (randomly) between 1 and 128.
@@ -67,6 +69,9 @@ extern NSString *UMKRandomUnicodeString(void);
  */
 extern NSString *UMKRandomUnicodeStringWithLength(NSUInteger length);
 
+
+/*! @methodgroup Random booleans, numbers, and dictionaries */
+
 /*!
  @abstract Returns a random boolean value.
  @result A random boolean.
@@ -93,6 +98,9 @@ extern NSNumber *UMKRandomUnsignedNumberInRange(NSRange range);
  */
 extern NSDictionary *UMKRandomDictionaryOfStringsWithElementCount(NSUInteger count);
 
+
+/*! @methodgroup Random JSON objects */
+
 /*!
  @abstract Returns a new random JSON object.
  @discussion The type of the object is randomly chosen. 
@@ -103,6 +111,9 @@ extern NSDictionary *UMKRandomDictionaryOfStringsWithElementCount(NSUInteger cou
  @result A new random JSON object.
  */
 extern id UMKRandomJSONObject(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection);
+
+
+/*! @methodgroup Random HTTP methods and URLs */
 
 /*!
  @abstract Randomly returns one of @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", and @"PUT".
@@ -118,11 +129,14 @@ extern NSString *UMKRandomHTTPMethod(void);
  */
 extern NSURL *UMKRandomHTTPURL(void);
 
+
+/*! @methodgroup Waiting for conditions */
+
 /*!
  @abstract Waits no longer than the specified timeout interval for the given condition block to evaluate to YES.
  @discussion This method primarily exists as a helper for testing asynchronous operations. In this case, the condition
      block should return YES when the operation has completed.
- @param timeInterval The time interval to wait for the condition block to return true. May not be negative.
+ @param timeoutInterval The time interval to wait for the condition block to return true. May not be negative.
  @param condition A block that returns true when a given condition has been fulfilled.
  @result YES if the condition block returned YES before the timeout; NO otherwise.
  */

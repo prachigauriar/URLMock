@@ -27,7 +27,7 @@
 #import <XCTest/XCTest.h>
 
 #import "UMKRandomizedTestCase.h"
-#import "UMKURLConnectionDelegateValidator.h"
+#import "UMKURLConnectionVerifier.h"
 #import <URLMock/URLMock.h>
 #import <URLMock/URLMockUtilities.h>
 
@@ -77,13 +77,13 @@
 }
 
 
-- (id)validatorForConnectionWithURLRequest:(NSURLRequest *)request
+- (id)verifierForConnectionWithURLRequest:(NSURLRequest *)request
 {
-    id validator = [UMKMessageCountingProxy messageCountingProxyWithObject:[[UMKURLConnectionDelegateValidator alloc] init]];
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:validator startImmediately:NO];
+    id verifier = [UMKMessageCountingProxy messageCountingProxyWithObject:[[UMKURLConnectionVerifier alloc] init]];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:verifier startImmediately:NO];
     connection.delegateQueue = [[self class] connectionOperationQueue];
     [connection start];
-    return validator;
+    return verifier;
 }
 
 
@@ -98,13 +98,13 @@
         [UMKMockURLProtocol expectMockRequest:mockRequest];
 
         NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-        id validator = [self validatorForConnectionWithURLRequest:request];
-        XCTAssertTrue([validator waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
+        id verifier = [self verifierForConnectionWithURLRequest:request];
+        XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
         
-        XCTAssertTrue([validator receivedMessageCountForSelector:@selector(connection:didFailWithError:)] == 1,
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(connection:didFailWithError:)] == 1,
                       @"Received -connection:didFailWithError: wrong number of times.");
-        XCTAssertEqualObjects([[validator error] domain], error.domain, @"Error domain was not set correctly");
-        XCTAssertEqual([[validator error] code], error.code, @"Error code was not set correctly");
+        XCTAssertEqualObjects([[verifier error] domain], error.domain, @"Error domain was not set correctly");
+        XCTAssertEqual([[verifier error] code], error.code, @"Error code was not set correctly");
         
         [UMKMockURLProtocol reset];
     }
@@ -129,18 +129,18 @@
         request.HTTPBody = requestBody;
         [request setValue:kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue forHTTPHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
         
-        id validator = [self validatorForConnectionWithURLRequest:request];
-        XCTAssertTrue([validator waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
+        id verifier = [self verifierForConnectionWithURLRequest:request];
+        XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
         
-        XCTAssertTrue([validator receivedMessageCountForSelector:@selector(connection:didReceiveResponse:)] == 1,
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(connection:didReceiveResponse:)] == 1,
                       @"Received -connection:didReceiveResponse: wrong number of times.");
-        XCTAssertTrue([validator receivedMessageCountForSelector:@selector(connection:didReceiveData:)] == 0,
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(connection:didReceiveData:)] == 0,
                       @"Received -connection:didReceiveData: wrong number of times.");
-        XCTAssertTrue([validator receivedMessageCountForSelector:@selector(connectionDidFinishLoading:)] == 1,
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(connectionDidFinishLoading:)] == 1,
                       @"Received -connectionDidFinishLoading: wrong number of times.");
         
-        XCTAssertEqual([(NSHTTPURLResponse *)[validator response] statusCode], responseStatusCode, @"Received wrong status code");
-        XCTAssertNil([validator body], @"Received wrong body");
+        XCTAssertEqual([(NSHTTPURLResponse *)[verifier response] statusCode], responseStatusCode, @"Received wrong status code");
+        XCTAssertNil([verifier body], @"Received wrong body");
         
         [UMKMockURLProtocol reset];
     }
@@ -166,18 +166,18 @@
         request.HTTPBody = requestBody;
         [request setValue:kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue forHTTPHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
         
-        id validator = [self validatorForConnectionWithURLRequest:request];
-        XCTAssertTrue([validator waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
+        id verifier = [self verifierForConnectionWithURLRequest:request];
+        XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
         
-        XCTAssertTrue([validator receivedMessageCountForSelector:@selector(connection:didReceiveResponse:)] == 1,
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(connection:didReceiveResponse:)] == 1,
                       @"Received -connection:didReceiveResponse: wrong number of times.");
-        XCTAssertTrue([validator receivedMessageCountForSelector:@selector(connection:didReceiveData:)] == 1,
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(connection:didReceiveData:)] == 1,
                        @"Received -connection:didReceiveData: wrong number of times.");
-        XCTAssertTrue([validator receivedMessageCountForSelector:@selector(connectionDidFinishLoading:)] == 1,
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(connectionDidFinishLoading:)] == 1,
                       @"Received -connectionDidFinishLoading: wrong number of times.");
         
-        XCTAssertEqual([(NSHTTPURLResponse *)[validator response] statusCode], responseStatusCode, @"Received wrong status code");
-        XCTAssertEqualObjects([validator body], responseBody, @"Received wrong body");
+        XCTAssertEqual([(NSHTTPURLResponse *)[verifier response] statusCode], responseStatusCode, @"Received wrong status code");
+        XCTAssertEqualObjects([verifier body], responseBody, @"Received wrong body");
         
         [UMKMockURLProtocol reset];
     }
@@ -204,18 +204,18 @@
         request.HTTPBody = requestBody;
         [request setValue:kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue forHTTPHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
         
-        id validator = [self validatorForConnectionWithURLRequest:request];
-        XCTAssertTrue([validator waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
+        id verifier = [self verifierForConnectionWithURLRequest:request];
+        XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
 
-        XCTAssertTrue([validator receivedMessageCountForSelector:@selector(connection:didReceiveResponse:)] == 1,
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(connection:didReceiveResponse:)] == 1,
                       @"Received -connection:didReceiveResponse: wrong number of times.");
-        XCTAssertTrue([validator receivedMessageCountForSelector:@selector(connection:didReceiveData:)] > 1,
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(connection:didReceiveData:)] > 1,
                        @"Received -connection:didReceiveData: wrong number of times.");
-        XCTAssertTrue([validator receivedMessageCountForSelector:@selector(connectionDidFinishLoading:)] == 1,
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(connectionDidFinishLoading:)] == 1,
                       @"Received -connectionDidFinishLoading: wrong number of times.");
         
-        XCTAssertEqual([(NSHTTPURLResponse *)[validator response] statusCode], responseStatusCode, @"Received wrong status code");
-        XCTAssertEqualObjects([validator body], responseBody, @"Received wrong body");
+        XCTAssertEqual([(NSHTTPURLResponse *)[verifier response] statusCode], responseStatusCode, @"Received wrong status code");
+        XCTAssertEqualObjects([verifier body], responseBody, @"Received wrong body");
         
         [UMKMockURLProtocol reset];
     }
@@ -228,8 +228,8 @@
 
     // We use localhost because we want this to fail fast
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:1"]];
-    id validator = [self validatorForConnectionWithURLRequest:request];
-    XCTAssertTrue([validator waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
+    id verifier = [self verifierForConnectionWithURLRequest:request];
+    XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
 
     XCTAssertFalse([UMKMockURLProtocol verify], @"Returned YES despite unexpected request");
     
@@ -261,8 +261,8 @@
     [UMKMockURLProtocol expectMockRequest:mockRequest];
 
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-    id validator = [self validatorForConnectionWithURLRequest:request];
-    XCTAssertTrue([validator waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
+    id verifier = [self verifierForConnectionWithURLRequest:request];
+    XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
 
     XCTAssertTrue([UMKMockURLProtocol verify], @"Returned NO despite no unexpected or un-serviced requests");
 
@@ -276,8 +276,8 @@
     
     // We use localhost because we want this to fail fast
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:1"]];
-    id validator = [self validatorForConnectionWithURLRequest:request];
-    XCTAssertTrue([validator waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
+    id verifier = [self verifierForConnectionWithURLRequest:request];
+    XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
     XCTAssertFalse([UMKMockURLProtocol verify], @"Returned YES despite unexpected request");
 
     [UMKMockURLProtocol reset];
@@ -288,8 +288,8 @@
     [UMKMockURLProtocol expectMockRequest:mockRequest];
     XCTAssertFalse([UMKMockURLProtocol verify], @"Returned YES despite un-serviced request");
 
-    validator = [self validatorForConnectionWithURLRequest:[NSURLRequest requestWithURL:URL]];
-    XCTAssertTrue([validator waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
+    verifier = [self verifierForConnectionWithURLRequest:[NSURLRequest requestWithURL:URL]];
+    XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
     XCTAssertTrue([UMKMockURLProtocol verify], @"Returned NO despite no unexpected or un-serviced requests");
 
     [UMKMockURLProtocol setVerificationEnabled:NO];

@@ -24,12 +24,15 @@
 //  THE SOFTWARE.
 //
 
+#import <Foundation/Foundation.h>
+
 /*!
  @header UMKURLEncodingUtilities
  @abstract Defines utility functions for converting dictionaries into URL-encoding strings and vice versa.
  */
 
-#import <Foundation/Foundation.h>
+
+/*! @methodgroup Encoding parameters */
 
 /*!
  @abstract Returns a URL-encoded string representation of the given parameters.
@@ -54,6 +57,8 @@ extern NSString *UMKURLEncodedStringForParameters(NSDictionary *parameters);
  */
 extern NSString *UMKURLEncodedStringForParametersUsingEncoding(NSDictionary *parameters, NSStringEncoding encoding);
 
+
+/*! @methodgroup Decoding parameters */
 
 /*!
  @abstract Returns a dictionary representation of the URL-encoded parameters string.

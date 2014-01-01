@@ -53,7 +53,7 @@ extern NSString *const kUMKMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValu
 extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue;
 
 
-#pragma mark -
+#pragma mark
 
 /*!
  UMKMockHTTPMessage is an abstract class that collects common data and behavior for mock HTTP requests and responses.
@@ -71,7 +71,7 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
 @property (nonatomic, copy) NSDictionary *headers;
 
 
-#pragma mark - Headers
+/*! @methodgroup HTTP headers */
 
 /*!
  @abstract Returns the receiver's value for the specified header field.
@@ -104,7 +104,7 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
 - (BOOL)headersAreEqualToHeadersOfRequest:(NSURLRequest *)request;
 
 
-#pragma mark - Body
+/*! @methodgroup Geting and setting the body */
 
 /*!
  @abstract Returns the receiver's body as a JSON object.
@@ -120,7 +120,6 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
  @throws NSInvalidArgumentException if JSONObject is not a valid JSON object.
  */
 - (void)setBodyWithJSONObject:(id)JSONObject;
-
 
 /*!
  @abstract Returns a dictionary representation of the receiver's body intepreted as URL-encoded WWW form parameters.
@@ -153,6 +152,7 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
 
 /*!
  @abstract Returns the receiver's body as a string in the specified encoding.
+ @param encoding The encoding to use to convert the string to a data object.
  @result The receiver's body as a string in the specified encoding.
  */
 - (NSString *)stringFromBodyWithEncoding:(NSStringEncoding)encoding;

@@ -49,7 +49,7 @@ extern NSString *const kUMKMockHTTPRequestPostMethod;
 extern NSString *const kUMKMockHTTPRequestPutMethod;
 
 
-#pragma mark -
+#pragma mark
 
 /*!
  Instances of UMKMockHTTPRequest, or simply mock requests, represent mock HTTP requests. They are used to tell 
@@ -119,6 +119,9 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
  @result A new mock HTTP PUT request with the specified URL.
  */
 + (instancetype)mockHTTPPutRequestWithURLString:(NSString *)string;
+
+
+/*! @methodgroup URL request matching */
 
 /*!
  @abstract Returns whether the receiver matches the specified URL request.

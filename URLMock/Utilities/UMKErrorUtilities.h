@@ -24,14 +24,15 @@
 //  THE SOFTWARE.
 //
 
+#import <Foundation/Foundation.h>
+
 /*!
  @header UMKErrorUtilities
  @abstract Defines utility functions and categories for use when creating assertions and exceptions.
- @discussion The utility functions allow for easily formatting selectors, method names, and assertion/exception reasons, 
+ @discussion The utility functions allow for easily formatting selectors, method names, and assertion/exception reasons,
      among other tasks.
  */
 
-#import <Foundation/Foundation.h>
 
 /*!
  @abstract Returns an NSString representation of the selector.
@@ -43,17 +44,15 @@
  */
 extern NSString *UMKPrettySelector(id receiver, SEL selector);
 
-
 /*!
  @abstract Returns an NSString representation of the selector.
- @discussion The string is of the form \@"+[receiver selector]" for class methods and \@"-[receiverClassName selector]" for
-     instance methods.
+ @discussion The string is of the form \@"+[receiver selector]" for class methods and \@"-[receiverClassName selector]"
+     for instance methods.
  @param receiver The object responding to the selector.
  @param selector The selector to which the receiver will be responding.
  @result A pretty-printed NSString representation of the method name, including the receiving class.
  */
 extern NSString *UMKPrettyMethodName(id receiver, SEL selector);
-
 
 /*!
  @abstract Returns an NSString that is formatted suitably for use as an assertion message.
@@ -64,7 +63,6 @@ extern NSString *UMKPrettyMethodName(id receiver, SEL selector);
  @result An NSString formatted suitable for use as an assertion message.
  */
 extern NSString *UMKAssertionString(id receiver, SEL selector, NSString *format, ...) NS_FORMAT_FUNCTION(3, 4);
-
 
 /*!
  @abstract Returns an NSString that is formatted suitably for use as an exception message.
