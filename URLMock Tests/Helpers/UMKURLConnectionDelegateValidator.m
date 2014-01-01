@@ -52,7 +52,7 @@
 }
 
 
-- (void)waitUntilComplete
+- (void)waitForCompletion
 {
     [self.completeCondition lock];
 
@@ -69,8 +69,8 @@
     NSDate *endDate = [[NSDate date] dateByAddingTimeInterval:timeout];
     
     [self.completeCondition lock];
+
     while (!self.complete && [self.completeCondition waitUntilDate:endDate]) {
-        NSLog(@"Going to sleep!");
     }
 
     [self.completeCondition unlock];

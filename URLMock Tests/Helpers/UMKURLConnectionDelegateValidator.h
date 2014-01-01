@@ -33,7 +33,9 @@
 @property (nonatomic, strong, readonly) NSError *error;
 @property (nonatomic, strong, readonly) NSData *body;
 
-- (void)waitUntilComplete;
+// These should only be used if the connection has a delegate operation queue configured
+// or if the calling thread is not the same as the thread the connection was started on.
+- (void)waitForCompletion;
 - (BOOL)waitForCompletionWithTimeout:(NSTimeInterval)timeout;
 
 @end
