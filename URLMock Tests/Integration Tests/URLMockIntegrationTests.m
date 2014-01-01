@@ -1,5 +1,5 @@
 //
-//  URLMock_Tests.m
+//  URLMockIntegrationTests.m
 //  URLMock Tests
 //
 //  Created by Prachi Gauriar on 11/12/2013.

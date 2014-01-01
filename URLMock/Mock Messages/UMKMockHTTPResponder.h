@@ -1,5 +1,5 @@
 //
-//  UMKMockHTTPResponse.h
+//  UMKMockHTTPResponder.h
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/8/2013.
