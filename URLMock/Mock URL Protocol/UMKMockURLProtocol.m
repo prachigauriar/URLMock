@@ -132,12 +132,12 @@
         if ([[self class] isVerificationEnabled]) {
             [[self class] removeExpectedMockRequest:_mockRequest];
         }
-
+        
         NSMutableDictionary *servicedMockRequests = [[[self class] settings] servicedRequests];
         @synchronized (servicedMockRequests) {
             servicedMockRequests[request] = _mockRequest;
         }
-}
+    }
 
     return self;
 }

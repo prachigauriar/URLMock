@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		4C1C148E183289C700DE8195 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E822182EAF44002F2096 /* XCTest.framework */; };
 		4C1C1494183289C700DE8195 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C1C1492183289C700DE8195 /* InfoPlist.strings */; };
-		4C1C1496183289C700DE8195 /* URLMockIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C1495183289C700DE8195 /* URLMockIntegrationTests.m */; };
 		4C1C14A4183298F200DE8195 /* UMKMessageCountingProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C14A3183298F200DE8195 /* UMKMessageCountingProxy.m */; };
+		4C31D33B1875B73100CD99F4 /* URLMockIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31D33A1875B73100CD99F4 /* URLMockIntegrationTests.m */; };
 		4C34F62B183346FB00AD2A6D /* UMKTestUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C34F62A183346FB00AD2A6D /* UMKTestUtilities.m */; };
 		4C45E815182EAF44002F2096 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E814182EAF44002F2096 /* Foundation.framework */; };
 		4C45E840182EAFCB002F2096 /* UMKMockHTTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E83B182EAFCB002F2096 /* UMKMockHTTPMessage.m */; };
@@ -82,10 +82,10 @@
 		4C1C148D183289C700DE8195 /* URLMock Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "URLMock Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C1C1491183289C700DE8195 /* URLMock Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "URLMock Tests-Info.plist"; sourceTree = "<group>"; };
 		4C1C1493183289C700DE8195 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4C1C1495183289C700DE8195 /* URLMockIntegrationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = URLMockIntegrationTests.m; sourceTree = "<group>"; };
 		4C1C1497183289C700DE8195 /* URLMock Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "URLMock Tests-Prefix.pch"; sourceTree = "<group>"; };
 		4C1C14A2183298F200DE8195 /* UMKMessageCountingProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKMessageCountingProxy.h; sourceTree = "<group>"; };
 		4C1C14A3183298F200DE8195 /* UMKMessageCountingProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKMessageCountingProxy.m; sourceTree = "<group>"; };
+		4C31D33A1875B73100CD99F4 /* URLMockIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = URLMockIntegrationTests.m; path = "Integration Tests/URLMockIntegrationTests.m"; sourceTree = "<group>"; };
 		4C34F629183346FB00AD2A6D /* UMKTestUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKTestUtilities.h; sourceTree = "<group>"; };
 		4C34F62A183346FB00AD2A6D /* UMKTestUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKTestUtilities.m; sourceTree = "<group>"; };
 		4C45E811182EAF44002F2096 /* libURLMock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libURLMock.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -290,7 +290,7 @@
 		4C8F603518615A0E00B3B2CB /* Integration Tests */ = {
 			isa = PBXGroup;
 			children = (
-				4C1C1495183289C700DE8195 /* URLMockIntegrationTests.m */,
+				4C31D33A1875B73100CD99F4 /* URLMockIntegrationTests.m */,
 			);
 			name = "Integration Tests";
 			sourceTree = "<group>";
@@ -478,10 +478,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C31D33B1875B73100CD99F4 /* URLMockIntegrationTests.m in Sources */,
 				4CD82AD5185CF94300825779 /* UMKRandomizedTestCase.m in Sources */,
 				4C6841A11838173A00BACE61 /* UMKMockHTTPRequestTests.m in Sources */,
 				4C8AF916185E6641001B468E /* UMKMockHTTPResponderTests.m in Sources */,
-				4C1C1496183289C700DE8195 /* URLMockIntegrationTests.m in Sources */,
 				4CC86F2018367A7A00B878D6 /* UMKTestUtilitiesTests.m in Sources */,
 				4C8F60341861594B00B3B2CB /* UMKMockURLProtocolTests.m in Sources */,
 				4C1C14A4183298F200DE8195 /* UMKMessageCountingProxy.m in Sources */,
