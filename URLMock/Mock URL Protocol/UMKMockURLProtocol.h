@@ -46,6 +46,9 @@
 
 /*!
  @abstract Removes all expected mock requests and information about serviced requests.
+ @discussion Due to the asynchronous nature of URL loading, care should be taken to ensure that there are no
+     connections in progress when this method is invoked. Failure to do so could result in unexpected results,
+     particularly if verification mode is enabled.
  */
 + (void)reset;
 
@@ -105,7 +108,7 @@
 /*!
  @abstract Returns a dictionary of requests serviced since the last reset.
  @discussion The keys in this dictionary are the actual requests that were serviced; the keys are the mock requests that
- serviced them.
+     serviced them.
  @result A dictionary of requests serviced since the receiver last received the +reset message.
  */
 + (NSDictionary *)servicedRequests;
