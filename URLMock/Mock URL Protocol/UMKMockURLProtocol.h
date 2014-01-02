@@ -48,7 +48,7 @@
  @abstract Removes all expected mock requests and information about serviced requests.
  @discussion Due to the asynchronous nature of URL loading, care should be taken to ensure that there are no
      connections in progress when this method is invoked. Failure to do so could result in unexpected results,
-     particularly if verification mode is enabled.
+     particularly if verification is enabled.
  */
 + (void)reset;
 
@@ -80,7 +80,8 @@
 
 /*!
  @abstract Returns whether verification is enabled.
- @discussion Set to NO by default. See +setVerificationEnabled: for more information on what enabling verification means.
+ @discussion Set to NO by default. See +setVerificationEnabled: for more information on what enabling 
+     verification means.
  @result Whether verification is enabled.
  */
 + (BOOL)isVerificationEnabled;
@@ -88,27 +89,28 @@
 /*!
  @abstract Enables or disables verification.
  @param enabled Whether to enable verification or not.
- @discussion By default, verification is disabled. When enabled, the behavior of UMKMockURLProtocol changes to facilitate
-     verifying expected behavior. In particular, UMKMockURLProtocol will keep track of whether any unexpected requests are
-     received; mock requests are automatically removed from the set of expected requests when they are serviced.
- 
+ @discussion By default, verification is disabled. When enabled, the behavior of UMKMockURLProtocol changes 
+     to facilitate verifying expected behavior. In particular, UMKMockURLProtocol will keep track of whether 
+     any unexpected requests are received; mock requests are automatically removed from the set of expected 
+     requests when they are serviced.
+
      When verification is enabled, +verify may be used to determine if things are behaving as expected.
  */
 + (void)setVerificationEnabled:(BOOL)enabled;
 
 /*!
  @abstract Verifies that mock requests are being serviced as expected.
- @discussion Returns YES if and only if all expected requests have been serviced and no unexpected requests have been 
-     received since the last reset. Note: this method may only be used when verification is enabled. Invoking it otherwise 
-     will raise an exception.
+ @discussion Returns YES if and only if all expected requests have been serviced and no unexpected requests 
+     have been received since the last reset. Note: this method may only be used when verification is enabled.
+     Invoking it otherwise will raise an exception.
  @throws NSInternalInconsistencyException if verification is not enabled.
  */
 + (BOOL)verify;
 
 /*!
  @abstract Returns a dictionary of requests serviced since the last reset.
- @discussion The keys in this dictionary are the actual requests that were serviced; the keys are the mock requests that
-     serviced them.
+ @discussion The keys in this dictionary are the actual requests that were serviced; the keys are the mock
+     requests that serviced them.
  @result A dictionary of requests serviced since the receiver last received the +reset message.
  */
 + (NSDictionary *)servicedRequests;
@@ -155,14 +157,15 @@
 #pragma mark
 
 /*!
- The UMKMockURLResponder protocol declares messages that responders to mock requests in the MockURL system must respond to.
+ The UMKMockURLResponder protocol declares messages that responders to mock requests in the MockURL system
+ must respond to.
  */
 @protocol UMKMockURLResponder <NSObject>
 
 /*!
  @abstract Responds to the specified mock request on behalf of the specified protocol object.
- @discussion The receiver should respond to this message by sending the client methods in the NSURLProtocolClient protocol.
-     It should stop responding after it receives the -cancelResponse message.
+ @discussion The receiver should respond to this message by sending the client methods in the NSURLProtocolClient
+     protocol. It should stop responding after it receives the -cancelResponse message.
  @param request The mock request. May not be nil.
  @param client The protocol client. May not be nil.
  @param protocol The URL protocol. May not be nil.

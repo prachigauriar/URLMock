@@ -90,7 +90,8 @@
 
 - (NSString *)debugDescription
 {
-    return [NSString stringWithFormat:@"<%@: %lX; enabled: %@; verificationEnabled: %@, receivedUnexpectedRequest: %@; expectedMockRequests: %@, servicedRequests: %@",
+    return [NSString stringWithFormat:@"<%@: %lX; enabled: %@; verificationEnabled: %@, receivedUnexpectedRequest: %@; "
+                                      @"expectedMockRequests: %@, servicedRequests: %@>",
             [self class], (NSUInteger)self,
             self.enabled ? @"YES" : @"NO",
             self.verificationEnabled ? @"YES" : @"NO",
