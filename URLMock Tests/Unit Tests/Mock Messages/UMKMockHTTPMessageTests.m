@@ -222,7 +222,8 @@
     NSDictionary *parameters = UMKRandomDictionaryOfStringsWithElementCount(10);
     [self.message setBodyByURLEncodingParameters:parameters];
 
-    NSDictionary *manuallyDecodedBody = UMKDictionaryForURLEncodedParametersString([[NSString alloc] initWithData:self.message.body encoding:NSUTF8StringEncoding]);
+    NSString *bodyString = [[NSString alloc] initWithData:self.message.body encoding:NSUTF8StringEncoding];
+    NSDictionary *manuallyDecodedBody = [NSDictionary umk_dictionaryWithURLEncodedParameterString:bodyString];
     XCTAssertEqualObjects([self.message parametersFromURLEncodedBody], parameters, @"Did not set body correctly");
     XCTAssertEqualObjects([self.message parametersFromURLEncodedBody], manuallyDecodedBody, @"Did not set body correctly");
     XCTAssertEqualObjects([self.message valueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField], contentType, @"Content-Type header value was overwritten");
@@ -248,5 +249,22 @@
     XCTAssertEqualObjects(self.message.headers, beforeHeaders, @"Headers changed after setting body string");
 }
 
+
+- (void)testURLEncodedParameters
+{
+    NSDictionary *parameters = @{
+//        @"a" : @[ @1, @2, @3, @[ @"a" ] ],
+                                 @"b" : @{ @1 : @{ @"c" : @[ @"a" ] }, @2 : @"b", @3 : @"c" },
+//        @"c" : [NSSet setWithObjects:@1, @2, @3, nil],
+//        @"d" : @1
+    };
+    
+    // a[]=1&a[]=2&a[]=3
+    // &b[1]=a&
+    //  b[2]=b&b[3]=c&c=3&c=1&c=2&d=1
+
+    NSLog(@"%@", [parameters umk_URLEncodedParameterString]);
+    XCTAssert(YES, @"PASS");
+}
 
 @end

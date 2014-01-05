@@ -114,7 +114,7 @@
     XCTAssertFalse([mockRequest matchesURLRequest:request], @"Matches request with incorrect headers and body.");
     
     [request setValue:kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue forHTTPHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
-    request.HTTPBody = [UMKURLEncodedStringForParameters(parameters) dataUsingEncoding:NSUTF8StringEncoding];
+    request.HTTPBody = [[parameters umk_URLEncodedParameterString] dataUsingEncoding:NSUTF8StringEncoding];
     XCTAssertTrue([mockRequest matchesURLRequest:request], @"Does not match equivalent request.");
 }
 

@@ -26,6 +26,7 @@
 
 #import <URLMock/UMKMockHTTPRequest.h>
 #import <URLMock/UMKMockURLProtocol.h>
+#import <URLMock/UMKURLEncoding.h>
 
 #pragma mark Constants
 
@@ -157,7 +158,8 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
             return [[self JSONObjectFromBody] isEqual:[NSJSONSerialization JSONObjectWithData:request.HTTPBody options:0 error:NULL]];
         } else if ([contentType rangeOfString:kUMKMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValue].location != NSNotFound) {
             NSString *requestBodyString = [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding];
-            return [[self parametersFromURLEncodedBody] isEqualToDictionary:UMKDictionaryForURLEncodedParametersString(requestBodyString)];;
+            NSDictionary *bodyParameters = [NSDictionary umk_dictionaryWithURLEncodedParameterString:requestBodyString];
+            return [[self parametersFromURLEncodedBody] isEqualToDictionary:bodyParameters];
         }
     }
     

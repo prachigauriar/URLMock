@@ -26,6 +26,7 @@
 
 #import <URLMock/UMKMockURLProtocol.h>
 #import <URLMock/UMKErrorUtilities.h>
+#import <URLMock/UMKURLEncoding.h>
 
 #pragma mark UMKMockURLProtocolSettings
 
@@ -328,7 +329,7 @@
 
     // If there's a query, make sure the order of the parameters is consistent
     if (query) {
-        NSString *canonicalQueryString = UMKURLEncodedStringForParameters(UMKDictionaryForURLEncodedParametersString(query));
+        NSString *canonicalQueryString = [[NSDictionary umk_dictionaryWithURLEncodedParameterString:query] umk_URLEncodedParameterString];
         NSString *URLString = [canonicalURL absoluteString];
         canonicalURL = [NSURL URLWithString:[URLString stringByReplacingCharactersInRange:[URLString rangeOfString:query]
                                                                                withString:canonicalQueryString]];

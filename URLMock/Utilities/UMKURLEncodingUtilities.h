@@ -29,10 +29,11 @@
 /*!
  @header UMKURLEncodingUtilities
  @abstract Defines utility functions for converting dictionaries into URL-encoding strings and vice versa.
+ @note Most of this code was adapted or borrowed from AFNetworking.
  */
 
 
-/*! @methodgroup Encoding parameters */
+/*! @functiongroup Encoding parameters */
 
 /*!
  @abstract Returns a URL-encoded string representation of the given parameters.
@@ -58,7 +59,7 @@ extern NSString *UMKURLEncodedStringForParameters(NSDictionary *parameters);
 extern NSString *UMKURLEncodedStringForParametersUsingEncoding(NSDictionary *parameters, NSStringEncoding encoding);
 
 
-/*! @methodgroup Decoding parameters */
+/*! @functiongroup Decoding parameters */
 
 /*!
  @abstract Returns a dictionary representation of the URL-encoded parameters string.

@@ -1,5 +1,5 @@
 //
-//  UMKURLEncodedParameterPair.m
+//  UMKURLEncoding.m
 //  URLMock
 //
 //  Created by Prachi Gauriar on 1/5/2014.
@@ -24,6 +24,54 @@
 //  THE SOFTWARE.
 
 #import <URLMock/UMKParameterPair.h>
+
+@implementation NSDictionary (UMKURLEncoding)
+
++ (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string
+{
+    return [self umk_dictionaryWithURLEncodedParameterString:string encoding:NSUTF8StringEncoding];
+}
+
+
++ (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string encoding:(NSStringEncoding)encoding
+{
+    NSCParameterAssert(string);
+    
+    NSArray *keyValueStrings = [string componentsSeparatedByString:@"&"];
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithCapacity:keyValueStrings.count];
+    
+    for (NSString *keyValueString in keyValueStrings) {
+        NSArray *keyValuePair = [keyValueString componentsSeparatedByString:@"="];
+        NSString *key = [keyValuePair[0] stringByReplacingPercentEscapesUsingEncoding:encoding];
+        dictionary[key] = (keyValuePair.count > 1) ? [keyValuePair[1] stringByReplacingPercentEscapesUsingEncoding:encoding] : [NSNull null];
+    }
+    
+    return dictionary;
+}
+
+
+- (NSString *)umk_URLEncodedParameterString
+{
+    return [self umk_URLEncodedParameterStringUsingEncoding:NSUTF8StringEncoding];
+}
+
+
+- (NSString *)umk_URLEncodedParameterStringUsingEncoding:(NSStringEncoding)encoding
+{
+    NSArray *pairs = [self umk_parameterPairsWithKey:nil];
+    NSMutableArray *pairStrings = [[NSMutableArray alloc] initWithCapacity:pairs.count];
+    
+    for (UMKParameterPair *pair in pairs) {
+        [pairStrings addObject:[pair URLEncodedStringValueWithEncoding:encoding]];
+    }
+    
+    return [pairStrings componentsJoinedByString:@"&"];
+}
+
+@end
+
+
+#pragma mark - UMKParameterPair
 
 static const NSString *const kUMKParameterPairEscapedCharacters = @":/?&=;+!@#$()',*";
 
@@ -75,7 +123,9 @@ static const NSString *const kUMKParameterPairEscapedCharacters = @":/?&=;+!@#$(
 @end
 
 
-@implementation NSObject (UMKURLEncodedParameterPairs)
+#pragma mark - UMKParameterPairs categories
+
+@implementation NSObject (UMKParameterPairs)
 
 - (NSArray *)umk_parameterPairsWithKey:(NSString *)key
 {
@@ -85,14 +135,14 @@ static const NSString *const kUMKParameterPairEscapedCharacters = @":/?&=;+!@#$(
 @end
 
 
-@implementation NSArray (UMKURLEncodedParameterPairs)
+@implementation NSArray (UMKParameterPairs)
 
 - (NSArray *)umk_parameterPairsWithKey:(NSString *)key
 {
     NSMutableArray *pairs = [[NSMutableArray alloc] initWithCapacity:self.count];
     NSString *nestedKey = [NSString stringWithFormat:@"%@[]", key];
-    for (id element in self) {
-        [pairs addObjectsFromArray:[element umk_parameterPairsWithKey:nestedKey]];
+    for (id value in self) {
+        [pairs addObjectsFromArray:[value umk_parameterPairsWithKey:nestedKey]];
     }
     
     return pairs;
@@ -101,17 +151,19 @@ static const NSString *const kUMKParameterPairEscapedCharacters = @":/?&=;+!@#$(
 @end
 
 
-@implementation NSDictionary (UMKURLEncodedParameterPairs)
+@implementation NSDictionary (UMKParameterPairs)
 
 - (NSArray *)umk_parameterPairsWithKey:(NSString *)key
 {
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(caseInsensitiveCompare:)];
-    NSArray *sortedNestedKeys = [[self allKeys] sortedArrayUsingDescriptors:@[ sortDescriptor ]];
-    
+    NSArray *sortedNestedKeys = [[self allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [[obj1 description] caseInsensitiveCompare:[obj2 description]];
+    }];
+        
     NSMutableArray *pairs = [[NSMutableArray alloc] initWithCapacity:self.count];
     for (id nestedKey in sortedNestedKeys) {
         NSString *parameterPairKey = key ? [NSString stringWithFormat:@"%@[%@]", key, nestedKey] : nestedKey;
-        [pairs addObjectsFromArray:[[self objectForKey:nestedKey] umk_parameterPairsWithKey:parameterPairKey]];
+        id value = self[nestedKey];
+        [pairs addObjectsFromArray:[value umk_parameterPairsWithKey:parameterPairKey]];
     }
 
     return pairs;
@@ -120,7 +172,7 @@ static const NSString *const kUMKParameterPairEscapedCharacters = @":/?&=;+!@#$(
 @end
 
 
-@implementation NSSet (UMKURLEncodedParameterPairs)
+@implementation NSSet (UMKParameterPairs)
 
 - (NSArray *)umk_parameterPairsWithKey:(NSString *)key
 {

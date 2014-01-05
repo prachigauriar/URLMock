@@ -1,5 +1,5 @@
 //
-//  UMKParameterPair.h
+//  UMKURLEncoding.h
 //  URLMock
 //
 //  Created by Prachi Gauriar on 1/5/2014.
@@ -25,8 +25,19 @@
 
 #import <Foundation/Foundation.h>
 
+@interface NSDictionary (UMKURLEncoding)
+
++ (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string;
++ (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string encoding:(NSStringEncoding)encoding;
+
+- (NSString *)umk_URLEncodedParameterString;
+- (NSString *)umk_URLEncodedParameterStringUsingEncoding:(NSStringEncoding)encoding;
+
+@end
+
+
 /*!
- @note Much of this code is adapted or borrowed from AFNetworking.
+ @note The basic design and some of the code here is adapted or borrowed from AFNetworking.
  */
 @interface UMKParameterPair : NSObject
 
@@ -41,28 +52,5 @@
 
 
 @interface NSObject (UMKParameterPairs)
-
 - (NSArray *)umk_parameterPairsWithKey:(NSString *)key;
-
-@end
-
-
-@interface NSArray (UMKParameterPairs)
-
-- (NSArray *)umk_parameterPairsWithKey:(NSString *)key;
-
-@end
-
-
-@interface NSDictionary (UMKParameterPairs)
-
-- (NSArray *)umk_parameterPairsWithKey:(NSString *)key;
-
-@end
-
-
-@interface NSSet (UMKParameterPairs)
-
-- (NSArray *)umk_parameterPairsWithKey:(NSString *)key;
-
 @end

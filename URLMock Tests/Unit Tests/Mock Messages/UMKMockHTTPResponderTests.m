@@ -59,8 +59,7 @@
 
     self.URLProtocol = [OCMockObject mockForClass:[NSURLProtocol class]];
     
-    [[[self.URLProtocol stub] andReturn:[[NSURLRequest alloc] initWithURL:URL]] request];
-    
+    [[[self.URLProtocol stub] andReturn:[[NSURLRequest alloc] initWithURL:URL]] request];    
 }
 
 

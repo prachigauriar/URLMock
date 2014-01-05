@@ -25,51 +25,11 @@
 //
 
 #import <URLMock/UMKURLEncodingUtilities.h>
+#import <URLMock/NSObject+UMKURLEncodedParameterPairs.h>
 
 #pragma mark Constants
 
 static NSString *const kUMKEscapedCharacters = @":/?&=;+!@#$()',*";
-
-
-#pragma mark - Private Functions
-
-// Note: Most of the code for these functions was adapted from AFNetworking.
-
-/*!
- @abstract Returns a percent-escaped representation of the string in the specified encoding.
- @discussion This function should be used for percent-escaping keys in URL-encoded parameter lists.
-     As such, the following characters are left unescaped: '.', '[', ']'.
- @param key The key string to be encoded.
- @param encoding The encoding to use when escaping the string.
- @result A percent-escaped representation of key.
- */
-static NSString *UMKPercentEscapedKeyStringWithEncoding(NSString *key, NSStringEncoding encoding)
-{
-    static NSString *const kUMKUnescapedCharacters = @".[]";
-	return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                                                 (__bridge CFStringRef)key,
-                                                                                 (__bridge CFStringRef)kUMKUnescapedCharacters,
-                                                                                 (__bridge CFStringRef)kUMKEscapedCharacters,
-                                                                                 CFStringConvertNSStringEncodingToEncoding(encoding));
-}
-
-
-/*!
- @abstract Returns a percent-escaped representation of the string in the specified encoding.
- @discussion This function should be used for percent-escaping values in URL-encoded parameter lists. 
-     No characters are left unescaped.
- @param value The value string to be encoded.
- @param encoding The encoding to use when escaping the string.
- @result A percent-escaped representation of value.
- */
-static NSString *UMKPercentEscapedValueStringWithEncoding(NSString *value, NSStringEncoding encoding)
-{
-    return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                                                 (__bridge CFStringRef)value,
-                                                                                 NULL,
-                                                                                 (__bridge CFStringRef)kUMKEscapedCharacters,
-                                                                                 CFStringConvertNSStringEncodingToEncoding(encoding));
-}
 
 
 #pragma mark - Public Functions
@@ -123,3 +83,96 @@ NSDictionary *UMKDictionaryForURLEncodedParametersStringUsingEncoding(NSString *
     
     return dictionary;
 }
+
+
+#pragma mark -
+
+@interface AFQueryStringPair : NSObject
+
+@property (nonatomic, strong) id field;
+@property (nonatomic, strong) id value;
+
+- (instancetype)initWithField:(id)field value:(id)value;
+- (NSString *)URLEncodedStringValueWithEncoding:(NSStringEncoding)stringEncoding;
+
+@end
+
+
+@implementation AFQueryStringPair
+
+- (instancetype)initWithField:(id)field value:(id)value
+{
+    self = [super init];
+    if (self) {
+        self.field = field;
+        self.value = value;
+    }
+    
+    return self;
+}
+
+
+- (NSString *)URLEncodedStringValueWithEncoding:(NSStringEncoding)stringEncoding
+{
+    if (!self.value || self.value == [NSNull null]) {
+        return UMKPercentEscapedKeyStringWithEncoding([self.field description], stringEncoding);
+    }
+    
+    return [NSString stringWithFormat:@"%@=%@", UMKPercentEscapedKeyStringWithEncoding([self.field description], stringEncoding), UMKPercentEscapedValueStringWithEncoding([self.value description], stringEncoding)];
+}
+
+@end
+
+
+#pragma mark -
+
+NSArray *AFQueryStringPairsFromKeyAndValue(NSString *key, id value)
+{
+    NSMutableArray *mutableQueryStringComponents = [NSMutableArray array];
+    
+    if ([value isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dictionary = value;
+        // Sort dictionary keys to ensure consistent ordering in query string, which is important when deserializing potentially ambiguous sequences, such as an array of dictionaries
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(caseInsensitiveCompare:)];
+        for (id nestedKey in [dictionary.allKeys sortedArrayUsingDescriptors:@[ sortDescriptor ]]) {
+            id nestedValue = [dictionary objectForKey:nestedKey];
+            if (nestedValue) {
+                [mutableQueryStringComponents addObjectsFromArray:AFQueryStringPairsFromKeyAndValue((key ? [NSString stringWithFormat:@"%@[%@]", key, nestedKey] : nestedKey), nestedValue)];
+            }
+        }
+    } else if ([value isKindOfClass:[NSArray class]]) {
+        NSArray *array = value;
+        for (id nestedValue in array) {
+            [mutableQueryStringComponents addObjectsFromArray:AFQueryStringPairsFromKeyAndValue([NSString stringWithFormat:@"%@[]", key], nestedValue)];
+        }
+    } else if ([value isKindOfClass:[NSSet class]]) {
+        NSSet *set = value;
+        for (id obj in set) {
+            [mutableQueryStringComponents addObjectsFromArray:AFQueryStringPairsFromKeyAndValue(key, obj)];
+        }
+    } else {
+        [mutableQueryStringComponents addObject:[[AFQueryStringPair alloc] initWithField:key value:value]];
+    }
+    
+    return mutableQueryStringComponents;
+}
+
+
+NSArray *AFQueryStringPairsFromDictionary(NSDictionary *dictionary)
+{
+    return AFQueryStringPairsFromKeyAndValue(nil, dictionary);
+}
+
+
+static NSString *AFQueryStringFromParametersWithEncoding(NSDictionary *parameters, NSStringEncoding stringEncoding)
+{
+    NSMutableArray *pairs = [NSMutableArray array];
+    for (AFQueryStringPair *pair in AFQueryStringPairsFromDictionary(parameters)) {
+        [pairs addObject:[pair URLEncodedStringValueWithEncoding:stringEncoding]];
+    }
+    
+    return [pairs componentsJoinedByString:@"&"];
+}
+
+
+

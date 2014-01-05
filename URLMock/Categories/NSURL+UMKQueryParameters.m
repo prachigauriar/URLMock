@@ -24,8 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import "NSURL+UMKQueryParameters.h"
-#import <URLMock/UMKURLEncodingUtilities.h>
+#import <URLMock/NSURL+UMKQueryParameters.h>
+#import <URLMock/UMKURLEncoding.h>
 
 @implementation NSURL (UMKQueryParameters)
 
@@ -38,7 +38,7 @@
 - (id)umk_initWithString:(NSString *)URLString parameters:(NSDictionary *)parameters relativeToURL:(NSURL *)baseURL
 {
     if (parameters) {
-        NSString *encodedParameters = UMKURLEncodedStringForParameters(parameters);
+        NSString *encodedParameters = [parameters umk_URLEncodedParameterString];
         NSRange questionMarkRange = [URLString rangeOfString:@"?" options:NSBackwardsSearch];
         URLString = [URLString stringByAppendingFormat:@"%c%@", questionMarkRange.location == NSNotFound ? '?' : '&', encodedParameters];
     }

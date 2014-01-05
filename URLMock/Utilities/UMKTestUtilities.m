@@ -25,6 +25,7 @@
 //
 
 #import <URLMock/UMKTestUtilities.h>
+#import <URLMock/UMKURLEncoding.h>
 
 @implementation UMKRandomizedTestCase
 
@@ -267,7 +268,7 @@ NSURL *UMKRandomHTTPURL(void)
             parameters[UMKRandomAlphanumericStringWithLength(random() % 10 + 1)] = UMKRandomAlphanumericStringWithLength(random() % 10 + 1);
         }
         
-        [URLString appendFormat:@"?%@", UMKURLEncodedStringForParameters(parameters)];
+        [URLString appendFormat:@"?%@", [parameters umk_URLEncodedParameterString]];
     }
  
     // Fragment
