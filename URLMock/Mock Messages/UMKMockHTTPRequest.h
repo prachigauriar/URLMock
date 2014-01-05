@@ -80,45 +80,45 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
 
 /*!
  @abstract Creates and returns a new mock HTTP DELETE request to the specified URL.
- @param string A string representation of the new request's URL. May not be nil.
+ @param URL The URL for the new mock request. May not be nil.
  @result A new mock HTTP DELETE request with the specified URL.
  */
-+ (instancetype)mockHTTPDeleteRequestWithURLString:(NSString *)string;
++ (instancetype)mockHTTPDeleteRequestWithURL:(NSURL *)URL;
 
 /*!
  @abstract Creates and returns a new mock HTTP DELETE request to the specified URL.
- @param string A string representation of the new request's URL. May not be nil.
+ @param URL The URL for the new mock request. May not be nil.
  @result A new mock HTTP DELETE request with the specified URL.
  */
-+ (instancetype)mockHTTPGetRequestWithURLString:(NSString *)string;
++ (instancetype)mockHTTPGetRequestWithURL:(NSURL *)URL;
 
 /*!
  @abstract Creates and returns a new mock HTTP HEAD request to the specified URL.
- @param string A string representation of the new request's URL. May not be nil.
+ @param URL The URL for the new mock request. May not be nil.
  @result A new mock HTTP HEAD request with the specified URL.
  */
-+ (instancetype)mockHTTPHeadRequestWithURLString:(NSString *)string;
++ (instancetype)mockHTTPHeadRequestWithURL:(NSURL *)URL;
 
 /*!
  @abstract Creates and returns a new mock HTTP PATCH request to the specified URL.
- @param string A string representation of the new request's URL. May not be nil.
+ @param URL The URL for the new mock request. May not be nil.
  @result A new mock HTTP PATCH request with the specified URL.
  */
-+ (instancetype)mockHTTPPatchRequestWithURLString:(NSString *)string;
++ (instancetype)mockHTTPPatchRequestWithURL:(NSURL *)URL;
 
 /*!
  @abstract Creates and returns a new mock HTTP POST request to the specified URL.
- @param string A string representation of the new request's URL. May not be nil.
+ @param URL The URL for the new mock request. May not be nil.
  @result A new mock HTTP POST request with the specified URL.
  */
-+ (instancetype)mockHTTPPostRequestWithURLString:(NSString *)string;
++ (instancetype)mockHTTPPostRequestWithURL:(NSURL *)URL;
 
 /*!
  @abstract Creates and returns a new mock HTTP PUT request to the specified URL.
- @param string A string representation of the new request's URL. May not be nil.
+ @param URL The URL for the new mock request. May not be nil.
  @result A new mock HTTP PUT request with the specified URL.
  */
-+ (instancetype)mockHTTPPutRequestWithURLString:(NSString *)string;
++ (instancetype)mockHTTPPutRequestWithURL:(NSURL *)URL;
 
 
 /*! @methodgroup URL request matching */

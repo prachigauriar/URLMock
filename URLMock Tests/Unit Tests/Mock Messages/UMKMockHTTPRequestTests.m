@@ -58,14 +58,13 @@
 - (void)testConvenienceFactoryMethods
 {
     NSURL *URL = UMKRandomHTTPURL();
-    NSString *URLString = [URL description];
 
     for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
-        SEL selector = NSSelectorFromString([NSString stringWithFormat:@"mockHTTP%@RequestWithURLString:", method.capitalizedString]);
+        SEL selector = NSSelectorFromString([NSString stringWithFormat:@"mockHTTP%@RequestWithURL:", method.capitalizedString]);
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        UMKMockHTTPRequest *mockRequest = [[UMKMockHTTPRequest class] performSelector:selector withObject:URLString];
+        UMKMockHTTPRequest *mockRequest = [[UMKMockHTTPRequest class] performSelector:selector withObject:URL];
 #pragma clang diagnostic pop
         
         XCTAssertNotNil(mockRequest, @"Returns nil");
@@ -78,9 +77,8 @@
 - (void)testMatchesURLRequest
 {
     NSURL *URL = UMKRandomHTTPURL();
-    NSString *URLString = [URL description];
 
-    UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPPostRequestWithURLString:URLString];
+    UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPPostRequestWithURL:URL];
     NSDictionary *headers = UMKRandomDictionaryOfStringsWithElementCount(12);
     mockRequest.headers = headers;
 
@@ -127,9 +125,8 @@
 - (void)testResponderAccessors
 {
     NSURL *URL = UMKRandomHTTPURL();
-    NSString *URLString = [URL description];
 
-    UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURLString:URLString];
+    UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURL:URL];
     UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:200];
     mockRequest.responder = responder;
     

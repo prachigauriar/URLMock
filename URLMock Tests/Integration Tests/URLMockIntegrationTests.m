@@ -93,7 +93,7 @@
         NSURL *URL = UMKRandomHTTPURL();
         
         NSError *error = [NSError errorWithDomain:@"UMKError" code:1234 userInfo:nil];
-        UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURLString:URL.description];
+        UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURL:URL];
         mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithError:error];
         [UMKMockURLProtocol expectMockRequest:mockRequest];
 
@@ -241,7 +241,7 @@
 {
     [UMKMockURLProtocol setVerificationEnabled:YES];
 
-    UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURLString:[UMKRandomHTTPURL() description]];
+    UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURL:UMKRandomHTTPURL()];
     mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random() % 500];
     [UMKMockURLProtocol expectMockRequest:mockRequest];
 
@@ -256,7 +256,7 @@
     [UMKMockURLProtocol setVerificationEnabled:YES];
     
     NSURL *URL = UMKRandomHTTPURL();
-    UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURLString:URL.description];
+    UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURL:URL];
     mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random() % 500];
     [UMKMockURLProtocol expectMockRequest:mockRequest];
 
@@ -283,7 +283,7 @@
     [UMKMockURLProtocol reset];
     
     NSURL *URL = UMKRandomHTTPURL();
-    UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURLString:[URL description]];
+    UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURL:URL];
     mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random() % 500];
     [UMKMockURLProtocol expectMockRequest:mockRequest];
     XCTAssertFalse([UMKMockURLProtocol verify], @"Returned YES despite un-serviced request");

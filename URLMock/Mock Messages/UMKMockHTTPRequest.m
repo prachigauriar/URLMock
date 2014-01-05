@@ -84,39 +84,39 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 }
 
 
-+ (instancetype)mockHTTPDeleteRequestWithURLString:(NSString *)string
++ (instancetype)mockHTTPDeleteRequestWithURL:(NSURL *)URL
 {
-    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestDeleteMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestDeleteMethod URL:URL];
 }
 
 
-+ (instancetype)mockHTTPGetRequestWithURLString:(NSString *)string
++ (instancetype)mockHTTPGetRequestWithURL:(NSURL *)URL
 {
-    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestGetMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestGetMethod URL:URL];
 }
 
 
-+ (instancetype)mockHTTPHeadRequestWithURLString:(NSString *)string
++ (instancetype)mockHTTPHeadRequestWithURL:(NSURL *)URL
 {
-    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestHeadMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestHeadMethod URL:URL];
 }
 
 
-+ (instancetype)mockHTTPPatchRequestWithURLString:(NSString *)string
++ (instancetype)mockHTTPPatchRequestWithURL:(NSURL *)URL
 {
-    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestPatchMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestPatchMethod URL:URL];
 }
 
 
-+ (instancetype)mockHTTPPostRequestWithURLString:(NSString *)string
++ (instancetype)mockHTTPPostRequestWithURL:(NSURL *)URL
 {
-    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestPostMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestPostMethod URL:URL];
 }
 
 
-+ (instancetype)mockHTTPPutRequestWithURLString:(NSString *)string
++ (instancetype)mockHTTPPutRequestWithURL:(NSURL *)URL
 {
-    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestPutMethod URL:[NSURL URLWithString:string]];
+    return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestPutMethod URL:URL];
 }
 
 
