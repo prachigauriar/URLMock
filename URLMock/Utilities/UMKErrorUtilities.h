@@ -73,21 +73,3 @@ extern NSString *UMKAssertionString(id receiver, SEL selector, NSString *format,
  @result An NSString formatted suitable for use as an exception message.
  */
 extern NSString *UMKExceptionString(id receiver, SEL selector, NSString *format, ...) NS_FORMAT_FUNCTION(3, 4);
-
-
-/*!
- The UMKSubclassResponsibility category of NSException provides a convenience factory method for creating 
- exceptions when implementing a given method is a subclass's responsibility.
- */
-@interface NSException (UMKSubclassResponsibility)
-
-/*!
- @abstract Creates and returns a new NSInternalInconsistencyException indicating that implementing
-     the method specified by the given receiver-selector pair is a subclass's responsibility.
- @param receiver The object responding to the selector. This is typically self.
- @param selector The selector to which the receiver will be responding. This is typically _cmd.
- @result A new NSInternalInconsistencyException
- */
-+ (instancetype)umk_subclassResponsibilityExceptionWithReceiver:(id)receiver selector:(SEL)selector;
-
-@end

@@ -26,6 +26,9 @@
 
 #import <URLMock/URLMock.h>
 
+#import <URLMock/UMKMessageCountingProxy.h>
+
+#import <URLMock/NSException+UMKSubclassResponsibility.h>
+
 #import <URLMock/UMKErrorUtilities.h>
 #import <URLMock/UMKTestUtilities.h>
-#import <URLMock/UMKMessageCountingProxy.h>

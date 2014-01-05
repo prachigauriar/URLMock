@@ -31,3 +31,5 @@
 #import <URLMock/UMKMockHTTPResponder.h>
 #import <URLMock/UMKMockURLProtocol.h>
 #import <URLMock/UMKURLEncodingUtilities.h>
+
+#import <URLMock/NSURL+UMKQueryParameters.h>
