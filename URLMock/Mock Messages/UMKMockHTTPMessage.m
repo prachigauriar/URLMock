@@ -25,7 +25,6 @@
 //
 
 #import <URLMock/UMKMockHTTPMessage.h>
-#import <URLMock/UMKURLEncodingUtilities.h>
 #import <URLMock/UMKErrorUtilities.h>
 
 #pragma mark Constants
@@ -63,11 +62,13 @@ static BOOL UMKCaseInsensitiveStringIsEqualFunction(const void *item1, const voi
 {
     self = [super init];
     if (self) {
-        NSPointerFunctions *keyFunctions = [NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsCopyIn|NSPointerFunctionsStrongMemory|NSPointerFunctionsObjectPersonality];
+        NSPointerFunctionsOptions keyOptions = NSPointerFunctionsCopyIn | NSPointerFunctionsStrongMemory |NSPointerFunctionsObjectPersonality;
+        NSPointerFunctions *keyFunctions = [NSPointerFunctions pointerFunctionsWithOptions:keyOptions];
         keyFunctions.hashFunction = UMKCaseInsensitiveStringHashFunction;
         keyFunctions.isEqualFunction = UMKCaseInsensitiveStringIsEqualFunction;
 
-        NSPointerFunctions *valueFunctions = [NSPointerFunctions pointerFunctionsWithOptions:NSPointerFunctionsStrongMemory|NSPointerFunctionsObjectPersonality];
+        NSPointerFunctionsOptions valueOptions = NSPointerFunctionsStrongMemory|NSPointerFunctionsObjectPersonality;
+        NSPointerFunctions *valueFunctions = [NSPointerFunctions pointerFunctionsWithOptions:valueOptions];
         _headers = [[NSMapTable alloc] initWithKeyPointerFunctions:keyFunctions valuePointerFunctions:valueFunctions capacity:16];
     }
     

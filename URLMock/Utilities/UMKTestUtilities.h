@@ -25,17 +25,24 @@
 //
 
 /*!
- @header UMKErrorUtilities
- @abstract Defines utility functions and macros for use when creating unit tests.
- @discussion The utility functions allow for generating random strings, numbers, and booleans, and waiting 
-     for a condition to return true within a given timeout.
- @author Prachi Gauriar
+ @header UMKTestUtilities
+ @abstract Defines utility classes, functions, and macros for use when creating unit tests.
+ @discussion Most of the functionality is related to randomizing tests by creating random objects.
  */
 
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
 
-/*! @methodgroup Random strings */
+/*!
+ UMKRandomizedTestCases simply override +setUp to call srandomdev() and -setUp to generate and log a
+ random seed value before calling srandom(). Subclasses that override +setUp or -setUp should invoke
+ the superclass implementation.
+ */
+@interface UMKRandomizedTestCase : XCTestCase
+@end
+
+
+/*! @functiongroup Random strings */
 
 /*!
  @abstract Returns a random string of alphanumeric characters.
@@ -70,7 +77,7 @@ extern NSString *UMKRandomUnicodeString(void);
 extern NSString *UMKRandomUnicodeStringWithLength(NSUInteger length);
 
 
-/*! @methodgroup Random booleans, numbers, and dictionaries */
+/*! @functiongroup Random booleans, numbers, and dictionaries */
 
 /*!
  @abstract Returns a random boolean value.
@@ -99,7 +106,7 @@ extern NSNumber *UMKRandomUnsignedNumberInRange(NSRange range);
 extern NSDictionary *UMKRandomDictionaryOfStringsWithElementCount(NSUInteger count);
 
 
-/*! @methodgroup Random JSON objects */
+/*! @functiongroup Random JSON objects */
 
 /*!
  @abstract Returns a new random JSON object.
@@ -113,7 +120,7 @@ extern NSDictionary *UMKRandomDictionaryOfStringsWithElementCount(NSUInteger cou
 extern id UMKRandomJSONObject(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection);
 
 
-/*! @methodgroup Random HTTP methods and URLs */
+/*! @functiongroup Random HTTP methods and URLs */
 
 /*!
  @abstract Randomly returns one of @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", and @"PUT".
@@ -130,7 +137,7 @@ extern NSString *UMKRandomHTTPMethod(void);
 extern NSURL *UMKRandomHTTPURL(void);
 
 
-/*! @methodgroup Waiting for conditions */
+/*! @functiongroup Waiting for conditions */
 
 /*!
  @abstract Waits no longer than the specified timeout interval for the given condition block to evaluate to YES.

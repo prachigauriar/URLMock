@@ -24,10 +24,29 @@
 //  THE SOFTWARE.
 //
 
-#import "UMKTestUtilities.h"
-#import <URLMock/UMKURLEncodingUtilities.h>
+#import <URLMock/UMKTestUtilities.h>
 
-#pragma mark Private Types and Function Declarations
+@implementation UMKRandomizedTestCase
+
++ (void)setUp
+{
+    [super setUp];
+    srandomdev();
+}
+
+
+- (void)setUp
+{
+    [super setUp];
+    unsigned seed = (unsigned)random();
+    NSLog(@"Using seed %d", seed);
+    srandom(seed);
+}
+
+@end
+
+
+#pragma mark - Private Type and Function Declarations
 
 /*! 
  @abstract The function pointer type for complex JSON object generator functions.

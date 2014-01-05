@@ -25,10 +25,7 @@
 //
 
 #import <XCTest/XCTest.h>
-
-#import "UMKRandomizedTestCase.h"
 #import <URLMock/URLMock.h>
-#import <URLMock/URLMockUtilities.h>
 
 @interface UMKMockHTTPMessageTests : UMKRandomizedTestCase
 

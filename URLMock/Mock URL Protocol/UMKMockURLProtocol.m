@@ -25,9 +25,7 @@
 //
 
 #import <URLMock/UMKMockURLProtocol.h>
-#import <URLMock/UMKURLEncodingUtilities.h>
 #import <URLMock/UMKErrorUtilities.h>
-
 
 #pragma mark UMKMockURLProtocolSettings
 

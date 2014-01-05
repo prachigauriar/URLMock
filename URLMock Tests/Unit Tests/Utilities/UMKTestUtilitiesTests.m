@@ -25,9 +25,7 @@
 //
 
 #import <XCTest/XCTest.h>
-
-#import "UMKRandomizedTestCase.h"
-#import <URLMock/UMKTestUtilities.h>
+#import <URLMock/URLMock.h>
 
 static const NSUInteger UMKIterationCount = 512;
 
