@@ -23,7 +23,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#import <URLMock/UMKParameterPair.h>
+#import <URLMock/UMKURLEncoding.h>
+#import <URLMock/UMKURLEncodedParameterStringParser.h>
 
 @implementation NSDictionary (UMKURLEncoding)
 
@@ -36,17 +37,8 @@
 + (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string encoding:(NSStringEncoding)encoding
 {
     NSCParameterAssert(string);
-    
-    NSArray *keyValueStrings = [string componentsSeparatedByString:@"&"];
-    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithCapacity:keyValueStrings.count];
-    
-    for (NSString *keyValueString in keyValueStrings) {
-        NSArray *keyValuePair = [keyValueString componentsSeparatedByString:@"="];
-        NSString *key = [keyValuePair[0] stringByReplacingPercentEscapesUsingEncoding:encoding];
-        dictionary[key] = (keyValuePair.count > 1) ? [keyValuePair[1] stringByReplacingPercentEscapesUsingEncoding:encoding] : [NSNull null];
-    }
-    
-    return dictionary;
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string encoding:encoding];
+    return [parser parse];
 }
 
 
