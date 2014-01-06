@@ -109,7 +109,8 @@
         // If we scanned something before the next ], our next object will be a dictionary. Otherwise, it will be an array
         Class nextObjectClass = [keyScanner scanUpToString:@"]" intoString:&nextKey] ? [NSMutableDictionary class] : [NSMutableArray class];
 
-        //
+        // If there's an existing object, set nextObject to that. Otherwise, create a new object for it and add it to the
+        // previous object
         if (key) {
             // Previous object was a dictionary
             if (!(nextObject = [object objectForKey:key])) {
@@ -154,6 +155,5 @@
     
     return YES;
 }
-
 
 @end
