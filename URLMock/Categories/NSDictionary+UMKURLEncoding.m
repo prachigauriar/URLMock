@@ -1,5 +1,5 @@
 //
-//  UMKURLEncoding.m
+//  NSDictionary+UMKURLEncoding.m
 //  URLMock
 //
 //  Created by Prachi Gauriar on 1/5/2014.
@@ -23,7 +23,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#import <URLMock/UMKURLEncoding.h>
+#import <URLMock/NSDictionary+UMKURLEncoding.h>
 #import <URLMock/UMKURLEncodedParameterStringParser.h>
 #import "UMKParameterPair.h"
 

@@ -28,6 +28,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4C5D0F24187DBAE100794855"
+               BuildableName = "URLMock Tests (iOS).xctest"
+               BlueprintName = "URLMock Tests (iOS)"
+               ReferencedContainer = "container:URLMock.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

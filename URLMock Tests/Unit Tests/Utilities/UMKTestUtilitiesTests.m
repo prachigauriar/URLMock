@@ -239,7 +239,7 @@ static const NSUInteger UMKIterationCount = 512;
         }
     }
     
-    XCTAssertTrue(depthCount <= maxNestingDepth, @"Depth (%lu) exceeds max nesting depth (%lu)", depthCount, maxNestingDepth);
+    XCTAssertTrue(depthCount <= maxNestingDepth, @"Depth (%lu) exceeds max nesting depth (%lu)", (unsigned long)depthCount, (unsigned long)maxNestingDepth);
 
 }
 

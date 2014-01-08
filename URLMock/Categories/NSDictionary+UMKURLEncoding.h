@@ -1,5 +1,5 @@
 //
-//  UMKURLEncoding.h
+//  NSDictionary+UMKURLEncoding.h
 //  URLMock
 //
 //  Created by Prachi Gauriar on 1/5/2014.

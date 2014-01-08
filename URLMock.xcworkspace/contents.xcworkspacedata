@@ -5,7 +5,7 @@
       location = "container:URLMock.xcodeproj">
    </FileRef>
    <Group
-      location = "container:"
+      location = "group:"
       name = "Submodules">
       <FileRef
          location = "group:Libraries/OCMock/Source/OCMock.xcodeproj">
