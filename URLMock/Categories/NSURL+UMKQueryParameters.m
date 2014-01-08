@@ -29,13 +29,13 @@
 
 @implementation NSURL (UMKQueryParameters)
 
-- (id)umk_initWithString:(NSString *)URLString parameters:(NSDictionary *)parameters
+- (instancetype)umk_initWithString:(NSString *)URLString parameters:(NSDictionary *)parameters
 {
     return [self umk_initWithString:URLString parameters:parameters relativeToURL:nil];
 }
 
 
-- (id)umk_initWithString:(NSString *)URLString parameters:(NSDictionary *)parameters relativeToURL:(NSURL *)baseURL
+- (instancetype)umk_initWithString:(NSString *)URLString parameters:(NSDictionary *)parameters relativeToURL:(NSURL *)baseURL
 {
     if (parameters) {
         NSString *encodedParameters = [parameters umk_URLEncodedParameterString];
@@ -47,13 +47,13 @@
 }
 
 
-+ (id)umk_URLWithString:(NSString *)URLString parameters:(NSDictionary *)parameters
++ (instancetype)umk_URLWithString:(NSString *)URLString parameters:(NSDictionary *)parameters
 {
     return [[self alloc] umk_initWithString:URLString parameters:parameters];
 }
 
 
-+ (id)umk_URLWithString:(NSString *)URLString parameters:(NSDictionary *)parameters relativeToURL:(NSURL *)baseURL
++ (instancetype)umk_URLWithString:(NSString *)URLString parameters:(NSDictionary *)parameters relativeToURL:(NSURL *)baseURL
 {
     return [[self alloc] umk_initWithString:URLString parameters:parameters relativeToURL:baseURL];
 }

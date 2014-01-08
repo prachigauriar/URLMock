@@ -30,27 +30,9 @@
 + (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string;
 + (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string encoding:(NSStringEncoding)encoding;
 
+- (BOOL)umk_isValidURLEncodedParameterDictionary;
+
 - (NSString *)umk_URLEncodedParameterString;
-- (NSString *)umk_URLEncodedParameterStringUsingEncoding:(NSStringEncoding)encoding;
+- (NSString *)umk_URLEncodedParameterStringWithEncoding:(NSStringEncoding)encoding;
 
-@end
-
-
-/*!
- @note The basic design and some of the code here is adapted or borrowed from AFNetworking.
- */
-@interface UMKParameterPair : NSObject
-
-@property (nonatomic, strong) id key;
-@property (nonatomic, strong) id value;
-
-- (instancetype)initWithKey:(id)key value:(id)value;
-- (NSString *)URLEncodedStringValueWithEncoding:(NSStringEncoding)encoding;
-
-@end
-
-
-
-@interface NSObject (UMKParameterPairs)
-- (NSArray *)umk_parameterPairsWithKey:(NSString *)key;
 @end

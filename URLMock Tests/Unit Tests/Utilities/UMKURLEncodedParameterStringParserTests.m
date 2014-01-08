@@ -28,8 +28,11 @@
 #import <URLMock/URLMock.h>
 #import <URLMock/UMKURLEncodedParameterStringParser.h>
 
+static const NSUInteger UMKIterationCount = 512;
+
 @interface UMKURLEncodedParameterStringParserTests : UMKRandomizedTestCase
 
+- (void)testInit;
 - (void)testParse;
 
 @end
@@ -37,16 +40,32 @@
 
 @implementation UMKURLEncodedParameterStringParserTests
 
+- (void)testInit
+{
+    NSString *string = UMKRandomUnicodeString();
+    NSStringEncoding encoding = random() % 16 + 1;
+    
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string encoding:encoding];
+    
+    XCTAssertNotNil(parser, @"Returns nil");
+    XCTAssertEqualObjects(parser.string, string, @"String is not set correctly");
+    XCTAssertEqual(parser.encoding, encoding, @"Encoding is not set correctly");
+}
+
+
 - (void)testParse
 {
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:@"a[b][][][][c][d]=e&a[b][][][][d]=f"
-                                                                                                   encoding:NSUTF8StringEncoding];
-    
-    NSDictionary *expectedValue = @{ @"a" : @{ @"b" : @[ @[ @[ @{ @"c" : @{ @"d" : @"e" }, @"d" : @"f" } ] ] ] } };
-    NSDictionary *dictionary = [parser parse];
-    NSLog(@"%@", dictionary);
-
-    XCTAssertEqualObjects(dictionary, expectedValue, @"That didn't work");
+    for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
+        NSUInteger maxNestingDepth = random() % 3 + 1;
+        NSUInteger maxElementCountPerCollection = random() % 3 + 1;
+        
+        NSDictionary *dictionary = UMKRandomURLEncodedParameterDictionary(maxNestingDepth, maxElementCountPerCollection);
+        NSString *string = [dictionary umk_URLEncodedParameterString];
+        
+        UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string encoding:NSUTF8StringEncoding];
+        NSDictionary *parsedDictionary = [parser parse];
+        XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
+    }
 }
 
 @end

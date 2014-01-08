@@ -11,15 +11,19 @@
 		4C0D384C1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D384A1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.m */; };
 		4C0D384D1879AFAA000A04DE /* NSException+UMKSubclassResponsibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D384A1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.m */; };
 		4C0D384E1879AFB5000A04DE /* NSException+UMKSubclassResponsibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D38491879AFA6000A04DE /* NSException+UMKSubclassResponsibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C0D385F1879D1D4000A04DE /* UMKURLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D385D1879D1D4000A04DE /* UMKURLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C0D38601879D1D4000A04DE /* UMKURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D385E1879D1D4000A04DE /* UMKURLEncoding.m */; };
-		4C0D38611879D1DA000A04DE /* UMKURLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D385D1879D1D4000A04DE /* UMKURLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C0D38621879D1ED000A04DE /* UMKURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D385E1879D1D4000A04DE /* UMKURLEncoding.m */; };
 		4C0D387F187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D387D187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4C0D3880187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D387D187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4C0D3881187A2A41000A04DE /* UMKURLEncodedParameterStringParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D387E187A2A41000A04DE /* UMKURLEncodedParameterStringParser.m */; };
 		4C0D3882187A2A41000A04DE /* UMKURLEncodedParameterStringParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D387E187A2A41000A04DE /* UMKURLEncodedParameterStringParser.m */; };
 		4C0D3884187A5135000A04DE /* UMKURLEncodedParameterStringParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D3883187A5135000A04DE /* UMKURLEncodedParameterStringParserTests.m */; };
+		4C0D3887187CD506000A04DE /* UMKParameterPair.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D3885187CD506000A04DE /* UMKParameterPair.h */; };
+		4C0D3888187CD506000A04DE /* UMKParameterPair.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D3885187CD506000A04DE /* UMKParameterPair.h */; };
+		4C0D3889187CD506000A04DE /* UMKParameterPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D3886187CD506000A04DE /* UMKParameterPair.m */; };
+		4C0D388A187CD506000A04DE /* UMKParameterPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D3886187CD506000A04DE /* UMKParameterPair.m */; };
+		4C0D388E187CD657000A04DE /* NSDictionary+UMKURLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D388C187CD657000A04DE /* NSDictionary+UMKURLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C0D388F187CD657000A04DE /* NSDictionary+UMKURLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D388C187CD657000A04DE /* NSDictionary+UMKURLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C0D3890187CD657000A04DE /* NSDictionary+UMKURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D388D187CD657000A04DE /* NSDictionary+UMKURLEncoding.m */; };
+		4C0D3891187CD657000A04DE /* NSDictionary+UMKURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D388D187CD657000A04DE /* NSDictionary+UMKURLEncoding.m */; };
 		4C1C148E183289C700DE8195 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E822182EAF44002F2096 /* XCTest.framework */; };
 		4C1C1494183289C700DE8195 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C1C1492183289C700DE8195 /* InfoPlist.strings */; };
 		4C1C14A4183298F200DE8195 /* UMKMessageCountingProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C14A3183298F200DE8195 /* UMKMessageCountingProxy.m */; };
@@ -91,11 +95,13 @@
 /* Begin PBXFileReference section */
 		4C0D38491879AFA6000A04DE /* NSException+UMKSubclassResponsibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSException+UMKSubclassResponsibility.h"; sourceTree = "<group>"; };
 		4C0D384A1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSException+UMKSubclassResponsibility.m"; sourceTree = "<group>"; };
-		4C0D385D1879D1D4000A04DE /* UMKURLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKURLEncoding.h; sourceTree = "<group>"; };
-		4C0D385E1879D1D4000A04DE /* UMKURLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKURLEncoding.m; sourceTree = "<group>"; };
 		4C0D387D187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKURLEncodedParameterStringParser.h; sourceTree = "<group>"; };
 		4C0D387E187A2A41000A04DE /* UMKURLEncodedParameterStringParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKURLEncodedParameterStringParser.m; sourceTree = "<group>"; };
 		4C0D3883187A5135000A04DE /* UMKURLEncodedParameterStringParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKURLEncodedParameterStringParserTests.m; sourceTree = "<group>"; };
+		4C0D3885187CD506000A04DE /* UMKParameterPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKParameterPair.h; sourceTree = "<group>"; };
+		4C0D3886187CD506000A04DE /* UMKParameterPair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKParameterPair.m; sourceTree = "<group>"; };
+		4C0D388C187CD657000A04DE /* NSDictionary+UMKURLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+UMKURLEncoding.h"; sourceTree = "<group>"; };
+		4C0D388D187CD657000A04DE /* NSDictionary+UMKURLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+UMKURLEncoding.m"; sourceTree = "<group>"; };
 		4C1C148D183289C700DE8195 /* URLMock Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "URLMock Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C1C1491183289C700DE8195 /* URLMock Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "URLMock Tests-Info.plist"; sourceTree = "<group>"; };
 		4C1C1493183289C700DE8195 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -168,6 +174,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C0D388B187CD549000A04DE /* URL Encoding */ = {
+			isa = PBXGroup;
+			children = (
+				4C0D3885187CD506000A04DE /* UMKParameterPair.h */,
+				4C0D3886187CD506000A04DE /* UMKParameterPair.m */,
+				4C0D387D187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h */,
+				4C0D387E187A2A41000A04DE /* UMKURLEncodedParameterStringParser.m */,
+			);
+			name = "URL Encoding";
+			sourceTree = "<group>";
+		};
 		4C1C148F183289C700DE8195 /* URLMock Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +209,8 @@
 		4C33F7331878A9D000643799 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				4C0D388C187CD657000A04DE /* NSDictionary+UMKURLEncoding.h */,
+				4C0D388D187CD657000A04DE /* NSDictionary+UMKURLEncoding.m */,
 				4C0D38491879AFA6000A04DE /* NSException+UMKSubclassResponsibility.h */,
 				4C0D384A1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.m */,
 				4C33F7341878AA1700643799 /* NSURL+UMKQueryParameters.h */,
@@ -271,16 +290,13 @@
 		4C45E844182EAFDA002F2096 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				4C0D385D1879D1D4000A04DE /* UMKURLEncoding.h */,
-				4C0D385E1879D1D4000A04DE /* UMKURLEncoding.m */,
 				4C45E847182EAFEB002F2096 /* UMKErrorUtilities.h */,
 				4C45E848182EAFEB002F2096 /* UMKErrorUtilities.m */,
 				4C34F629183346FB00AD2A6D /* UMKTestUtilities.h */,
 				4C34F62A183346FB00AD2A6D /* UMKTestUtilities.m */,
 				4C1C14A2183298F200DE8195 /* UMKMessageCountingProxy.h */,
 				4C1C14A3183298F200DE8195 /* UMKMessageCountingProxy.m */,
-				4C0D387D187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h */,
-				4C0D387E187A2A41000A04DE /* UMKURLEncodedParameterStringParser.m */,
+				4C0D388B187CD549000A04DE /* URL Encoding */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -365,6 +381,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C0D388E187CD657000A04DE /* NSDictionary+UMKURLEncoding.h in Headers */,
 				4C45E850182EB48B002F2096 /* URLMock.h in Headers */,
 				4CC86F1718354D5200B878D6 /* UMKMessageCountingProxy.h in Headers */,
 				4C33F7361878AA1700643799 /* NSURL+UMKQueryParameters.h in Headers */,
@@ -374,7 +391,7 @@
 				4C45E852182EB48B002F2096 /* UMKMockHTTPRequest.h in Headers */,
 				4C0D384B1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.h in Headers */,
 				4C45E853182EB48B002F2096 /* UMKMockHTTPResponder.h in Headers */,
-				4C0D385F1879D1D4000A04DE /* UMKURLEncoding.h in Headers */,
+				4C0D3887187CD506000A04DE /* UMKParameterPair.h in Headers */,
 				4C45E85B182EBE12002F2096 /* UMKMockURLProtocol.h in Headers */,
 				4C45E855182EB499002F2096 /* UMKErrorUtilities.h in Headers */,
 			);
@@ -384,6 +401,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C0D388F187CD657000A04DE /* NSDictionary+UMKURLEncoding.h in Headers */,
 				4C45E8DB182FF271002F2096 /* URLMock.h in Headers */,
 				4CC86F1818354D5200B878D6 /* UMKMessageCountingProxy.h in Headers */,
 				4C33F7371878AA1700643799 /* NSURL+UMKQueryParameters.h in Headers */,
@@ -393,7 +411,7 @@
 				4C45E8DD182FF271002F2096 /* UMKMockHTTPRequest.h in Headers */,
 				4C0D384E1879AFB5000A04DE /* NSException+UMKSubclassResponsibility.h in Headers */,
 				4C45E8DE182FF271002F2096 /* UMKMockHTTPResponder.h in Headers */,
-				4C0D38611879D1DA000A04DE /* UMKURLEncoding.h in Headers */,
+				4C0D3888187CD506000A04DE /* UMKParameterPair.h in Headers */,
 				4C45E8DF182FF271002F2096 /* UMKMockURLProtocol.h in Headers */,
 				4C45E8E1182FF28A002F2096 /* UMKErrorUtilities.h in Headers */,
 			);
@@ -526,8 +544,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C45E841182EAFCB002F2096 /* UMKMockHTTPRequest.m in Sources */,
+				4C0D3889187CD506000A04DE /* UMKParameterPair.m in Sources */,
 				4C45E842182EAFCB002F2096 /* UMKMockHTTPResponder.m in Sources */,
-				4C0D38601879D1D4000A04DE /* UMKURLEncoding.m in Sources */,
+				4C0D3890187CD657000A04DE /* NSDictionary+UMKURLEncoding.m in Sources */,
 				4C0D3881187A2A41000A04DE /* UMKURLEncodedParameterStringParser.m in Sources */,
 				4C33F7381878AA1700643799 /* NSURL+UMKQueryParameters.m in Sources */,
 				4C0D384C1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.m in Sources */,
@@ -542,8 +561,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C45E8D4182FF24B002F2096 /* UMKMockHTTPMessage.m in Sources */,
+				4C0D388A187CD506000A04DE /* UMKParameterPair.m in Sources */,
 				4C45E8D5182FF24B002F2096 /* UMKMockHTTPRequest.m in Sources */,
-				4C0D38621879D1ED000A04DE /* UMKURLEncoding.m in Sources */,
+				4C0D3891187CD657000A04DE /* NSDictionary+UMKURLEncoding.m in Sources */,
 				4C0D3882187A2A41000A04DE /* UMKURLEncodedParameterStringParser.m in Sources */,
 				4C45E8D6182FF24B002F2096 /* UMKMockHTTPResponder.m in Sources */,
 				4C0D384D1879AFAA000A04DE /* NSException+UMKSubclassResponsibility.m in Sources */,

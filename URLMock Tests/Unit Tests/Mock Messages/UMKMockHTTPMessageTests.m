@@ -249,22 +249,4 @@
     XCTAssertEqualObjects(self.message.headers, beforeHeaders, @"Headers changed after setting body string");
 }
 
-
-- (void)testURLEncodedParameters
-{
-    NSDictionary *parameters = @{
-//        @"a" : @[ @1, @2, @3, @[ @"a" ] ],
-                                 @"b" : @{ @1 : @{ @"c" : @[ @"a" ] }, @2 : @"b", @3 : @"c" },
-//        @"c" : [NSSet setWithObjects:@1, @2, @3, nil],
-//        @"d" : @1
-    };
-    
-    // a[]=1&a[]=2&a[]=3
-    // &b[1]=a&
-    //  b[2]=b&b[3]=c&c=3&c=1&c=2&d=1
-
-    NSLog(@"%@", [parameters umk_URLEncodedParameterString]);
-    XCTAssert(YES, @"PASS");
-}
-
 @end

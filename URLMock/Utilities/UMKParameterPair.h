@@ -1,9 +1,9 @@
 //
-//  NSURL+UMKQueryParameters.h
+//  UMKParameterPair.h
 //  URLMock
 //
-//  Created by Prachi Gauriar on 1/4/2014.
-//  Copyright (c) 2014 Prachi Gauriar.
+//  Created by Prachi Gauriar on 1/7/2014.
+//  Copyright (c) 2014 Prachi Gauriar, (c) 2013 AFNetworking (http://afnetworking.com/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -27,14 +27,15 @@
 #import <Foundation/Foundation.h>
 
 /*!
- The UMKQueryParameters category of NSURL adds methods to create and initialize NSURLs with URL-encoded query parameters.
+ @note The basic design and some of the code here is adapted or borrowed from AFNetworking
  */
-@interface NSURL (UMKQueryParameters)
 
-- (instancetype)umk_initWithString:(NSString *)URLString parameters:(NSDictionary *)parameters;
-- (instancetype)umk_initWithString:(NSString *)URLString parameters:(NSDictionary *)parameters relativeToURL:(NSURL *)baseURL;
+@interface UMKParameterPair : NSObject
 
-+ (instancetype)umk_URLWithString:(NSString *)URLString parameters:(NSDictionary *)parameters;
-+ (instancetype)umk_URLWithString:(NSString *)URLString parameters:(NSDictionary *)parameters relativeToURL:(NSURL *)baseURL;
+@property (nonatomic, strong) id key;
+@property (nonatomic, strong) id value;
+
+- (instancetype)initWithKey:(id)key value:(id)value;
+- (NSString *)URLEncodedStringValueWithEncoding:(NSStringEncoding)encoding;
 
 @end

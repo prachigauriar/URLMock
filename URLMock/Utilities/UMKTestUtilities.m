@@ -25,7 +25,8 @@
 //
 
 #import <URLMock/UMKTestUtilities.h>
-#import <URLMock/UMKURLEncoding.h>
+#import <URLMock/NSDictionary+UMKURLEncoding.h>
+#import <URLMock/NSURL+UMKQueryParameters.h>
 
 @implementation UMKRandomizedTestCase
 
@@ -50,13 +51,36 @@
 #pragma mark - Private Type and Function Declarations
 
 /*! 
- @abstract The function pointer type for complex JSON object generator functions.
- @param maxNestingDepth The maximum nesting depth for the complex JSON object.
- @param maxElementCountPerCollection The maximum element count per collection in the complex JSON object.
- @param elementCount The number of elements in the generated JSON object.
- @result A complex JSON object.
+ @abstract The function pointer type for random object generator functions.
+ @param maxNestingDepth The maximum nesting depth for the object, if applicable.
+ @param maxElementCountPerCollection The maximum element count per collection in the object, if applicable.
+ @result A random object.
  */
-typedef id (*UMKRandomComplexJSONObjectGeneratorFunction)(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection, NSUInteger elementCount);
+typedef id (*UMKRandomObjectGeneratorFunction)(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection);
+
+
+/*!
+ @abstract Returns a random URL encoded parameter object.
+ @discussion This object will either be a string, array, set, or dictionary.
+ @param maxNestingDepth The maximum nesting depth for the object, if applicable.
+ @param maxElementCountPerCollection The maximum element count per collection in the object, if applicable.
+ @result A random URL encoded parameter object.
+ */
+static id UMKRandomURLEncodedParameterObject(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection);
+
+/*!
+ @abstract Returns a random URL encoded parameter array.
+ @param maxElementCountPerCollection The maximum element count for the array.
+ @result A random URL encoded parameter array.
+ */
+static id UMKRandomURLEncodedParameterArray(NSUInteger maxElementCountPerCollection);
+
+/*!
+ @abstract Returns a random URL encoded parameter set.
+ @param maxElementCountPerCollection The maximum element count for the set.
+ @result A random URL encoded parameter set.
+ */
+static id UMKRandomURLEncodedParameterSet(NSUInteger maxElementCountPerCollection);
 
 /*!
  @abstract Returns a random simple JSON object.
@@ -69,19 +93,17 @@ static id UMKRandomSimpleJSONObject(void);
  @abstract Returns a random JSON array.
  @param maxNestingDepth The maximum nesting depth for the array.
  @param maxElementCountPerCollection The maximum element count per collection in the array.
- @param elementCount The number of elements to create in the array.
  @result A random JSON array.
  */
-static id UMKRandomJSONArray(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection, NSUInteger elementCount);
+static id UMKRandomJSONArray(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection);
 
 /*!
  @abstract Returns a random JSON dictionary.
  @param maxNestingDepth The maximum nesting depth for the dictionary.
  @param maxElementCountPerCollection The maximum element count per collection in the dictionary.
- @param elementCount The number of elements to create in the dictionary.
  @result A random JSON dictionary.
  */
-static id UMKRandomJSONDictionary(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection, NSUInteger elementCount);
+static id UMKRandomJSONDictionary(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection);
 
 /*!
  @abstract Recursively builds a random JSON object.
@@ -184,6 +206,72 @@ NSDictionary *UMKRandomDictionaryOfStringsWithElementCount(NSUInteger count)
 }
 
 
+static id UMKRandomURLEncodedParameterObject(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection)
+{
+    // Always choose a string if maxNestingDepth is 0
+    NSUInteger typeChooser = maxNestingDepth == 0 ? 0 : random() % 3;
+    
+    switch (typeChooser) {
+        case 0:
+            return UMKRandomAlphanumericStringWithLength(random() % 10 + 1);
+        case 1:
+            return UMKRandomURLEncodedParameterArray(maxElementCountPerCollection);
+        default:
+            return UMKRandomURLEncodedParameterDictionary(maxNestingDepth, maxElementCountPerCollection);
+    }
+}
+
+
+static id UMKRandomURLEncodedParameterArray(NSUInteger maxElementCountPerCollection)
+{
+    NSUInteger elementCount = random() % maxElementCountPerCollection + 1;
+    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:elementCount];
+    
+    for (NSUInteger i = 0; i < elementCount; ++i) {
+        [array addObject:UMKRandomAlphanumericStringWithLength((random() % 10 + 1))];
+    }
+    
+    return array;
+}
+
+
+static id UMKRandomURLEncodedParameterSet(NSUInteger maxElementCountPerCollection)
+{
+    // Never allow fewer than two objects in a set
+    NSUInteger elementCount = 2 + random() % (maxElementCountPerCollection - 1);
+    NSMutableSet *set = [[NSMutableSet alloc] initWithCapacity:elementCount];
+
+    while ([set count] < elementCount) {
+        [set addObject:UMKRandomAlphanumericStringWithLength((random() % 10 + 1))];
+    }
+    
+    return set;
+}
+
+
+NSDictionary *UMKRandomURLEncodedParameterDictionary(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection)
+{
+    NSCParameterAssert(maxNestingDepth > 0);
+    NSCParameterAssert(maxElementCountPerCollection > 0);
+    
+    NSUInteger elementCount = random() % maxElementCountPerCollection + 1;
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithCapacity:elementCount];
+    
+    for (NSUInteger i = 0; i < elementCount; ++i) {
+        NSString *key = UMKRandomAlphanumericStringWithLength(random() % 10 + 1);
+        
+        // We can only add a set if max nesting depth is 2 (once for the set, once its elements)
+        if (maxElementCountPerCollection > 1 && maxNestingDepth > 2 && UMKRandomBoolean()) {
+            dictionary[key] = UMKRandomURLEncodedParameterSet(maxElementCountPerCollection);
+        } else {
+            dictionary[key] = UMKRandomURLEncodedParameterObject(maxNestingDepth - 1, maxElementCountPerCollection);
+        }        
+    }
+    
+    return dictionary;
+}
+
+
 #pragma mark - JSON Objects
 
 static id UMKRandomSimpleJSONObject(void)
@@ -193,15 +281,16 @@ static id UMKRandomSimpleJSONObject(void)
         case 0:
             return [NSNull null];
         case 1:
-            return UMKRandomAlphanumericString();
+            return UMKRandomUnicodeString();
         default:
             return UMKRandomUnsignedNumber();
     }
 }
 
 
-static id UMKRandomJSONArray(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection, NSUInteger elementCount)
+static id UMKRandomJSONArray(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection)
 {
+    NSUInteger elementCount = random() % maxElementCountPerCollection + 1;
     NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:elementCount];
     for (NSUInteger i = 0; i < elementCount; ++i) {
         [array addObject:UMKRecursiveRandomJSONObject(maxNestingDepth - 1, maxElementCountPerCollection, UMKRandomBoolean())];
@@ -211,8 +300,9 @@ static id UMKRandomJSONArray(NSUInteger maxNestingDepth, NSUInteger maxElementCo
 }
 
 
-static id UMKRandomJSONDictionary(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection, NSUInteger elementCount)
+static id UMKRandomJSONDictionary(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection)
 {
+    NSUInteger elementCount = random() % maxElementCountPerCollection + 1;
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithCapacity:elementCount];
     for (NSUInteger i = 0; i < elementCount; ++i) {
         dictionary[UMKRandomUnicodeString()] = UMKRecursiveRandomJSONObject(maxNestingDepth - 1, maxElementCountPerCollection, UMKRandomBoolean());
@@ -225,8 +315,8 @@ static id UMKRandomJSONDictionary(NSUInteger maxNestingDepth, NSUInteger maxElem
 static id UMKRecursiveRandomJSONObject(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection, BOOL complexObject)
 {
     if (maxNestingDepth == 0 || !complexObject) return UMKRandomSimpleJSONObject();
-    UMKRandomComplexJSONObjectGeneratorFunction complexObjectFunction = UMKRandomBoolean() ? UMKRandomJSONArray : UMKRandomJSONDictionary;
-    return complexObjectFunction(maxNestingDepth, maxElementCountPerCollection, random() % maxElementCountPerCollection + 1);
+    UMKRandomObjectGeneratorFunction generatorFunction = UMKRandomBoolean() ? UMKRandomJSONArray : UMKRandomJSONDictionary;
+    return generatorFunction(maxNestingDepth, maxElementCountPerCollection);
 }
 
 
@@ -261,22 +351,14 @@ NSURL *UMKRandomHTTPURL(void)
     }
     
     // Parameters
-    NSUInteger parameterCount = random() % 6;
-    if (parameterCount > 0) {
-        NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithCapacity:parameterCount];
-        for (NSUInteger i = 0; i < parameterCount; ++i) {
-            parameters[UMKRandomAlphanumericStringWithLength(random() % 10 + 1)] = UMKRandomAlphanumericStringWithLength(random() % 10 + 1);
-        }
-        
-        [URLString appendFormat:@"?%@", [parameters umk_URLEncodedParameterString]];
-    }
- 
+    NSDictionary *parameters = UMKRandomBoolean() ? UMKRandomURLEncodedParameterDictionary(random() % 3 + 1, random() % 5 + 1) : nil;
+    
     // Fragment
     if (UMKRandomBoolean()) {
         [URLString appendFormat:@"#%@", UMKRandomAlphanumericStringWithLength(random() % 10 + 1)];
     }
     
-    return [NSURL URLWithString:URLString];
+    return [NSURL umk_URLWithString:URLString parameters:parameters];
 }
 
 

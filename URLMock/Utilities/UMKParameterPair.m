@@ -1,8 +1,8 @@
 //
-//  UMKURLEncoding.m
+//  UMKParameterPair.m
 //  URLMock
 //
-//  Created by Prachi Gauriar on 1/5/2014.
+//  Created by Prachi Gauriar on 1/7/2014.
 //  Copyright (c) 2014 Prachi Gauriar, (c) 2013 AFNetworking (http://afnetworking.com/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,48 +22,9 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
+//
 
-#import <URLMock/UMKURLEncoding.h>
-#import <URLMock/UMKURLEncodedParameterStringParser.h>
-
-@implementation NSDictionary (UMKURLEncoding)
-
-+ (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string
-{
-    return [self umk_dictionaryWithURLEncodedParameterString:string encoding:NSUTF8StringEncoding];
-}
-
-
-+ (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string encoding:(NSStringEncoding)encoding
-{
-    NSCParameterAssert(string);
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string encoding:encoding];
-    return [parser parse];
-}
-
-
-- (NSString *)umk_URLEncodedParameterString
-{
-    return [self umk_URLEncodedParameterStringUsingEncoding:NSUTF8StringEncoding];
-}
-
-
-- (NSString *)umk_URLEncodedParameterStringUsingEncoding:(NSStringEncoding)encoding
-{
-    NSArray *pairs = [self umk_parameterPairsWithKey:nil];
-    NSMutableArray *pairStrings = [[NSMutableArray alloc] initWithCapacity:pairs.count];
-    
-    for (UMKParameterPair *pair in pairs) {
-        [pairStrings addObject:[pair URLEncodedStringValueWithEncoding:encoding]];
-    }
-    
-    return [pairStrings componentsJoinedByString:@"&"];
-}
-
-@end
-
-
-#pragma mark - UMKParameterPair
+#import "UMKParameterPair.h"
 
 static const NSString *const kUMKParameterPairEscapedCharacters = @":/?&=;+!@#$()',*";
 
@@ -110,70 +71,6 @@ static const NSString *const kUMKParameterPairEscapedCharacters = @":/?&=;+!@#$(
                                                                                  NULL,
                                                                                  (__bridge CFStringRef)kUMKParameterPairEscapedCharacters,
                                                                                  CFStringConvertNSStringEncodingToEncoding(encoding));
-}
-
-@end
-
-
-#pragma mark - UMKParameterPairs categories
-
-@implementation NSObject (UMKParameterPairs)
-
-- (NSArray *)umk_parameterPairsWithKey:(NSString *)key
-{
-    return @[ [[UMKParameterPair alloc] initWithKey:key value:self] ];
-}
-
-@end
-
-
-@implementation NSArray (UMKParameterPairs)
-
-- (NSArray *)umk_parameterPairsWithKey:(NSString *)key
-{
-    NSMutableArray *pairs = [[NSMutableArray alloc] initWithCapacity:self.count];
-    NSString *nestedKey = [NSString stringWithFormat:@"%@[]", key];
-    for (id value in self) {
-        [pairs addObjectsFromArray:[value umk_parameterPairsWithKey:nestedKey]];
-    }
-    
-    return pairs;
-}
-
-@end
-
-
-@implementation NSDictionary (UMKParameterPairs)
-
-- (NSArray *)umk_parameterPairsWithKey:(NSString *)key
-{
-    NSArray *sortedNestedKeys = [[self allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        return [[obj1 description] caseInsensitiveCompare:[obj2 description]];
-    }];
-        
-    NSMutableArray *pairs = [[NSMutableArray alloc] initWithCapacity:self.count];
-    for (id nestedKey in sortedNestedKeys) {
-        NSString *parameterPairKey = key ? [NSString stringWithFormat:@"%@[%@]", key, nestedKey] : nestedKey;
-        id value = self[nestedKey];
-        [pairs addObjectsFromArray:[value umk_parameterPairsWithKey:parameterPairKey]];
-    }
-
-    return pairs;
-}
-
-@end
-
-
-@implementation NSSet (UMKParameterPairs)
-
-- (NSArray *)umk_parameterPairsWithKey:(NSString *)key
-{
-    NSMutableArray *pairs = [[NSMutableArray alloc] initWithCapacity:self.count];
-    for (id element in self) {
-        [pairs addObjectsFromArray:[element umk_parameterPairsWithKey:key]];
-    }
-    
-    return pairs;
 }
 
 @end

@@ -39,6 +39,7 @@ static const NSUInteger UMKIterationCount = 512;
 - (void)testRandomUnsignedNumber;
 - (void)testRandomUnsignedNumberInRange;
 - (void)testRandomDictionaryOfStringsWithElementCount;
+- (void)testRandomURLEncodedParametersDictionary;
 - (void)testRandomJSONObject;
 - (void)testRandomHTTPURL;
 - (void)testRandomHTTPMethod;
@@ -201,37 +202,29 @@ static const NSUInteger UMKIterationCount = 512;
     XCTAssertEqual(dictionary.count, elementCount, @"Returned dictionary's element count is incorrect");
     [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
         XCTAssertTrue([key isKindOfClass:[NSString class]], @"Key is not a string");
-        XCTAssertTrue([value isKindOfClass:[NSString class]], @"Key is not a string");
+        XCTAssertTrue([value isKindOfClass:[NSString class]], @"Value is not a string");
     }];
 }
 
 
-- (void)testRandomJSONObject
+- (void)assertObject:(id)object hasCorrectMaxNestingDepth:(NSUInteger)maxNestingDepth andMaxElementCountPerCollection:(NSUInteger)maxElementCountPerCollection
 {
-    // Parameter assertions
-    NSUInteger maxNestingDepth = random() % 10 + 1;
-    NSUInteger maxElementCountPerCollection = random() % 10 + 1;
-
-    // Valid JSON Object
-    id JSONObject = UMKRandomJSONObject(maxNestingDepth, maxElementCountPerCollection);
-    XCTAssertTrue([NSJSONSerialization isValidJSONObject:JSONObject], @"Returned object is not a valid JSON object");
-    
     // maxNestingDepth and maxElementCountPerCollection are respected
     NSUInteger depthCount = 0;
     
     // We use these as a way to do a breadth-first search without recursion. We don't move on to the objects in
     // nextDepthObjects until after currentDepthObjects is empty.
-    NSMutableArray *currentDepthObjects = [NSMutableArray arrayWithObject:JSONObject];
+    NSMutableArray *currentDepthObjects = [NSMutableArray arrayWithObject:object];
     NSMutableArray *nextDepthObjects = [NSMutableArray array];
     
     id complexObject = nil;
     while ((complexObject = [currentDepthObjects lastObject])) {
         XCTAssertTrue([complexObject count] <= maxElementCountPerCollection, @"Collection has more elements than maxElementCountPerCollection");
-
+        
         id element = nil;
         NSEnumerator *objectEnumerator = [complexObject objectEnumerator];
         while ((element = [objectEnumerator nextObject])) {
-            if ([element isKindOfClass:[NSDictionary class]] || [element isKindOfClass:[NSArray class]]) {
+            if ([element isKindOfClass:[NSDictionary class]] || [element isKindOfClass:[NSArray class]] || [element isKindOfClass:[NSSet class]]) {
                 [nextDepthObjects addObject:element];
             }
         }
@@ -247,6 +240,36 @@ static const NSUInteger UMKIterationCount = 512;
     }
     
     XCTAssertTrue(depthCount <= maxNestingDepth, @"Depth (%lu) exceeds max nesting depth (%lu)", depthCount, maxNestingDepth);
+
+}
+
+
+- (void)testRandomJSONObject
+{
+    for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
+
+        NSUInteger maxNestingDepth = random() % 10 + 1;
+        NSUInteger maxElementCountPerCollection = random() % 10 + 1;
+
+        // Valid JSON Object
+        id JSONObject = UMKRandomJSONObject(maxNestingDepth, maxElementCountPerCollection);
+        XCTAssertTrue([NSJSONSerialization isValidJSONObject:JSONObject], @"Returned object is not a valid JSON object");
+        [self assertObject:JSONObject hasCorrectMaxNestingDepth:maxNestingDepth andMaxElementCountPerCollection:maxElementCountPerCollection];
+    }
+}
+
+
+- (void)testRandomURLEncodedParametersDictionary
+{
+    for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
+        NSUInteger maxNestingDepth = random() % 10 + 1;
+        NSUInteger maxElementCountPerCollection = random() % 10 + 1;
+        
+        // Valid URL encoded dictionary
+        NSDictionary *dictionary = UMKRandomURLEncodedParameterDictionary(maxNestingDepth, maxElementCountPerCollection);
+        XCTAssertTrue([dictionary umk_isValidURLEncodedParameterDictionary], @"Returned object is not a valid URL encoded parameter dictionary");
+        [self assertObject:dictionary hasCorrectMaxNestingDepth:maxNestingDepth andMaxElementCountPerCollection:maxElementCountPerCollection];
+    }
 }
 
 
@@ -264,9 +287,14 @@ static const NSUInteger UMKIterationCount = 512;
 
         // Test for 2 and 11 because / is always a component
         XCTAssertTrue(URL.pathComponents.count >= 2 && URL.pathComponents.count <= 11, @"Incorrect number of path components");
-        
-        NSArray *parameters = [URL.query componentsSeparatedByString:@"&"];
-        XCTAssertTrue(parameters.count >= 0 && parameters.count <= 5, @"Incorrect number of query parameters");
+
+        if (URL.query.length > 0) {
+            NSDictionary *parameters = [NSDictionary umk_dictionaryWithURLEncodedParameterString:URL.query];
+            XCTAssertNotNil(parameters, @"parameters from query is nil");
+            XCTAssertTrue([parameters umk_isValidURLEncodedParameterDictionary], @"parameters is not a valid URL encoded parameter dictionary");
+            
+            [self assertObject:parameters hasCorrectMaxNestingDepth:3 andMaxElementCountPerCollection:5];
+        }
         
         if (URL.fragment.length > 0) {
             ++fragmentCount;

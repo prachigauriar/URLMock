@@ -24,9 +24,10 @@
 //  THE SOFTWARE.
 //
 
-#import "UMKURLEncodedParameterStringParser.h"
+#import <URLMock/UMKURLEncodedParameterStringParser.h>
 #import <URLMock/UMKErrorUtilities.h>
 #import <URLMock/UMKURLEncoding.h>
+#import "UMKParameterPair.h"
 
 @implementation UMKURLEncodedParameterStringParser
 
@@ -88,11 +89,13 @@
 
 - (BOOL)addObjectForParameterPair:(UMKParameterPair *)pair toDictionary:(NSMutableDictionary *)dictionary
 {
-    NSScanner *keyScanner = [NSScanner scannerWithString:pair.key];
+    // Fundamentally, they key in 
+    id collection = dictionary;
     NSString *key = nil;
-    id object = dictionary;
 
     // Before we get into the loop, read the first key
+    NSScanner *keyScanner = [NSScanner scannerWithString:pair.key];
+    
     if (![keyScanner scanUpToString:@"[" intoString:&key]) {
         return NO;
     }
@@ -113,15 +116,15 @@
         // previous object
         if (key) {
             // Previous object was a dictionary
-            if (!(nextObject = [object objectForKey:key])) {
+            if (!(nextObject = [collection objectForKey:key])) {
                 nextObject = [[nextObjectClass alloc] init];
-                [object setObject:nextObject forKey:key];
+                [collection setObject:nextObject forKey:key];
             }
         } else {
             // Previous object was an array
-            if (!(nextObject = [object lastObject])) {
+            if (!(nextObject = [collection lastObject])) {
                 nextObject = [[nextObjectClass alloc] init];
-                [object addObject:nextObject];
+                [collection addObject:nextObject];
             }
         }
         
@@ -131,26 +134,37 @@
         }
         
         key = nextKey;
-        object = nextObject;
+        collection = nextObject;
     }
     
     if (key) {
-        // If there's an existing value for this key, we need to put a set in its place
-        id value = [object objectForKey:key];
+        // If the collection isn't a dictionary, return NO
+        if (![collection isKindOfClass:[NSMutableDictionary class]]) {
+            return NO;
+        }
+
+        // If there's an existing value for this key, we need to add the value to a set
+        id value = [collection objectForKey:key];
         if (value) {
-            // If the value isn't already a set, create a new set with the existing value
-            if (![value isKindOfClass:[NSMutableSet class]]) {
-                value = [NSMutableSet setWithObject:value];
+            // If the value is a set, add the object. If the value is a string, create a new set.
+            // Otherwise, something has gone wrong, so return NO.
+            if ([value isKindOfClass:[NSMutableSet class]]) {
+                [value addObject:pair.value];
+            } else if ([value isKindOfClass:[NSString class]]) {
+                value = [NSMutableSet setWithObjects:value, pair.value, nil];
+                [collection setObject:value forKey:key];
+            } else {
+                return NO;
             }
-            
-            // Add the new value to the set and set it as key's value
-            [value addObject:pair.value];
-            [object setObject:value forKey:key];
         } else {
-            [object setObject:pair.value forKey:key];
+            [collection setObject:pair.value forKey:key];
         }
     } else {
-        [object addObject:pair.value];
+        if (![collection isKindOfClass:[NSMutableArray class]]) {
+            return NO;
+        }
+        
+        [collection addObject:pair.value];
     }
     
     return YES;
