@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import "UMKMessageCountingProxy.h"
+#import <URLMock/UMKMessageCountingProxy.h>
 
 @interface UMKMessageCountingProxy ()
 @property (nonatomic, strong) NSMutableDictionary *receivedMessageCounts;

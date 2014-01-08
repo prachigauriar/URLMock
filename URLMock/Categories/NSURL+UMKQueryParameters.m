@@ -25,7 +25,7 @@
 //
 
 #import <URLMock/NSURL+UMKQueryParameters.h>
-#import <URLMock/UMKURLEncoding.h>
+#import <URLMock/NSDictionary+UMKURLEncoding.h>
 
 @implementation NSURL (UMKQueryParameters)
 

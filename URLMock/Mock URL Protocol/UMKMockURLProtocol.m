@@ -26,7 +26,7 @@
 
 #import <URLMock/UMKMockURLProtocol.h>
 #import <URLMock/UMKErrorUtilities.h>
-#import <URLMock/UMKURLEncoding.h>
+#import <URLMock/NSDictionary+UMKURLEncoding.h>
 
 #pragma mark UMKMockURLProtocolSettings
 
@@ -91,7 +91,7 @@
 {
     return [NSString stringWithFormat:@"<%@: %lX; enabled: %@; verificationEnabled: %@, receivedUnexpectedRequest: %@; "
                                       @"expectedMockRequests: %@, servicedRequests: %@>",
-            [self class], (NSUInteger)self,
+            [self class], (unsigned long)self,
             self.enabled ? @"YES" : @"NO",
             self.verificationEnabled ? @"YES" : @"NO",
             self.receivedUnexpectedRequest ? @"YES" : @"NO",

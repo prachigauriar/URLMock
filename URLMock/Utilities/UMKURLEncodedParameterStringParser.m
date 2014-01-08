@@ -26,7 +26,7 @@
 
 #import <URLMock/UMKURLEncodedParameterStringParser.h>
 #import <URLMock/UMKErrorUtilities.h>
-#import <URLMock/UMKURLEncoding.h>
+#import <URLMock/NSDictionary+UMKURLEncoding.h>
 #import "UMKParameterPair.h"
 
 @implementation UMKURLEncodedParameterStringParser

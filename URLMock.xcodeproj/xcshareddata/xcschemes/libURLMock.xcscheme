@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4C45E810182EAF44002F2096"
                BuildableName = "libURLMock.a"
-               BlueprintName = "URLMock (iOS)"
+               BlueprintName = "libURLMock"
                ReferencedContainer = "container:URLMock.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,6 +28,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4C0FBDC0187DF55A00D5C4B8"
+               BuildableName = "libURLMock Tests.xctest"
+               BlueprintName = "libURLMock Tests"
+               ReferencedContainer = "container:URLMock.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

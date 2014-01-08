@@ -25,6 +25,8 @@
 //
 
 #import <XCTest/XCTest.h>
+
+#import "UMKRandomizedTestCase.h"
 #import <OCMock/OCMock.h>
 #import <URLMock/URLMock.h>
 

@@ -1,9 +1,9 @@
 //
-//  NSDictionary+UMKURLEncoding.h
+//  UMKRandomizedTestCase.m
 //  URLMock
 //
-//  Created by Prachi Gauriar on 1/5/2014.
-//  Copyright (c) 2014 Prachi Gauriar, (c) 2013 AFNetworking (http://afnetworking.com/)
+//  Created by Prachi Gauriar on 1/8/2014.
+//  Copyright (c) 2014 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,17 +22,25 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
+//
 
-#import <Foundation/Foundation.h>
+#import "UMKRandomizedTestCase.h"
 
-@interface NSDictionary (UMKURLEncoding)
+@implementation UMKRandomizedTestCase
 
-+ (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string;
-+ (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string encoding:(NSStringEncoding)encoding;
++ (void)setUp
+{
+    [super setUp];
+    srandomdev();
+}
 
-- (BOOL)umk_isValidURLEncodedParameterDictionary;
 
-- (NSString *)umk_URLEncodedParameterString;
-- (NSString *)umk_URLEncodedParameterStringWithEncoding:(NSStringEncoding)encoding;
+- (void)setUp
+{
+    [super setUp];
+    unsigned seed = (unsigned)random();
+    NSLog(@"Using seed %d", seed);
+    srandom(seed);
+}
 
 @end
