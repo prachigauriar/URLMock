@@ -25,7 +25,10 @@
 //
 
 #import <XCTest/XCTest.h>
+
+#import "UMKRandomizedTestCase.h"
 #import <URLMock/URLMock.h>
+#import "UMKRandomizedTestCase.h"
 
 static const NSUInteger UMKIterationCount = 512;
 
@@ -96,7 +99,7 @@ static const NSUInteger UMKIterationCount = 512;
         XCTAssertTrue([randomString length] <= 128, @"Randomly generated string contained more than 128 characters");
 
         NSRange foundRange = [randomString rangeOfCharacterFromSet:invertedAlphanumerics];
-        XCTAssertEqual(foundRange.location, NSNotFound, @"Randomly generated string contained non-alphanumeric characters");
+        XCTAssertEqual(foundRange.location, (NSUInteger)NSNotFound, @"Randomly generated string contained non-alphanumeric characters");
     }
 }
 
@@ -113,7 +116,7 @@ static const NSUInteger UMKIterationCount = 512;
         XCTAssertEqual([randomString length], length, @"Randomly generated string had incorrect length");
 
         NSRange foundRange = [randomString rangeOfCharacterFromSet:invertedAlphanumerics];
-        XCTAssertEqual(foundRange.location, NSNotFound, @"Randomly generated string contained non-alphanumeric characters");
+        XCTAssertEqual(foundRange.location, (NSUInteger)NSNotFound, @"Randomly generated string contained non-alphanumeric characters");
     }
 }
 
@@ -129,7 +132,7 @@ static const NSUInteger UMKIterationCount = 512;
         XCTAssertTrue([randomString length] <= 128, @"Randomly generated string contained more than 128 characters");
         
         NSRange foundRange = [randomString rangeOfCharacterFromSet:invertedRandomUnicodeCharacters];
-        XCTAssertEqual(foundRange.location, NSNotFound, @"Randomly generated string contained Unicode characters outside the specified range");
+        XCTAssertEqual(foundRange.location, (NSUInteger)NSNotFound, @"Randomly generated string contained Unicode characters outside the specified range");
     }
 }
 
@@ -146,7 +149,7 @@ static const NSUInteger UMKIterationCount = 512;
         XCTAssertEqual([randomString length], length, @"Randomly generated string had incorrect length");
         
         NSRange foundRange = [randomString rangeOfCharacterFromSet:invertedRandomUnicodeCharacters];
-        XCTAssertEqual(foundRange.location, NSNotFound, @"Randomly generated string contained Unicode characters outside the specified range");
+        XCTAssertEqual(foundRange.location, (NSUInteger)NSNotFound, @"Randomly generated string contained Unicode characters outside the specified range");
     }
 }
 

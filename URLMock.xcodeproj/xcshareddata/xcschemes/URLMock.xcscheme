@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4C45E8AE182FF1E1002F2096"
                BuildableName = "URLMock.framework"
-               BlueprintName = "URLMock (OS X)"
+               BlueprintName = "URLMock"
                ReferencedContainer = "container:URLMock.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

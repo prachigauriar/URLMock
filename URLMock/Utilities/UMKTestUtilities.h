@@ -31,16 +31,6 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <XCTest/XCTest.h>
-
-/*!
- UMKRandomizedTestCases simply override +setUp to call srandomdev() and -setUp to generate and log a
- random seed value before calling srandom(). Subclasses that override +setUp or -setUp should invoke
- the superclass implementation.
- */
-@interface UMKRandomizedTestCase : XCTestCase
-@end
-
 
 /*! @functiongroup Random strings */
 
@@ -165,14 +155,3 @@ extern NSURL *UMKRandomHTTPURL(void);
  @result YES if the condition block returned YES before the timeout; NO otherwise.
  */
 extern BOOL UMKWaitForCondition(NSTimeInterval timeoutInterval, BOOL (^condition)(void));
-
-/*!
- @abstract XCTAsserts that the given expression evaluates to YES before the given timeout interval elapses.
- @param timeoutInterval An NSTimeInterval containing the amount of time to wait for the expression to evaluate to YES.
- @param expression The boolean expression to evaluate.
- @param format An NSString object that contains a printf-style string containing an error message describing the failure 
-     condition and placeholders for the arguments.
- @param ... The arguments displayed in the format string.
- */
-#define UMKAssertTrueBeforeTimeout(timeoutInterval, expression, format...) \
-    XCTAssertTrue(UMKWaitForCondition((timeoutInterval), ^BOOL{ return (expression); }), ## format)

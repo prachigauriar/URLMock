@@ -28,27 +28,7 @@
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
 #import <URLMock/NSURL+UMKQueryParameters.h>
 
-@implementation UMKRandomizedTestCase
-
-+ (void)setUp
-{
-    [super setUp];
-    srandomdev();
-}
-
-
-- (void)setUp
-{
-    [super setUp];
-    unsigned seed = (unsigned)random();
-    NSLog(@"Using seed %d", seed);
-    srandom(seed);
-}
-
-@end
-
-
-#pragma mark - Private Type and Function Declarations
+#pragma mark Private Type and Function Declarations
 
 /*! 
  @abstract The function pointer type for random object generator functions.

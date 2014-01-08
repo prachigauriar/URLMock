@@ -25,8 +25,9 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <URLMock/URLMock.h>
 
+#import "UMKRandomizedTestCase.h"
+#import <URLMock/URLMock.h>
 #import "UMKURLConnectionVerifier.h"
 
 @interface URLMockIntegrationTests : UMKRandomizedTestCase
