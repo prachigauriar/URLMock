@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import "UMKParameterPair.h"
+#import <URLMock/UMKParameterPair.h>
 
 static const NSString *const kUMKParameterPairEscapedCharacters = @":/?&=;+!@#$()',*";
 

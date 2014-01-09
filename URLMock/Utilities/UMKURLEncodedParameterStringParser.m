@@ -27,7 +27,7 @@
 #import <URLMock/UMKURLEncodedParameterStringParser.h>
 #import <URLMock/UMKErrorUtilities.h>
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
-#import "UMKParameterPair.h"
+#import <URLMock/UMKParameterPair.h>
 
 @implementation UMKURLEncodedParameterStringParser
 
@@ -89,7 +89,6 @@
 
 - (BOOL)addObjectForParameterPair:(UMKParameterPair *)pair toDictionary:(NSMutableDictionary *)dictionary
 {
-    // Fundamentally, they key in 
     id collection = dictionary;
     NSString *key = nil;
 
@@ -149,6 +148,10 @@
             // If the value is a set, add the object. If the value is a string, create a new set.
             // Otherwise, something has gone wrong, so return NO.
             if ([value isKindOfClass:[NSMutableSet class]]) {
+                if ([value containsObject:pair.value]) {
+                    return NO;
+                }
+                
                 [value addObject:pair.value];
             } else if ([value isKindOfClass:[NSString class]]) {
                 value = [NSMutableSet setWithObjects:value, pair.value, nil];

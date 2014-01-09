@@ -25,14 +25,63 @@
 
 #import <Foundation/Foundation.h>
 
+/*!
+ The UMKURLEncoding category of NSDictionary provides a methods for easily URL encoding and decoding dictionary
+ objects.
+
+ Below is a brief summary of how URL encoded parameter strings are parsed. {…} denotes a dictionary, […] denotes 
+ an array, and <…> denotes a set.
+ 
+     "A=a" yields { "A" : "a" }
+     "A=a&B=b" yields { "A" : "a", "B" : "b" }
+     "A=a&A=b" yields { "A" : < "a", "b"> }
+     "A[]=a" yields { "A" : [ "a" ] }
+     "A[]=a&A[]=b" yields { "A" : [ "a", "b" ] }
+     "A[B]=a&A[C]=b" yields { "A" : { "B" : "a", "C" : "b" } }
+     "A[B]=a&A[B]=b" yields { "A" : { "B" : < "a", "b" > } }
+ 
+ Strings can only result in dictionaries that contain nested strings, arrays, sets, and dictionaries.
+ All dictionary keys, array values, and set values are strings. Sets never contain fewer than two items.
+ */
 @interface NSDictionary (UMKURLEncoding)
 
+/*!
+ @abstract Returns a new dictionary by parsing the specified URL encoded parameter string.
+ @discussion UTF-8 encoding is used to unescape the parameter string's percent sequences.
+ @param string The URL encoded parameter string to parse.
+ @result A new dictionary containing the objects specified in the URL encoded parameter string.
+ */
 + (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string;
+
+/*!
+ @abstract Returns a new dictionary by parsing the specified URL encoded parameter string with the specified encoding.
+ @param string The URL encoded parameter string to parse.
+ @param encoding The string encoding to use when unescaping the parameter string's percent sequences.
+ @result A new dictionary containing the objects specified in the URL encoded parameter string.
+ */
 + (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string encoding:(NSStringEncoding)encoding;
 
+/*!
+ @abstract Returns whether the receiver is a valid URL encoded parameter dictionary.
+ @discussion A dictionary is considered valid if it meets the following criteria: all its keys are strings; each of its
+     values is either a string, a set that contains only strings and has more than one element, an array that contains 
+     only strings and has at least one element, or a valid URL encoded parameter dictionary.
+ @result Whether the receiver is a valid URL encoded parameter dictionary.
+ */
 - (BOOL)umk_isValidURLEncodedParameterDictionary;
 
+/*!
+ @abstract Returns a URL encoded parameter string representation of the receiver.
+ @discussion UTF-8 encoding is used when percent-escaping the parameter string.
+ @result A URL encoded parameter string representation of the receiver.
+ */
 - (NSString *)umk_URLEncodedParameterString;
+
+/*!
+ @abstract Returns a URL encoded parameter string representation of the receiver.
+ @param encoding The encoding to use when percent-escaping the parameter string.
+ @result A URL encoded parameter string representation of the receiver.
+ */
 - (NSString *)umk_URLEncodedParameterStringWithEncoding:(NSStringEncoding)encoding;
 
 @end

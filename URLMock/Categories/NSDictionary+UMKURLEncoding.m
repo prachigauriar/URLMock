@@ -25,13 +25,27 @@
 
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
 #import <URLMock/UMKURLEncodedParameterStringParser.h>
-#import "UMKParameterPair.h"
+#import <URLMock/UMKParameterPair.h>
 
-#pragma mark - UMKURLEncoding Informal Protocol
+#pragma mark UMKURLEncoding Informal Protocol
 
 @interface NSObject (UMKURLEncoding)
 
+/*!
+ @abstract Returns an array of parameter pairs whose keys are the one specified and whose
+     values represent the values in the receiver.
+ @result An array of parameter pairs.
+ */
 - (NSArray *)umk_parameterPairsWithKey:(NSString *)key;
+
+/*!
+ @abstract Returns whether the object is a valid URL encoded parameter object.
+ @discussion This is used to verify if a dictionary is a valid parameter object. The following objects are
+     valid: strings, arrays containing only strings and having at least one element, sets containing only
+     strings and having at least two elements, and dictionaries whose keys are strings and whose values are
+     valid URL encoded objects (including other dictionaries).
+ @result Whether the object is a valid URL encoded parameter object.
+ */
 - (BOOL)umk_isValidURLEncodedParameterObject;
 
 @end
