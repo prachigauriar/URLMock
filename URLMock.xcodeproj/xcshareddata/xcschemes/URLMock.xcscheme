@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4C1C148C183289C700DE8195"
-               BuildableName = "URLMock Tests (OS X).xctest"
+               BuildableName = "URLMock Tests.xctest"
                BlueprintName = "URLMock Tests"
                ReferencedContainer = "container:URLMock.xcodeproj">
             </BuildableReference>
