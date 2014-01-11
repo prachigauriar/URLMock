@@ -121,6 +121,24 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
 + (instancetype)mockHTTPPutRequestWithURL:(NSURL *)URL;
 
 
+/*! @methodgroup Default Headers */
+
+/*! 
+ @abstract Returns the default headers for new UMKMockHTTPRequest instances.
+ @result The default headers for new UMKMockHTTPRequest instances or nil if no default has been set.
+ */
++ (NSDictionary *)defaultHeaders;
+
+/*!
+ @abstract Sets the default headers for new UMKMockHTTPRequest instances.
+ @discussion This is primarily useful when the URL loading API in use automatically includes a set of headers
+     with every request. AFNetworking does this. Using default headers simplifies the mock request creation 
+     process.
+ @param defaultHeaders The headers that should be the default for all new UMKMockHTTPRequest instances.
+ */
++ (void)setDefaultHeaders:(NSDictionary *)defaultHeaders;
+
+
 /*! @methodgroup URL request matching */
 
 /*!

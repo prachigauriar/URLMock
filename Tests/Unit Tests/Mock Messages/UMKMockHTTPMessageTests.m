@@ -59,7 +59,8 @@
 {
     XCTAssertNotNil(self.message, @"Could not -init message");
     XCTAssertNil(self.message.body, @"Body is not initially nil");
-    XCTAssertNotNil(self.message.headers, @"Headers is not initially nil");
+    XCTAssertNotNil(self.message.headers, @"Headers is initially nil");
+    XCTAssertEqual(self.message.headers.count, (NSUInteger)0, @"Headers is not initially empty");
 }
 
 

@@ -33,6 +33,7 @@
 
 - (void)testInit;
 - (void)testConvenienceFactoryMethods;
+- (void)testDefaultHeaders;
 - (void)testMatchesURLRequest;
 - (void)testResponderAccessors;
 
@@ -70,6 +71,25 @@
         XCTAssertEqual([mockRequest.HTTPMethod caseInsensitiveCompare:method], NSOrderedSame, @"HTTP method is not %@", method);
         XCTAssertEqualObjects(mockRequest.URL, URL, @"URL not set correctly");
     }
+}
+
+
+- (void)testDefaultHeaders
+{
+    XCTAssertNil([UMKMockHTTPRequest defaultHeaders], @"Not initially nil");
+    
+    NSDictionary *defaultHeaders = UMKRandomDictionaryOfStringsWithElementCount(random() % 10 + 1);
+    [UMKMockHTTPRequest setDefaultHeaders:defaultHeaders];
+    XCTAssertEqualObjects([UMKMockHTTPRequest defaultHeaders], defaultHeaders, @"Not set correctly");
+
+    UMKMockHTTPRequest *request = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:UMKRandomHTTPMethod() URL:UMKRandomHTTPURL()];
+    XCTAssertEqualObjects([UMKMockHTTPRequest defaultHeaders], request.headers, @"Headers not set correctly on new instances");
+    
+    [UMKMockHTTPRequest setDefaultHeaders:nil];
+    XCTAssertNil([UMKMockHTTPRequest defaultHeaders], @"Not set back to nil");
+    request = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:UMKRandomHTTPMethod() URL:UMKRandomHTTPURL()];
+    XCTAssertNotNil(request.headers, @"Nil headers");
+    XCTAssertEqual(request.headers.count, (NSUInteger)0, @"Headers are not empty");
 }
 
 

@@ -38,7 +38,24 @@ NSString *const kUMKMockHTTPRequestPostMethod = @"POST";
 NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 
 
-#pragma mark -
+#pragma mark
+
+/*!
+ UMKMockHTTPRequestSettings store settings for the UMKMockHTTPRequest class.
+ */
+@interface UMKMockHTTPRequestSettings : NSObject
+
+/*! The default headers for all new instances. Initially nil. */
+@property (strong) NSDictionary *defaultHeaders;
+
+@end
+
+// Empty implementation, as this just stores default headers, which are initially nil.
+@implementation UMKMockHTTPRequestSettings
+@end
+
+
+#pragma mark
 
 @interface UMKMockHTTPRequest ()
 
@@ -58,7 +75,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 @end
 
 
-#pragma mark -
+#pragma mark
 
 @implementation UMKMockHTTPRequest
 
@@ -78,6 +95,11 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
         _HTTPMethod = method;
         _URL = URL;
         _canonicalURL = [UMKMockURLProtocol canonicalURLForURL:URL];
+        
+        if ([[self class] defaultHeaders]) {
+            self.headers = [[self class] defaultHeaders];
+        }
+        
     }
     
     return self;
@@ -117,6 +139,32 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 + (instancetype)mockHTTPPutRequestWithURL:(NSURL *)URL
 {
     return [[self alloc] initWithHTTPMethod:kUMKMockHTTPRequestPutMethod URL:URL];
+}
+
+
+#pragma mark - Class-wide settings
+
++ (UMKMockHTTPRequestSettings *)settings
+{
+    static UMKMockHTTPRequestSettings *settings = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        settings = [[UMKMockHTTPRequestSettings alloc] init];
+    });
+    
+    return settings;
+}
+
+
++ (NSDictionary *)defaultHeaders
+{
+    return self.settings.defaultHeaders;
+}
+
+
++ (void)setDefaultHeaders:(NSDictionary *)defaultHeaders
+{
+    self.settings.defaultHeaders = defaultHeaders;
 }
 
 
