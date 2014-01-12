@@ -230,7 +230,9 @@
     id verifier = [self verifierForConnectionWithURLRequest:request];
     XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
 
-    XCTAssertFalse([UMKMockURLProtocol verify], @"Returned YES despite unexpected request");
+    NSError *error = nil;
+    XCTAssertFalse([UMKMockURLProtocol verifyWithError:&error], @"Returned YES despite unexpected request");
+    XCTAssertEqual([error code], kUMKUnexpectedRequestErrorCode, @"Incorrect error code");
     
     [UMKMockURLProtocol setVerificationEnabled:NO];
 }
@@ -244,7 +246,10 @@
     mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random() % 500];
     [UMKMockURLProtocol expectMockRequest:mockRequest];
 
-    XCTAssertFalse([UMKMockURLProtocol verify], @"Returned YES despite un-serviced request");
+    NSError *error = nil;
+    XCTAssertFalse([UMKMockURLProtocol verifyWithError:&error], @"Returned YES despite un-serviced request");
+    XCTAssertEqual([error code], kUMKUnservicedMockRequestErrorCode, @"Incorrect error code");
+    XCTAssertEqualObjects([[error userInfo] objectForKey:kUMKUnservicedMockRequestsKey], @[ mockRequest ], @"Incorrect unserviced requests returned");
     
     [UMKMockURLProtocol setVerificationEnabled:NO];
 }
@@ -263,7 +268,7 @@
     id verifier = [self verifierForConnectionWithURLRequest:request];
     XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
 
-    XCTAssertTrue([UMKMockURLProtocol verify], @"Returned NO despite no unexpected or un-serviced requests");
+    XCTAssertTrue([UMKMockURLProtocol verifyWithError:NULL], @"Returned NO despite no unexpected or un-serviced requests");
 
     [UMKMockURLProtocol setVerificationEnabled:NO];
 }
@@ -277,7 +282,10 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:1"]];
     id verifier = [self verifierForConnectionWithURLRequest:request];
     XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
-    XCTAssertFalse([UMKMockURLProtocol verify], @"Returned YES despite unexpected request");
+
+    NSError *error = nil;
+    XCTAssertFalse([UMKMockURLProtocol verifyWithError:&error], @"Returned YES despite unexpected request");
+    XCTAssertEqual([error code], kUMKUnexpectedRequestErrorCode, @"Incorrect error code");
 
     [UMKMockURLProtocol reset];
     
@@ -285,11 +293,13 @@
     UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURL:URL];
     mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random() % 500];
     [UMKMockURLProtocol expectMockRequest:mockRequest];
-    XCTAssertFalse([UMKMockURLProtocol verify], @"Returned YES despite un-serviced request");
+    XCTAssertFalse([UMKMockURLProtocol verifyWithError:&error], @"Returned YES despite un-serviced request");
+    XCTAssertEqual([error code], kUMKUnservicedMockRequestErrorCode, @"Incorrect error code");
+    XCTAssertEqualObjects([[error userInfo] objectForKey:kUMKUnservicedMockRequestsKey], @[ mockRequest ], @"Incorrect unserviced requests returned");
 
     verifier = [self verifierForConnectionWithURLRequest:[NSURLRequest requestWithURL:URL]];
     XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
-    XCTAssertTrue([UMKMockURLProtocol verify], @"Returned NO despite no unexpected or un-serviced requests");
+    XCTAssertTrue([UMKMockURLProtocol verifyWithError:NULL], @"Returned NO despite no unexpected or un-serviced requests");
 
     [UMKMockURLProtocol setVerificationEnabled:NO];
 }

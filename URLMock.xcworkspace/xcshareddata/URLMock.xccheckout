@@ -5,46 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>A7C13AE4-1111-416B-B414-F7EEFFB0F603</string>
+	<string>BC3AD54C-89F8-4EC1-94AC-A14F710BAE17</string>
 	<key>IDESourceControlProjectName</key>
 	<string>URLMock</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>22076CD2-1260-4C0A-A11E-8A4084A49816</key>
-		<string>https://github.com/erikdoe/ocmock.git</string>
-		<key>EC3EC7F2-49F3-451E-877C-741E74F6883D</key>
+		<key>83BF2ABF-3459-45AB-B979-111C6E35E84D</key>
 		<string>ssh://github.com/prachigauriar/URLMock.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>URLMock.xcodeproj/project.xcworkspace</string>
+	<string>URLMock.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>22076CD2-1260-4C0A-A11E-8A4084A49816</key>
-		<string>../../Libraries/OCMock</string>
-		<key>EC3EC7F2-49F3-451E-877C-741E74F6883D</key>
-		<string>../..</string>
+		<key>83BF2ABF-3459-45AB-B979-111C6E35E84D</key>
+		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/prachigauriar/URLMock.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>EC3EC7F2-49F3-451E-877C-741E74F6883D</string>
+	<string>83BF2ABF-3459-45AB-B979-111C6E35E84D</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>22076CD2-1260-4C0A-A11E-8A4084A49816</string>
-			<key>IDESourceControlWCCName</key>
-			<string>OCMock</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>EC3EC7F2-49F3-451E-877C-741E74F6883D</string>
+			<string>83BF2ABF-3459-45AB-B979-111C6E35E84D</string>
 			<key>IDESourceControlWCCName</key>
 			<string>URLMock</string>
 		</dict>

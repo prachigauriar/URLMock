@@ -60,7 +60,7 @@
 {
     XCTAssertFalse([UMKMockURLProtocol isVerificationEnabled], @"Initial value is YES");
     
-    XCTAssertThrowsSpecificNamed([UMKMockURLProtocol verify], NSException, NSInternalInconsistencyException,
+    XCTAssertThrowsSpecificNamed([UMKMockURLProtocol verifyWithError:NULL], NSException, NSInternalInconsistencyException,
                                  @"Does not throw exception when verification is not enabled.");
     
     [UMKMockURLProtocol setVerificationEnabled:YES];

@@ -26,6 +26,22 @@
 
 #import <Foundation/Foundation.h>
 
+/*! The error domain for the URLMock framework. */
+extern NSString *const kUMKErrorDomain;
+
+/*! The key used in NSError userInfo dictionaries whose value is an array of unserviced mock requests. */
+extern NSString *const kUMKUnservicedMockRequestsKey;
+
+/*! The error codes used by the URLMock framework. */
+typedef NS_ENUM(NSInteger, UMKErrorCode) {
+    /*! Indicates an error due to an unexpected request. */
+    kUMKUnexpectedRequestErrorCode = 1001,
+
+    /*! Indicates an error due to an unserviced mock request. */
+    kUMKUnservicedMockRequestErrorCode = 1002,
+};
+
+
 @protocol UMKMockURLRequest, UMKMockURLResponder;
 
 /*!
@@ -103,9 +119,12 @@
  @discussion Returns YES if and only if all expected requests have been serviced and no unexpected requests 
      have been received since the last reset. Note: this method may only be used when verification is enabled.
      Invoking it otherwise will raise an exception.
+ @param outError If an error occurs, upon return contains an NSError object that describes the problem.
+     If verification fails due to unserviced mock requests, the error object's userInfo dictionary contains
+     an array of unserviced mock requests accessible via the 
  @throws NSInternalInconsistencyException if verification is not enabled.
  */
-+ (BOOL)verify;
++ (BOOL)verifyWithError:(NSError **)outError;
 
 /*!
  @abstract Returns a dictionary of requests serviced since the last reset.
