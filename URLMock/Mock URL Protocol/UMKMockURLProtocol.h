@@ -147,7 +147,7 @@
  @discussion This will only be invoked on the receiver with requests for which the receiver returns
      true for -matchesURLRequest:.
  @param request The URL request. May not be nil.
- @result A mock URL responder for the specified request.
+ @result A mock URL responder for the specified request. May not be nil.
  */
 - (id <UMKMockURLResponder>)responderForURLRequest:(NSURLRequest *)request;
 

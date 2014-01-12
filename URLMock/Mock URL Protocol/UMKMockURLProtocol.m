@@ -125,17 +125,9 @@
     if (self) {
         _mockRequest = [[self class] expectedMockRequestMatchingURLRequest:request];
         _mockResponder = [_mockRequest responderForURLRequest:request];
+        NSAssert(_mockResponder, @"No responder for mock request: %@", _mockRequest);
         
-        [[self class] serviceRequest:request withMockRequest:_mockRequest];
-        
-        if ([[self class] isVerificationEnabled]) {
-            [[self class] removeExpectedMockRequest:_mockRequest];
-        }
-        
-        NSMutableDictionary *servicedMockRequests = [[[self class] settings] servicedRequests];
-        @synchronized (servicedMockRequests) {
-            servicedMockRequests[request] = _mockRequest;
-        }
+        [[self class] markRequest:request asServicedByMockRequest:_mockRequest];
     }
 
     return self;
@@ -279,7 +271,7 @@
 }
 
 
-+ (void)serviceRequest:(NSURLRequest *)request withMockRequest:(id <UMKMockURLRequest>)mockRequest
++ (void)markRequest:(NSURLRequest *)request asServicedByMockRequest:(id <UMKMockURLRequest>)mockRequest
 {
     if ([self isVerificationEnabled]) {
         @synchronized (self.settings.servicedRequests) {
