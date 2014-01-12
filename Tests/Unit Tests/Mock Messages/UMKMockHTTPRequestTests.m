@@ -51,6 +51,7 @@
     XCTAssertNotNil(mockRequest, "Returns nil");
     XCTAssertEqualObjects(mockRequest.HTTPMethod, HTTPMethod, @"HTTP Method not set correctly");
     XCTAssertEqualObjects(mockRequest.URL, URL, @"URL not set correctly");
+    XCTAssertFalse(mockRequest.checksHeadersWhenMatching, @"Header checking is initially YES");
     XCTAssertTrue([mockRequest conformsToProtocol:@protocol(UMKMockURLRequest)], @"Does not conform to UMKMockURLRequest protocol");
 }
 

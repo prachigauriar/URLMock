@@ -87,6 +87,12 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 
 - (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL
 {
+    return [self initWithHTTPMethod:method URL:URL checksHeadersWhenMatching:NO];
+}
+
+
+- (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL checksHeadersWhenMatching:(BOOL)checksHeaders
+{
     NSParameterAssert(method);
     NSParameterAssert(URL);
     
@@ -95,6 +101,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
         _HTTPMethod = method;
         _URL = URL;
         _canonicalURL = [UMKMockURLProtocol canonicalURLForURL:URL];
+        _checksHeadersWhenMatching = checksHeaders;
         
         if ([[self class] defaultHeaders]) {
             self.headers = [[self class] defaultHeaders];
@@ -174,9 +181,8 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 {
     return [self.canonicalURL isEqual:[UMKMockURLProtocol canonicalURLForURL:request.URL]] &&
            [self.HTTPMethod caseInsensitiveCompare:request.HTTPMethod] == NSOrderedSame &&
-           [self headersAreEqualToHeadersOfRequest:request] &&
+           (self.checksHeadersWhenMatching ? [self headersAreEqualToHeadersOfRequest:request] : YES) &&
            [self bodyMatchesBodyOfURLRequest:request];
-
 }
 
 
