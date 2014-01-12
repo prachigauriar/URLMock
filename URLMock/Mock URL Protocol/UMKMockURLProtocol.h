@@ -110,7 +110,7 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
      any unexpected requests are received; mock requests are automatically removed from the set of expected 
      requests when they are serviced.
 
-     When verification is enabled, +verify may be used to determine if things are behaving as expected.
+     When verification is enabled, +verifyWithError: may be used to determine if things are behaving as expected.
  */
 + (void)setVerificationEnabled:(BOOL)enabled;
 
@@ -121,7 +121,7 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
      Invoking it otherwise will raise an exception.
  @param outError If an error occurs, upon return contains an NSError object that describes the problem.
      If verification fails due to unserviced mock requests, the error object's userInfo dictionary contains
-     an array of unserviced mock requests accessible via the 
+     an array of unserviced mock requests accessible via the kUMKUnservicedMockRequestsKey key.
  @throws NSInternalInconsistencyException if verification is not enabled.
  */
 + (BOOL)verifyWithError:(NSError **)outError;
