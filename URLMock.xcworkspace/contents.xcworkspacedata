@@ -2,13 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "container:URLMock.xcodeproj">
+      location = "group:URLMock.xcodeproj">
    </FileRef>
-   <Group
-      location = "group:"
-      name = "Submodules">
-      <FileRef
-         location = "group:Libraries/OCMock/Source/OCMock.xcodeproj">
-      </FileRef>
-   </Group>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
 </Workspace>

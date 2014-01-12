@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B0396AF46334D1D88C3DE2F /* libPods-URLMock Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EC45F6000504F6581495339 /* libPods-URLMock Tests.a */; };
 		4C0957FA187E043600436F23 /* UMKTestUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C34F62A183346FB00AD2A6D /* UMKTestUtilities.m */; };
 		4C0957FB187E043800436F23 /* UMKTestUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C34F62A183346FB00AD2A6D /* UMKTestUtilities.m */; };
 		4C0957FC187E043F00436F23 /* UMKMessageCountingProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C14A3183298F200DE8195 /* UMKMessageCountingProxy.m */; };
@@ -87,6 +88,7 @@
 		4CD058C0187E12790071C2BF /* UMKMockHTTPResponderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8AF915185E6641001B468E /* UMKMockHTTPResponderTests.m */; };
 		4CD058C1187E12790071C2BF /* UMKURLEncodedParameterStringParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D3883187A5135000A04DE /* UMKURLEncodedParameterStringParserTests.m */; };
 		4CD058C2187E12C20071C2BF /* libURLMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E811182EAF44002F2096 /* libURLMock.a */; };
+		F48E0C25B4EE4DCF8F98D35B /* libPods-libURLMock-libURLMock Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0EE3EF0C1414FB491CB4433 /* libPods-libURLMock-libURLMock Tests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +121,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2060CA2DA7FD4A7084B81AE7 /* Pods-libURLMock-libURLMock Tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libURLMock-libURLMock Tests.xcconfig"; path = "Pods/Pods-libURLMock-libURLMock Tests.xcconfig"; sourceTree = "<group>"; };
 		4C0D38491879AFA6000A04DE /* NSException+UMKSubclassResponsibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSException+UMKSubclassResponsibility.h"; sourceTree = "<group>"; };
 		4C0D384A1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSException+UMKSubclassResponsibility.m"; sourceTree = "<group>"; };
 		4C0D387D187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKURLEncodedParameterStringParser.h; sourceTree = "<group>"; };
@@ -175,6 +178,9 @@
 		4CC86F1C1836785100B878D6 /* UMKMockHTTPMessageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UMKMockHTTPMessageTests.m; path = "Mock Messages/UMKMockHTTPMessageTests.m"; sourceTree = "<group>"; };
 		4CC86F1F18367A7A00B878D6 /* UMKTestUtilitiesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKTestUtilitiesTests.m; sourceTree = "<group>"; };
 		4CD058BB187E11CB0071C2BF /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOCMock.a; path = "Libraries/OCMock/Source/build/Debug-iphoneos/libOCMock.a"; sourceTree = "<group>"; };
+		4EC45F6000504F6581495339 /* libPods-URLMock Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0EE3EF0C1414FB491CB4433 /* libPods-libURLMock-libURLMock Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-libURLMock-libURLMock Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEA875FEB1C34C83BC0274DE /* Pods-URLMock Tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock Tests.xcconfig"; path = "Pods/Pods-URLMock Tests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +193,7 @@
 				4C0FBDC2187DF55A00D5C4B8 /* XCTest.framework in Frameworks */,
 				4CD058C2187E12C20071C2BF /* libURLMock.a in Frameworks */,
 				4CD058BC187E11CB0071C2BF /* libOCMock.a in Frameworks */,
+				F48E0C25B4EE4DCF8F98D35B /* libPods-libURLMock-libURLMock Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +204,7 @@
 				4C5D0F49187DCB8200794855 /* Foundation.framework in Frameworks */,
 				4C1C148E183289C700DE8195 /* XCTest.framework in Frameworks */,
 				4C8AF912185E5B1B001B468E /* OCMock.framework in Frameworks */,
+				0B0396AF46334D1D88C3DE2F /* libPods-URLMock Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +281,8 @@
 				4C1C148F183289C700DE8195 /* Tests */,
 				4C45E813182EAF44002F2096 /* Frameworks */,
 				4C45E812182EAF44002F2096 /* Products */,
+				DEA875FEB1C34C83BC0274DE /* Pods-URLMock Tests.xcconfig */,
+				2060CA2DA7FD4A7084B81AE7 /* Pods-libURLMock-libURLMock Tests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -299,6 +309,8 @@
 				4C45E882182FF1AA002F2096 /* Cocoa.framework */,
 				4C0FBDC4187DF55A00D5C4B8 /* UIKit.framework */,
 				4C45E884182FF1AA002F2096 /* Other Frameworks */,
+				4EC45F6000504F6581495339 /* libPods-URLMock Tests.a */,
+				C0EE3EF0C1414FB491CB4433 /* libPods-libURLMock-libURLMock Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -475,9 +487,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C0FBDD1187DF55A00D5C4B8 /* Build configuration list for PBXNativeTarget "libURLMock Tests" */;
 			buildPhases = (
+				83F91932E1454B40B7E33993 /* Check Pods Manifest.lock */,
 				4C0FBDBD187DF55A00D5C4B8 /* Sources */,
 				4C0FBDBE187DF55A00D5C4B8 /* Frameworks */,
 				4C0FBDBF187DF55A00D5C4B8 /* Resources */,
+				9E77275C5DC142C6A6BE2E54 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -493,9 +507,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C1C149C183289C700DE8195 /* Build configuration list for PBXNativeTarget "URLMock Tests" */;
 			buildPhases = (
+				846F651C5141430FA0556A2F /* Check Pods Manifest.lock */,
 				4C1C1489183289C700DE8195 /* Sources */,
 				4C1C148A183289C700DE8195 /* Frameworks */,
 				4C1C148B183289C700DE8195 /* Resources */,
+				C5446B2FD3774B2197D26E20 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -604,6 +620,69 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		83F91932E1454B40B7E33993 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		846F651C5141430FA0556A2F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9E77275C5DC142C6A6BE2E54 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-libURLMock-libURLMock Tests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5446B2FD3774B2197D26E20 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-URLMock Tests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4C0FBDBD187DF55A00D5C4B8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -704,6 +783,7 @@
 /* Begin XCBuildConfiguration section */
 		4C0FBDD2187DF55A00D5C4B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2060CA2DA7FD4A7084B81AE7 /* Pods-libURLMock-libURLMock Tests.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
@@ -761,6 +841,7 @@
 		};
 		4C0FBDD3187DF55A00D5C4B8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2060CA2DA7FD4A7084B81AE7 /* Pods-libURLMock-libURLMock Tests.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
@@ -812,6 +893,7 @@
 		};
 		4C1C149A183289C700DE8195 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DEA875FEB1C34C83BC0274DE /* Pods-URLMock Tests.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/URLMock.framework/Versions/A/URLMock";
@@ -859,6 +941,7 @@
 		};
 		4C1C149B183289C700DE8195 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DEA875FEB1C34C83BC0274DE /* Pods-URLMock Tests.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/URLMock.framework/Versions/A/URLMock";
