@@ -70,7 +70,6 @@
 		4C6841A11838173A00BACE61 /* UMKMockHTTPRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6841A01838173A00BACE61 /* UMKMockHTTPRequestTests.m */; };
 		4C8A7089187E0C93002E33A7 /* UMKRandomizedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A7086187E0C93002E33A7 /* UMKRandomizedTestCase.m */; };
 		4C8A708A187E0DCB002E33A7 /* UMKRandomizedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A7086187E0C93002E33A7 /* UMKRandomizedTestCase.m */; };
-		4C8AF912185E5B1B001B468E /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8AF911185E5B1B001B468E /* OCMock.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		4C8AF916185E6641001B468E /* UMKMockHTTPResponderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8AF915185E6641001B468E /* UMKMockHTTPResponderTests.m */; };
 		4C8F6032186158A900B3B2CB /* UMKURLConnectionVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F6031186158A900B3B2CB /* UMKURLConnectionVerifier.m */; };
 		4C8F60341861594B00B3B2CB /* UMKMockURLProtocolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F60331861594B00B3B2CB /* UMKMockURLProtocolTests.m */; };
@@ -81,7 +80,6 @@
 		4CC86F1818354D5200B878D6 /* UMKMessageCountingProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C1C14A2183298F200DE8195 /* UMKMessageCountingProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CC86F1D1836785100B878D6 /* UMKMockHTTPMessageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC86F1C1836785100B878D6 /* UMKMockHTTPMessageTests.m */; };
 		4CC86F2018367A7A00B878D6 /* UMKTestUtilitiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC86F1F18367A7A00B878D6 /* UMKTestUtilitiesTests.m */; };
-		4CD058BC187E11CB0071C2BF /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD058BB187E11CB0071C2BF /* libOCMock.a */; };
 		4CD058BD187E12710071C2BF /* UMKMockURLProtocolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F60331861594B00B3B2CB /* UMKMockURLProtocolTests.m */; };
 		4CD058BE187E12790071C2BF /* UMKMockHTTPMessageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC86F1C1836785100B878D6 /* UMKMockHTTPMessageTests.m */; };
 		4CD058BF187E12790071C2BF /* UMKMockHTTPRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6841A01838173A00BACE61 /* UMKMockHTTPRequestTests.m */; };
@@ -134,7 +132,6 @@
 		4C0FBDC1187DF55A00D5C4B8 /* libURLMock Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "libURLMock Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0FBDC4187DF55A00D5C4B8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		4C0FBDD4187DF5A000D5C4B8 /* libURLMock Tests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "libURLMock Tests-Prefix.pch"; sourceTree = "<group>"; };
-		4C0FBDDD187DF74900D5C4B8 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOCMock.a; path = "Libraries/OCMock/Source/build/Debug-iphoneos/libOCMock.a"; sourceTree = "<group>"; };
 		4C1C148D183289C700DE8195 /* URLMock Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "URLMock Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C1C1491183289C700DE8195 /* URLMock Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "URLMock Tests-Info.plist"; sourceTree = "<group>"; };
 		4C1C1493183289C700DE8195 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -169,15 +166,12 @@
 		4C6841A01838173A00BACE61 /* UMKMockHTTPRequestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UMKMockHTTPRequestTests.m; path = "Mock Messages/UMKMockHTTPRequestTests.m"; sourceTree = "<group>"; };
 		4C8A7085187E0C93002E33A7 /* UMKRandomizedTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKRandomizedTestCase.h; sourceTree = "<group>"; };
 		4C8A7086187E0C93002E33A7 /* UMKRandomizedTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKRandomizedTestCase.m; sourceTree = "<group>"; };
-		4C8AF911185E5B1B001B468E /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = Libraries/OCMock/Source/build/Debug/OCMock.framework; sourceTree = "<group>"; };
-		4C8AF913185E5E08001B468E /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOCMock.a; path = "Libraries/OCMock/Source/build/Debug-iphoneos/libOCMock.a"; sourceTree = "<group>"; };
 		4C8AF915185E6641001B468E /* UMKMockHTTPResponderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UMKMockHTTPResponderTests.m; path = "Mock Messages/UMKMockHTTPResponderTests.m"; sourceTree = "<group>"; };
 		4C8F6030186158A900B3B2CB /* UMKURLConnectionVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKURLConnectionVerifier.h; sourceTree = "<group>"; };
 		4C8F6031186158A900B3B2CB /* UMKURLConnectionVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKURLConnectionVerifier.m; sourceTree = "<group>"; };
 		4C8F60331861594B00B3B2CB /* UMKMockURLProtocolTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UMKMockURLProtocolTests.m; path = "Mock URL Protocol/UMKMockURLProtocolTests.m"; sourceTree = "<group>"; };
 		4CC86F1C1836785100B878D6 /* UMKMockHTTPMessageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UMKMockHTTPMessageTests.m; path = "Mock Messages/UMKMockHTTPMessageTests.m"; sourceTree = "<group>"; };
 		4CC86F1F18367A7A00B878D6 /* UMKTestUtilitiesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKTestUtilitiesTests.m; sourceTree = "<group>"; };
-		4CD058BB187E11CB0071C2BF /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOCMock.a; path = "Libraries/OCMock/Source/build/Debug-iphoneos/libOCMock.a"; sourceTree = "<group>"; };
 		4EC45F6000504F6581495339 /* libPods-URLMock Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0EE3EF0C1414FB491CB4433 /* libPods-libURLMock-libURLMock Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-libURLMock-libURLMock Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEA875FEB1C34C83BC0274DE /* Pods-URLMock Tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock Tests.xcconfig"; path = "Pods/Pods-URLMock Tests.xcconfig"; sourceTree = "<group>"; };
@@ -192,7 +186,6 @@
 				4C0FBDC5187DF55A00D5C4B8 /* UIKit.framework in Frameworks */,
 				4C0FBDC2187DF55A00D5C4B8 /* XCTest.framework in Frameworks */,
 				4CD058C2187E12C20071C2BF /* libURLMock.a in Frameworks */,
-				4CD058BC187E11CB0071C2BF /* libOCMock.a in Frameworks */,
 				F48E0C25B4EE4DCF8F98D35B /* libPods-libURLMock-libURLMock Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,7 +196,6 @@
 			files = (
 				4C5D0F49187DCB8200794855 /* Foundation.framework in Frameworks */,
 				4C1C148E183289C700DE8195 /* XCTest.framework in Frameworks */,
-				4C8AF912185E5B1B001B468E /* OCMock.framework in Frameworks */,
 				0B0396AF46334D1D88C3DE2F /* libPods-URLMock Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,10 +292,6 @@
 		4C45E813182EAF44002F2096 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4CD058BB187E11CB0071C2BF /* libOCMock.a */,
-				4C0FBDDD187DF74900D5C4B8 /* libOCMock.a */,
-				4C8AF913185E5E08001B468E /* libOCMock.a */,
-				4C8AF911185E5B1B001B468E /* OCMock.framework */,
 				4C45E814182EAF44002F2096 /* Foundation.framework */,
 				4C45E822182EAF44002F2096 /* XCTest.framework */,
 				4C45E882182FF1AA002F2096 /* Cocoa.framework */,
