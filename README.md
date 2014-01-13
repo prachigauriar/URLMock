@@ -19,11 +19,11 @@ your code.
 
 ## Known Issues and Limitations
 
-* URLMock does not support stream-based requests. This means that it is
+* URLMock does not support stream-based requests, which means that it is
   currently incompatible with NSURLSession. We are tracking this as a [GitHub 
   issue][Issue-StreamBasedRequests] and hope to have it fixed soon. In the 
   meantime, both NSURLConnection and AFNetworking 2.0 work.
-* URLMock cannot currently match requests and generate responses based on a
+* URLMock can’t currently match requests and generate responses based on a
   pattern or block. We plan to add a mechanism for doing this in the near
   future. ([GitHub issue][Issue-PatternBasedRequests])
 
@@ -33,11 +33,13 @@ your code.
 
 ## Installation
 
-The easiest way to start using URLMock is to use CocoaPods. 
+The easiest way to start using URLMock is to install it with CocoaPods. 
 
     pod 'URLMock', '~> 1.0'
 
-You can also build it and include the built products in your project. For OS X, just add URLMock.framework to your project. For iOS, add URLMock’s public headers to your header search path and link in libURLMock.a.
+You can also build it and include the built products in your project. For OS X,
+just add URLMock.framework to your project. For iOS, add URLMock’s public
+headers to your header search path and link in libURLMock.a.
 
 
 ## Using URLMock
@@ -46,7 +48,7 @@ URLMock is designed with both response stubbing and unit testing in mind. Both w
 
 ### Response stubbing
 
-Using URLMock for response stubbing is fairly simple:
+Using URLMock for response stubbing is simple:
 
 1. Enable URLMock.
 
@@ -66,7 +68,8 @@ Using URLMock for response stubbing is fairly simple:
         [UMKMockURLProtocol expectMockRequest:request];
 
    There are also mock responders for responding with an error or returning data 
-   in chunks with a delay between each chunk.
+   in chunks with a delay between each chunk, and we’ll be adding more 
+   responders in the future.
 
 3. Execute your real request to get the stubbed response back. You don’t have to 
    make any changes to your code when using URLMock. Things should just work. 
@@ -125,7 +128,7 @@ a few additional APIs to make unit testing easier.
    resets UMKMockURLProtocol’s expectations to their original state. It does not
    change whether verification is enabled. 
    
-   If you’re using XCTest, the ideal place to do this is in your test cases’s
+   If you’re using XCTest, the ideal place to do this is in your test case’s
    `-setUp` (or `-tearDown`) method.
    
         - (void)setUp
@@ -137,7 +140,7 @@ a few additional APIs to make unit testing easier.
 
 3. After you’ve executed the code you’re testing, send UMKMockURLProtocol the 
    `+verifyWithError:` message. It will return YES if all expected mock requests
-   were serviced and no unexpected mock requests were received and NO otherwise.
+   were serviced and no unexpected mock requests were received.
 
         NSError *error = nil;
         XCTAssertTrue([UMKMockURLProtocol verifyWithError:&error], @"…");
@@ -153,9 +156,9 @@ a few additional APIs to make unit testing easier.
    
    Note that some networking APIs—most notably AFNetworking—send headers that
    you didn’t explicitly set, so you should determine what those are before
-   creating your mock requests. To make things a little easier, you can use use
+   creating your mock requests. To make things a little easier, you can use
    `+[UMKMockHTTPRequest setDefaultHeaders:]` to set the default headers for new
-   UMKMockHTTPRequest instances. For example, if you’re using AFNetworking 
+   UMKMockHTTPRequest instances. For example, if you’re using AFNetworking’s 
    default HTTP request serializer, you can set default headers this way:
    
         [UMKMockHTTPRequest setDefaultHeaders:[[AFHTTPRequestSerializer serializer] HTTPRequestHeaders]];
@@ -163,7 +166,7 @@ a few additional APIs to make unit testing easier.
 
 ### Non-HTTP Protocols
 
-Out of the box, URLMock only supports HTTP and HTTPs. However, it is designed to 
+Out of the box, URLMock only supports HTTP and HTTPS. However, it is designed to 
 work with any URL protocol that the NSURL loading system can support. If you are 
 using a custom scheme or URL protocol and would like to add support for mocking 
 requests and responses, you need only create classes that conform to the 
