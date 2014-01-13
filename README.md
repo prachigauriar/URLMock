@@ -2,7 +2,7 @@
 
 URLMock is an Objective-C framework for mocking and stubbing URL requests and
 responses. It works with APIs built on the Foundation NSURL loading
-system—NSURLConnection and and AFNetworking, for example—without any changes to
+system—NSURLConnection and AFNetworking, for example—without any changes to
 your code.
 
 

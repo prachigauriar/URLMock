@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.description  = <<-DESC
                    URLMock is an Objective-C framework for mocking and stubbing URL requests and
                    responses. It works with APIs built on the Foundation NSURL loading
-                   system—NSURLConnection and and AFNetworking, for example—without any changes to
+                   system—NSURLConnection and AFNetworking, for example—without any changes to
                    your code.
                    DESC
 
@@ -20,7 +20,6 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/prachigauriar/URLMock.git", :tag => "1.0" }
   s.source_files  = 'URLMock', 'URLMock/**/*.{h,m}'
 
-  s.dependency 'AFNetworking', '~> 2.0'
   s.dependency 'OCMock', '~> 2.0'
 
   s.requires_arc = true
