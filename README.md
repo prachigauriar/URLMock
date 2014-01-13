@@ -68,7 +68,33 @@ Using URLMock for response stubbing is fairly simple:
    There are also mock responders for responding with an error or returning data 
    in chunks with a delay between each chunk.
 
-3. Execute your real request to get the stubbed response back.
+3. Execute your real request to get the stubbed response back. You don’t have to 
+   make any changes to your code when using URLMock. Things should just work. 
+   For example, the following URLConnection code will receive the mock response 
+   above:
+   
+        NSURL *URL = [NSURL URLWithString:@"http://host.com/api/v1/person"];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL];
+        request.HTTPMethod = @"POST";
+        NSString *params = [@{ @"name" : @"John Doe", @"age" : @"47" } umk_URLEncodedParameterString];
+        request.HTTPBody = [params dataUsingEncoding:NSUTF8StringEncoding];
+        
+        // Create the connection as usual
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:…];
+   
+   
+   The following AFNetworking code would accomplish the same thing:
+   
+        NSURL *base = [NSURL URLWithString:@"http://host.com/api/v1/"];
+        NSString *params = [@{ @"name" : @"John Doe", @"age" : @"47" } umk_URLEncodedParameterString];
+
+        // Send a POST as usual
+        AFHTTPRequestOperationManager *om = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:base];
+        [om POST:@"person" parameters:params success:^(AFHTTPRequestOperation *op, id object) {
+            …
+        } failure:^(AFHTTPRequestOperation *op, NSError *error) {
+            …
+        }];    
 
         
 ### Unit testing
