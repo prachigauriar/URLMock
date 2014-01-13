@@ -23,8 +23,8 @@ your code.
   currently incompatible with NSURLSession. We are tracking this as a [GitHub 
   issue][Issue-StreamBasedRequests] and hope to have it fixed soon. In the 
   meantime, both NSURLConnection and AFNetworking 2.0 work.
-* URLMock cannot currently match a requests and generate responses based on 
-  a pattern or block. We plan to add a mechanism for doing this in the near
+* URLMock cannot currently match requests and generate responses based on a
+  pattern or block. We plan to add a mechanism for doing this in the near
   future. ([GitHub issue][Issue-PatternBasedRequests])
 
 [Issue-StreamBasedRequests]: https://github.com/prachigauriar/URLMock/issues/3
