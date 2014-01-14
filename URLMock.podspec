@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "URLMock"
-  s.version      = "1.0"
+  s.version      = "1.0.1"
 
   s.summary      = "A Cocoa framework for mocking and stubbing URL requests and responses."
   s.description  = <<-DESC
@@ -17,10 +17,19 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '7.0'
   s.osx.deployment_target = '10.9'
 
-  s.source       = { :git => "https://github.com/prachigauriar/URLMock.git", :tag => "1.0" }
+  s.source       = { :git => "https://github.com/prachigauriar/URLMock.git", :tag => "1.0.1" }
   s.source_files  = 'URLMock', 'URLMock/**/*.{h,m}'
 
   s.dependency 'OCMock', '~> 2.0'
 
   s.requires_arc = true
+
+  s.subspec 'TestHelpers' do |ss|
+    ss.source_files = 'URLMock/Utilities/UMKTestUtilities.{h,m}',
+                      'URLMock/Utilities/UMKErrorUtilities.{h,m}',
+                      'URLMock/Categories/NSURL+UMKQueryParameters.{h,m}',
+                      'URLMock/Categories/NSDictionary+UMKURLEncoding.{h,m}',
+                      'URLMock/Utilities/UMKParameterPair.{h,m}',
+                      'URLMock/Utilities/UMKURLEncodedParameterStringParser.{h,m}'
+  end
 end

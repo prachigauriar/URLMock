@@ -25,7 +25,6 @@
 //
 
 #import <URLMock/UMKTestUtilities.h>
-#import <URLMock/NSDictionary+UMKURLEncoding.h>
 #import <URLMock/NSURL+UMKQueryParameters.h>
 
 #pragma mark Private Type and Function Declarations
