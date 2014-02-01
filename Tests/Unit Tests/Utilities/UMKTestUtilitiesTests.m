@@ -250,7 +250,6 @@ static const NSUInteger UMKIterationCount = 512;
 - (void)testRandomJSONObject
 {
     for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
-
         NSUInteger maxNestingDepth = random() % 10 + 1;
         NSUInteger maxElementCountPerCollection = random() % 10 + 1;
 
