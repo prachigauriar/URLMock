@@ -104,55 +104,6 @@ static id UMKRandomJSONDictionary(NSUInteger maxNestingDepth, NSUInteger maxElem
 static id UMKRecursiveRandomJSONObject(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection, BOOL complexObject);
 
 
-#pragma mark - Block-generated collections
-
-static inline id UMKObjectOrNull(id object)
-{
-    return object ? object : [NSNull null];
-}
-
-
-NSArray *UMKGeneratedArrayWithElementCount(NSUInteger count, id (^elementGeneratorBlock)(NSUInteger index))
-{
-    NSCParameterAssert(elementGeneratorBlock);
-    
-    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:count];
-    for (NSUInteger i = 0; i < count; ++i) {
-        [array addObject:UMKObjectOrNull(elementGeneratorBlock(i))];
-    }
-    
-    return array;
-}
-
-
-NSDictionary *UMKGeneratedDictionaryWithElementCount(NSUInteger count, id (^keyGeneratorBlock)(void), id (^valueGeneratorBlock)(id key))
-{
-    NSCParameterAssert(keyGeneratorBlock);
-    NSCParameterAssert(valueGeneratorBlock);
-    
-    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithCapacity:count];
-    while ([dictionary count] != count) {
-        id key = keyGeneratorBlock();
-        [dictionary setObject:UMKObjectOrNull(valueGeneratorBlock(key)) forKey:UMKObjectOrNull(key)];
-    }
-    
-    return dictionary;
-}
-
-
-NSSet *UMKGeneratedSetWithElementCount(NSUInteger count, id (^elementGeneratorBlock)(void))
-{
-    NSCParameterAssert(elementGeneratorBlock);
-    
-    NSMutableSet *set = [[NSMutableSet alloc] initWithCapacity:count];
-    while ([set count] != count) {
-        [set addObject:UMKObjectOrNull(elementGeneratorBlock())];
-    }
-    
-    return set;
-}
-
-
 #pragma mark - Strings
 
 NSString *UMKRandomAlphanumericString(void)
@@ -230,7 +181,57 @@ NSNumber *UMKRandomUnsignedNumberInRange(NSRange range)
 }
 
 
-#pragma mark - Random dictionaries
+#pragma mark - Arrays and Sets
+
+static inline id UMKObjectOrNull(id object)
+{
+    return object ? object : [NSNull null];
+}
+
+
+NSArray *UMKGeneratedArrayWithElementCount(NSUInteger count, id (^elementGeneratorBlock)(NSUInteger index))
+{
+    NSCParameterAssert(elementGeneratorBlock);
+    
+    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:count];
+    for (NSUInteger i = 0; i < count; ++i) {
+        [array addObject:UMKObjectOrNull(elementGeneratorBlock(i))];
+    }
+
+    return array;
+}
+
+
+NSSet *UMKGeneratedSetWithElementCount(NSUInteger count, id (^elementGeneratorBlock)(void))
+{
+    NSCParameterAssert(elementGeneratorBlock);
+    
+    NSMutableSet *set = [[NSMutableSet alloc] initWithCapacity:count];
+    while ([set count] != count) {
+        [set addObject:UMKObjectOrNull(elementGeneratorBlock())];
+    }
+    
+    return set;
+}
+
+
+
+#pragma mark - Dictionaries
+
+NSDictionary *UMKGeneratedDictionaryWithElementCount(NSUInteger count, id (^keyGeneratorBlock)(void), id (^valueGeneratorBlock)(id key))
+{
+    NSCParameterAssert(keyGeneratorBlock);
+    NSCParameterAssert(valueGeneratorBlock);
+    
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithCapacity:count];
+    while ([dictionary count] != count) {
+        id key = keyGeneratorBlock();
+        [dictionary setObject:UMKObjectOrNull(valueGeneratorBlock(key)) forKey:UMKObjectOrNull(key)];
+    }
+    
+    return dictionary;
+}
+
 
 NSDictionary *UMKRandomDictionaryOfStringsWithElementCount(NSUInteger count)
 {
