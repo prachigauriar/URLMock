@@ -34,6 +34,9 @@ static const NSUInteger UMKIterationCount = 512;
 
 @interface UMKTestUtilitiesTest : UMKRandomizedTestCase
 
+- (void)testGeneratedArrayWithElementCount;
+- (void)testGeneratedDictionaryWithElementCount;
+- (void)testGeneratedSetWithElementCount;
 - (void)testRandomAlphanumericString;
 - (void)testRandomAlphanumericStringWithLength;
 - (void)testRandomUnicodeString;
@@ -52,6 +55,81 @@ static const NSUInteger UMKIterationCount = 512;
 
 
 @implementation UMKTestUtilitiesTest
+
+#pragma mark - Block-generated collections
+
+- (void)testGeneratedArrayWithElementCount
+{
+    for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
+        NSArray *array = UMKGeneratedArrayWithElementCount(0, ^id(NSUInteger index){ return nil; });
+        XCTAssertNotNil(array, @"Returned nil when count is 0");
+        XCTAssertEqual(array.count, (NSUInteger)0, @"Returned wrong number of elements");
+        
+        NSUInteger elementCount = random() % UMKIterationCount;
+        NSMutableArray *expectedArray = [[NSMutableArray alloc] initWithCapacity:elementCount];
+        
+        array = UMKGeneratedArrayWithElementCount(elementCount, ^id(NSUInteger index) {
+            id value = UMKRandomBoolean() ? UMKRandomUnsignedNumber() : nil;
+            [expectedArray addObject:value ? value : [NSNull null]];
+            return value;
+        });
+        
+        XCTAssertNotNil(array, @"Returned nil");
+        XCTAssertEqual(array.count, elementCount, @"Returned wrong number of elements");
+        XCTAssertEqualObjects(array, expectedArray, @"Array has wrong elements");
+    }
+}
+
+
+- (void)testGeneratedDictionaryWithElementCount
+{
+    for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
+        NSDictionary *dictionary = UMKGeneratedDictionaryWithElementCount(0, ^id{ return nil; }, ^id(id key) { return nil; });
+        XCTAssertNotNil(dictionary, @"Returned nil when count is 0");
+        XCTAssertEqual(dictionary.count, (NSUInteger)0, @"Returned wrong number of elements");
+        
+        NSUInteger elementCount = random() % UMKIterationCount;
+        NSMutableDictionary *expectedDictionary = [[NSMutableDictionary alloc] initWithCapacity:elementCount];
+        
+        dictionary = UMKGeneratedDictionaryWithElementCount(elementCount, ^id{
+            id key = UMKRandomBoolean() ? UMKRandomUnsignedNumber() : nil;
+            [expectedDictionary setObject:UMKRandomUnsignedNumber() forKey:key ? key : [NSNull null]];
+            return key;
+        }, ^id(id key) {
+            return [expectedDictionary objectForKey:key ? key : [NSNull null]];
+        });
+        
+        XCTAssertNotNil(dictionary, @"Returned nil");
+        XCTAssertEqual(dictionary.count, elementCount, @"Returned wrong number of elements");
+        XCTAssertEqualObjects(dictionary, expectedDictionary, @"Dictionary has wrong elements");
+    }
+}
+
+
+- (void)testGeneratedSetWithElementCount
+{
+    for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
+        NSSet *set = UMKGeneratedSetWithElementCount(0, ^id{ return nil; });
+        XCTAssertNotNil(set, @"Returned nil when count is 0");
+        XCTAssertEqual(set.count, (NSUInteger)0, @"Returned wrong number of elements");
+        
+        NSUInteger elementCount = random() % UMKIterationCount;
+        NSMutableSet *expectedSet = [[NSMutableSet alloc] initWithCapacity:elementCount];
+        
+        set = UMKGeneratedSetWithElementCount(elementCount, ^id{
+            id value = UMKRandomBoolean() ? UMKRandomUnsignedNumber() : nil;
+            [expectedSet addObject:value ? value : [NSNull null]];
+            return value;
+        });
+        
+        XCTAssertNotNil(set, @"Returned nil");
+        XCTAssertEqual(set.count, elementCount, @"Returned wrong number of elements");
+        XCTAssertEqualObjects(set, expectedSet, @"Array has wrong elements");
+    }
+}
+
+
+#pragma mark - Strings
 
 + (NSCharacterSet *)invertedAlphanumericCharacterSet
 {
@@ -154,6 +232,8 @@ static const NSUInteger UMKIterationCount = 512;
 }
 
 
+#pragma mark - Booleans and Numbers
+
 - (void)testRandomBoolean
 {
     BOOL foundYes = NO;
@@ -197,6 +277,8 @@ static const NSUInteger UMKIterationCount = 512;
 }
 
 
+#pragma mark - Random Dictionaries
+
 - (void)testRandomDictionaryOfStringsWithElementCount
 {
     NSUInteger elementCount = random() % 100 + 1;
@@ -209,6 +291,8 @@ static const NSUInteger UMKIterationCount = 512;
     }];
 }
 
+
+#pragma mark - Random JSON objects and URL-encoded parameters
 
 - (void)assertObject:(id)object hasCorrectMaxNestingDepth:(NSUInteger)maxNestingDepth andMaxElementCountPerCollection:(NSUInteger)maxElementCountPerCollection
 {
@@ -250,7 +334,6 @@ static const NSUInteger UMKIterationCount = 512;
 - (void)testRandomJSONObject
 {
     for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
-
         NSUInteger maxNestingDepth = random() % 10 + 1;
         NSUInteger maxElementCountPerCollection = random() % 10 + 1;
 
@@ -275,6 +358,8 @@ static const NSUInteger UMKIterationCount = 512;
     }
 }
 
+
+#pragma mark Random HTTP-related data
 
 - (void)testRandomHTTPURL
 {
@@ -327,6 +412,8 @@ static const NSUInteger UMKIterationCount = 512;
     XCTAssertEqualObjects(returnedValues, methods, @"Returned values don't match HTTP methods");
 }
 
+
+#pragma mark - Wait for condition
 
 - (void)testWaitForCondition
 {
