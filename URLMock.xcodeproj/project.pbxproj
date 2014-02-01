@@ -68,6 +68,10 @@
 		4C45E8E1182FF28A002F2096 /* UMKErrorUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E847182EAFEB002F2096 /* UMKErrorUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C5D0F49187DCB8200794855 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E885182FF1AA002F2096 /* Foundation.framework */; };
 		4C6841A11838173A00BACE61 /* UMKMockHTTPRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6841A01838173A00BACE61 /* UMKMockHTTPRequestTests.m */; };
+		4C6BFC43189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C6BFC41189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h */; };
+		4C6BFC44189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C6BFC41189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h */; };
+		4C6BFC45189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC42189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.m */; };
+		4C6BFC46189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC42189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.m */; };
 		4C8A7089187E0C93002E33A7 /* UMKRandomizedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A7086187E0C93002E33A7 /* UMKRandomizedTestCase.m */; };
 		4C8A708A187E0DCB002E33A7 /* UMKRandomizedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A7086187E0C93002E33A7 /* UMKRandomizedTestCase.m */; };
 		4C8AF916185E6641001B468E /* UMKMockHTTPResponderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8AF915185E6641001B468E /* UMKMockHTTPResponderTests.m */; };
@@ -164,6 +168,8 @@
 		4C45E8AF182FF1E1002F2096 /* URLMock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLMock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C45E8E2182FF397002F2096 /* URLMock-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "URLMock-Info.plist"; sourceTree = "<group>"; };
 		4C6841A01838173A00BACE61 /* UMKMockHTTPRequestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UMKMockHTTPRequestTests.m; path = "Mock Messages/UMKMockHTTPRequestTests.m"; sourceTree = "<group>"; };
+		4C6BFC41189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UMKMockURLProtocol+UMKHTTPConvenienceMethods.h"; sourceTree = "<group>"; };
+		4C6BFC42189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UMKMockURLProtocol+UMKHTTPConvenienceMethods.m"; sourceTree = "<group>"; };
 		4C8A7085187E0C93002E33A7 /* UMKRandomizedTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKRandomizedTestCase.h; sourceTree = "<group>"; };
 		4C8A7086187E0C93002E33A7 /* UMKRandomizedTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKRandomizedTestCase.m; sourceTree = "<group>"; };
 		4C8AF915185E6641001B468E /* UMKMockHTTPResponderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UMKMockHTTPResponderTests.m; path = "Mock Messages/UMKMockHTTPResponderTests.m"; sourceTree = "<group>"; };
@@ -357,6 +363,8 @@
 			children = (
 				4C45E859182EBE12002F2096 /* UMKMockURLProtocol.h */,
 				4C45E85A182EBE12002F2096 /* UMKMockURLProtocol.m */,
+				4C6BFC41189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h */,
+				4C6BFC42189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.m */,
 			);
 			path = "Mock URL Protocol";
 			sourceTree = "<group>";
@@ -439,6 +447,7 @@
 				4CC86F1618354AD600B878D6 /* UMKTestUtilities.h in Headers */,
 				4C45E851182EB48B002F2096 /* UMKMockHTTPMessage.h in Headers */,
 				4C0D387F187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h in Headers */,
+				4C6BFC44189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h in Headers */,
 				4C45E852182EB48B002F2096 /* UMKMockHTTPRequest.h in Headers */,
 				4C0D384B1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.h in Headers */,
 				4C45E853182EB48B002F2096 /* UMKMockHTTPResponder.h in Headers */,
@@ -459,6 +468,7 @@
 				4CC86F1518354AD500B878D6 /* UMKTestUtilities.h in Headers */,
 				4C45E8DC182FF271002F2096 /* UMKMockHTTPMessage.h in Headers */,
 				4C0D3880187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h in Headers */,
+				4C6BFC43189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h in Headers */,
 				4C45E8DD182FF271002F2096 /* UMKMockHTTPRequest.h in Headers */,
 				4C0D384E1879AFB5000A04DE /* NSException+UMKSubclassResponsibility.h in Headers */,
 				4C45E8DE182FF271002F2096 /* UMKMockHTTPResponder.h in Headers */,
@@ -708,6 +718,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C6BFC46189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.m in Sources */,
 				4C0957FB187E043800436F23 /* UMKTestUtilities.m in Sources */,
 				4C45E841182EAFCB002F2096 /* UMKMockHTTPRequest.m in Sources */,
 				4C0D3889187CD506000A04DE /* UMKParameterPair.m in Sources */,
@@ -727,6 +738,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C6BFC45189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.m in Sources */,
 				4C0957FA187E043600436F23 /* UMKTestUtilities.m in Sources */,
 				4C45E8D4182FF24B002F2096 /* UMKMockHTTPMessage.m in Sources */,
 				4C0D388A187CD506000A04DE /* UMKParameterPair.m in Sources */,
