@@ -32,4 +32,9 @@ Pod::Spec.new do |s|
                       'URLMock/Utilities/UMKParameterPair.{h,m}',
                       'URLMock/Utilities/UMKURLEncodedParameterStringParser.{h,m}'
   end
+
+  s.subspec 'SubclassResponsibility' do |ss|
+    ss.source_files = 'URLMock/Utilities/UMKErrorUtilities.{h,m}',
+                      'URLMock/Categories/NSException+UMKSubclassResponsibility.{h,m}'
+  end
 end
