@@ -24,9 +24,9 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
 #import <URLMock/UMKMockHTTPMessage.h>
 #import <URLMock/UMKMockURLProtocol.h>
+
 
 /*!
  UMKMockHTTPResponder objects respond to mock HTTP URL requests. Instances can be created to respond with

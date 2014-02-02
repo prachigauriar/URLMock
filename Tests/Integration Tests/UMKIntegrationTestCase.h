@@ -1,8 +1,8 @@
 //
-//  UMKRandomizedTestCase.m
+//  UMKlIntegrationTestCase.h
 //  URLMock
 //
-//  Created by Prachi Gauriar on 1/8/2014.
+//  Created by Prachi Gauriar on 2/1/2014.
 //  Copyright (c) 2014 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,21 +27,28 @@
 #import "UMKRandomizedTestCase.h"
 
 
-@implementation UMKRandomizedTestCase
+/*!
+ UMKIntegrationTestCase is the base class for URLMock integration tests. It enables UMKMockURLProtocol on
+ +setUp, resets it on -setUp, and disables it on +tearDown.
+ 
+ Additionally, it provides a connection queue for connection operations and can start a connection for a 
+ URL request on that queue and return a verifier for that connection.
+ */
+@interface UMKIntegrationTestCase : UMKRandomizedTestCase
 
-+ (void)setUp
-{
-    [super setUp];
-    srandomdev();
-}
+/*!
+ @abstract Returns the operation queue for connections started by this class.
+ @discussion Connections started with -verifierForConnectionWithURLRequest: use this queue.
+ @result An operation queue for URL connections.
+ */
++ (NSOperationQueue *)connectionOperationQueue;
 
-
-- (void)setUp
-{
-    [super setUp];
-    unsigned seed = (unsigned)random();
-    NSLog(@"Using seed %d", seed);
-    srandom(seed);
-}
+/*!
+ @abstract Starts a connection for the specified URL request and returns a verifier for that connection.
+ @discussion The connection is started using the operation queue returned by +connectionOperationQueue.
+ @param request The URL request for the connection.
+ @result A UMKURLConnectionVerifier for the URL connection.
+ */
+- (id)verifierForConnectionWithURLRequest:(NSURLRequest *)request;
 
 @end

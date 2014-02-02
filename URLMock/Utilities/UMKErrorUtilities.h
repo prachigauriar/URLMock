@@ -24,14 +24,14 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-
 /*!
  @header UMKErrorUtilities
  @abstract Defines utility functions and categories for use when creating assertions and exceptions.
  @discussion The utility functions allow for easily formatting selectors, method names, and assertion/exception reasons,
      among other tasks.
  */
+
+#import <Foundation/Foundation.h>
 
 
 /*!

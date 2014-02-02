@@ -24,10 +24,10 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-
 #import "UMKRandomizedTestCase.h"
+
 #import <URLMock/URLMock.h>
+
 
 @interface UMKMockHTTPMessageTests : UMKRandomizedTestCase
 

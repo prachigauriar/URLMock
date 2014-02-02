@@ -24,9 +24,9 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
 #import <URLMock/UMKMockHTTPMessage.h>
 #import <URLMock/UMKMockURLProtocol.h>
+
 
 #pragma mark Constants
 

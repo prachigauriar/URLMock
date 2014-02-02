@@ -26,6 +26,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 /*!
  The UMKSubclassResponsibility category of NSException provides a convenience factory method for creating
  exceptions when implementing a given method is a subclass's responsibility.

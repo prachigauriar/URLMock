@@ -24,11 +24,11 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-
 #import "UMKRandomizedTestCase.h"
+
 #import <OCMock/OCMock.h>
 #import <URLMock/URLMock.h>
+
 
 @interface UMKMockURLProtocolTests : UMKRandomizedTestCase
 
@@ -40,6 +40,13 @@
 
 
 @implementation UMKMockURLProtocolTests
+
+- (void)setUp
+{
+    [super setUp];
+    [UMKMockURLProtocol reset];
+}
+
 
 - (void)testReset
 {

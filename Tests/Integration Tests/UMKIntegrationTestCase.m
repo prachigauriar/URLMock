@@ -1,8 +1,8 @@
 //
-//  UMKRandomizedTestCase.m
+//  UMKIntegrationTestCase.m
 //  URLMock
 //
-//  Created by Prachi Gauriar on 1/8/2014.
+//  Created by Prachi Gauriar on 2/1/2014.
 //  Copyright (c) 2014 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,24 +24,56 @@
 //  THE SOFTWARE.
 //
 
-#import "UMKRandomizedTestCase.h"
+#import "UMKIntegrationTestCase.h"
+
+#import <URLMock/URLMock.h>
+
+#import "UMKURLConnectionVerifier.h"
 
 
-@implementation UMKRandomizedTestCase
+@implementation UMKIntegrationTestCase
 
 + (void)setUp
 {
     [super setUp];
-    srandomdev();
+    [UMKMockURLProtocol enable];
 }
 
 
 - (void)setUp
 {
     [super setUp];
-    unsigned seed = (unsigned)random();
-    NSLog(@"Using seed %d", seed);
-    srandom(seed);
+    [UMKMockURLProtocol reset];
+}
+
+
++ (void)tearDown
+{
+    [UMKMockURLProtocol disable];
+    [super tearDown];
+}
+
+
++ (NSOperationQueue *)connectionOperationQueue
+{
+    static NSOperationQueue *connectionOperationQueue = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        connectionOperationQueue = [[NSOperationQueue alloc] init];
+        connectionOperationQueue.name = @"com.quantumlenscap.UMKIntegrationTestCase.connectionOperationQueue";
+    });
+    
+    return connectionOperationQueue;
+}
+
+
+- (id)verifierForConnectionWithURLRequest:(NSURLRequest *)request
+{
+    id verifier = [UMKMessageCountingProxy messageCountingProxyWithObject:[[UMKURLConnectionVerifier alloc] init]];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:verifier startImmediately:NO];
+    connection.delegateQueue = [[self class] connectionOperationQueue];
+    [connection start];
+    return verifier;
 }
 
 @end
