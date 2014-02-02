@@ -181,14 +181,28 @@
 {
     [UMKMockURLProtocol setVerificationEnabled:YES];
 
-    // We use localhost because we want this to fail fast
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:1"]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:UMKRandomHTTPURL()];
+    request.HTTPMethod = UMKRandomHTTPMethod();
+    request.HTTPBody = [UMKRandomAlphanumericString() dataUsingEncoding:NSUTF8StringEncoding];
+    
     id verifier = [self verifierForConnectionWithURLRequest:request];
     XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
 
     NSError *error = nil;
     XCTAssertFalse([UMKMockURLProtocol verifyWithError:&error], @"Returned YES despite unexpected request");
     XCTAssertEqual([error code], kUMKUnexpectedRequestErrorCode, @"Incorrect error code");
+
+    NSArray *unexpectedRequests = [[error userInfo] objectForKey:kUMKUnexpectedRequestsKey];
+    XCTAssertNotNil(unexpectedRequests, @"Unexpected requests not included in error userInfo dictionary");
+    XCTAssertEqual(unexpectedRequests.count, (NSUInteger)1, @"Unexpected requests contains wrong number of requests");
+    
+    NSURLRequest *unexpectedRequest = [unexpectedRequests firstObject];
+    NSURL *canonicalRequestURL = [UMKMockURLProtocol canonicalURLForURL:request.URL];
+    NSURL *canonicalUnexpectedRequestURL = [UMKMockURLProtocol canonicalURLForURL:unexpectedRequest.URL];
+
+    XCTAssertEqualObjects(canonicalRequestURL, canonicalUnexpectedRequestURL, @"Unexpected request has wrong URL");
+    XCTAssertEqualObjects(unexpectedRequest.HTTPMethod, request.HTTPMethod, @"Unexpected request has wrong HTTP method");
+    XCTAssertEqualObjects(unexpectedRequest.HTTPBody, request.HTTPBody, @"Unexpected request has wrong HTTP body");
     
     [UMKMockURLProtocol setVerificationEnabled:NO];
 }

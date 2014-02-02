@@ -194,7 +194,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 }
 
 
-- (id <UMKMockURLResponder>)responderForURLRequest:(NSURLRequest *)request
+- (id<UMKMockURLResponder>)responderForURLRequest:(NSURLRequest *)request
 {
     return self.responder;
 }
