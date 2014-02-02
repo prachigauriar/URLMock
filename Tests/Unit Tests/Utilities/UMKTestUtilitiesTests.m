@@ -30,7 +30,6 @@
 
 #import "UMKRandomizedTestCase.h"
 
-
 static const NSUInteger UMKIterationCount = 512;
 
 

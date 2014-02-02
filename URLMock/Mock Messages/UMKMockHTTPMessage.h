@@ -26,7 +26,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 #pragma mark Constants
 
 /*! The HTTP header field for the Accepts header, i.e., "Accepts". */

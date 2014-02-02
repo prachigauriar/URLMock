@@ -26,7 +26,6 @@
 
 #import <URLMock/UMKMockURLProtocol.h>
 
-
 @class UMKMockHTTPRequest;
 
 @interface UMKMockURLProtocol (UMKHTTPConvenienceMethods)

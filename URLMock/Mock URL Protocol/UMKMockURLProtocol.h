@@ -26,7 +26,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 /*! The error domain for the URLMock framework. */
 extern NSString *const kUMKErrorDomain;
 

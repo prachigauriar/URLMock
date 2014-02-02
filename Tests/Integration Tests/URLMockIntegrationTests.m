@@ -30,7 +30,6 @@
 
 #import "UMKURLConnectionVerifier.h"
 
-
 @interface URLMockIntegrationTests : UMKIntegrationTestCase
 
 - (void)testMockRequestsWithErrorResponse;

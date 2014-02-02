@@ -28,7 +28,6 @@
 
 #import <URLMock/NSException+UMKSubclassResponsibility.h>
 
-
 #pragma mark Constants
 
 /*! The minimum body length for chunking. The NSURL system seems to coalesce payloads smaller than 2048 bytes. */

@@ -28,7 +28,6 @@
 
 #import <URLMock/URLMock.h>
 
-
 @interface UMKMockHTTPMessageTests : UMKRandomizedTestCase
 
 @property (nonatomic, strong) UMKMockHTTPMessage *message;

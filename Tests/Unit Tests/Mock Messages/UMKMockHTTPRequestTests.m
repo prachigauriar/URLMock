@@ -28,7 +28,6 @@
 
 #import <URLMock/URLMock.h>
 
-
 @interface UMKMockHTTPRequestTests : UMKRandomizedTestCase
 
 - (void)testInit;

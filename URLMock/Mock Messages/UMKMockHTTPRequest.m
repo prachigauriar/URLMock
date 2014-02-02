@@ -28,7 +28,6 @@
 
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
 
-
 #pragma mark Constants
 
 NSString *const kUMKMockHTTPRequestDeleteMethod = @"DELETE";

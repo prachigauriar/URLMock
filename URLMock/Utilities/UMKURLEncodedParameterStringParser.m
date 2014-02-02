@@ -30,7 +30,6 @@
 #import <URLMock/UMKErrorUtilities.h>
 #import <URLMock/UMKParameterPair.h>
 
-
 @implementation UMKURLEncodedParameterStringParser
 
 - (instancetype)init

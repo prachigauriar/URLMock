@@ -28,7 +28,6 @@
 
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
 
-
 @implementation NSURL (UMKQueryParameters)
 
 - (instancetype)umk_initWithString:(NSString *)URLString parameters:(NSDictionary *)parameters

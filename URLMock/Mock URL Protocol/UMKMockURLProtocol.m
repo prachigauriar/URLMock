@@ -29,7 +29,6 @@
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
 #import <URLMock/UMKErrorUtilities.h>
 
-
 #pragma mark Constants
 
 NSString *const kUMKErrorDomain = @"UMKErrorDomain";

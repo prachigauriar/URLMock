@@ -29,7 +29,6 @@
 #import <OCMock/OCMock.h>
 #import <URLMock/URLMock.h>
 
-
 @interface UMKMockURLProtocolTests : UMKRandomizedTestCase
 
 - (void)testReset;
