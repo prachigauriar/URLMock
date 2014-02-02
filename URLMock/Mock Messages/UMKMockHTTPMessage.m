@@ -25,8 +25,10 @@
 //
 
 #import <URLMock/UMKMockHTTPMessage.h>
-#import <URLMock/UMKErrorUtilities.h>
+
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
+#import <URLMock/UMKErrorUtilities.h>
+
 
 #pragma mark Constants
 

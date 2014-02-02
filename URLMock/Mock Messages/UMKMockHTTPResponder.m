@@ -25,8 +25,9 @@
 //
 
 #import <URLMock/UMKMockHTTPResponder.h>
-#import <URLMock/UMKErrorUtilities.h>
+
 #import <URLMock/NSException+UMKSubclassResponsibility.h>
+
 
 #pragma mark Constants
 

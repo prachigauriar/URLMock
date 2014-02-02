@@ -1,6 +1,6 @@
 //
 //  URLMockIntegrationTests.m
-//  URLMock Tests
+//  URLMock
 //
 //  Created by Prachi Gauriar on 11/12/2013.
 //  Copyright (c) 2013 Prachi Gauriar.
@@ -29,6 +29,7 @@
 #import <URLMock/URLMock.h>
 
 #import "UMKURLConnectionVerifier.h"
+
 
 @interface URLMockIntegrationTests : UMKIntegrationTestCase
 

@@ -26,6 +26,7 @@
 
 #import "UMKRandomizedTestCase.h"
 
+
 /*!
  UMKIntegrationTestCase is the base class for URLMock integration tests. It enables UMKMockURLProtocol on
  +setUp, resets it on -setUp, and disables it on +tearDown.
