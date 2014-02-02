@@ -30,22 +30,129 @@
 
 @interface UMKMockURLProtocol (UMKHTTPConvenienceMethods)
 
-// JSON request bodies with error responses
-+ (UMKMockHTTPRequest *)expectMockHTTPRequestWithMethod:(NSString *)method URL:(NSURL *)URL requestJSON:(id)requestJSON responseError:(NSError *)error;
+/*! @methodgroup Mock Requests with JSON Bodies with Error Responders */
+
+/*!
+ @abstract Creates and expects a new mock HTTP request that responds with an error.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param method The HTTP method for the mock HTTP request. May not be nil.
+ @param URL The URL for the mock HTTP request. May not be nil.
+ @param requestJSON A JSON object to use as the mock HTTP request body.
+ @param error The error that the mock responder responds with. May not be nil.
+ @result The newly created mock HTTP request. Its responder is set to the new mock error responder.
+ */
++ (UMKMockHTTPRequest *)expectMockHTTPRequestWithMethod:(NSString *)method URL:(NSURL *)URL
+                                            requestJSON:(id)requestJSON responseError:(NSError *)error;
+
+/*!
+ @abstract Creates and expects a new mock HTTP GET request that responds with an error.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param URL The URL for the mock GET request. May not be nil.
+ @param error The error that the mock responder responds with. May not be nil.
+ @result The newly created mock HTTP GET request. Its responder is set to the new mock error responder.
+ */
 + (UMKMockHTTPRequest *)expectMockHTTPGetRequestWithURL:(NSURL *)URL responseError:(NSError *)error;
+
+/*!
+ @abstract Creates and expects a new mock HTTP PATCH request that responds with an error.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param URL The URL for the mock PATCH request. May not be nil.
+ @param requestJSON A JSON object to use as the mock HTTP PATCH request body.
+ @param error The error that the mock responder responds with. May not be nil.
+ @result The newly created mock HTTP PATCH request. Its responder is set to the new mock error responder.
+ */
 + (UMKMockHTTPRequest *)expectMockHTTPPatchRequestWithURL:(NSURL *)URL requestJSON:(id)requestJSON responseError:(NSError *)error;
+
+/*!
+ @abstract Creates and expects a new mock HTTP POST request that responds with an error.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param URL The URL for the mock POST request. May not be nil.
+ @param requestJSON A JSON object to use as the mock HTTP POST request body.
+ @param error The error that the mock responder responds with. May not be nil.
+ @result The newly created mock HTTP POST request. Its responder is set to the new mock error responder.
+ */
 + (UMKMockHTTPRequest *)expectMockHTTPPostRequestWithURL:(NSURL *)URL requestJSON:(id)requestJSON responseError:(NSError *)error;
+
+/*!
+ @abstract Creates and expects a new mock HTTP PUT request that responds with an error.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param URL The URL for the mock PUT request. May not be nil.
+ @param requestJSON A JSON object to use as the mock HTTP PUT request body.
+ @param error The error that the mock responder responds with. May not be nil.
+ @result The newly created mock HTTP PUT request. Its responder is set to the new mock error responder.
+ */
 + (UMKMockHTTPRequest *)expectMockHTTPPutRequestWithURL:(NSURL *)URL requestJSON:(id)requestJSON responseError:(NSError *)error;
 
-// JSON request bodies with JSON responses
+
+/*! @methodgroup Mock Requests and Responders with JSON Bodies */
+
+/*!
+ @abstract Creates and expects a new mock HTTP request that responds with a JSON object.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param method The HTTP method for the mock HTTP request. May not be nil.
+ @param URL The URL for the mock HTTP request. May not be nil.
+ @param requestJSON A JSON object to use as the mock HTTP request body.
+ @param statusCode The status code for the HTTP response.
+ @param responseJSON A JSON object to use as the mock HTTP response body.
+ @result The newly created mock HTTP request. Its responder is set to the new mock JSON body responder.
+ */
 + (UMKMockHTTPRequest *)expectMockHTTPRequestWithMethod:(NSString *)method URL:(NSURL *)URL requestJSON:(id)requestJSON
-                                     responseStatusCode:(NSUInteger)statusCode responseJSON:(id)responseJSON;
-+ (UMKMockHTTPRequest *)expectMockHTTPGetRequestWithURL:(NSURL *)URL responseStatusCode:(NSUInteger)statusCode responseJSON:(id)responseJSON;
+                                     responseStatusCode:(NSInteger)statusCode responseJSON:(id)responseJSON;
+
+/*!
+ @abstract Creates and expects a new mock HTTP GET request that responds with a JSON object.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param URL The URL for the mock GET request. May not be nil.
+ @param statusCode The status code for the HTTP response.
+ @param responseJSON A JSON object to use as the mock HTTP response body.
+ @result The newly created mock HTTP GET request. Its responder is set to the new mock JSON body responder.
+ */
++ (UMKMockHTTPRequest *)expectMockHTTPGetRequestWithURL:(NSURL *)URL responseStatusCode:(NSInteger)statusCode responseJSON:(id)responseJSON;
+
+/*!
+ @abstract Creates and expects a new mock HTTP PATCH request that responds with a JSON object.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param URL The URL for the mock PATCH request. May not be nil.
+ @param requestJSON A JSON object to use as the mock HTTP PATCH request body.
+ @param statusCode The status code for the HTTP response.
+ @param responseJSON A JSON object to use as the mock HTTP response body.
+ @result The newly created mock HTTP PATCH request. Its responder is set to the new mock JSON body responder.
+ */
 + (UMKMockHTTPRequest *)expectMockHTTPPatchRequestWithURL:(NSURL *)URL requestJSON:(id)requestJSON
-                                       responseStatusCode:(NSUInteger)statusCode responseJSON:(id)responseJSON;
-+ (UMKMockHTTPRequest *)expectMockHTTPPostRequestWithURL:(NSURL *)URL requestJSONBody:(id)requestJSON
-                                      responseStatusCode:(NSUInteger)statusCode responseJSON:(id)responseJSON;
+                                       responseStatusCode:(NSInteger)statusCode responseJSON:(id)responseJSON;
+
+/*!
+ @abstract Creates and expects a new mock HTTP POST request that responds with a JSON object.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param URL The URL for the mock POST request. May not be nil.
+ @param requestJSON A JSON object to use as the mock HTTP POST request body.
+ @param statusCode The status code for the HTTP response.
+ @param responseJSON A JSON object to use as the mock HTTP response body.
+ @result The newly created mock HTTP POST request. Its responder is set to the new mock JSON body responder.
+ */
++ (UMKMockHTTPRequest *)expectMockHTTPPostRequestWithURL:(NSURL *)URL requestJSON:(id)requestJSON
+                                      responseStatusCode:(NSInteger)statusCode responseJSON:(id)responseJSON;
+
+/*!
+ @abstract Creates and expects a new mock HTTP PUT request that responds with a JSON object.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param URL The URL for the mock PUT request. May not be nil.
+ @param requestJSON A JSON object to use as the mock HTTP PUT request body.
+ @param statusCode The status code for the HTTP response.
+ @param responseJSON A JSON object to use as the mock HTTP response body.
+ @result The newly created mock HTTP PUT request. Its responder is set to the new mock JSON body responder.
+ */
 + (UMKMockHTTPRequest *)expectMockHTTPPutRequestWithURL:(NSURL *)URL requestJSON:(id)requestJSON
-                                     responseStatusCode:(NSUInteger)statusCode responseJSON:(id)responseJSON;
+                                     responseStatusCode:(NSInteger)statusCode responseJSON:(id)responseJSON;
 
 @end

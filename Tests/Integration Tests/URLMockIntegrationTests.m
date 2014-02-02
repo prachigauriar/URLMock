@@ -24,13 +24,13 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
+#import "UMKIntegrationTestCase.h"
 
-#import "UMKRandomizedTestCase.h"
 #import <URLMock/URLMock.h>
+
 #import "UMKURLConnectionVerifier.h"
 
-@interface URLMockIntegrationTests : UMKRandomizedTestCase
+@interface URLMockIntegrationTests : UMKIntegrationTestCase
 
 - (void)testMockRequestsWithErrorResponse;
 - (void)testMockRequestsWithNoResponse;
@@ -41,50 +41,6 @@
 
 
 @implementation URLMockIntegrationTests
-
-+ (void)setUp
-{
-    [super setUp];
-    [UMKMockURLProtocol enable];
-}
-
-
-- (void)tearDown
-{
-    [UMKMockURLProtocol reset];
-    [super tearDown];
-}
-
-
-+ (void)tearDown
-{
-    [UMKMockURLProtocol disable];
-    [super tearDown];
-}
-
-
-+ (NSOperationQueue *)connectionOperationQueue
-{
-    static NSOperationQueue *connectionOperationQueue = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        connectionOperationQueue = [[NSOperationQueue alloc] init];
-        connectionOperationQueue.name = @"com.quantumlenscap.URLMockIntegrationTests.connectionOperationQueue";
-    });
-    
-    return connectionOperationQueue;
-}
-
-
-- (id)verifierForConnectionWithURLRequest:(NSURLRequest *)request
-{
-    id verifier = [UMKMessageCountingProxy messageCountingProxyWithObject:[[UMKURLConnectionVerifier alloc] init]];
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:verifier startImmediately:NO];
-    connection.delegateQueue = [[self class] connectionOperationQueue];
-    [connection start];
-    return verifier;
-}
-
 
 - (void)testMockRequestsWithErrorResponse
 {

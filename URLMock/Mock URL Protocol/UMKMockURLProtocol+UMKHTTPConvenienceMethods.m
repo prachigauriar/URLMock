@@ -74,7 +74,7 @@
 
 
 + (UMKMockHTTPRequest *)expectMockHTTPRequestWithMethod:(NSString *)method URL:(NSURL *)URL requestJSON:(id)requestJSON
-                                     responseStatusCode:(NSUInteger)statusCode responseJSON:(id)responseJSON
+                                     responseStatusCode:(NSInteger)statusCode responseJSON:(id)responseJSON
 {
     NSParameterAssert(method);
     NSParameterAssert(URL);
@@ -86,7 +86,7 @@
     
     UMKMockHTTPResponder *mockResponder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:statusCode];
     if (responseJSON) {
-        [mockRequest setBodyWithJSONObject:responseJSON];
+        [mockResponder setBodyWithJSONObject:responseJSON];
     }
     
     mockRequest.responder = mockResponder;
@@ -95,7 +95,7 @@
 }
 
 
-+ (UMKMockHTTPRequest *)expectMockHTTPGetRequestWithURL:(NSURL *)URL responseStatusCode:(NSUInteger)statusCode responseJSON:(id)responseJSON
++ (UMKMockHTTPRequest *)expectMockHTTPGetRequestWithURL:(NSURL *)URL responseStatusCode:(NSInteger)statusCode responseJSON:(id)responseJSON
 {
     return [self expectMockHTTPRequestWithMethod:kUMKMockHTTPRequestGetMethod URL:URL requestJSON:nil
                               responseStatusCode:statusCode responseJSON:responseJSON];
@@ -103,15 +103,15 @@
 
 
 + (UMKMockHTTPRequest *)expectMockHTTPPatchRequestWithURL:(NSURL *)URL requestJSON:(id)requestJSON
-                                       responseStatusCode:(NSUInteger)statusCode responseJSON:(id)responseJSON
+                                       responseStatusCode:(NSInteger)statusCode responseJSON:(id)responseJSON
 {
     return [self expectMockHTTPRequestWithMethod:kUMKMockHTTPRequestPatchMethod URL:URL requestJSON:requestJSON
                               responseStatusCode:statusCode responseJSON:responseJSON];
 }
 
 
-+ (UMKMockHTTPRequest *)expectMockHTTPPostRequestWithURL:(NSURL *)URL requestJSONBody:(id)requestJSON
-                                      responseStatusCode:(NSUInteger)statusCode responseJSON:(id)responseJSON
++ (UMKMockHTTPRequest *)expectMockHTTPPostRequestWithURL:(NSURL *)URL requestJSON:(id)requestJSON
+                                      responseStatusCode:(NSInteger)statusCode responseJSON:(id)responseJSON
 {
     return [self expectMockHTTPRequestWithMethod:kUMKMockHTTPRequestPostMethod URL:URL requestJSON:requestJSON
                               responseStatusCode:statusCode responseJSON:responseJSON];
@@ -119,7 +119,7 @@
 
 
 + (UMKMockHTTPRequest *)expectMockHTTPPutRequestWithURL:(NSURL *)URL requestJSON:(id)requestJSON
-                                     responseStatusCode:(NSUInteger)statusCode responseJSON:(id)responseJSON
+                                     responseStatusCode:(NSInteger)statusCode responseJSON:(id)responseJSON
 {
     return [self expectMockHTTPRequestWithMethod:kUMKMockHTTPRequestPutMethod URL:URL requestJSON:requestJSON
                               responseStatusCode:statusCode responseJSON:responseJSON];

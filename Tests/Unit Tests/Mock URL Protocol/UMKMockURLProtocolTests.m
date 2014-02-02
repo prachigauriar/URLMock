@@ -41,6 +41,13 @@
 
 @implementation UMKMockURLProtocolTests
 
+- (void)setUp
+{
+    [super setUp];
+    [UMKMockURLProtocol reset];
+}
+
+
 - (void)testReset
 {
     id <UMKMockURLRequest> mockRequest1 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];

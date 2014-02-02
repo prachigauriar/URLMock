@@ -26,10 +26,12 @@
 
 #import <Foundation/Foundation.h>
 
+#import <URLMock/UMKMockURLProtocol.h>
+#import <URLMock/UMKMockURLProtocol+UMKHTTPConvenienceMethods.h>
+
 #import <URLMock/UMKMockHTTPMessage.h>
 #import <URLMock/UMKMockHTTPRequest.h>
 #import <URLMock/UMKMockHTTPResponder.h>
-#import <URLMock/UMKMockURLProtocol.h>
 
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
 #import <URLMock/NSException+UMKSubclassResponsibility.h>

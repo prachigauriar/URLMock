@@ -145,7 +145,8 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 {
     NSParameterAssert(chunkCountHint != 0);
     NSParameterAssert(delay >= 0.0);
-    return [[UMKMockHTTPResponseResponder alloc] initWithStatusCode:statusCode headers:headers body:body chunkCountHint:chunkCountHint delayBetweenChunks:delay];
+    return [[UMKMockHTTPResponseResponder alloc] initWithStatusCode:statusCode headers:headers body:body
+                                                     chunkCountHint:chunkCountHint delayBetweenChunks:delay];
 }
 
 
