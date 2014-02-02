@@ -149,6 +149,14 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 }
 
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@: %p> %@ %@; checksHeadersWhenMatching: %@; headers: %@; body: %p; responder: %@",
+                self.class, self, self.HTTPMethod, self.URL, self.checksHeadersWhenMatching ? @"YES" : @"NO", self.headers,
+                self.body, self.responder];
+}
+
+
 #pragma mark - Class-wide settings
 
 + (UMKMockHTTPRequestSettings *)settings

@@ -186,6 +186,12 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
     self.responding = NO;
 }
 
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<UMKMockHTTPResponder: %p> error: %@", self, self.error];
+}
+
 @end
 
 
@@ -251,6 +257,13 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 
     [client URLProtocolDidFinishLoading:protocol];
     self.responding = NO;
+}
+
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<UMKMockHTTPResponder: %p> statusCode: %ld; headers = %@; body: %p; chunkCountHint: %lu, delayBetweenChunks: %.4f",
+                self, (unsigned long)self.statusCode, self.headers, self.body, (unsigned long)self.chunkCountHint, self.delayBetweenChunks];
 }
 
 @end
