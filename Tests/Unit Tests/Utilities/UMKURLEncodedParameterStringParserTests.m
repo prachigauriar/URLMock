@@ -24,13 +24,13 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-
 #import "UMKRandomizedTestCase.h"
-#import <URLMock/URLMock.h>
+
 #import <URLMock/UMKURLEncodedParameterStringParser.h>
+#import <URLMock/URLMock.h>
 
 static const NSUInteger UMKIterationCount = 512;
+
 
 @interface UMKURLEncodedParameterStringParserTests : UMKRandomizedTestCase
 

@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 12/17/2013.
-//  Copyright (c) 2013 Prachi Gauriar.
+//  Copyright (c) 2013–2014 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,9 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-
 #import "UMKRandomizedTestCase.h"
+
 #import <OCMock/OCMock.h>
 #import <URLMock/URLMock.h>
 
@@ -41,10 +40,17 @@
 
 @implementation UMKMockURLProtocolTests
 
+- (void)setUp
+{
+    [super setUp];
+    [UMKMockURLProtocol reset];
+}
+
+
 - (void)testReset
 {
-    id <UMKMockURLRequest> mockRequest1 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
-    id <UMKMockURLRequest> mockRequest2 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
+    id<UMKMockURLRequest> mockRequest1 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
+    id<UMKMockURLRequest> mockRequest2 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
     
     [UMKMockURLProtocol expectMockRequest:mockRequest1];
     [UMKMockURLProtocol expectMockRequest:mockRequest2];
@@ -74,11 +80,11 @@
 {
     XCTAssertEqualObjects([UMKMockURLProtocol expectedMockRequests], @[], @"Expected mock requests isn't empty");
 
-    id <UMKMockURLRequest> mockRequest1 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
+    id<UMKMockURLRequest> mockRequest1 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
     [UMKMockURLProtocol expectMockRequest:mockRequest1];
     XCTAssertEqualObjects([UMKMockURLProtocol expectedMockRequests], @[ mockRequest1 ], @"Mock request not added");
     
-    id <UMKMockURLRequest> mockRequest2 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
+    id<UMKMockURLRequest> mockRequest2 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
     [UMKMockURLProtocol expectMockRequest:mockRequest2];
     XCTAssertEqualObjects([UMKMockURLProtocol expectedMockRequests], (@[ mockRequest1, mockRequest2 ]), @"Mock request not added");
 

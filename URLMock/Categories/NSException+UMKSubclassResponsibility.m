@@ -25,6 +25,7 @@
 //
 
 #import <URLMock/NSException+UMKSubclassResponsibility.h>
+
 #import <URLMock/UMKErrorUtilities.h>
 
 @implementation NSException (UMKSubclassResponsibility)

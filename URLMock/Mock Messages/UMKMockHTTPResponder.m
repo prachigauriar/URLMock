@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/8/2013.
-//  Copyright (c) 2013 Prachi Gauriar.
+//  Copyright (c) 2013–2014 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,7 @@
 //
 
 #import <URLMock/UMKMockHTTPResponder.h>
-#import <URLMock/UMKErrorUtilities.h>
+
 #import <URLMock/NSException+UMKSubclassResponsibility.h>
 
 #pragma mark Constants
@@ -145,11 +145,12 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 {
     NSParameterAssert(chunkCountHint != 0);
     NSParameterAssert(delay >= 0.0);
-    return [[UMKMockHTTPResponseResponder alloc] initWithStatusCode:statusCode headers:headers body:body chunkCountHint:chunkCountHint delayBetweenChunks:delay];
+    return [[UMKMockHTTPResponseResponder alloc] initWithStatusCode:statusCode headers:headers body:body
+                                                     chunkCountHint:chunkCountHint delayBetweenChunks:delay];
 }
 
 
-- (void)respondToMockRequest:(id <UMKMockURLRequest>)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
+- (void)respondToMockRequest:(id<UMKMockURLRequest>)request client:(id<NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
 {
     @throw [NSException umk_subclassResponsibilityExceptionWithReceiver:self selector:_cmd];
 }
@@ -178,11 +179,17 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 }
 
 
-- (void)respondToMockRequest:(id <UMKMockURLRequest>)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
+- (void)respondToMockRequest:(id<UMKMockURLRequest>)request client:(id<NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
 {
     self.responding = YES;
     [client URLProtocol:protocol didFailWithError:self.error];
     self.responding = NO;
+}
+
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<UMKMockHTTPResponder: %p> error: %@", self, self.error];
 }
 
 @end
@@ -209,7 +216,7 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 }
 
 
-- (void)respondToMockRequest:(id <UMKMockURLRequest>)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
+- (void)respondToMockRequest:(id<UMKMockURLRequest>)request client:(id<NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
 {
     self.responding = YES;
 
@@ -250,6 +257,13 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 
     [client URLProtocolDidFinishLoading:protocol];
     self.responding = NO;
+}
+
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<UMKMockHTTPResponder: %p> statusCode: %ld; headers = %@; body: %p; chunkCountHint: %lu, delayBetweenChunks: %.4f",
+                self, (unsigned long)self.statusCode, self.headers, self.body, (unsigned long)self.chunkCountHint, self.delayBetweenChunks];
 }
 
 @end

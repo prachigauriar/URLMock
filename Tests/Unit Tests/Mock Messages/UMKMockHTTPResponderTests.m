@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 12/15/2013.
-//  Copyright (c) 2013 Prachi Gauriar.
+//  Copyright (c) 2013–2014 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,12 +24,10 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-
 #import "UMKRandomizedTestCase.h"
+
 #import <OCMock/OCMock.h>
 #import <URLMock/URLMock.h>
-
 
 @interface UMKMockHTTPResponderTests : UMKRandomizedTestCase
 

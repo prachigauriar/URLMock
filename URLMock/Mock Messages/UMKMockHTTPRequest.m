@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/8/2013.
-//  Copyright (c) 2013 Prachi Gauriar.
+//  Copyright (c) 2013–2014 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,7 @@
 //
 
 #import <URLMock/UMKMockHTTPRequest.h>
-#import <URLMock/UMKMockURLProtocol.h>
+
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
 
 #pragma mark Constants
@@ -149,6 +149,14 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 }
 
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@: %p> %@ %@; checksHeadersWhenMatching: %@; headers: %@; body: %p; responder: %@",
+                self.class, self, self.HTTPMethod, self.URL, self.checksHeadersWhenMatching ? @"YES" : @"NO", self.headers,
+                self.body, self.responder];
+}
+
+
 #pragma mark - Class-wide settings
 
 + (UMKMockHTTPRequestSettings *)settings
@@ -186,7 +194,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 }
 
 
-- (id <UMKMockURLResponder>)responderForURLRequest:(NSURLRequest *)request
+- (id<UMKMockURLResponder>)responderForURLRequest:(NSURLRequest *)request
 {
     return self.responder;
 }

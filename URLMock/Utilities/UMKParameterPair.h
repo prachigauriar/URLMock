@@ -28,7 +28,7 @@
 
 /*!
  UMKParameterPair objects store a key-value pair for use with URL encoding/decoding APIs in URLMock.
- @note The basic design and some of the code here is adapted or borrowed from AFNetworking
+ @note The basic design and some of the code here is adapted or borrowed from AFNetworking.
  */
 @interface UMKParameterPair : NSObject
 

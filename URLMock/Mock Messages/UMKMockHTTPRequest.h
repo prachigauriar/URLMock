@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/8/2013.
-//  Copyright (c) 2013 Prachi Gauriar.
+//  Copyright (c) 2013–2014 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,6 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
 #import <URLMock/UMKMockHTTPMessage.h>
 #import <URLMock/UMKMockURLProtocol.h>
 
@@ -67,7 +66,7 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
 @property (nonatomic, strong, readonly) NSURL *URL;
 
 /*! The mock responder associated with the instance. This is the object returned by -responderForURLRequest:. */
-@property (nonatomic, strong) id <UMKMockURLResponder> responder;
+@property (nonatomic, strong) id<UMKMockURLResponder> responder;
 
 /*! Whether the instance tests header equality when determining if it matches a URL request. This is NO by default. */
 @property (nonatomic, assign) BOOL checksHeadersWhenMatching;

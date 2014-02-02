@@ -17,6 +17,21 @@ your code.
 * Works on both Mac OS X and iOS
 
 
+## What’s New in URLMock 1.1
+
+URLMock 1.1 is a minor update that adds the following functionality:
+
+* Better unexpected request detection when verification is enabled
+* Better request/response description methods to aid in debugging failures
+* New convenience methods for adding mock HTTP requests and responses with 
+  JSON bodies.
+* New test utility functions for generating arrays, dictionaries, and sets with
+  blocks. These are great for randomly generating data for use in unit tests.
+  These and other test utilities are available in the `TestHelpers` Pod subspec.
+* New `SubclassResponsibilty` Pod subspec for easily throwing NSException
+  instances when a subclass failed to override an abstract method. 
+
+
 ## Known Issues and Limitations
 
 * URLMock does not support stream-based requests, which means that it is
@@ -35,7 +50,7 @@ your code.
 
 The easiest way to start using URLMock is to install it with CocoaPods. 
 
-    pod 'URLMock', '~> 1.0'
+    pod 'URLMock', '~> 1.1'
 
 You can also build it and include the built products in your project. For OS X,
 just add URLMock.framework to your project. For iOS, add URLMock’s public
@@ -56,20 +71,24 @@ Using URLMock for response stubbing is simple:
 
 2. Add an expected mock request and response.
 
-        // The request is a POST with some form data
+        // The request is a POST with some JSON data
         NSURL *URL = [NSURL URLWithString:@"http://host.com/api/v1/person"];
-        UMKMockHTTPRequest *request = [UMKMockHTTPRequest mockHTTPPostRequestWithURL:URL];
-        [request setBodyByURLEncodingParameters:@{ @"name" : @"John Doe", @"age" : @"47" }];
-        
-        // Respond with a status code of 200 and some JSON.
-        UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:200];
-        [responder setBodyWithJSONObject:@{ @"id" : @1, @"name" : @"John Doe", @"age" : @47 }];
-        request.responder = responder;
-        [UMKMockURLProtocol expectMockRequest:request];
+        id requestJSON = @{ @"person" : @{ @"name" : @"John Doe", 
+                                           @"age" : @47 } };
+        id responseJSON = @{ @"person" : @{ @"id" : @1, 
+                                            @"name" : @"John Doe", 
+                                            @"age" : @47 } };
 
-   There are also mock responders for responding with an error or returning data 
-   in chunks with a delay between each chunk, and we’ll be adding more 
-   responders in the future.
+        [UMKMockURLProtocol expectMockHTTPPostRequestWithURL:URL 
+                                                 requestJSON:requestJSON
+                                          responseStatusCode:200
+                                                responseJSON:responseJSON];
+   
+   Mock requests and responses are not limited to having JSON bodies; they can 
+   also have bodies with strings, WWW form-encoded parameter dictionaries, or
+   arbitrary NSData instances. There are also mock responders for responding
+   with an error or returning data in chunks with a delay between each chunk,
+   and we’ll be adding more responders in the future.
 
 3. Execute your real request to get the stubbed response back. You don’t have to 
    make any changes to your code when using URLMock. Things should just work. 
@@ -79,8 +98,10 @@ Using URLMock for response stubbing is simple:
         NSURL *URL = [NSURL URLWithString:@"http://host.com/api/v1/person"];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL];
         request.HTTPMethod = @"POST";
-        NSString *params = [@{ @"name" : @"John Doe", @"age" : @"47" } umk_URLEncodedParameterString];
-        request.HTTPBody = [params dataUsingEncoding:NSUTF8StringEncoding];
+        id bodyJSON = @{ @"person" : @{ @"name" : @"John Doe", @"age" : @47 } };
+        request.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyJSON
+                                                           options:0 
+                                                             error:NULL];
         
         // Create the connection as usual
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:…];
@@ -89,10 +110,11 @@ Using URLMock for response stubbing is simple:
    The following AFNetworking code would accomplish the same thing:
    
         NSURL *base = [NSURL URLWithString:@"http://host.com/api/v1/"];
-        NSString *params = [@{ @"name" : @"John Doe", @"age" : @"47" } umk_URLEncodedParameterString];
+        id params = @{ @"person" : @{ @"name" : @"John Doe", @"age" : @47 } };
 
         // Send a POST as usual
         AFHTTPRequestOperationManager *om = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:base];
+        om.requestSerializer = [AFJSONRequestSerializer serializer];
         [om POST:@"person" parameters:params success:^(AFHTTPRequestOperation *op, id object) {
             …
         } failure:^(AFHTTPRequestOperation *op, NSError *error) {

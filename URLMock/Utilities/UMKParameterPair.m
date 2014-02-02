@@ -28,6 +28,7 @@
 
 static const NSString *const kUMKParameterPairEscapedCharacters = @":/?&=;+!@#$()',*";
 
+
 @implementation UMKParameterPair
 
 - (instancetype)initWithKey:(id)key value:(id)value

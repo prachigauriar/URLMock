@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/9/2013.
-//  Copyright (c) 2013 Prachi Gauriar.
+//  Copyright (c) 2013–2014 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,13 +25,41 @@
 //
 
 #import <URLMock/UMKMockURLProtocol.h>
-#import <URLMock/UMKErrorUtilities.h>
+
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
+#import <URLMock/UMKErrorUtilities.h>
 
 #pragma mark Constants
 
 NSString *const kUMKErrorDomain = @"UMKErrorDomain";
+NSString *const kUMKUnexpectedRequestsKey = @"UMKUnexpectedRequests";
 NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
+
+
+#pragma mark - UMKMockUnexpectedRequest
+
+/*!
+ When verification is enabled, UMKUnexpectedRequestResponders respond to unexpected requests with an error.
+ */
+@interface UMKUnexpectedRequestResponder : NSObject <UMKMockURLResponder>
+@end
+
+
+#pragma mark -
+
+@implementation UMKUnexpectedRequestResponder
+
+- (void)respondToMockRequest:(id<UMKMockURLRequest>)request client:(id<NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
+{
+    [client URLProtocol:protocol didFailWithError:[NSError errorWithDomain:kUMKErrorDomain code:kUMKUnexpectedRequestErrorCode userInfo:nil]];
+}
+
+
+- (void)cancelResponse
+{
+}
+
+@end
 
 
 #pragma mark - UMKMockURLProtocolSettings
@@ -47,8 +75,8 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 /*! Whether verification is enabled for UMKMockURLProtocol. */
 @property (assign, getter = isVerificationEnabled) BOOL verificationEnabled;
 
-/*! Whether UMKMockURLProtocol has received an unexpected request since the last reset. */
-@property (assign) BOOL receivedUnexpectedRequest;
+/*! UMKMockURLProtocol's unexpected requests. */
+@property (nonatomic, strong, readonly) NSMutableArray *unexpectedRequests;
 
 /*! UMKMockURLProtocol's expected mock requests. */
 @property (nonatomic, strong, readonly) NSMutableArray *expectedMockRequests;
@@ -75,6 +103,7 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 {
     self = [super init];
     if (self) {
+        _unexpectedRequests = [[NSMutableArray alloc] init];
         _expectedMockRequests = [[NSMutableArray alloc] init];
         _servicedRequests = [[NSMutableDictionary alloc] init];
     }
@@ -86,7 +115,7 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 - (void)reset
 {
     @synchronized (self) {
-        self.receivedUnexpectedRequest = NO;
+        [self.unexpectedRequests removeAllObjects];
         [self.expectedMockRequests removeAllObjects];
         [self.servicedRequests removeAllObjects];
     }
@@ -95,14 +124,13 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 
 - (NSString *)debugDescription
 {
-    return [NSString stringWithFormat:@"<%@: %lX; enabled: %@; verificationEnabled: %@, receivedUnexpectedRequest: %@; "
-                                      @"expectedMockRequests: %@, servicedRequests: %@>",
-            [self class], (unsigned long)self,
-            self.enabled ? @"YES" : @"NO",
-            self.verificationEnabled ? @"YES" : @"NO",
-            self.receivedUnexpectedRequest ? @"YES" : @"NO",
-            self.expectedMockRequests.debugDescription,
-            self.servicedRequests.debugDescription];
+    return [NSString stringWithFormat:@"<%@: %p> enabled: %@; verificationEnabled: %@, receivedUnexpectedRequest: %@; "
+                                      @"expectedMockRequests: %@, servicedRequests: %@", [self class], self,
+                self.enabled ? @"YES" : @"NO",
+                self.verificationEnabled ? @"YES" : @"NO",
+                self.unexpectedRequests.debugDescription,
+                self.expectedMockRequests.debugDescription,
+                self.servicedRequests.debugDescription];
 }
 
 @end
@@ -113,10 +141,10 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 @interface UMKMockURLProtocol ()
 
 /*! The instance's mock request. */
-@property (strong, nonatomic) id <UMKMockURLRequest> mockRequest;
+@property (strong, nonatomic) id<UMKMockURLRequest> mockRequest;
 
 /*! The instance's mock responder. */
-@property (strong, nonatomic) id <UMKMockURLResponder> mockResponder;
+@property (strong, nonatomic) id<UMKMockURLResponder> mockResponder;
 
 @end
 
@@ -125,15 +153,21 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 
 @implementation UMKMockURLProtocol
 
-- (id)initWithRequest:(NSURLRequest *)request cachedResponse:(NSCachedURLResponse *)cachedResponse client:(id <NSURLProtocolClient>)client
+- (id)initWithRequest:(NSURLRequest *)request cachedResponse:(NSCachedURLResponse *)cachedResponse client:(id<NSURLProtocolClient>)client
 {
     self = [super initWithRequest:request cachedResponse:cachedResponse client:client];
     if (self) {
         _mockRequest = [[self class] expectedMockRequestMatchingURLRequest:request];
-        _mockResponder = [_mockRequest responderForURLRequest:request];
-        NSAssert(_mockResponder, @"No responder for mock request: %@", _mockRequest);
-        
-        [[self class] markRequest:request asServicedByMockRequest:_mockRequest];
+
+        // If there was a mock request, mark it as serviced. Otherwise, respond with an unexpected request responder
+        if (_mockRequest) {
+            _mockResponder = [_mockRequest responderForURLRequest:request];
+            NSAssert(_mockResponder, @"No responder for mock request: %@", _mockRequest);
+            [[self class] markRequest:request asServicedByMockRequest:_mockRequest];
+        } else {
+            _mockResponder = [[UMKUnexpectedRequestResponder alloc] init];
+            [[self class] addUnexpectedRequest:request];
+        }
     }
 
     return self;
@@ -144,16 +178,11 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request
 {
-    id <UMKMockURLRequest> mockRequest = [self expectedMockRequestMatchingURLRequest:request];
-    if (!mockRequest && [self isVerificationEnabled]) {
-        @synchronized (self.settings.servicedRequests) {
-            mockRequest = self.settings.servicedRequests[request];
-        }
-        
-        self.settings.receivedUnexpectedRequest = !mockRequest;
+    if ([self isVerificationEnabled]) {
+        return YES;
     }
     
-    return mockRequest != nil;
+    return [self expectedMockRequestMatchingURLRequest:request] != nil;
 }
 
 
@@ -231,13 +260,13 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
  @param request The URL request to find a mock request for. May not be nil.
  @result The first expected mock request that matches the specified URL request.
  */
-+ (id <UMKMockURLRequest>)expectedMockRequestMatchingURLRequest:(NSURLRequest *)request
++ (id<UMKMockURLRequest>)expectedMockRequestMatchingURLRequest:(NSURLRequest *)request
 {
     NSParameterAssert(request);
 
     NSMutableArray *expectedMockRequests = self.settings.expectedMockRequests;
     @synchronized (expectedMockRequests) {
-        NSUInteger index = [expectedMockRequests indexOfObjectPassingTest:^BOOL(id <UMKMockURLRequest> mockRequest, NSUInteger idx, BOOL *stop) {
+        NSUInteger index = [expectedMockRequests indexOfObjectPassingTest:^BOOL(id<UMKMockURLRequest> mockRequest, NSUInteger idx, BOOL *stop) {
             return [mockRequest matchesURLRequest:request];
         }];
 
@@ -252,7 +281,7 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 }
 
 
-+ (void)expectMockRequest:(id <UMKMockURLRequest>)request
++ (void)expectMockRequest:(id<UMKMockURLRequest>)request
 {
     NSParameterAssert(request);
     @synchronized (self.settings.expectedMockRequests) {
@@ -261,10 +290,26 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 }
 
 
-+ (void)removeExpectedMockRequest:(id <UMKMockURLRequest>)request
++ (void)removeExpectedMockRequest:(id<UMKMockURLRequest>)request
 {
     @synchronized (self.settings.expectedMockRequests) {
         [self.settings.expectedMockRequests removeObject:request];
+    }
+}
+
+
+#pragma mark - Unexpected Requests
+
++ (NSArray *)unexpectedRequests
+{
+    return [self.settings.unexpectedRequests copy];
+}
+
+
++ (void)addUnexpectedRequest:(NSURLRequest *)request
+{
+    @synchronized (self.settings.unexpectedRequests) {
+        [self.settings.unexpectedRequests addObject:request];
     }
 }
 
@@ -273,11 +318,11 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 
 + (NSDictionary *)servicedRequests
 {
-    return self.settings.servicedRequests;
+    return [self.settings.servicedRequests copy];
 }
 
 
-+ (void)markRequest:(NSURLRequest *)request asServicedByMockRequest:(id <UMKMockURLRequest>)mockRequest
++ (void)markRequest:(NSURLRequest *)request asServicedByMockRequest:(id<UMKMockURLRequest>)mockRequest
 {
     if ([self isVerificationEnabled]) {
         @synchronized (self.settings.servicedRequests) {
@@ -311,41 +356,43 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
                                      userInfo:nil];
     }
     
-    // Synchronize here because expectedMockRequests can't change until we make a copy to return
-    @synchronized (self.settings.expectedMockRequests) {
-        BOOL receivedUnexpectedRequest = self.settings.receivedUnexpectedRequest;
-        BOOL hasUnservicedMockRequests = self.settings.expectedMockRequests.count;
-
-        // All code after this if statement is to build the error object, so just return now if we
-        // don't need to execute any of that
-        BOOL passed = !(receivedUnexpectedRequest || hasUnservicedMockRequests);
-        if (passed || !outError) {
-            return passed;
-        }
-        
-        NSUInteger code = 0;
-        NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] initWithCapacity:2];
-        
-        // Because we don't return which requests were unexpected, we want to prioritize that error over
-        // unserviced requests. Unserviced requests will be returned whether that's the error code we use
-        // or not
-        if (receivedUnexpectedRequest) {
-            code = kUMKUnexpectedRequestErrorCode;
-            userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Received an unexpected request",
-                                                                    @"Unexpected request error description");
-        } else {
-            code = kUMKUnservicedMockRequestErrorCode;
-            userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"One or more mock requests were not serviced",
-                                                                    @"Unserviced mock request error description");
-        }
-        
-        if (hasUnservicedMockRequests) {
-            userInfo[kUMKUnservicedMockRequestsKey] = [self.settings.expectedMockRequests copy];
-        }
-        
-        *outError = [NSError errorWithDomain:kUMKErrorDomain code:code userInfo:userInfo];
-        return NO;
+    NSArray *unexpectedRequests = nil;
+    NSArray *expectedMockRequests = nil;
+    @synchronized (self.settings) {
+        unexpectedRequests = self.unexpectedRequests;
+        expectedMockRequests = self.expectedMockRequests;
     }
+    
+    BOOL receivedUnexpectedRequest = unexpectedRequests.count > 0;
+    BOOL hasUnservicedMockRequests = expectedMockRequests.count > 0;
+
+    BOOL passed = !(receivedUnexpectedRequest || hasUnservicedMockRequests);
+    if (passed || !outError) {
+        return passed;
+    }
+    
+    NSUInteger code = 0;
+    NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] initWithCapacity:2];
+    
+    // We want to prioritize unexpected requests over unserviced requests.
+    // Unserviced requests will be returned whether that's the error code we use or not
+    if (receivedUnexpectedRequest) {
+        code = kUMKUnexpectedRequestErrorCode;
+        userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Received one or more unexpected requests",
+                                                                @"Unexpected request error description");
+        userInfo[kUMKUnexpectedRequestsKey] = unexpectedRequests;
+    } else {
+        code = kUMKUnservicedMockRequestErrorCode;
+        userInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"One or more mock requests were not serviced",
+                                                                @"Unserviced mock request error description");
+    }
+    
+    if (hasUnservicedMockRequests) {
+        userInfo[kUMKUnservicedMockRequestsKey] = expectedMockRequests;
+    }
+    
+    *outError = [NSError errorWithDomain:kUMKErrorDomain code:code userInfo:userInfo];
+    return NO;
 }
 
 

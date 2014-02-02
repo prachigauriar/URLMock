@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 12/6/2012.
-//  Copyright (c) 2013 Prachi Gauriar.
+//  Copyright (c) 2013–2014 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,6 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-
 /*!
  @header UMKErrorUtilities
  @abstract Defines utility functions and categories for use when creating assertions and exceptions.
@@ -33,6 +31,7 @@
      among other tasks.
  */
 
+#import <Foundation/Foundation.h>
 
 /*!
  @abstract Returns an NSString representation of the selector.

@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/9/2013.
-//  Copyright (c) 2013 Prachi Gauriar.
+//  Copyright (c) 2013–2014 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -28,6 +28,9 @@
 
 /*! The error domain for the URLMock framework. */
 extern NSString *const kUMKErrorDomain;
+
+/*! The key used in NSError userInfo dictionaries whose value is an array of unexpected requests. */
+extern NSString *const kUMKUnexpectedRequestsKey;
 
 /*! The key used in NSError userInfo dictionaries whose value is an array of unserviced mock requests. */
 extern NSString *const kUMKUnservicedMockRequestsKey;
@@ -61,7 +64,7 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
 + (void)disable;
 
 /*!
- @abstract Removes all expected mock requests and information about serviced requests.
+ @abstract Removes all expected mock requests and information about unexpected and serviced requests.
  @discussion Due to the asynchronous nature of URL loading, care should be taken to ensure that there are no
      connections in progress when this method is invoked. Failure to do so could result in unexpected results,
      particularly if verification is enabled.
@@ -82,14 +85,14 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
  @discussion This is how mock requests are registered with the mock protocol.
  @param request The mock request to expect. May not be nil.
  */
-+ (void)expectMockRequest:(id <UMKMockURLRequest>)request;
++ (void)expectMockRequest:(id<UMKMockURLRequest>)request;
 
 /*!
  @abstract Removes the specified mock request from the protocol's set of expected mock requests.
  @discussion This is how mock requests are unregistered from the mock protocol.
  @param request The mock request to expect.
  */
-+ (void)removeExpectedMockRequest:(id <UMKMockURLRequest>)request;
++ (void)removeExpectedMockRequest:(id<UMKMockURLRequest>)request;
 
 
 /*! @methodgroup Verification */
@@ -106,9 +109,9 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
  @abstract Enables or disables verification.
  @param enabled Whether to enable verification or not.
  @discussion By default, verification is disabled. When enabled, the behavior of UMKMockURLProtocol changes 
-     to facilitate verifying expected behavior. In particular, UMKMockURLProtocol will keep track of whether 
-     any unexpected requests are received; mock requests are automatically removed from the set of expected 
-     requests when they are serviced.
+     to facilitate verifying expected behavior. In particular, mock requests are automatically removed from
+     the set of expected requests when they are serviced, and unexpected requests receive error responses
+     detailing that they were unexpected. Unexpected requests are accessible using +unexpectedRequests.
 
      When verification is enabled, +verifyWithError: may be used to determine if things are behaving as expected.
  */
@@ -120,11 +123,19 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
      have been received since the last reset. Note: this method may only be used when verification is enabled.
      Invoking it otherwise will raise an exception.
  @param outError If an error occurs, upon return contains an NSError object that describes the problem.
-     If verification fails due to unserviced mock requests, the error object's userInfo dictionary contains
-     an array of unserviced mock requests accessible via the kUMKUnservicedMockRequestsKey key.
+     If verification fails because unexpected requests were received, those requests are accessible in the error
+     object's userInfo dictionary via the kUMKUnexpectedRequestsKey key. If there were any unserviced mock 
+     requests, they are accessible via the kUMKUnservicedMockRequestsKey key.
  @throws NSInternalInconsistencyException if verification is not enabled.
+ @result Whether verification succeeded.
  */
 + (BOOL)verifyWithError:(NSError **)outError;
+
+/*!
+ @abstract Returns an array of unexpected requests received since the last reset.
+ @result An array of unexpected requests received since the receiver last received the +reset message.
+ */
++ (NSArray *)unexpectedRequests;
 
 /*!
  @abstract Returns a dictionary of requests serviced since the last reset.
@@ -168,7 +179,7 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
  @param request The URL request. May not be nil.
  @result A mock URL responder for the specified request. May not be nil.
  */
-- (id <UMKMockURLResponder>)responderForURLRequest:(NSURLRequest *)request;
+- (id<UMKMockURLResponder>)responderForURLRequest:(NSURLRequest *)request;
 
 @end
 
@@ -189,7 +200,7 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
  @param client The protocol client. May not be nil.
  @param protocol The URL protocol. May not be nil.
  */
-- (void)respondToMockRequest:(id <UMKMockURLRequest>)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol;
+- (void)respondToMockRequest:(id<UMKMockURLRequest>)request client:(id<NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol;
 
 /*!
  @abstract Cancels any current mock request responses.
