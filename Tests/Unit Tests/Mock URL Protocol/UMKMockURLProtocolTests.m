@@ -49,8 +49,8 @@
 
 - (void)testReset
 {
-    id <UMKMockURLRequest> mockRequest1 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
-    id <UMKMockURLRequest> mockRequest2 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
+    id<UMKMockURLRequest> mockRequest1 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
+    id<UMKMockURLRequest> mockRequest2 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
     
     [UMKMockURLProtocol expectMockRequest:mockRequest1];
     [UMKMockURLProtocol expectMockRequest:mockRequest2];
@@ -80,11 +80,11 @@
 {
     XCTAssertEqualObjects([UMKMockURLProtocol expectedMockRequests], @[], @"Expected mock requests isn't empty");
 
-    id <UMKMockURLRequest> mockRequest1 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
+    id<UMKMockURLRequest> mockRequest1 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
     [UMKMockURLProtocol expectMockRequest:mockRequest1];
     XCTAssertEqualObjects([UMKMockURLProtocol expectedMockRequests], @[ mockRequest1 ], @"Mock request not added");
     
-    id <UMKMockURLRequest> mockRequest2 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
+    id<UMKMockURLRequest> mockRequest2 = [OCMockObject mockForProtocol:@protocol(UMKMockURLRequest)];
     [UMKMockURLProtocol expectMockRequest:mockRequest2];
     XCTAssertEqualObjects([UMKMockURLProtocol expectedMockRequests], (@[ mockRequest1, mockRequest2 ]), @"Mock request not added");
 

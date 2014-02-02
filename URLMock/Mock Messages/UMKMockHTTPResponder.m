@@ -150,7 +150,7 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 }
 
 
-- (void)respondToMockRequest:(id <UMKMockURLRequest>)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
+- (void)respondToMockRequest:(id<UMKMockURLRequest>)request client:(id<NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
 {
     @throw [NSException umk_subclassResponsibilityExceptionWithReceiver:self selector:_cmd];
 }
@@ -179,7 +179,7 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 }
 
 
-- (void)respondToMockRequest:(id <UMKMockURLRequest>)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
+- (void)respondToMockRequest:(id<UMKMockURLRequest>)request client:(id<NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
 {
     self.responding = YES;
     [client URLProtocol:protocol didFailWithError:self.error];
@@ -216,7 +216,7 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 }
 
 
-- (void)respondToMockRequest:(id <UMKMockURLRequest>)request client:(id <NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
+- (void)respondToMockRequest:(id<UMKMockURLRequest>)request client:(id<NSURLProtocolClient>)client protocol:(NSURLProtocol *)protocol
 {
     self.responding = YES;
 

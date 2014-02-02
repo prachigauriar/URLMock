@@ -66,7 +66,7 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
 @property (nonatomic, strong, readonly) NSURL *URL;
 
 /*! The mock responder associated with the instance. This is the object returned by -responderForURLRequest:. */
-@property (nonatomic, strong) id <UMKMockURLResponder> responder;
+@property (nonatomic, strong) id<UMKMockURLResponder> responder;
 
 /*! Whether the instance tests header equality when determining if it matches a URL request. This is NO by default. */
 @property (nonatomic, assign) BOOL checksHeadersWhenMatching;
