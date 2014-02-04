@@ -31,7 +31,7 @@
 @property (nonatomic, assign, readwrite, getter = isComplete) BOOL complete;
 @property (nonatomic, strong, readwrite) NSURLResponse *response;
 @property (nonatomic, strong, readwrite) NSError *error;
-@property (nonatomic, strong, readwrite) NSData *body;
+@property (nonatomic, copy, readwrite) NSData *body;
 
 @property (nonatomic, strong) NSMutableData *dataBeingBuilt;
 @property (nonatomic, strong, readonly) NSCondition *completeCondition;

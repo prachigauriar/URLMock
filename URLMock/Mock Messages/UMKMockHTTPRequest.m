@@ -46,7 +46,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 @interface UMKMockHTTPRequestSettings : NSObject
 
 /*! The default headers for all new instances. Initially nil. */
-@property (strong) NSDictionary *defaultHeaders;
+@property (copy) NSDictionary *defaultHeaders;
 
 @end
 

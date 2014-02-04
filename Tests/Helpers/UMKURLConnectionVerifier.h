@@ -53,7 +53,7 @@
 @property (nonatomic, strong, readonly) NSError *error;
 
 /*! The body that was returned from the instance's connection. This is set when the connection has finished loading. */
-@property (nonatomic, strong, readonly) NSData *body;
+@property (nonatomic, copy, readonly) NSData *body;
 
 
 /*! @methodgroup Waiting for completion */
