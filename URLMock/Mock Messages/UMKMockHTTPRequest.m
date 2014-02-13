@@ -98,7 +98,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
     
     self = [super init];
     if (self) {
-        _HTTPMethod = method;
+        _HTTPMethod = [method copy];
         _URL = URL;
         _canonicalURL = [UMKMockURLProtocol canonicalURLForURL:URL];
         _checksHeadersWhenMatching = checksHeaders;
