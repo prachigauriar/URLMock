@@ -64,7 +64,7 @@ static BOOL UMKCaseInsensitiveStringIsEqualFunction(const void *item1, const voi
 {
     self = [super init];
     if (self) {
-        NSPointerFunctionsOptions keyOptions = NSPointerFunctionsCopyIn | NSPointerFunctionsStrongMemory |NSPointerFunctionsObjectPersonality;
+        NSPointerFunctionsOptions keyOptions = NSPointerFunctionsCopyIn | NSPointerFunctionsStrongMemory | NSPointerFunctionsObjectPersonality;
         NSPointerFunctions *keyFunctions = [NSPointerFunctions pointerFunctionsWithOptions:keyOptions];
         keyFunctions.hashFunction = UMKCaseInsensitiveStringHashFunction;
         keyFunctions.isEqualFunction = UMKCaseInsensitiveStringIsEqualFunction;
@@ -109,6 +109,10 @@ static BOOL UMKCaseInsensitiveStringIsEqualFunction(const void *item1, const voi
         @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"nil field" userInfo:nil];
     }
 
+    if ([_headers objectForKey:field]) {
+        [_headers removeObjectForKey:field];
+    }
+    
     [_headers setObject:value forKey:field];
 }
 
