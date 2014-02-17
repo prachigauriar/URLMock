@@ -139,7 +139,7 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
 
 /*!
  @abstract Returns a dictionary of requests serviced since the last reset.
- @discussion The keys in this dictionary are the actual requests that were serviced; the keys are the mock
+ @discussion The keys in this dictionary are the actual requests that were serviced; the values are the mock
      requests that serviced them.
  @result A dictionary of requests serviced since the receiver last received the +reset message.
  */

@@ -46,7 +46,7 @@
 @interface UMKURLEncodedParameterStringParser : NSObject
 
 /*! The string the instance parses. */
-@property (nonatomic, strong, readonly) NSString *string;
+@property (nonatomic, copy, readonly) NSString *string;
 
 /*! The encoding that the instance's percent-escape sequences were encoded in. */
 @property (nonatomic, assign, readonly) NSStringEncoding encoding;

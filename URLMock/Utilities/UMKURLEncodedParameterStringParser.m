@@ -44,7 +44,7 @@
     
     self = [super init];
     if (self) {
-        _string = string;
+        _string = [string copy];
         _encoding = encoding;
     }
     
