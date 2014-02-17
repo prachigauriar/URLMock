@@ -29,7 +29,7 @@
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
 #import <URLMock/UMKErrorUtilities.h>
 
-#pragma mark Constants
+#pragma mark - Constants
 
 NSString *const kUMKErrorDomain = @"UMKErrorDomain";
 NSString *const kUMKUnexpectedRequestsKey = @"UMKUnexpectedRequests";
@@ -78,19 +78,34 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 /*! The isolation queue for reading/writing expected mock requests. */
 @property (nonatomic, copy, readonly) dispatch_queue_t expectedMockRequestsIsolationQueue;
 
-/*! UMKMockURLProtocol's expected mock requests. */
+/*! 
+ @abstract UMKMockURLProtocol's expected mock requests. 
+ @discussion This variable should only be read and written on its isolation queue. Reads should be done using dispatch_sync;
+     writes should be done using dispatch_barrier_async. This allows for multiple simultaneous readers, but only one writer,
+     and prevents a read from occurring during a write.
+ */
 @property (nonatomic, strong, readonly) NSMutableArray *expectedMockRequests;
 
 /*! The isolation queue for reading/writing unexpected requests. */
 @property (nonatomic, copy, readonly) dispatch_queue_t unexpectedRequestsIsolationQueue;
 
-/*! UMKMockURLProtocol's unexpected requests. */
+/*! 
+ @abstract UMKMockURLProtocol's unexpected requests.
+ @discussion This variable should only be read and written on its isolation queue. Reads should be done using dispatch_sync;
+     writes should be done using dispatch_barrier_async. This allows for multiple simultaneous readers, but only one writer,
+     and prevents a read from occurring during a write.
+*/
 @property (nonatomic, strong, readonly) NSMutableArray *unexpectedRequests;
 
 /*! The isolation queue for reading/writing serviced requests. */
 @property (nonatomic, copy, readonly) dispatch_queue_t servicedRequestsIsolationQueue;
 
-/*! UMKMockURLProtocol's serviced requests. Keys are NSURLRequests; values are UMKMockURLRequests. */
+/*!
+ @abstract UMKMockURLProtocol's serviced requests. Keys are NSURLRequests; values are UMKMockURLRequests.
+ @discussion This variable should only be read and written on its isolation queue. Reads should be done using dispatch_sync;
+     writes should be done using dispatch_barrier_async. This allows for multiple simultaneous readers, but only one writer,
+     and prevents a read from occurring during a write.
+ */
 @property (nonatomic, strong, readonly) NSMutableDictionary *servicedRequests;
 
 
