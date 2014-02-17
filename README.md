@@ -17,9 +17,10 @@ your code.
 * Works on both Mac OS X and iOS
 
 
-## What’s New in URLMock 1.1
+## What’s New in URLMock 1.1.1
 
-URLMock 1.1 is a minor update that adds the following functionality:
+URLMock 1.1.1 is a minor bug fix update. URLMock 1.1 introduced the following
+new functionality:
 
 * Better unexpected request detection when verification is enabled
 * Better request/response description methods to aid in debugging failures
@@ -50,7 +51,7 @@ URLMock 1.1 is a minor update that adds the following functionality:
 
 The easiest way to start using URLMock is to install it with CocoaPods. 
 
-    pod 'URLMock', '~> 1.1'
+    pod 'URLMock', '~> 1.1.1'
 
 You can also build it and include the built products in your project. For OS X,
 just add URLMock.framework to your project. For iOS, add URLMock’s public
@@ -59,7 +60,8 @@ headers to your header search path and link in libURLMock.a.
 
 ## Using URLMock
 
-URLMock is designed with both response stubbing and unit testing in mind. Both work very similarly.
+URLMock is designed with both response stubbing and unit testing in mind. Both
+work very similarly.
 
 ### Response stubbing
 
