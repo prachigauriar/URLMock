@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 2/1/2014.
-//  Copyright (c) 2014 Prachi Gauriar.
+//  Copyright (c) 2014 Two Toasters, LLC.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -59,7 +59,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         connectionOperationQueue = [[NSOperationQueue alloc] init];
-        connectionOperationQueue.name = @"com.quantumlenscap.UMKIntegrationTestCase.connectionOperationQueue";
+        connectionOperationQueue.name = @"com.twotoasters.UMKIntegrationTestCase.connectionOperationQueue";
     });
     
     return connectionOperationQueue;

@@ -10,14 +10,14 @@ Pod::Spec.new do |s|
                    your code.
                    DESC
 
-  s.author       = { "Prachi Gauriar" => "prachi@twotoasters.com" }
-  s.homepage     = "https://github.com/prachigauriar/URLMock"
+  s.author       = { "Two Toasters" => "general@twotoasters.com" }
+  s.homepage     = "https://github.com/twotoasters/URLMock"
   s.license      = { :type => "MIT", :file => "LICENSE" }
 
   s.ios.deployment_target = '7.0'
   s.osx.deployment_target = '10.9'
 
-  s.source       = { :git => "https://github.com/prachigauriar/URLMock.git", :tag => "1.1.1" }
+  s.source       = { :git => "https://github.com/twotoasters/URLMock.git", :tag => s.version.to_s }
   s.source_files  = 'URLMock', 'URLMock/**/*.{h,m}'
 
   s.dependency 'OCMock', '~> 2.0'

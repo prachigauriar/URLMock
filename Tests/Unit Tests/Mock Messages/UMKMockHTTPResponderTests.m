@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 12/15/2013.
-//  Copyright (c) 2013–2014 Prachi Gauriar.
+//  Copyright (c) 2013–2014 Two Toasters, LLC.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal

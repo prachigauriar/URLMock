@@ -575,7 +575,7 @@
 			attributes = {
 				CLASSPREFIX = UMK;
 				LastUpgradeCheck = 0500;
-				ORGANIZATIONNAME = "Prachi Gauriar";
+				ORGANIZATIONNAME = "Two Toasters, LLC";
 				TargetAttributes = {
 					4C0FBDC0187DF55A00D5C4B8 = {
 						TestTargetID = 4C45E810182EAF44002F2096;

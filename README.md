@@ -43,8 +43,8 @@ new functionality:
   pattern or block. We plan to add a mechanism for doing this in the near
   future. ([GitHub issue][Issue-PatternBasedRequests])
 
-[Issue-StreamBasedRequests]: https://github.com/prachigauriar/URLMock/issues/3
-[Issue-PatternBasedRequests]: https://github.com/prachigauriar/URLMock/issues/4
+[Issue-StreamBasedRequests]: https://github.com/twotoasters/URLMock/issues/3
+[Issue-PatternBasedRequests]: https://github.com/twotoasters/URLMock/issues/4
 
 
 ## Installation
