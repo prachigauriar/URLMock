@@ -17,9 +17,9 @@ your code.
 * Works on both Mac OS X and iOS
 
 
-## What’s New in URLMock 1.1.1
+## What’s New in URLMock 1.1.2
 
-URLMock 1.1.1 is a minor bug fix update. URLMock 1.1 introduced the following
+URLMock 1.1.2 is a minor bug fix update. URLMock 1.1 introduced the following
 new functionality:
 
 * Better unexpected request detection when verification is enabled

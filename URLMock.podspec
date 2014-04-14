@@ -29,6 +29,7 @@ Pod::Spec.new do |s|
                     'URLMock/Utilities/UMKMessageCountingProxy.{h,m}'
 
   s.subspec 'TestHelpers' do |ss|
+    ss.requires_arc = true
     ss.source_files = 'URLMock/Utilities/UMKTestUtilities.{h,m}',
                       'URLMock/Utilities/UMKErrorUtilities.{h,m}',
                       'URLMock/Categories/NSURL+UMKQueryParameters.{h,m}',
@@ -38,6 +39,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'SubclassResponsibility' do |ss|
+    ss.requires_arc = true
     ss.dependency 'URLMock/TestHelpers'
     ss.source_files = 'URLMock/Categories/NSException+UMKSubclassResponsibility.{h,m}'
   end
