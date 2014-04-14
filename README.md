@@ -51,7 +51,7 @@ new functionality:
 
 The easiest way to start using URLMock is to install it with CocoaPods. 
 
-    pod 'URLMock', '~> 1.1.1'
+    pod 'URLMock', '~> 1.1.2'
 
 You can also build it and include the built products in your project. For OS X,
 just add URLMock.framework to your project. For iOS, add URLMock’s public
