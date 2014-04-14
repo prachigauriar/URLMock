@@ -90,6 +90,11 @@
 
 - (BOOL)addObjectForParameterPair:(UMKParameterPair *)pair toDictionary:(NSMutableDictionary *)dictionary
 {
+    if (pair.key.length == 0) {
+        return YES;
+    }
+
+
     id collection = dictionary;
     NSString *key = nil;
 

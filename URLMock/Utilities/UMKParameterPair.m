@@ -31,7 +31,7 @@ static const NSString *const kUMKParameterPairEscapedCharacters = @":/?&=;+!@#$(
 
 @implementation UMKParameterPair
 
-- (instancetype)initWithKey:(id)key value:(id)value
+- (instancetype)initWithKey:(NSString *)key value:(id)value
 {
     self = [super init];
     if (self) {
@@ -58,7 +58,7 @@ static const NSString *const kUMKParameterPairEscapedCharacters = @":/?&=;+!@#$(
 {
     static NSString *const kUMKUnescapedCharacters = @".[]";
 	return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                                                 (__bridge CFStringRef)[self.key description],
+                                                                                 (__bridge CFStringRef)self.key,
                                                                                  (__bridge CFStringRef)kUMKUnescapedCharacters,
                                                                                  (__bridge CFStringRef)kUMKParameterPairEscapedCharacters,
                                                                                  CFStringConvertNSStringEncodingToEncoding(encoding));
@@ -68,7 +68,7 @@ static const NSString *const kUMKParameterPairEscapedCharacters = @":/?&=;+!@#$(
 - (NSString *)URLEncodedValueStringWithEncoding:(NSStringEncoding)encoding
 {
     return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                                                 (__bridge CFStringRef)[self.value description],
+                                                                                 (__bridge CFStringRef)self.value,
                                                                                  NULL,
                                                                                  (__bridge CFStringRef)kUMKParameterPairEscapedCharacters,
                                                                                  CFStringConvertNSStringEncodingToEncoding(encoding));

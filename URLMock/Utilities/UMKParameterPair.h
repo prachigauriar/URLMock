@@ -33,7 +33,7 @@
 @interface UMKParameterPair : NSObject
 
 /*! The instance's key. */
-@property (nonatomic, strong) id key;
+@property (nonatomic, strong) NSString *key;
 
 /*! The instance's value. */
 @property (nonatomic, strong) id value;
@@ -44,7 +44,7 @@
  @param value The value for the new pair object.
  @result A newly initialized UMKParameterPair with the specified key and value.
  */
-- (instancetype)initWithKey:(id)key value:(id)value;
+- (instancetype)initWithKey:(NSString *)key value:(id)value;
 
 /*! 
  @abstract Returns a URL encoded string representation of the receiver.

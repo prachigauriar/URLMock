@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>BC3AD54C-89F8-4EC1-94AC-A14F710BAE17</string>
+	<string>552D0E5E-5F36-495E-B719-397A32FB419E</string>
 	<key>IDESourceControlProjectName</key>
 	<string>URLMock</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>83BF2ABF-3459-45AB-B979-111C6E35E84D</key>
-		<string>ssh://github.com/prachigauriar/URLMock.git</string>
+		<key>EF6F5089-DF11-4A0F-B60B-1622D539636C</key>
+		<string>ssh://github.com/twotoasters/URLMock.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>URLMock.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>83BF2ABF-3459-45AB-B979-111C6E35E84D</key>
+		<key>EF6F5089-DF11-4A0F-B60B-1622D539636C</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/prachigauriar/URLMock.git</string>
+	<string>ssh://github.com/twotoasters/URLMock.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>83BF2ABF-3459-45AB-B979-111C6E35E84D</string>
+	<string>EF6F5089-DF11-4A0F-B60B-1622D539636C</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>83BF2ABF-3459-45AB-B979-111C6E35E84D</string>
+			<string>EF6F5089-DF11-4A0F-B60B-1622D539636C</string>
 			<key>IDESourceControlWCCName</key>
 			<string>URLMock</string>
 		</dict>

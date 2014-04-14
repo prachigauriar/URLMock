@@ -70,4 +70,11 @@ static const NSUInteger UMKIterationCount = 512;
     }
 }
 
+- (void)testParseWithDoubleAmpersand
+{
+    NSURL *doubleAmpersandURL = [NSURL URLWithString:@"https://hostname.com/a/b/c?d=e&c&f=g"];
+    NSDictionary *parsedDictionary = [NSDictionary umk_dictionaryWithURLEncodedParameterString:doubleAmpersandURL.query];
+    XCTAssertNotNil(parsedDictionary, @"parsed dictionary is nil");
+}
+
 @end
