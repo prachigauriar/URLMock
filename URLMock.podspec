@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "URLMock"
-  s.version      = "1.1.1"
+  s.version      = "1.1.2"
 
   s.summary      = "A Cocoa framework for mocking and stubbing URL requests and responses."
   s.description  = <<-DESC
@@ -17,8 +17,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '7.0'
   s.osx.deployment_target = '10.9'
   s.requires_arc = true
-
-  s.dependency 'OCMock', '~> 2.0'
 
   s.source       = { :git => "https://github.com/twotoasters/URLMock.git", :tag => s.version.to_s }
 
