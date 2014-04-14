@@ -94,7 +94,6 @@
         return YES;
     }
 
-
     id collection = dictionary;
     NSString *key = nil;
 
