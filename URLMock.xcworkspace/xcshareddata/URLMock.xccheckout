@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>552D0E5E-5F36-495E-B719-397A32FB419E</string>
+	<string>ACED540E-9FEE-460A-8878-2962F4752A64</string>
 	<key>IDESourceControlProjectName</key>
 	<string>URLMock</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>EF6F5089-DF11-4A0F-B60B-1622D539636C</key>
+		<key>BC7EE9B8-721A-4512-A42D-F7CF98F8802B</key>
 		<string>ssh://github.com/twotoasters/URLMock.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>URLMock.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>EF6F5089-DF11-4A0F-B60B-1622D539636C</key>
+		<key>BC7EE9B8-721A-4512-A42D-F7CF98F8802B</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>EF6F5089-DF11-4A0F-B60B-1622D539636C</string>
+	<string>BC7EE9B8-721A-4512-A42D-F7CF98F8802B</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>EF6F5089-DF11-4A0F-B60B-1622D539636C</string>
+			<string>BC7EE9B8-721A-4512-A42D-F7CF98F8802B</string>
 			<key>IDESourceControlWCCName</key>
 			<string>URLMock</string>
 		</dict>

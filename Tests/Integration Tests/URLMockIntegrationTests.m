@@ -48,11 +48,12 @@
         NSURL *URL = UMKRandomHTTPURL();
         
         NSError *error = [NSError errorWithDomain:@"UMKError" code:1234 userInfo:nil];
-        UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURL:URL];
+        UMKMockHTTPRequest *mockRequest = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:method URL:URL];
         mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithError:error];
         [UMKMockURLProtocol expectMockRequest:mockRequest];
 
-        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+        request.HTTPMethod = method;
         id verifier = [self verifierForConnectionWithURLRequest:request];
         XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
         
