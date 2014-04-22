@@ -68,7 +68,7 @@ static const NSString *const kUMKParameterPairEscapedCharacters = @":/?&=;+!@#$(
 - (NSString *)URLEncodedValueStringWithEncoding:(NSStringEncoding)encoding
 {
     return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                                                 (__bridge CFStringRef)self.value,
+                                                                                 (__bridge CFStringRef)[self.value description],
                                                                                  NULL,
                                                                                  (__bridge CFStringRef)kUMKParameterPairEscapedCharacters,
                                                                                  CFStringConvertNSStringEncodingToEncoding(encoding));
