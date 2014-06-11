@@ -42,7 +42,6 @@ static const NSUInteger UMKIterationCount = 512;
 
 @implementation UMKURLEncodedParameterStringParserTests
 
-
 - (void)testInit
 {
     NSString *string = UMKRandomUnicodeString();
