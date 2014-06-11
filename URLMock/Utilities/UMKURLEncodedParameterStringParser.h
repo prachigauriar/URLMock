@@ -37,7 +37,7 @@
      "A[]=a&A[]=b" yields { "A" : [ "a", "b" ] }
      "A[B]=a&A[C]=b" yields { "A" : { "B" : "a", "C" : "b" } }
 
-Parameter string parsing is based on the Rack parse_nested_query implementation
+ Parameter string parsing is based on the Rack parse_nested_query implementation.
  */
 @interface UMKURLEncodedParameterStringParser : NSObject
 

@@ -30,15 +30,9 @@
 #import <URLMock/UMKErrorUtilities.h>
 #import <URLMock/UMKParameterPair.h>
 
-@interface UMKURLEncodedParameterStringParser ()
-
-@property (strong, nonatomic) NSRegularExpression *keyRegex;
-@property (strong, nonatomic) NSRegularExpression *nestedArrayRegex;
-@property (strong, nonatomic) NSRegularExpression *arrayRegex;
-
-@end
 
 @implementation UMKURLEncodedParameterStringParser
+
 
 - (instancetype)init
 {
@@ -106,13 +100,12 @@
     NSString *leftKey = @"";
     NSString *rightKey = @"";
     
-    NSTextCheckingResult *leftKeyResult = [self.keyRegex firstMatchInString:key options:0 range:NSMakeRange(0, key.length)];
+    NSTextCheckingResult *leftKeyResult = [[[self class] keyRegex] firstMatchInString:key options:0 range:NSMakeRange(0, key.length)];
 
     if ([leftKeyResult numberOfRanges] > 1) {
-        NSRange leftKeyRange = [leftKeyResult rangeAtIndex:1];
-        NSRange patternMatchRange = [leftKeyResult rangeAtIndex:0];
+        leftKey = [key substringWithRange:[leftKeyResult rangeAtIndex:1]];
         
-        leftKey = [key substringWithRange:leftKeyRange];
+        NSRange patternMatchRange = [leftKeyResult rangeAtIndex:0];
         rightKey = [key substringFromIndex:patternMatchRange.location + patternMatchRange.length];
     }
     
@@ -123,28 +116,26 @@
     // Check if the right key contains an array indicator ([]) with additional keys
     NSString *arrayKey = nil;
     if (rightKey.length != 0) {
-        NSTextCheckingResult *nestedArrayResult = [self.nestedArrayRegex firstMatchInString:rightKey options:0 range:NSMakeRange(0, rightKey.length)];
-        NSTextCheckingResult *arrayResult = [self.arrayRegex firstMatchInString:rightKey options:0 range:NSMakeRange(0, rightKey.length)];
+        NSTextCheckingResult *nestedArrayResult = [[[self class] nestedArrayRegex] firstMatchInString:rightKey options:0 range:NSMakeRange(0, rightKey.length)];
+        NSTextCheckingResult *arrayResult = [[[self class] arrayRegex] firstMatchInString:rightKey options:0 range:NSMakeRange(0, rightKey.length)];
         
         if (nestedArrayResult && [nestedArrayResult numberOfRanges] > 1) {
-            NSRange arrayKeyRange = [nestedArrayResult rangeAtIndex:1];
-            arrayKey = [rightKey substringWithRange:arrayKeyRange];
+            arrayKey = [rightKey substringWithRange:[nestedArrayResult rangeAtIndex:1]];
         } else if (arrayResult && [arrayResult numberOfRanges] > 1) {
-            NSRange arrayKeyRange = [arrayResult rangeAtIndex:1];
-            arrayKey = [rightKey substringWithRange:arrayKeyRange];
+            arrayKey = [rightKey substringWithRange:[arrayResult rangeAtIndex:1]];
         }
     }
 
     
     if (rightKey.length == 0) {
         // If there is no right key, then just set the value
-        [dictionary setObject:value forKey:leftKey];
+        dictionary[leftKey] = value;
         
     } else if ([rightKey isEqualToString:@"[]"]) {
         // We have an array indicator with no additional keys, if we already have an
         // array for the key append the value, otherwise add a new array containing the value
         id array = [dictionary objectForKey:leftKey];
-        if (array == nil) {
+        if (!array) {
             array = [[NSMutableArray alloc] init];
         }
         
@@ -154,12 +145,12 @@
         }
         
         [array addObject:value];
-        [dictionary setObject:array forKey:leftKey];
+        dictionary[leftKey] = array;
         
     } else if (arrayKey) {
         // We have an array indicator with additional keys
         id array = [dictionary objectForKey:leftKey];
-        if (array == nil) {
+        if (!array) {
             array = [[NSMutableArray alloc] init];
         }
         
@@ -168,23 +159,23 @@
             return NO;
         }
         
-        NSMutableDictionary *dict;
-        if ([array count] > 0 && [[array lastObject] isKindOfClass:[NSMutableDictionary class]] && ![[array lastObject] objectForKey:arrayKey]) {
+        NSMutableDictionary *nestedDictionary;
+        if ([[array lastObject] isKindOfClass:[NSMutableDictionary class]] && ![[array lastObject] objectForKey:arrayKey]) {
             // If the array already has a dictionary that doesn't contain the current arrayKey we will continue to use that same dictionary
-            dict = [array lastObject];
-            [self addObjectForKey:arrayKey value:value toDictionary:dict];
+            nestedDictionary = [array lastObject];
+            [self addObjectForKey:arrayKey value:value toDictionary:nestedDictionary];
         } else {
-            dict = [[NSMutableDictionary alloc] init];
-            [self addObjectForKey:arrayKey value:value toDictionary:dict];
-            [array addObject:dict];
+            nestedDictionary = [[NSMutableDictionary alloc] init];
+            [self addObjectForKey:arrayKey value:value toDictionary:nestedDictionary];
+            [array addObject:nestedDictionary];
         }
 
-        [dictionary setObject:array forKey:leftKey];
+        dictionary[leftKey] = array;
         
     } else {
         // We have a nested key, so recurse on that
         id subDictionary = [dictionary objectForKey:leftKey];
-        if (subDictionary == nil) {
+        if (!subDictionary) {
             subDictionary = [[NSMutableDictionary alloc] init];
         }
         
@@ -194,7 +185,7 @@
         }
         
         [self addObjectForKey:rightKey value:value toDictionary:subDictionary];
-        [dictionary setObject:subDictionary forKey:leftKey];
+        dictionary[leftKey] = subDictionary;
     }
 
     return YES;
@@ -204,57 +195,63 @@
 #pragma mark - Regular Expressions
 
 
-- (NSRegularExpression *)keyRegex
++ (NSRegularExpression *)keyRegex
 {
-    if (_keyRegex == nil) {
-        
+    static NSRegularExpression *keyRegex;
+ 
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         NSError *error;
         
         // Matches the left most key (the first non-bracket substring which could possibly be contained by brackets)
-        _keyRegex = [NSRegularExpression regularExpressionWithPattern:@"\\A[\\[\\]]*([^\\[\\]]+)\\]*" options:0 error:&error];
+        keyRegex = [NSRegularExpression regularExpressionWithPattern:@"\\A[\\[\\]]*([^\\[\\]]+)\\]*" options:0 error:&error];
         
         if (error) {
             NSLog(@"Error creating regular expression: %@", [error description]);
         }
-    }
+    });
     
-    return _keyRegex;
+    return keyRegex;
 }
 
 
-- (NSRegularExpression *)nestedArrayRegex
++ (NSRegularExpression *)nestedArrayRegex
 {
-    if (_nestedArrayRegex == nil) {
-        
+    static NSRegularExpression *nestedArrayRegex;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         NSError *error;
         
         // Matches an array indicator ([]) followed by a nested dictionary indicator ([x])
-        _nestedArrayRegex = [NSRegularExpression regularExpressionWithPattern:@"^\\[\\]\\[([^\\[\\]]+)\\]$" options:0 error:&error];
+        nestedArrayRegex = [NSRegularExpression regularExpressionWithPattern:@"^\\[\\]\\[([^\\[\\]]+)\\]$" options:0 error:&error];
         
         if (error) {
             NSLog(@"Error creating regular expression: %@", [error description]);
         }
-    }
+    });
     
-    return _nestedArrayRegex;
+    return nestedArrayRegex;
 }
 
 
-- (NSRegularExpression *)arrayRegex
++ (NSRegularExpression *)arrayRegex
 {
-    if (_arrayRegex == nil) {
-        
+    static NSRegularExpression *arrayRegex;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         NSError *error;
         
         // Matches an array indicator ([]) followed by additional keys
-        _arrayRegex = [NSRegularExpression regularExpressionWithPattern:@"^\\[\\](.+)$" options:0 error:&error];
+        arrayRegex = [NSRegularExpression regularExpressionWithPattern:@"^\\[\\](.+)$" options:0 error:&error];
         
         if (error) {
             NSLog(@"Error creating regular expression: %@", [error description]);
         }
-    }
+    });
     
-    return _arrayRegex;
+    return arrayRegex;
 }
 
 @end
