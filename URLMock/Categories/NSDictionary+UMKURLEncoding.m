@@ -166,7 +166,7 @@
     NSArray *sortedNestedKeys = [[self allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [[obj1 description] caseInsensitiveCompare:[obj2 description]];
     }];
-    
+
     NSMutableArray *pairs = [[NSMutableArray alloc] initWithCapacity:self.count];
     for (id nestedKey in sortedNestedKeys) {
         NSString *parameterPairKey = key ? [NSString stringWithFormat:@"%@[%@]", key, nestedKey] : nestedKey;

@@ -30,6 +30,7 @@
 #import <URLMock/UMKErrorUtilities.h>
 #import <URLMock/UMKParameterPair.h>
 
+
 @implementation UMKURLEncodedParameterStringParser
 
 - (instancetype)init
@@ -60,7 +61,7 @@
         // could happen, like taking something that had a string value and indexing into it like an array,
         // catch exceptions too
         @try {
-            if (![self addObjectForParameterPair:pair toDictionary:dictionary]) {
+            if (![self addObjectForKey:pair.key value:pair.value toDictionary:dictionary]) {
                 return nil;
             }
         } @catch (NSException *exception) {
@@ -88,94 +89,163 @@
 }
 
 
-- (BOOL)addObjectForParameterPair:(UMKParameterPair *)pair toDictionary:(NSMutableDictionary *)dictionary
+- (BOOL)addObjectForKey:(NSString *)key value:(id)value toDictionary:(NSMutableDictionary *)dictionary
 {
-    if (pair.key.length == 0) {
+    if (key.length == 0) {
+        return YES;
+    }
+    
+    // Split the key based on the first non-bracket string
+    NSString *leftKey = @"";
+    NSString *rightKey = @"";
+    
+    NSTextCheckingResult *leftKeyResult = [[[self class] keyRegularExpression] firstMatchInString:key options:0 range:NSMakeRange(0, key.length)];
+
+    if ([leftKeyResult numberOfRanges] > 1) {
+        leftKey = [key substringWithRange:[leftKeyResult rangeAtIndex:1]];
+        
+        NSRange patternMatchRange = [leftKeyResult rangeAtIndex:0];
+        rightKey = [key substringFromIndex:patternMatchRange.location + patternMatchRange.length];
+    }
+    
+    if (leftKey.length == 0) {
         return YES;
     }
 
-    id collection = dictionary;
-    NSString *key = nil;
-
-    // Before we get into the loop, read the first key
-    NSScanner *keyScanner = [NSScanner scannerWithString:pair.key];
-    
-    if (![keyScanner scanUpToString:@"[" intoString:&key]) {
-        return NO;
+    // Check if the right key contains an array indicator ([]) with additional keys
+    NSString *arrayKey = nil;
+    if (rightKey.length != 0) {
+        NSTextCheckingResult *nestedArrayResult = [[[self class] nestedArrayRegularExpression] firstMatchInString:rightKey options:0 range:NSMakeRange(0, rightKey.length)];
+        NSTextCheckingResult *arrayResult = [[[self class] arrayRegularExpression] firstMatchInString:rightKey options:0 range:NSMakeRange(0, rightKey.length)];
+        
+        if (nestedArrayResult && [nestedArrayResult numberOfRanges] > 1) {
+            arrayKey = [rightKey substringWithRange:[nestedArrayResult rangeAtIndex:1]];
+        } else if (arrayResult && [arrayResult numberOfRanges] > 1) {
+            arrayKey = [rightKey substringWithRange:[arrayResult rangeAtIndex:1]];
+        }
     }
     
-    while (![keyScanner isAtEnd]) {
-        // We should already be at the next [, so if either of these scans fail, we have a malformed string
-        if ([keyScanner scanUpToString:@"[" intoString:NULL] || ![keyScanner scanString:@"[" intoString:NULL]) {
+    if (rightKey.length == 0) {
+        // If there is no right key, then just set the value
+        dictionary[leftKey] = value;
+    } else if ([rightKey isEqualToString:@"[]"]) {
+        // We have an array indicator with no additional keys, if we already have an
+        // array for the key append the value, otherwise add a new array containing the value
+        id array = [dictionary objectForKey:leftKey];
+        if (!array) {
+            array = [[NSMutableArray alloc] init];
+        }
+        
+        if (![array isKindOfClass:[NSMutableArray class]]) {
+            // If this isn't an array then something went horribly wrong
             return NO;
         }
-
-        NSString *nextKey = nil;
-        id nextObject = nil;
         
-        // If we scanned something before the next ], our next object will be a dictionary. Otherwise, it will be an array
-        Class nextObjectClass = [keyScanner scanUpToString:@"]" intoString:&nextKey] ? [NSMutableDictionary class] : [NSMutableArray class];
-
-        // If there's an existing object, set nextObject to that. Otherwise, create a new object for it and add it to the
-        // previous object
-        if (key) {
-            // Previous object was a dictionary
-            if (!(nextObject = [collection objectForKey:key])) {
-                nextObject = [[nextObjectClass alloc] init];
-                [collection setObject:nextObject forKey:key];
-            }
+        [array addObject:value];
+        dictionary[leftKey] = array;
+    } else if (arrayKey) {
+        // We have an array indicator with additional keys
+        id array = [dictionary objectForKey:leftKey];
+        if (!array) {
+            array = [[NSMutableArray alloc] init];
+        }
+        
+        if (![array isKindOfClass:[NSMutableArray class]]) {
+            // If this isn't an array then we're in trouble
+            return NO;
+        }
+        
+        NSMutableDictionary *nestedDictionary;
+        if ([[array lastObject] isKindOfClass:[NSMutableDictionary class]] && ![[array lastObject] objectForKey:arrayKey]) {
+            // If the array already has a dictionary that doesn't contain the current arrayKey we will continue to use that same dictionary
+            nestedDictionary = [array lastObject];
+            [self addObjectForKey:arrayKey value:value toDictionary:nestedDictionary];
         } else {
-            // Previous object was an array
-            if (!(nextObject = [collection lastObject])) {
-                nextObject = [[nextObjectClass alloc] init];
-                [collection addObject:nextObject];
-            }
-        }
-        
-        // We should have a ], or else this is a malformed key
-        if (![keyScanner scanString:@"]" intoString:NULL]) {
-            return NO;
-        }
-        
-        key = nextKey;
-        collection = nextObject;
-    }
-    
-    if (key) {
-        // If the collection isn't a dictionary, return NO
-        if (![collection isKindOfClass:[NSMutableDictionary class]]) {
-            return NO;
+            nestedDictionary = [[NSMutableDictionary alloc] init];
+            [self addObjectForKey:arrayKey value:value toDictionary:nestedDictionary];
+            [array addObject:nestedDictionary];
         }
 
-        // If there's an existing value for this key, we need to add the value to a set
-        id value = [collection objectForKey:key];
-        if (value) {
-            // If the value is a set, add the object. If the value is a string, create a new set.
-            // Otherwise, something has gone wrong, so return NO.
-            if ([value isKindOfClass:[NSMutableSet class]]) {
-                if ([value containsObject:pair.value]) {
-                    return NO;
-                }
-                
-                [value addObject:pair.value];
-            } else if ([value isKindOfClass:[NSString class]]) {
-                value = [NSMutableSet setWithObjects:value, pair.value, nil];
-                [collection setObject:value forKey:key];
-            } else {
-                return NO;
-            }
-        } else {
-            [collection setObject:pair.value forKey:key];
-        }
+        dictionary[leftKey] = array;
     } else {
-        if (![collection isKindOfClass:[NSMutableArray class]]) {
+        // We have a nested key, so recurse on that
+        id subDictionary = [dictionary objectForKey:leftKey];
+        if (!subDictionary) {
+            subDictionary = [[NSMutableDictionary alloc] init];
+        }
+        
+        if (![subDictionary isKindOfClass:[NSMutableDictionary class]]) {
+            // If this isn't a dictionary we need to bail out
             return NO;
         }
         
-        [collection addObject:pair.value];
+        [self addObjectForKey:rightKey value:value toDictionary:subDictionary];
+        dictionary[leftKey] = subDictionary;
     }
-    
+
     return YES;
+}
+
+
+#pragma mark - Regular Expressions
+
++ (NSRegularExpression *)keyRegularExpression
+{
+    static NSRegularExpression *keyRegularExpression;
+ 
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSError *error;
+        
+        // Matches the left most key (the first non-bracket substring which could possibly be contained by brackets)
+        keyRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"\\A[\\[\\]]*([^\\[\\]]+)\\]*" options:0 error:&error];
+        
+        if (!keyRegularExpression) {
+            NSLog(@"Error creating regular expression: %@", [error description]);
+        }
+    });
+    
+    return keyRegularExpression;
+}
+
+
++ (NSRegularExpression *)nestedArrayRegularExpression
+{
+    static NSRegularExpression *nestedArrayRegularExpression;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSError *error;
+        
+        // Matches an array indicator ([]) followed by a nested dictionary indicator ([x])
+        nestedArrayRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"^\\[\\]\\[([^\\[\\]]+)\\]$" options:0 error:&error];
+        
+        if (nestedArrayRegularExpression) {
+            NSLog(@"Error creating regular expression: %@", [error description]);
+        }
+    });
+    
+    return nestedArrayRegularExpression;
+}
+
+
++ (NSRegularExpression *)arrayRegularExpression
+{
+    static NSRegularExpression *arrayRegularExpression;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSError *error;
+        
+        // Matches an array indicator ([]) followed by additional keys
+        arrayRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"^\\[\\](.+)$" options:0 error:&error];
+        
+        if (error) {
+            NSLog(@"Error creating regular expression: %@", [error description]);
+        }
+    });
+    
+    return arrayRegularExpression;
 }
 
 @end

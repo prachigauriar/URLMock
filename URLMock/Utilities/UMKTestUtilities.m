@@ -66,13 +66,6 @@ static id UMKRandomURLEncodedParameterObject(NSUInteger maxNestingDepth, NSUInte
 static id UMKRandomURLEncodedParameterArray(NSUInteger maxElementCountPerCollection);
 
 /*!
- @abstract Returns a random URL encoded parameter set.
- @param maxElementCountPerCollection The maximum element count for the set.
- @result A random URL encoded parameter set.
- */
-static id UMKRandomURLEncodedParameterSet(NSUInteger maxElementCountPerCollection);
-
-/*!
  @abstract Returns a random simple JSON object.
  @discussion Simple JSON objects are either NSStrings, NSNumbers, or NSNull.
  @result A simple JSON object.
@@ -268,16 +261,6 @@ static id UMKRandomURLEncodedParameterArray(NSUInteger maxElementCountPerCollect
 }
 
 
-static id UMKRandomURLEncodedParameterSet(NSUInteger maxElementCountPerCollection)
-{
-    // Never allow fewer than two objects in a set
-    NSUInteger elementCount = 2 + random() % (maxElementCountPerCollection - 1);
-    return UMKGeneratedSetWithElementCount(elementCount, ^id{
-        return UMKRandomAlphanumericStringWithLength((random() % 10 + 1));
-    });
-}
-
-
 NSDictionary *UMKRandomURLEncodedParameterDictionary(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection)
 {
     NSCParameterAssert(maxNestingDepth > 0);
@@ -286,11 +269,7 @@ NSDictionary *UMKRandomURLEncodedParameterDictionary(NSUInteger maxNestingDepth,
     return UMKGeneratedDictionaryWithElementCount(random() % maxElementCountPerCollection + 1, ^id{
         return UMKRandomAlphanumericStringWithLength(random() % 10 + 1);
     }, ^id(id key) {
-        if (maxElementCountPerCollection > 1 && maxNestingDepth > 2 && UMKRandomBoolean()) {
-            return UMKRandomURLEncodedParameterSet(maxElementCountPerCollection);
-        } else {
-            return UMKRandomURLEncodedParameterObject(maxNestingDepth - 1, maxElementCountPerCollection);
-        }
+        return UMKRandomURLEncodedParameterObject(maxNestingDepth - 1, maxElementCountPerCollection);
     });
 }
 
