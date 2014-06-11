@@ -29,19 +29,15 @@
 /*!
  UMKURLEncodedParameterStringParser objects parse URL encoded parameter strings.
  
- Below is a brief summary of how strings are parsed. {…} denotes a dictionary, […] denotes an array, and 
- <…> denotes a set.
+ Below is a brief summary of how strings are parsed. {…} denotes a dictionary and […] denotes an array.
 
      "A=a" yields { "A" : "a" }
      "A=a&B=b" yields { "A" : "a", "B" : "b" }
-     "A=a&A=b" yields { "A" : < "a", "b"> }
      "A[]=a" yields { "A" : [ "a" ] }
      "A[]=a&A[]=b" yields { "A" : [ "a", "b" ] }
      "A[B]=a&A[C]=b" yields { "A" : { "B" : "a", "C" : "b" } }
-     "A[B]=a&A[B]=b" yields { "A" : { "B" : < "a", "b" > } }
 
- Strings can only result in dictionaries that contain nested strings, arrays, sets, and dictionaries.
- All dictionary keys, array values, and set values are strings. Sets never contain fewer than two items.
+Parameter string parsing is based on the Rack parse_nested_query implementation
  */
 @interface UMKURLEncodedParameterStringParser : NSObject
 
