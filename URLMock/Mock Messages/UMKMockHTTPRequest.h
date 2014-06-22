@@ -48,6 +48,14 @@ extern NSString *const kUMKMockHTTPRequestPostMethod;
 extern NSString *const kUMKMockHTTPRequestPutMethod;
 
 
+#pragma mark - Types
+
+/*!
+ @abstract Dynamically generates and returns a UMKMockURLResponder based on specified request.
+ */
+typedef id<UMKMockURLResponder>(^UMKResponderGenerationBlock)(NSURLRequest *request);
+
+
 #pragma mark
 
 /*!
@@ -68,8 +76,28 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
 /*! The mock responder associated with the instance. This is the object returned by -responderForURLRequest:. */
 @property (nonatomic, strong) id<UMKMockURLResponder> responder;
 
+/*! 
+ @abstract Block that dynamically generates a responder.
+ @discussion Use this instead of the responder property if you want to dynamically generate a responder based on
+     the request specified. If non-nil, the receiver does not check bodies when matching URL requests. 
+
+     An important use-case for this functionality is when a request uses a body stream. As body streams cannot be
+     rewound or re-read, mock requests cannot analyze an request’s body when determining if it matches the request. As
+     such, the mock request must state that it matches the request without inspecting the request’s and dynamically
+     generate a responder at the time of response. At that point, it can inspect the request’s body and generate an
+     appropriate responder.
+ */
+@property (nonatomic, copy) UMKResponderGenerationBlock responderGenerationBlock;
+
 /*! Whether the instance tests header equality when determining if it matches a URL request. This is NO by default. */
 @property (nonatomic, assign) BOOL checksHeadersWhenMatching;
+
+/*! 
+ @abstract Whether the instance tests body equality when determining if it matches a URL request. This is YES by 
+     default.
+ @discussion If -responderGenerationBlock returns a non-nil value, this method will always return NO.
+ */
+@property (nonatomic, assign) BOOL checksBodyWhenMatching;
 
 /*!
  @abstract Initializes a newly allocated instance with the specified HTTP method and URL.
@@ -82,13 +110,26 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
 
 /*!
  @abstract Initializes a newly allocated instance with the specified HTTP method and URL.
- @discussion This is the class's designated initializer.
  @param method The HTTP method for the new instance. May not be nil.
  @param URL The URL for the new instance. May not be nil.
- @param checksHeaders Whether the new instance should check header equality when determining if it matches a URL request.
+ @param checksHeaders Whether the new instance should check header equality when determining if it matches a URL 
+     request.
  @result An initialized mock request instance.
  */
 - (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL checksHeadersWhenMatching:(BOOL)checksHeaders;
+
+
+/*!
+ @abstract Initializes a newly allocated instance with the specified HTTP method and URL.
+ @discussion This is the class's designated initializer.
+ @param method The HTTP method for the new instance. May not be nil.
+ @param URL The URL for the new instance. May not be nil.
+ @param checksHeaders Whether the new instance should check header equality when determining if it matches a URL 
+     request.
+ @param checksBody Whether the new instance should check body equality when determining if it matches a URL request.
+ @result An initialized mock request instance.
+ */
+- (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL checksHeadersWhenMatching:(BOOL)checksHeaders checksBodyWhenMatching:(BOOL)checksBody;
 
 /*!
  @abstract Creates and returns a new mock HTTP DELETE request to the specified URL.
@@ -157,7 +198,7 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
  @abstract Returns whether the receiver matches the specified URL request.
  @discussion A mock request is said to match a URL request if the have the same canonical URL, the same HTTP method,
      and equivalent headers and bodies. Note that headers are only checked if the instance returns YES for 
-     -checksHeadersWhenMatching.
+     -checksHeadersWhenMatching, and bodies are only checked if the instance returns YES for -checksBodyWhenMatching.
  @param request The URL request.
  @result Whether the receiver matches the specified URL request.
  */

@@ -93,6 +93,12 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 
 - (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL checksHeadersWhenMatching:(BOOL)checksHeaders
 {
+    return [self initWithHTTPMethod:method URL:URL checksHeadersWhenMatching:checksHeaders checksBodyWhenMatching:YES];
+}
+
+
+- (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL checksHeadersWhenMatching:(BOOL)checksHeaders checksBodyWhenMatching:(BOOL)checksBody
+{
     NSParameterAssert(method);
     NSParameterAssert(URL);
     
@@ -102,6 +108,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
         _URL = URL;
         _canonicalURL = [UMKMockURLProtocol canonicalURLForURL:URL];
         _checksHeadersWhenMatching = checksHeaders;
+        _checksBodyWhenMatching = checksBody;
         
         if ([[self class] defaultHeaders]) {
             self.headers = [[self class] defaultHeaders];
@@ -151,9 +158,18 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: %p> %@ %@; checksHeadersWhenMatching: %@; headers: %@; body: %p; responder: %@",
-                self.class, self, self.HTTPMethod, self.URL, self.checksHeadersWhenMatching ? @"YES" : @"NO", self.headers,
-                self.body, self.responder];
+    return [NSString stringWithFormat:@"<%@: %p> %@ %@; checksHeadersWhenMatching: %@; checksBodyWhenMatching: %@; "
+                                      @"headers: %@; body: %p; responder: %@, responderGenerationBlock: %@", self.class,
+                                      self, self.HTTPMethod, self.URL, self.checksHeadersWhenMatching ? @"YES" : @"NO",
+                                      self.checksBodyWhenMatching ? @"YES" : @"NO", self.headers, self.body,
+                                      self.responder, self.responderGenerationBlock];
+}
+
+
+- (BOOL)checksBodyWhenMatching
+{
+    // If we have a repsonder generation block, don't check bodies.
+    return self.responderGenerationBlock ? NO : _checksBodyWhenMatching;
 }
 
 
@@ -190,13 +206,14 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
     return [self.canonicalURL isEqual:[UMKMockURLProtocol canonicalURLForURL:request.URL]] &&
            [self.HTTPMethod caseInsensitiveCompare:request.HTTPMethod] == NSOrderedSame &&
            (self.checksHeadersWhenMatching ? [self headersAreEqualToHeadersOfRequest:request] : YES) &&
-           [self bodyMatchesBodyOfURLRequest:request];
+           (self.checksBodyWhenMatching ? [self bodyMatchesBodyOfURLRequest:request] : YES);
 }
 
 
 - (id<UMKMockURLResponder>)responderForURLRequest:(NSURLRequest *)request
 {
-    return self.responder;
+    // If we have a responder generation block, use its return value. Otherwise return the responder.
+    return self.responderGenerationBlock ? self.responderGenerationBlock(request) : self.responder;
 }
 
 
