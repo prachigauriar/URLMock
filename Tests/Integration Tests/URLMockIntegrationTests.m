@@ -33,14 +33,27 @@
 @interface URLMockIntegrationTests : UMKIntegrationTestCase
 
 - (void)testMockRequestsWithErrorResponse;
-- (void)testMockRequestsWithNoResponse;
+- (void)testMockRequestsWithStatusCodeResponse;
 - (void)testMockRequestsWithDataResponseInOneChunk;
 - (void)testMockRequestsWithDataResponseInMultipleChunks;
+
+- (void)testMockRequestsWithGeneratedErrorResponse;
+- (void)testMockRequestsWithGeneratedStatusCodeResponse;
+- (void)testMockRequestsWithGeneratedDataResponseInOneChunk;
+- (void)testMockRequestsWithGeneratedDataResponseInMultipleChunks;
+
+- (void)testVerifyWithUnexpectedRequest;
+- (void)testVerifyWithUnservicedRequest;
+- (void)testVerifySuccess;
+- (void)testVerify;
+
 
 @end
 
 
 @implementation URLMockIntegrationTests
+
+#pragma mark - Static Responders
 
 - (void)testMockRequestsWithErrorResponse
 {
@@ -67,7 +80,7 @@
 }
 
 
-- (void)testMockRequestsWithNoResponse
+- (void)testMockRequestsWithStatusCodeResponse
 {
     for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
         NSURL *URL = UMKRandomHTTPURL();
@@ -177,6 +190,59 @@
     }
 }
 
+#pragma mark - Generated Responders
+
+- (void)testMockRequestsWithGeneratedErrorResponse
+{
+    for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
+        NSURL *URL = UMKRandomHTTPURL();
+
+        NSError *error = [NSError errorWithDomain:@"UMKError" code:1234 userInfo:nil];
+        UMKMockHTTPRequest *mockRequest = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:method URL:URL];
+        mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithError:error];
+        [UMKMockURLProtocol expectMockRequest:mockRequest];
+
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+        request.HTTPMethod = method;
+
+        NSURLSession *session = [NSURLSession sharedSession];
+
+        __block BOOL taskCompleted = NO;
+        __block NSInteger statusCode = 0;
+        __block NSData *receivedData = nil;
+        __block NSError *receivedError = nil;
+
+        NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            taskCompleted = YES;
+
+            NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)response;
+            statusCode = HTTPResponse.statusCode;
+            receivedData = data;
+            receivedError = error;
+        }];
+
+        [dataTask resume];
+
+        id verifier = [self verifierForConnectionWithURLRequest:request];
+        XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
+
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(connection:didFailWithError:)] == 1,
+                      @"Received -connection:didFailWithError: wrong number of times.");
+        XCTAssertEqualObjects([[verifier error] domain], error.domain, @"Error domain was not set correctly");
+        XCTAssertEqual([[verifier error] code], error.code, @"Error code was not set correctly");
+
+        [UMKMockURLProtocol reset];
+    }
+}
+
+
+//- (void)testMockRequestsWithGeneratedStatusCodeResponse;
+//- (void)testMockRequestsWithGeneratedDataResponseInOneChunk;
+//- (void)testMockRequestsWithGeneratedDataResponseInMultipleChunks;
+
+
+
+#pragma mark - Verify
 
 - (void)testVerifyWithUnexpectedRequest
 {
@@ -247,6 +313,7 @@
 
 - (void)testVerify
 {
+    // This tests mulitple failures in a single test case
     [UMKMockURLProtocol setVerificationEnabled:YES];
     
     // We use localhost because we want this to fail fast

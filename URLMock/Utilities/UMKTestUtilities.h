@@ -200,6 +200,17 @@ extern NSString *UMKRandomHTTPMethod(void);
 extern NSURL *UMKRandomHTTPURL(void);
 
 
+/*! @functiongroup Random Errors */
+
+/*!
+ @abstract Returns a random error object.
+ @discussion The error has a random ten-character Unicode string as its domain, a random unsigned integer
+     as its code, and a five-element dictionary with random string keys and values as its userInfo.
+ @result A random error object.
+ */
+extern NSError *UMKRandomError(void);
+
+
 /*! @functiongroup Waiting for conditions */
 
 /*!

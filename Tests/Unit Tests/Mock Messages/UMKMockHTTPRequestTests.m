@@ -35,6 +35,7 @@
 - (void)testDefaultHeaders;
 - (void)testMatchesURLRequest;
 - (void)testResponderAccessors;
+- (void)testChecksBodyWhenMatchingAccessors;
 
 @end
 
@@ -45,12 +46,37 @@
 {
     NSString *HTTPMethod = UMKRandomAlphanumericStringWithLength(10);
     NSURL *URL = UMKRandomHTTPURL();
+    BOOL checksHeaders = UMKRandomBoolean();
+    BOOL checksBody = UMKRandomBoolean();
     
     UMKMockHTTPRequest *mockRequest = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:HTTPMethod URL:URL];
     XCTAssertNotNil(mockRequest, "Returns nil");
     XCTAssertEqualObjects(mockRequest.HTTPMethod, HTTPMethod, @"HTTP Method not set correctly");
     XCTAssertEqualObjects(mockRequest.URL, URL, @"URL not set correctly");
     XCTAssertFalse(mockRequest.checksHeadersWhenMatching, @"Header checking is initially YES");
+    XCTAssertTrue(mockRequest.checksBodyWhenMatching, @"Body checking is initially NO");
+    XCTAssertNil(mockRequest.responder, @"Responder is initially non-nil");
+    XCTAssertNil(mockRequest.responderGenerationBlock, @"Responder generation block is initially non-nil");
+    XCTAssertTrue([mockRequest conformsToProtocol:@protocol(UMKMockURLRequest)], @"Does not conform to UMKMockURLRequest protocol");
+
+    mockRequest = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:HTTPMethod URL:URL checksHeadersWhenMatching:checksHeaders];
+    XCTAssertNotNil(mockRequest, "Returns nil");
+    XCTAssertEqualObjects(mockRequest.HTTPMethod, HTTPMethod, @"HTTP Method not set correctly");
+    XCTAssertEqualObjects(mockRequest.URL, URL, @"URL not set correctly");
+    XCTAssertEqual(mockRequest.checksHeadersWhenMatching, checksHeaders, @"Header checking not set correctly");
+    XCTAssertTrue(mockRequest.checksBodyWhenMatching, @"Body checking is initially NO");
+    XCTAssertNil(mockRequest.responder, @"Responder is initially non-nil");
+    XCTAssertNil(mockRequest.responderGenerationBlock, @"Responder generation block is initially non-nil");
+    XCTAssertTrue([mockRequest conformsToProtocol:@protocol(UMKMockURLRequest)], @"Does not conform to UMKMockURLRequest protocol");
+
+    mockRequest = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:HTTPMethod URL:URL checksHeadersWhenMatching:checksHeaders checksBodyWhenMatching:checksBody];
+    XCTAssertNotNil(mockRequest, "Returns nil");
+    XCTAssertEqualObjects(mockRequest.HTTPMethod, HTTPMethod, @"HTTP Method not set correctly");
+    XCTAssertEqualObjects(mockRequest.URL, URL, @"URL not set correctly");
+    XCTAssertEqual(mockRequest.checksHeadersWhenMatching, checksHeaders, @"Header checking not set correctly");
+    XCTAssertEqual(mockRequest.checksBodyWhenMatching, checksBody, @"Body checking not set correctly");
+    XCTAssertNil(mockRequest.responder, @"Responder is initially non-nil");
+    XCTAssertNil(mockRequest.responderGenerationBlock, @"Responder generation block is initially non-nil");
     XCTAssertTrue([mockRequest conformsToProtocol:@protocol(UMKMockURLRequest)], @"Does not conform to UMKMockURLRequest protocol");
 }
 
@@ -118,7 +144,10 @@
     }
 
     XCTAssertFalse([mockRequest matchesURLRequest:request], @"Matches request with incorrect body.");
-    
+    mockRequest.checksBodyWhenMatching = NO;
+    XCTAssertTrue([mockRequest matchesURLRequest:request], @"Does not match request when body matching is off.");
+
+    mockRequest.checksBodyWhenMatching = YES;
     request.HTTPBody = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
     XCTAssertTrue([mockRequest matchesURLRequest:request], @"Does not match equivalent request.");
 
@@ -154,6 +183,25 @@
 
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:URL];
     XCTAssertEqualObjects(responder, [mockRequest responderForURLRequest:request], @"Incorrect responder returned");
+
+    responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random()];
+    mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request) {
+        return responder;
+    };
+
+    XCTAssertEqualObjects(responder, [mockRequest responderForURLRequest:request], @"Incorrect responder returned");
+}
+
+
+- (void)testChecksBodyWhenMatchingAccessors
+{
+    NSURL *URL = UMKRandomHTTPURL();
+
+    UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURL:URL];
+
+    XCTAssertTrue(mockRequest.checksBodyWhenMatching, @"Checks body when matching is initially NO");
+    mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request) { return nil; };
+    XCTAssertFalse(mockRequest.checksBodyWhenMatching, @"Checks body when matching returns YES when block is non-nil");
 }
 
 @end
