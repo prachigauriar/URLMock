@@ -76,6 +76,8 @@
 		4C6BFC51189DC5F200F79BCF /* UMKMockURLProtocolHTTPConvenienceMethodsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC4F189DC5F200F79BCF /* UMKMockURLProtocolHTTPConvenienceMethodsTests.m */; };
 		4C6BFC54189DC67300F79BCF /* UMKIntegrationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC53189DC67300F79BCF /* UMKIntegrationTestCase.m */; };
 		4C6BFC55189DC67300F79BCF /* UMKIntegrationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC53189DC67300F79BCF /* UMKIntegrationTestCase.m */; };
+		4C7A22EC1958EB5700C440AB /* UMKURLSessionVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7A22EB1958EB5700C440AB /* UMKURLSessionVerifier.m */; };
+		4C7A22ED1958EB5700C440AB /* UMKURLSessionVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7A22EB1958EB5700C440AB /* UMKURLSessionVerifier.m */; };
 		4C8A7089187E0C93002E33A7 /* UMKRandomizedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A7086187E0C93002E33A7 /* UMKRandomizedTestCase.m */; };
 		4C8A708A187E0DCB002E33A7 /* UMKRandomizedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A7086187E0C93002E33A7 /* UMKRandomizedTestCase.m */; };
 		4C8AF916185E6641001B468E /* UMKMockHTTPResponderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8AF915185E6641001B468E /* UMKMockHTTPResponderTests.m */; };
@@ -177,6 +179,8 @@
 		4C6BFC4F189DC5F200F79BCF /* UMKMockURLProtocolHTTPConvenienceMethodsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKMockURLProtocolHTTPConvenienceMethodsTests.m; sourceTree = "<group>"; };
 		4C6BFC52189DC67300F79BCF /* UMKIntegrationTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKIntegrationTestCase.h; sourceTree = "<group>"; };
 		4C6BFC53189DC67300F79BCF /* UMKIntegrationTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKIntegrationTestCase.m; sourceTree = "<group>"; };
+		4C7A22EA1958EB5700C440AB /* UMKURLSessionVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKURLSessionVerifier.h; sourceTree = "<group>"; };
+		4C7A22EB1958EB5700C440AB /* UMKURLSessionVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKURLSessionVerifier.m; sourceTree = "<group>"; };
 		4C8A7085187E0C93002E33A7 /* UMKRandomizedTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKRandomizedTestCase.h; sourceTree = "<group>"; };
 		4C8A7086187E0C93002E33A7 /* UMKRandomizedTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKRandomizedTestCase.m; sourceTree = "<group>"; };
 		4C8AF915185E6641001B468E /* UMKMockHTTPResponderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UMKMockHTTPResponderTests.m; path = "Mock Messages/UMKMockHTTPResponderTests.m"; sourceTree = "<group>"; };
@@ -439,6 +443,8 @@
 			children = (
 				4C8F6030186158A900B3B2CB /* UMKURLConnectionVerifier.h */,
 				4C8F6031186158A900B3B2CB /* UMKURLConnectionVerifier.m */,
+				4C7A22EA1958EB5700C440AB /* UMKURLSessionVerifier.h */,
+				4C7A22EB1958EB5700C440AB /* UMKURLSessionVerifier.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -706,6 +712,7 @@
 				4CD058BD187E12710071C2BF /* UMKMockURLProtocolTests.m in Sources */,
 				4C8A7089187E0C93002E33A7 /* UMKRandomizedTestCase.m in Sources */,
 				4C0FBDD5187DF70100D5C4B8 /* UMKURLConnectionVerifier.m in Sources */,
+				4C7A22ED1958EB5700C440AB /* UMKURLSessionVerifier.m in Sources */,
 				4CD058C1187E12790071C2BF /* UMKURLEncodedParameterStringParserTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -724,6 +731,7 @@
 				4CC86F1D1836785100B878D6 /* UMKMockHTTPMessageTests.m in Sources */,
 				4C0D3884187A5135000A04DE /* UMKURLEncodedParameterStringParserTests.m in Sources */,
 				4C8A708A187E0DCB002E33A7 /* UMKRandomizedTestCase.m in Sources */,
+				4C7A22EC1958EB5700C440AB /* UMKURLSessionVerifier.m in Sources */,
 				4C8F6032186158A900B3B2CB /* UMKURLConnectionVerifier.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
