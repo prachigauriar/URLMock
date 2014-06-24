@@ -48,17 +48,6 @@ extern NSString *const kUMKMockHTTPRequestPostMethod;
 extern NSString *const kUMKMockHTTPRequestPutMethod;
 
 
-#pragma mark - Types
-
-/*!
- @abstract Type for blocks that generate and returns a UMKMockURLResponder based on the specified request and body.
- @param request The request for which a responder should be generated.
- @param body The body of the request.
- @result A mock responder to service the specified request.
- */
-typedef id<UMKMockURLResponder>(^UMKResponderGenerationBlock)(NSURLRequest *request, NSData *body);
-
-
 #pragma mark
 
 /*!
@@ -78,13 +67,6 @@ typedef id<UMKMockURLResponder>(^UMKResponderGenerationBlock)(NSURLRequest *requ
 
 /*! The mock responder associated with the instance. This is the object returned by -responderForURLRequest:. */
 @property (nonatomic, strong) id<UMKMockURLResponder> responder;
-
-/*! 
- @abstract The instance’s responder generation block.
- @discussion Use this instead of the responder property if you want to dynamically generate a responder based on
-     the request and request body specified.
- */
-@property (nonatomic, copy) UMKResponderGenerationBlock responderGenerationBlock;
 
 /*! Whether the instance tests header equality when determining if it matches a URL request. This is NO by default. */
 @property (nonatomic, assign) BOOL checksHeadersWhenMatching;

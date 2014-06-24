@@ -55,7 +55,6 @@
     XCTAssertFalse(mockRequest.checksHeadersWhenMatching, @"Header checking is initially YES");
     XCTAssertTrue(mockRequest.checksBodyWhenMatching, @"Body checking is initially NO");
     XCTAssertNil(mockRequest.responder, @"Responder is initially non-nil");
-    XCTAssertNil(mockRequest.responderGenerationBlock, @"Responder generation block is initially non-nil");
     XCTAssertTrue([mockRequest conformsToProtocol:@protocol(UMKMockURLRequest)], @"Does not conform to UMKMockURLRequest protocol");
 
     mockRequest = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:HTTPMethod URL:URL checksHeadersWhenMatching:checksHeaders];
@@ -65,7 +64,6 @@
     XCTAssertEqual(mockRequest.checksHeadersWhenMatching, checksHeaders, @"Header checking not set correctly");
     XCTAssertTrue(mockRequest.checksBodyWhenMatching, @"Body checking is initially NO");
     XCTAssertNil(mockRequest.responder, @"Responder is initially non-nil");
-    XCTAssertNil(mockRequest.responderGenerationBlock, @"Responder generation block is initially non-nil");
     XCTAssertTrue([mockRequest conformsToProtocol:@protocol(UMKMockURLRequest)], @"Does not conform to UMKMockURLRequest protocol");
 
     mockRequest = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:HTTPMethod URL:URL checksHeadersWhenMatching:checksHeaders checksBodyWhenMatching:checksBody];
@@ -75,7 +73,6 @@
     XCTAssertEqual(mockRequest.checksHeadersWhenMatching, checksHeaders, @"Header checking not set correctly");
     XCTAssertEqual(mockRequest.checksBodyWhenMatching, checksBody, @"Body checking not set correctly");
     XCTAssertNil(mockRequest.responder, @"Responder is initially non-nil");
-    XCTAssertNil(mockRequest.responderGenerationBlock, @"Responder generation block is initially non-nil");
     XCTAssertTrue([mockRequest conformsToProtocol:@protocol(UMKMockURLRequest)], @"Does not conform to UMKMockURLRequest protocol");
 }
 
@@ -181,13 +178,6 @@
     XCTAssertEqualObjects(responder, [mockRequest responderForURLRequest:nil], @"Incorrect responder returned");
 
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:URL];
-    XCTAssertEqualObjects(responder, [mockRequest responderForURLRequest:request], @"Incorrect responder returned");
-
-    responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random()];
-    mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSData *body) {
-        return responder;
-    };
-
     XCTAssertEqualObjects(responder, [mockRequest responderForURLRequest:request], @"Incorrect responder returned");
 }
 

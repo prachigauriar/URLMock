@@ -161,10 +161,10 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"<%@: %p> %@ %@; checksHeadersWhenMatching: %@; checksBodyWhenMatching: %@; "
-                                      @"headers: %@; body: %p; responder: %@, responderGenerationBlock: %@", self.class,
-                                      self, self.HTTPMethod, self.URL, self.checksHeadersWhenMatching ? @"YES" : @"NO",
+                                      @"headers: %@; body: %p; responder: %@", self.class, self, self.HTTPMethod,
+                                      self.URL, self.checksHeadersWhenMatching ? @"YES" : @"NO",
                                       self.checksBodyWhenMatching ? @"YES" : @"NO", self.headers, self.body,
-                                      self.responder, self.responderGenerationBlock];
+                                      self.responder];
 }
 
 
@@ -207,8 +207,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 
 - (id<UMKMockURLResponder>)responderForURLRequest:(NSURLRequest *)request
 {
-    // If we have a responder generation block, use that. Otherwise, return the responder
-    return self.responderGenerationBlock ? self.responderGenerationBlock(request, [self bodyForURLRequest:request]) : self.responder;
+    return self.responder;
 }
 
 
@@ -216,7 +215,8 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 
 - (NSData *)bodyForURLRequest:(NSURLRequest *)request
 {
-    // If the original request has an HTTP body, we’re done. Otherwise, make a copy so we can read its body stream
+    // If the original request has an HTTP body, we’re done. Otherwise, make a mutable copy and get the data from its body stream.
+    // Making a mutable copy is required, as otherwise we can’t read the stream’s bytes.
     return request.HTTPBody ? request.HTTPBody : [[[request mutableCopy] HTTPBodyStream] umk_availableData];
 }
 
