@@ -65,9 +65,7 @@
 
 - (void)testMockHTTPResponderWithError
 {
-    NSError *error = [NSError errorWithDomain:UMKRandomAlphanumericString()
-                                         code:random()
-                                     userInfo:UMKRandomDictionaryOfStringsWithElementCount(10)];
+    NSError *error = UMKRandomError();
     
     UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithError:error];
 

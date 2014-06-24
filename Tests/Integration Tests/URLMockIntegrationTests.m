@@ -59,7 +59,7 @@
     for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
         NSURL *URL = UMKRandomHTTPURL();
         
-        NSError *error = [NSError errorWithDomain:@"UMKError" code:1234 userInfo:nil];
+        NSError *error = UMKRandomError();
         UMKMockHTTPRequest *mockRequest = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:method URL:URL];
         mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithError:error];
         [UMKMockURLProtocol expectMockRequest:mockRequest];

@@ -47,18 +47,12 @@
 
 @implementation UMKMockURLProtocolHTTPConvenienceMethodsTests
 
-- (NSError *)randomError
-{
-    return [NSError errorWithDomain:UMKRandomAlphanumericString() code:random() userInfo:UMKRandomDictionaryOfStringsWithElementCount(1 + random() % 10)];
-}
-
-
 - (void)testExpectMockHTTPRequestWithMethodURLRequestJSONError
 {
     for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
         NSURL *URL = UMKRandomHTTPURL();
         id requestJSON = UMKRandomJSONObject(3, 3);
-        NSError *error = [self randomError];
+        NSError *error = UMKRandomError();
         
         UMKMockHTTPRequest *mockRequest = [UMKMockURLProtocol expectMockHTTPRequestWithMethod:method URL:URL requestJSON:requestJSON responseError:error];
         XCTAssertNotNil(mockRequest, @"Returned nil");
@@ -86,7 +80,7 @@
 - (void)testExpectMockHTTPGetRequestWithURLError
 {
     NSURL *URL = UMKRandomHTTPURL();
-    NSError *error = [self randomError];
+    NSError *error = UMKRandomError();
     
     UMKMockHTTPRequest *mockRequest = [UMKMockURLProtocol expectMockHTTPGetRequestWithURL:URL responseError:error];
     XCTAssertNotNil(mockRequest, @"Returned nil");
@@ -110,7 +104,7 @@
 {
     NSURL *URL = UMKRandomHTTPURL();
     id requestJSON = UMKRandomJSONObject(3, 3);
-    NSError *error = [self randomError];
+    NSError *error = UMKRandomError();
     
     UMKMockHTTPRequest *mockRequest = [UMKMockURLProtocol expectMockHTTPPatchRequestWithURL:URL requestJSON:requestJSON responseError:error];
     XCTAssertNotNil(mockRequest, @"Returned nil");
@@ -136,7 +130,7 @@
 {
     NSURL *URL = UMKRandomHTTPURL();
     id requestJSON = UMKRandomJSONObject(3, 3);
-    NSError *error = [self randomError];
+    NSError *error = UMKRandomError();
     
     UMKMockHTTPRequest *mockRequest = [UMKMockURLProtocol expectMockHTTPPostRequestWithURL:URL requestJSON:requestJSON responseError:error];
     XCTAssertNotNil(mockRequest, @"Returned nil");
@@ -162,7 +156,7 @@
 {
     NSURL *URL = UMKRandomHTTPURL();
     id requestJSON = UMKRandomJSONObject(3, 3);
-    NSError *error = [self randomError];
+    NSError *error = UMKRandomError();
     
     UMKMockHTTPRequest *mockRequest = [UMKMockURLProtocol expectMockHTTPPutRequestWithURL:URL requestJSON:requestJSON responseError:error];
     XCTAssertNotNil(mockRequest, @"Returned nil");
