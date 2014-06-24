@@ -351,7 +351,8 @@ static const NSUInteger UMKIterationCount = 512;
         }];
     }
 
-    
+    XCTAssertTrue(domains.count >= UMKIterationCount / 2, @"Not enough unique domains generated");
+    XCTAssertTrue(codes.count >= UMKIterationCount / 2, @"Not enough unique codes generated");
 }
 
 
