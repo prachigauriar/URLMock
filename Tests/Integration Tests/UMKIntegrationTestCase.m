@@ -29,6 +29,8 @@
 #import <URLMock/URLMock.h>
 
 #import "UMKURLConnectionVerifier.h"
+#import "UMKURLSessionDataTaskVerifier.h"
+
 
 @implementation UMKIntegrationTestCase
 
@@ -53,16 +55,16 @@
 }
 
 
-+ (NSOperationQueue *)connectionOperationQueue
++ (NSOperationQueue *)networkOperationQueue
 {
-    static NSOperationQueue *connectionOperationQueue = nil;
+    static NSOperationQueue *networkOperationQueue = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        connectionOperationQueue = [[NSOperationQueue alloc] init];
-        connectionOperationQueue.name = @"com.twotoasters.UMKIntegrationTestCase.connectionOperationQueue";
+        networkOperationQueue = [[NSOperationQueue alloc] init];
+        networkOperationQueue.name = @"com.twotoasters.UMKIntegrationTestCase.networkOperationQueue";
     });
     
-    return connectionOperationQueue;
+    return networkOperationQueue;
 }
 
 
@@ -70,8 +72,23 @@
 {
     id verifier = [UMKMessageCountingProxy messageCountingProxyWithObject:[[UMKURLConnectionVerifier alloc] init]];
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:verifier startImmediately:NO];
-    connection.delegateQueue = [[self class] connectionOperationQueue];
+    connection.delegateQueue = [[self class] networkOperationQueue];
     [connection start];
+    return verifier;
+}
+
+
+- (id)verifierForSessionDataTaskWithURLRequest:(NSURLRequest *)request
+{
+    id verifier = [UMKMessageCountingProxy messageCountingProxyWithObject:[[UMKURLSessionDataTaskVerifier alloc] init]];
+
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    configuration.protocolClasses = @[ [UMKMockURLProtocol class] ];
+
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:verifier delegateQueue:[[self class] networkOperationQueue]];
+
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request];
+    [task resume];
     return verifier;
 }
 

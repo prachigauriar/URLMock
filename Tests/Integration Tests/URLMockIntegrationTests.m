@@ -47,7 +47,6 @@
 - (void)testVerifySuccess;
 - (void)testVerify;
 
-
 @end
 
 
@@ -190,6 +189,7 @@
     }
 }
 
+
 #pragma mark - Generated Responders
 
 - (void)testMockRequestsWithGeneratedErrorResponse
@@ -197,37 +197,22 @@
     for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
         NSURL *URL = UMKRandomHTTPURL();
 
-        NSError *error = [NSError errorWithDomain:@"UMKError" code:1234 userInfo:nil];
+        NSError *error = UMKRandomError();
         UMKMockHTTPRequest *mockRequest = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:method URL:URL];
-        mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithError:error];
+        mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSData *body) {
+            return [UMKMockHTTPResponder mockHTTPResponderWithError:error];
+        };
+
         [UMKMockURLProtocol expectMockRequest:mockRequest];
 
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
         request.HTTPMethod = method;
 
-        NSURLSession *session = [NSURLSession sharedSession];
-
-        __block BOOL taskCompleted = NO;
-        __block NSInteger statusCode = 0;
-        __block NSData *receivedData = nil;
-        __block NSError *receivedError = nil;
-
-        NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            taskCompleted = YES;
-
-            NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)response;
-            statusCode = HTTPResponse.statusCode;
-            receivedData = data;
-            receivedError = error;
-        }];
-
-        [dataTask resume];
-
-        id verifier = [self verifierForConnectionWithURLRequest:request];
+        id verifier = [self verifierForSessionDataTaskWithURLRequest:request];
         XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
 
-        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(connection:didFailWithError:)] == 1,
-                      @"Received -connection:didFailWithError: wrong number of times.");
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(URLSession:task:didCompleteWithError:)] == 1,
+                      @"Received -URLSession:task:didCompleteWithError: wrong number of times.");
         XCTAssertEqualObjects([[verifier error] domain], error.domain, @"Error domain was not set correctly");
         XCTAssertEqual([[verifier error] code], error.code, @"Error code was not set correctly");
 
@@ -236,10 +221,121 @@
 }
 
 
-//- (void)testMockRequestsWithGeneratedStatusCodeResponse;
-//- (void)testMockRequestsWithGeneratedDataResponseInOneChunk;
-//- (void)testMockRequestsWithGeneratedDataResponseInMultipleChunks;
+- (void)testMockRequestsWithGeneratedStatusCodeResponse
+{
+    for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
+        NSURL *URL = UMKRandomHTTPURL();
+        NSData *requestBody = [NSJSONSerialization dataWithJSONObject:UMKRandomJSONObject(5, 5) options:0 error:NULL];
+        NSInteger responseStatusCode = random() % 500 + 1;
 
+        UMKMockHTTPRequest *mockRequest = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:method URL:URL];
+        mockRequest.body = requestBody;
+        [mockRequest setValue:kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue forHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
+        mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSData *body) {
+            return [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:responseStatusCode];
+        };
+        [UMKMockURLProtocol expectMockRequest:mockRequest];
+
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL];
+        request.HTTPMethod = method;
+        request.HTTPBody = requestBody;
+        [request setValue:kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue forHTTPHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
+
+        id verifier = [self verifierForSessionDataTaskWithURLRequest:request];
+        XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
+
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(URLSession:task:didCompleteWithError:)] == 1,
+                      @"Received -URLSession:task:didCompleteWithError: wrong number of times.");
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(URLSession:dataTask:didReceiveResponse:completionHandler:)] == 1,
+                      @"Received -connection:didReceiveData: wrong number of times.");
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(URLSession:dataTask:didReceiveData:)] == 0,
+                      @"Received -connection:didReceiveData: wrong number of times.");
+
+        XCTAssertEqual([(NSHTTPURLResponse *)[verifier response] statusCode], responseStatusCode, @"Received wrong status code");
+        XCTAssertNil([verifier body], @"Received wrong body");
+
+        [UMKMockURLProtocol reset];
+    }
+}
+
+
+- (void)testMockRequestsWithGeneratedDataResponseInOneChunk
+{
+    for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
+        NSURL *URL = UMKRandomHTTPURL();
+        NSData *body = [NSJSONSerialization dataWithJSONObject:UMKRandomJSONObject(5, 5) options:0 error:NULL];
+        NSInteger responseStatusCode = random() % 500 + 1;
+
+        UMKMockHTTPRequest *mockRequest = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:method URL:URL];
+        mockRequest.body = body;
+        [mockRequest setValue:kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue forHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
+
+        mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSData *body) {
+            return [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:responseStatusCode body:body];
+        };
+
+        [UMKMockURLProtocol expectMockRequest:mockRequest];
+
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL];
+        request.HTTPMethod = method;
+        request.HTTPBody = body;
+        [request setValue:kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue forHTTPHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
+
+        id verifier = [self verifierForSessionDataTaskWithURLRequest:request];
+        XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
+
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(URLSession:task:didCompleteWithError:)] == 1,
+                      @"Received -URLSession:task:didCompleteWithError: wrong number of times.");
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(URLSession:dataTask:didReceiveResponse:completionHandler:)] == 1,
+                      @"Received -connection:didReceiveData: wrong number of times.");
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(URLSession:dataTask:didReceiveData:)] == 1,
+                      @"Received -connection:didReceiveData: wrong number of times for method %@.", method);
+
+        XCTAssertEqual([(NSHTTPURLResponse *)[verifier response] statusCode], responseStatusCode, @"Received wrong status code");
+        XCTAssertEqualObjects([verifier body], body, @"Received wrong body");
+
+        [UMKMockURLProtocol reset];
+    }
+}
+
+
+- (void)testMockRequestsWithGeneratedDataResponseInMultipleChunks
+{
+    for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
+        NSURL *URL = UMKRandomHTTPURL();
+        NSData *body = [UMKRandomAlphanumericStringWithLength(2048) dataUsingEncoding:NSUTF8StringEncoding];
+        NSInteger responseStatusCode = random() % 500 + 1;
+
+        UMKMockHTTPRequest *mockRequest = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:method URL:URL];
+        mockRequest.body = body;
+        [mockRequest setValue:kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue forHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
+
+        mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSData *body) {
+            return [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:responseStatusCode headers:nil body:body chunkCountHint:4 delayBetweenChunks:0.1];
+        };
+
+        [UMKMockURLProtocol expectMockRequest:mockRequest];
+
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL];
+        request.HTTPMethod = method;
+        request.HTTPBody = body;
+
+        id verifier = [self verifierForSessionDataTaskWithURLRequest:request];
+        XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
+
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(URLSession:task:didCompleteWithError:)] == 1,
+                      @"Received -URLSession:task:didCompleteWithError: wrong number of times.");
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(URLSession:dataTask:didReceiveResponse:completionHandler:)] == 1,
+                      @"Received -connection:didReceiveData: wrong number of times.");
+        XCTAssertTrue([verifier receivedMessageCountForSelector:@selector(URLSession:dataTask:didReceiveData:)] > 1,
+                      @"Received -connection:didReceiveData: wrong number of times for method %@.", method);
+
+        XCTAssertEqual([(NSHTTPURLResponse *)[verifier response] statusCode], responseStatusCode, @"Received wrong status code");
+        XCTAssertEqualObjects([verifier body], body, @"Received wrong body");
+        
+        [UMKMockURLProtocol reset];
+    }
+}
 
 
 #pragma mark - Verify

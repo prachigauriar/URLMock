@@ -35,7 +35,6 @@
 - (void)testDefaultHeaders;
 - (void)testMatchesURLRequest;
 - (void)testResponderAccessors;
-- (void)testChecksBodyWhenMatchingAccessors;
 
 @end
 
@@ -185,23 +184,11 @@
     XCTAssertEqualObjects(responder, [mockRequest responderForURLRequest:request], @"Incorrect responder returned");
 
     responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random()];
-    mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request) {
+    mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSData *body) {
         return responder;
     };
 
     XCTAssertEqualObjects(responder, [mockRequest responderForURLRequest:request], @"Incorrect responder returned");
-}
-
-
-- (void)testChecksBodyWhenMatchingAccessors
-{
-    NSURL *URL = UMKRandomHTTPURL();
-
-    UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURL:URL];
-
-    XCTAssertTrue(mockRequest.checksBodyWhenMatching, @"Checks body when matching is initially NO");
-    mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request) { return nil; };
-    XCTAssertFalse(mockRequest.checksBodyWhenMatching, @"Checks body when matching returns YES when block is non-nil");
 }
 
 @end

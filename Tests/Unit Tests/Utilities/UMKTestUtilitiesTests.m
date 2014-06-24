@@ -339,7 +339,7 @@ static const NSUInteger UMKIterationCount = 512;
         XCTAssertNotNil(error, @"error is nil");
 
         XCTAssertNotNil(error.domain, @"domain is nil");
-        XCTAssertNotEqual(error.domain.length, (NSUInteger)10, @"domain length is incorrect");
+        XCTAssertEqual(error.domain.length, (NSUInteger)10, @"domain length is incorrect");
         [domains addObject:domains];
 
         [codes addObject:@(error.code)];

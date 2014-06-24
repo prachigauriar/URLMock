@@ -51,9 +51,12 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
 #pragma mark - Types
 
 /*!
- @abstract Dynamically generates and returns a UMKMockURLResponder based on specified request.
+ @abstract Type for blocks that generate and returns a UMKMockURLResponder based on the specified request and body.
+ @param request The request for which a responder should be generated.
+ @param body The body of the request.
+ @result A mock responder to service the specified request.
  */
-typedef id<UMKMockURLResponder>(^UMKResponderGenerationBlock)(NSURLRequest *request);
+typedef id<UMKMockURLResponder>(^UMKResponderGenerationBlock)(NSURLRequest *request, NSData *body);
 
 
 #pragma mark
@@ -77,15 +80,9 @@ typedef id<UMKMockURLResponder>(^UMKResponderGenerationBlock)(NSURLRequest *requ
 @property (nonatomic, strong) id<UMKMockURLResponder> responder;
 
 /*! 
- @abstract Block that dynamically generates a responder.
+ @abstract The instance’s responder generation block.
  @discussion Use this instead of the responder property if you want to dynamically generate a responder based on
-     the request specified. If non-nil, the receiver does not check bodies when matching URL requests. 
-
-     An important use-case for this functionality is when a request uses a body stream. As body streams cannot be
-     rewound or re-read, mock requests cannot analyze an request’s body when determining if it matches the request. As
-     such, the mock request must state that it matches the request without inspecting the request’s and dynamically
-     generate a responder at the time of response. At that point, it can inspect the request’s body and generate an
-     appropriate responder.
+     the request and request body specified.
  */
 @property (nonatomic, copy) UMKResponderGenerationBlock responderGenerationBlock;
 
@@ -95,7 +92,6 @@ typedef id<UMKMockURLResponder>(^UMKResponderGenerationBlock)(NSURLRequest *requ
 /*! 
  @abstract Whether the instance tests body equality when determining if it matches a URL request. This is YES by 
      default.
- @discussion If -responderGenerationBlock returns a non-nil value, this method will always return NO.
  */
 @property (nonatomic, assign) BOOL checksBodyWhenMatching;
 
