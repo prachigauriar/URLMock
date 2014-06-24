@@ -36,18 +36,28 @@
 @interface UMKIntegrationTestCase : UMKRandomizedTestCase
 
 /*!
- @abstract Returns the operation queue for connections started by this class.
- @discussion Connections started with -verifierForConnectionWithURLRequest: use this queue.
- @result An operation queue for URL connections.
+ @abstract Returns the operation queue for network activity started by this class.
+ @discussion Connections started with -verifierForConnectionWithURLRequest: and data tasks started with
+     -verifierForSessionDataTaskWithURLRequest: use this queue.
+ @result An operation queue for network activity.
  */
-+ (NSOperationQueue *)connectionOperationQueue;
++ (NSOperationQueue *)networkOperationQueue;
 
 /*!
  @abstract Starts a connection for the specified URL request and returns a verifier for that connection.
- @discussion The connection is started using the operation queue returned by +connectionOperationQueue.
+ @discussion The connection is started using the operation queue returned by +networkOperationQueue.
  @param request The URL request for the connection.
  @result A UMKURLConnectionVerifier for the URL connection.
  */
 - (id)verifierForConnectionWithURLRequest:(NSURLRequest *)request;
+
+/*!
+ @abstract Starts a session data task for the specified URL request and returns a verifier for that task.
+ @discussion The task is started using the operation queue returned by +networkOperationQueue. The task is
+     created an internal URL session with the default configuration.
+ @param request The URL request for the session data task.
+ @result A UMKURLSessionDataTaskVerifier for the URL session data task.
+ */
+- (id)verifierForSessionDataTaskWithURLRequest:(NSURLRequest *)request;
 
 @end

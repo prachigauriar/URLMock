@@ -57,21 +57,21 @@ static const NSString *const kUMKParameterPairEscapedCharacters = @":/?&=;+!@#$(
 - (NSString *)URLEncodedKeyStringWithEncoding:(NSStringEncoding)encoding
 {
     static NSString *const kUMKUnescapedCharacters = @".[]";
-	return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                                                 (__bridge CFStringRef)self.key,
-                                                                                 (__bridge CFStringRef)kUMKUnescapedCharacters,
-                                                                                 (__bridge CFStringRef)kUMKParameterPairEscapedCharacters,
-                                                                                 CFStringConvertNSStringEncodingToEncoding(encoding));
+	return CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                     (__bridge CFStringRef)self.key,
+                                                                     (__bridge CFStringRef)kUMKUnescapedCharacters,
+                                                                     (__bridge CFStringRef)kUMKParameterPairEscapedCharacters,
+                                                                     CFStringConvertNSStringEncodingToEncoding(encoding)));
 }
 
 
 - (NSString *)URLEncodedValueStringWithEncoding:(NSStringEncoding)encoding
 {
-    return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                                                 (__bridge CFStringRef)[self.value description],
-                                                                                 NULL,
-                                                                                 (__bridge CFStringRef)kUMKParameterPairEscapedCharacters,
-                                                                                 CFStringConvertNSStringEncodingToEncoding(encoding));
+    return CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                     (__bridge CFStringRef)[self.value description],
+                                                                     NULL,
+                                                                     (__bridge CFStringRef)kUMKParameterPairEscapedCharacters,
+                                                                     CFStringConvertNSStringEncodingToEncoding(encoding)));
 }
 
 @end

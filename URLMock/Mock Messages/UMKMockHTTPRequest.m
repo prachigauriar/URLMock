@@ -28,6 +28,8 @@
 
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
 
+#import "NSInputStream+UMKAvailableData.h"
+
 #pragma mark Constants
 
 NSString *const kUMKMockHTTPRequestDeleteMethod = @"DELETE";
@@ -93,6 +95,12 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 
 - (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL checksHeadersWhenMatching:(BOOL)checksHeaders
 {
+    return [self initWithHTTPMethod:method URL:URL checksHeadersWhenMatching:checksHeaders checksBodyWhenMatching:YES];
+}
+
+
+- (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL checksHeadersWhenMatching:(BOOL)checksHeaders checksBodyWhenMatching:(BOOL)checksBody
+{
     NSParameterAssert(method);
     NSParameterAssert(URL);
     
@@ -102,6 +110,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
         _URL = URL;
         _canonicalURL = [UMKMockURLProtocol canonicalURLForURL:URL];
         _checksHeadersWhenMatching = checksHeaders;
+        _checksBodyWhenMatching = checksBody;
         
         if ([[self class] defaultHeaders]) {
             self.headers = [[self class] defaultHeaders];
@@ -151,9 +160,11 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: %p> %@ %@; checksHeadersWhenMatching: %@; headers: %@; body: %p; responder: %@",
-                self.class, self, self.HTTPMethod, self.URL, self.checksHeadersWhenMatching ? @"YES" : @"NO", self.headers,
-                self.body, self.responder];
+    return [NSString stringWithFormat:@"<%@: %p> %@ %@; checksHeadersWhenMatching: %@; checksBodyWhenMatching: %@; "
+                                      @"headers: %@; body: %p; responder: %@", self.class, self, self.HTTPMethod,
+                                      self.URL, self.checksHeadersWhenMatching ? @"YES" : @"NO",
+                                      self.checksBodyWhenMatching ? @"YES" : @"NO", self.headers, self.body,
+                                      self.responder];
 }
 
 
@@ -190,7 +201,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
     return [self.canonicalURL isEqual:[UMKMockURLProtocol canonicalURLForURL:request.URL]] &&
            [self.HTTPMethod caseInsensitiveCompare:request.HTTPMethod] == NSOrderedSame &&
            (self.checksHeadersWhenMatching ? [self headersAreEqualToHeadersOfRequest:request] : YES) &&
-           [self bodyMatchesBodyOfURLRequest:request];
+           (self.checksBodyWhenMatching ? [self bodyMatchesBodyOfURLRequest:request] : YES);
 }
 
 
@@ -202,11 +213,21 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 
 #pragma mark - Private Methods
 
+- (NSData *)bodyForURLRequest:(NSURLRequest *)request
+{
+    // If the original request has an HTTP body, we’re done. Otherwise, make a mutable copy and get the data from its body stream.
+    // Making a mutable copy is required, as otherwise we can’t read the stream’s bytes.
+    return request.HTTPBody ? request.HTTPBody : [[[request mutableCopy] HTTPBodyStream] umk_availableData];
+}
+
+
 - (BOOL)bodyMatchesBodyOfURLRequest:(NSURLRequest *)request
 {
+    NSData *body = [self bodyForURLRequest:request];
+
     // If one of these is nil and the other isn't, they don't match. Otherwise, if one is nil,
     // they're both nil, so they do match.
-    if ((self.body != nil) != (request.HTTPBody != nil)) {
+    if ((self.body != nil) != (body != nil)) {
         return NO;
     } else if (!self.body) {
         return YES;
@@ -217,16 +238,16 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
     NSString *contentType = [request valueForHTTPHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
     if (contentType) {
         if ([contentType rangeOfString:kUMKMockHTTPMessageJSONContentTypeHeaderValue].location != NSNotFound) {
-            return [[self JSONObjectFromBody] isEqual:[NSJSONSerialization JSONObjectWithData:request.HTTPBody options:0 error:NULL]];
+            return [[self JSONObjectFromBody] isEqual:[NSJSONSerialization JSONObjectWithData:body options:0 error:NULL]];
         } else if ([contentType rangeOfString:kUMKMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValue].location != NSNotFound) {
-            NSString *requestBodyString = [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding];
+            NSString *requestBodyString = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
             NSDictionary *bodyParameters = [NSDictionary umk_dictionaryWithURLEncodedParameterString:requestBodyString];
             return [[self parametersFromURLEncodedBody] isEqualToDictionary:bodyParameters];
         }
     }
     
     // Otherwise just compare bytes
-    return [self.body isEqualToData:request.HTTPBody];
+    return [self.body isEqualToData:body];
 }
 
 @end
