@@ -47,6 +47,7 @@ static const NSUInteger UMKIterationCount = 512;
 - (void)testRandomJSONObject;
 - (void)testRandomHTTPURL;
 - (void)testRandomHTTPMethod;
+- (void)testRandomError;
 - (void)testWaitForCondition;
 
 @end
@@ -325,6 +326,33 @@ static const NSUInteger UMKIterationCount = 512;
     }
     
     XCTAssertEqualObjects(returnedValues, methods, @"Returned values don't match HTTP methods");
+}
+
+
+- (void)testRandomError
+{
+    NSMutableSet *domains = [[NSMutableSet alloc] initWithCapacity:UMKIterationCount];
+    NSMutableSet *codes = [[NSMutableSet alloc] initWithCapacity:UMKIterationCount];
+
+    for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
+        NSError *error = UMKRandomError();
+        XCTAssertNotNil(error, @"error is nil");
+
+        XCTAssertNotNil(error.domain, @"domain is nil");
+        XCTAssertEqual(error.domain.length, (NSUInteger)10, @"domain length is incorrect");
+        [domains addObject:domains];
+
+        [codes addObject:@(error.code)];
+
+        XCTAssertEqual(error.userInfo.count, (NSUInteger)5, @"Returned userInfo element count is incorrect");
+        [error.userInfo enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+            XCTAssertTrue([key isKindOfClass:[NSString class]], @"Key is not a string");
+            XCTAssertTrue([value isKindOfClass:[NSString class]], @"Value is not a string");
+        }];
+    }
+
+    XCTAssertTrue(domains.count >= UMKIterationCount / 2, @"Not enough unique domains generated");
+    XCTAssertTrue(codes.count >= UMKIterationCount / 2, @"Not enough unique codes generated");
 }
 
 

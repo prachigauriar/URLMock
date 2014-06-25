@@ -71,6 +71,12 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
 /*! Whether the instance tests header equality when determining if it matches a URL request. This is NO by default. */
 @property (nonatomic, assign) BOOL checksHeadersWhenMatching;
 
+/*! 
+ @abstract Whether the instance tests body equality when determining if it matches a URL request. This is YES by 
+     default.
+ */
+@property (nonatomic, assign) BOOL checksBodyWhenMatching;
+
 /*!
  @abstract Initializes a newly allocated instance with the specified HTTP method and URL.
  @discussion The returned object does not test header equivalence when matching.
@@ -82,13 +88,26 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
 
 /*!
  @abstract Initializes a newly allocated instance with the specified HTTP method and URL.
- @discussion This is the class's designated initializer.
  @param method The HTTP method for the new instance. May not be nil.
  @param URL The URL for the new instance. May not be nil.
- @param checksHeaders Whether the new instance should check header equality when determining if it matches a URL request.
+ @param checksHeaders Whether the new instance should check header equality when determining if it matches a URL 
+     request.
  @result An initialized mock request instance.
  */
 - (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL checksHeadersWhenMatching:(BOOL)checksHeaders;
+
+
+/*!
+ @abstract Initializes a newly allocated instance with the specified HTTP method and URL.
+ @discussion This is the class's designated initializer.
+ @param method The HTTP method for the new instance. May not be nil.
+ @param URL The URL for the new instance. May not be nil.
+ @param checksHeaders Whether the new instance should check header equality when determining if it matches a URL 
+     request.
+ @param checksBody Whether the new instance should check body equality when determining if it matches a URL request.
+ @result An initialized mock request instance.
+ */
+- (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL checksHeadersWhenMatching:(BOOL)checksHeaders checksBodyWhenMatching:(BOOL)checksBody;
 
 /*!
  @abstract Creates and returns a new mock HTTP DELETE request to the specified URL.
@@ -157,7 +176,7 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
  @abstract Returns whether the receiver matches the specified URL request.
  @discussion A mock request is said to match a URL request if the have the same canonical URL, the same HTTP method,
      and equivalent headers and bodies. Note that headers are only checked if the instance returns YES for 
-     -checksHeadersWhenMatching.
+     -checksHeadersWhenMatching, and bodies are only checked if the instance returns YES for -checksBodyWhenMatching.
  @param request The URL request.
  @result Whether the receiver matches the specified URL request.
  */

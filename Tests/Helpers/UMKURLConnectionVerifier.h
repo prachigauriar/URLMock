@@ -59,7 +59,7 @@
 /*! @methodgroup Waiting for completion */
 
 /*!
- @abstract Blocks the current thread and returns when connection has completed.
+ @abstract Blocks the current thread and returns when the instance’s connection has completed.
  @discussion Returns immediately if the connection is already complete. This should only be invoked if the
      connection uses a delegate operation queue or if the calling thread is not the same as the thread the 
      connection was started on.
@@ -67,7 +67,8 @@
 - (void)waitForCompletion;
 
 /*!
- @abstract Blocks the current thread and returns when connection has completed or the timeout has elapsed.
+ @abstract Blocks the current thread and returns when the instance’s connection has completed or the timeout
+     has elapsed.
  @discussion Returns immediately if the connection is already complete. This should only be invoked if the
      connection uses a delegate operation queue or if the calling thread is not the same as the thread the
      connection was started on.

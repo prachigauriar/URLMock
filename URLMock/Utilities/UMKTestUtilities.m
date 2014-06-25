@@ -358,6 +358,13 @@ NSURL *UMKRandomHTTPURL(void)
 }
 
 
+#pragma mark - Random Errors
+
+NSError *UMKRandomError(void)
+{
+    return [NSError errorWithDomain:UMKRandomUnicodeStringWithLength(10) code:random() userInfo:UMKRandomDictionaryOfStringsWithElementCount(5)];
+}
+
 
 #pragma mark - Wait for Condition
 

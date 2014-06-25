@@ -195,7 +195,7 @@
  
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSError *error;
+        NSError *error = nil;
         
         // Matches the left most key (the first non-bracket substring which could possibly be contained by brackets)
         keyRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"\\A[\\[\\]]*([^\\[\\]]+)\\]*" options:0 error:&error];
@@ -215,8 +215,8 @@
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSError *error;
-        
+        NSError *error = nil;
+
         // Matches an array indicator ([]) followed by a nested dictionary indicator ([x])
         nestedArrayRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"^\\[\\]\\[([^\\[\\]]+)\\]$" options:0 error:&error];
         
@@ -235,8 +235,8 @@
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSError *error;
-        
+        NSError *error = nil;
+
         // Matches an array indicator ([]) followed by additional keys
         arrayRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"^\\[\\](.+)$" options:0 error:&error];
         

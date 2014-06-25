@@ -76,6 +76,12 @@
 		4C6BFC51189DC5F200F79BCF /* UMKMockURLProtocolHTTPConvenienceMethodsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC4F189DC5F200F79BCF /* UMKMockURLProtocolHTTPConvenienceMethodsTests.m */; };
 		4C6BFC54189DC67300F79BCF /* UMKIntegrationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC53189DC67300F79BCF /* UMKIntegrationTestCase.m */; };
 		4C6BFC55189DC67300F79BCF /* UMKIntegrationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC53189DC67300F79BCF /* UMKIntegrationTestCase.m */; };
+		4C7A22EC1958EB5700C440AB /* UMKURLSessionDataTaskVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7A22EB1958EB5700C440AB /* UMKURLSessionDataTaskVerifier.m */; };
+		4C7A22ED1958EB5700C440AB /* UMKURLSessionDataTaskVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7A22EB1958EB5700C440AB /* UMKURLSessionDataTaskVerifier.m */; };
+		4C7C316B1959278A006BF17B /* NSInputStream+UMKAvailableData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C7C31691959278A006BF17B /* NSInputStream+UMKAvailableData.h */; };
+		4C7C316C1959278A006BF17B /* NSInputStream+UMKAvailableData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C7C31691959278A006BF17B /* NSInputStream+UMKAvailableData.h */; };
+		4C7C316D1959278A006BF17B /* NSInputStream+UMKAvailableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C316A1959278A006BF17B /* NSInputStream+UMKAvailableData.m */; };
+		4C7C316E1959278A006BF17B /* NSInputStream+UMKAvailableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C316A1959278A006BF17B /* NSInputStream+UMKAvailableData.m */; };
 		4C8A7089187E0C93002E33A7 /* UMKRandomizedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A7086187E0C93002E33A7 /* UMKRandomizedTestCase.m */; };
 		4C8A708A187E0DCB002E33A7 /* UMKRandomizedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A7086187E0C93002E33A7 /* UMKRandomizedTestCase.m */; };
 		4C8AF916185E6641001B468E /* UMKMockHTTPResponderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8AF915185E6641001B468E /* UMKMockHTTPResponderTests.m */; };
@@ -177,6 +183,10 @@
 		4C6BFC4F189DC5F200F79BCF /* UMKMockURLProtocolHTTPConvenienceMethodsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKMockURLProtocolHTTPConvenienceMethodsTests.m; sourceTree = "<group>"; };
 		4C6BFC52189DC67300F79BCF /* UMKIntegrationTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKIntegrationTestCase.h; sourceTree = "<group>"; };
 		4C6BFC53189DC67300F79BCF /* UMKIntegrationTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKIntegrationTestCase.m; sourceTree = "<group>"; };
+		4C7A22EA1958EB5700C440AB /* UMKURLSessionDataTaskVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKURLSessionDataTaskVerifier.h; sourceTree = "<group>"; };
+		4C7A22EB1958EB5700C440AB /* UMKURLSessionDataTaskVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKURLSessionDataTaskVerifier.m; sourceTree = "<group>"; };
+		4C7C31691959278A006BF17B /* NSInputStream+UMKAvailableData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSInputStream+UMKAvailableData.h"; sourceTree = "<group>"; };
+		4C7C316A1959278A006BF17B /* NSInputStream+UMKAvailableData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSInputStream+UMKAvailableData.m"; sourceTree = "<group>"; };
 		4C8A7085187E0C93002E33A7 /* UMKRandomizedTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKRandomizedTestCase.h; sourceTree = "<group>"; };
 		4C8A7086187E0C93002E33A7 /* UMKRandomizedTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKRandomizedTestCase.m; sourceTree = "<group>"; };
 		4C8AF915185E6641001B468E /* UMKMockHTTPResponderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UMKMockHTTPResponderTests.m; path = "Mock Messages/UMKMockHTTPResponderTests.m"; sourceTree = "<group>"; };
@@ -273,6 +283,8 @@
 				4C0D388D187CD657000A04DE /* NSDictionary+UMKURLEncoding.m */,
 				4C0D38491879AFA6000A04DE /* NSException+UMKSubclassResponsibility.h */,
 				4C0D384A1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.m */,
+				4C7C31691959278A006BF17B /* NSInputStream+UMKAvailableData.h */,
+				4C7C316A1959278A006BF17B /* NSInputStream+UMKAvailableData.m */,
 				4C33F7341878AA1700643799 /* NSURL+UMKQueryParameters.h */,
 				4C33F7351878AA1700643799 /* NSURL+UMKQueryParameters.m */,
 			);
@@ -439,6 +451,8 @@
 			children = (
 				4C8F6030186158A900B3B2CB /* UMKURLConnectionVerifier.h */,
 				4C8F6031186158A900B3B2CB /* UMKURLConnectionVerifier.m */,
+				4C7A22EA1958EB5700C440AB /* UMKURLSessionDataTaskVerifier.h */,
+				4C7A22EB1958EB5700C440AB /* UMKURLSessionDataTaskVerifier.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -458,6 +472,7 @@
 				4C45E851182EB48B002F2096 /* UMKMockHTTPMessage.h in Headers */,
 				4C0D387F187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h in Headers */,
 				4C6BFC44189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h in Headers */,
+				4C7C316C1959278A006BF17B /* NSInputStream+UMKAvailableData.h in Headers */,
 				4C45E852182EB48B002F2096 /* UMKMockHTTPRequest.h in Headers */,
 				4C0D384B1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.h in Headers */,
 				4C45E853182EB48B002F2096 /* UMKMockHTTPResponder.h in Headers */,
@@ -479,6 +494,7 @@
 				4C45E8DC182FF271002F2096 /* UMKMockHTTPMessage.h in Headers */,
 				4C0D3880187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h in Headers */,
 				4C6BFC43189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h in Headers */,
+				4C7C316B1959278A006BF17B /* NSInputStream+UMKAvailableData.h in Headers */,
 				4C45E8DD182FF271002F2096 /* UMKMockHTTPRequest.h in Headers */,
 				4C0D384E1879AFB5000A04DE /* NSException+UMKSubclassResponsibility.h in Headers */,
 				4C45E8DE182FF271002F2096 /* UMKMockHTTPResponder.h in Headers */,
@@ -706,6 +722,7 @@
 				4CD058BD187E12710071C2BF /* UMKMockURLProtocolTests.m in Sources */,
 				4C8A7089187E0C93002E33A7 /* UMKRandomizedTestCase.m in Sources */,
 				4C0FBDD5187DF70100D5C4B8 /* UMKURLConnectionVerifier.m in Sources */,
+				4C7A22ED1958EB5700C440AB /* UMKURLSessionDataTaskVerifier.m in Sources */,
 				4CD058C1187E12790071C2BF /* UMKURLEncodedParameterStringParserTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -724,6 +741,7 @@
 				4CC86F1D1836785100B878D6 /* UMKMockHTTPMessageTests.m in Sources */,
 				4C0D3884187A5135000A04DE /* UMKURLEncodedParameterStringParserTests.m in Sources */,
 				4C8A708A187E0DCB002E33A7 /* UMKRandomizedTestCase.m in Sources */,
+				4C7A22EC1958EB5700C440AB /* UMKURLSessionDataTaskVerifier.m in Sources */,
 				4C8F6032186158A900B3B2CB /* UMKURLConnectionVerifier.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -744,6 +762,7 @@
 				4C0D384C1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.m in Sources */,
 				4C45E840182EAFCB002F2096 /* UMKMockHTTPMessage.m in Sources */,
 				4C45E84A182EAFEB002F2096 /* UMKErrorUtilities.m in Sources */,
+				4C7C316E1959278A006BF17B /* NSInputStream+UMKAvailableData.m in Sources */,
 				4C45E85C182EBE12002F2096 /* UMKMockURLProtocol.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -764,6 +783,7 @@
 				4C0D384D1879AFAA000A04DE /* NSException+UMKSubclassResponsibility.m in Sources */,
 				4C33F7391878AA1700643799 /* NSURL+UMKQueryParameters.m in Sources */,
 				4C45E8D7182FF24B002F2096 /* UMKMockURLProtocol.m in Sources */,
+				4C7C316D1959278A006BF17B /* NSInputStream+UMKAvailableData.m in Sources */,
 				4C45E8D8182FF24B002F2096 /* UMKErrorUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
