@@ -21,8 +21,7 @@
 
 - (instancetype)init
 {
-    [self doesNotRecognizeSelector:_cmd];
-    return nil;
+    return [self initWithURLPattern:nil responderGenerationBlock:nil];
 }
 
 
@@ -65,17 +64,31 @@
 @end
 
 
+#pragma mark -
+
+@interface UMKPatternMatchingMockHTTPRequest ()
+
+@property (nonatomic, copy) NSSet *lowercaseHTTPMethods;
+
+@end
+
+
 @implementation UMKPatternMatchingMockHTTPRequest
-
-- (NSString *)HTTPMethod
-{
-    return _HTTPMethod ? _HTTPMethod : kUMKMockHTTPRequestGetMethod;
-}
-
 
 - (BOOL)matchesURLRequest:(NSURLRequest *)request
 {
-    return (request.HTTPMethod && [self.HTTPMethod caseInsensitiveCompare:request.HTTPMethod] == NSOrderedSame) && [super matchesURLRequest:request];
+    if (self.lowercaseHTTPMethods && ![self.lowercaseHTTPMethods containsObject:request.HTTPMethod.lowercaseString]) {
+        return NO;
+    }
+
+    return [super matchesURLRequest:request];
+}
+
+
+- (void)setHTTPMethods:(NSSet *)HTTPMethods
+{
+    _HTTPMethods = [HTTPMethods copy];
+    self.lowercaseHTTPMethods = [HTTPMethods valueForKey:@"lowercaseString"];
 }
 
 @end

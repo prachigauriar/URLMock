@@ -25,11 +25,31 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <URLMock/UMKMockHTTPRequest.h>
+#import <URLMock/UMKMockURLProtocol.h>
 
+/*!
+ @abstract Block type that return whether a mock request matches a request.
+ @discussion This block type is used by pattern-matching mock requests to determine if the mock request matches
+     a request.
+ @param request The request being matched
+ @result Whether the request matches or not
+ */
 typedef BOOL(^UMKRequestMatchingBlock)(NSURLRequest *request);
+
+/*!
+ @abstract Block type for generating a responder based on a request and the specified URL path parameters.
+ @discussion This block type is used by pattern-matching mock requests to generate a mock responder for the specified
+     request and parameters. Users can analyze the request and parameters to build and return an appropriate mock
+     responder.
+ @param request The request for which a mock responder is being generated.
+ @param parameters The URL pattern parameters that were parsed from the request’s URL
+ */
 typedef id<UMKMockURLResponder>(^UMKPatternMatchingResponderGenerationBlock)(NSURLRequest *request, NSDictionary *parameters);
 
+
+/*!
+ UMKPatternMatchingMockRequest are mock requests that match actual requests based on a URL pattern. 
+ */
 @interface UMKPatternMatchingMockRequest : NSObject <UMKMockURLRequest>
 
 @property (nonatomic, copy, readonly) NSString *URLPattern;
@@ -43,7 +63,7 @@ typedef id<UMKMockURLResponder>(^UMKPatternMatchingResponderGenerationBlock)(NSU
 
 @interface UMKPatternMatchingMockHTTPRequest : UMKPatternMatchingMockRequest
 
-/*! The instance’s HTTP method. The default is kUMKMockHTTPRequestGetMethod. */
-@property (nonatomic, copy) NSString *HTTPMethod;
+/*! The HTTP methods that the instance matches. If nil, the instance matches all HTTP methods. */
+@property (nonatomic, copy) NSSet *HTTPMethods;
 
 @end
