@@ -27,7 +27,9 @@
 #import <URLMock/UMKMockHTTPMessage.h>
 
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
+#import <URLMock/NSURLRequest+UMKHTTPConvenience.h>
 #import <URLMock/UMKErrorUtilities.h>
+
 
 #pragma mark Constants
 
@@ -125,16 +127,7 @@ static BOOL UMKCaseInsensitiveStringIsEqualFunction(const void *item1, const voi
 
 - (BOOL)headersAreEqualToHeadersOfRequest:(NSURLRequest *)request
 {
-    NSDictionary *headerFields = [request allHTTPHeaderFields];
-    if (!request || headerFields.count != self.headers.count) return NO;
-
-    for (NSString *key in headerFields) {
-        if (![[headerFields objectForKey:key] isEqualToString:[self valueForHeaderField:key]]) {
-            return NO;
-        }
-    }
-
-    return YES;
+    return [request umk_HTTPHeadersAreEqualToHeaders:self.headers];
 }
 
 

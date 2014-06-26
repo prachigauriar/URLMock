@@ -1,13 +1,13 @@
 Pod::Spec.new do |s|
   s.name         = "URLMock"
-  s.version      = "1.1.3"
+  s.version      = "1.2"
 
   s.summary      = "A Cocoa framework for mocking and stubbing URL requests and responses."
   s.description  = <<-DESC
                    URLMock is an Objective-C framework for mocking and stubbing URL requests and
-                   responses. It works with APIs built on the Foundation NSURL loading
-                   system—NSURLConnection and AFNetworking, for example—without any changes to
-                   your code.
+                   responses. It works with APIs built on the Foundation NSURL loading system—
+                   NSURLConnection, NSURLSession, and AFNetworking, for example—without any changes
+                   to your code.
                    DESC
 
   s.author       = { "Two Toasters" => "general@twotoasters.com" }
@@ -27,6 +27,8 @@ Pod::Spec.new do |s|
                     'URLMock/Mock URL Protocol/UMKMockURLProtocol+UMKHTTPConvenienceMethods.{h,m}',
                     'URLMock/Mock URL Protocol/UMKMockURLProtocol.{h,m}',
                     'URLMock/Utilities/UMKMessageCountingProxy.{h,m}'
+
+  #s.dependency 'SOCKit', '~> 1.1'
 
   s.subspec 'TestHelpers' do |ss|
     ss.requires_arc = true

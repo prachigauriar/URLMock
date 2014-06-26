@@ -1,8 +1,8 @@
 //
-//  NSInputStream+UMKAvailableData.m
+//  NSURLRequest+UMKHTTPConvenience.m
 //  URLMock
 //
-//  Created by Prachi Gauriar on 6/23/2014.
+//  Created by Prachi Gauriar on 6/25/2014.
 //  Copyright (c) 2014 Two Toasters, LLC.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,20 +24,26 @@
 //  THE SOFTWARE.
 //
 
-#import "NSInputStream+UMKAvailableData.h"
+#import "NSURLRequest+UMKHTTPConvenience.h"
 
-@implementation NSInputStream (UMKAvailableData)
+@implementation NSURLRequest (UMKHTTPConvenience)
 
-- (NSData *)umk_availableData
+- (NSData *)umk_HTTPBodyData
 {
+    if (!self.HTTPBodyStream) {
+        return self.HTTPBody;
+    }
+
     const NSUInteger kBufferSize = 4096;
     uint8_t buffer[kBufferSize];
 
     NSMutableData *data = [[NSMutableData alloc] init];
-    [self open];
+    NSInputStream *bodyStream = [[self mutableCopy] HTTPBodyStream];
 
-    while (self.hasBytesAvailable) {
-        NSInteger bytesRead = [self read:buffer maxLength:kBufferSize];
+    [bodyStream open];
+
+    while (bodyStream.hasBytesAvailable) {
+        NSInteger bytesRead = [bodyStream read:buffer maxLength:kBufferSize];
         if (bytesRead > 0) {
             NSData *readData = [NSData dataWithBytes:buffer length:bytesRead];
             [data appendData:readData];
@@ -48,8 +54,24 @@
         }
     }
 
-    [self close];
+    [bodyStream close];
     return [data copy];
+}
+
+
+- (BOOL)umk_HTTPHeadersAreEqualToHeaders:(NSDictionary *)headers
+{
+    if (!headers || headers.count != self.allHTTPHeaderFields.count) {
+        return NO;
+    }
+
+    for (NSString *key in headers) {
+        if (![[self valueForHTTPHeaderField:key] isEqualToString:headers[key]]) {
+            return NO;
+        }
+    }
+
+    return YES;
 }
 
 @end
