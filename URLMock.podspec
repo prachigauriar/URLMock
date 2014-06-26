@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
                     'URLMock/Mock URL Protocol/UMKMockURLProtocol.{h,m}',
                     'URLMock/Utilities/UMKMessageCountingProxy.{h,m}'
 
-  #s.dependency 'SOCKit', '~> 1.1'
+  s.dependency 'SOCKit', '~> 1.1'
 
   s.subspec 'TestHelpers' do |ss|
     ss.requires_arc = true

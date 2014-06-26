@@ -1,10 +1,13 @@
 PODS:
   - OCMock (2.2.2)
+  - SOCKit (1.1)
 
 DEPENDENCIES:
   - OCMock (~> 2.0)
+  - SOCKit (~> 1.1)
 
 SPEC CHECKSUMS:
   OCMock: ee92ff671156212865397cd6fbae60a2d3698fb8
+  SOCKit: d8d0dd3688ae1026c12367570da8fa8e1a6980fb
 
 COCOAPODS: 0.33.1

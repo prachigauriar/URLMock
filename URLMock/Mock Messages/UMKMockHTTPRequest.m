@@ -199,7 +199,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 - (BOOL)matchesURLRequest:(NSURLRequest *)request
 {
     return [self.canonicalURL isEqual:[UMKMockURLProtocol canonicalURLForURL:request.URL]] &&
-           [self.HTTPMethod caseInsensitiveCompare:request.HTTPMethod] == NSOrderedSame &&
+           (request.HTTPMethod && [self.HTTPMethod caseInsensitiveCompare:request.HTTPMethod] == NSOrderedSame) &&
            (self.checksHeadersWhenMatching ? [self headersAreEqualToHeadersOfRequest:request] : YES) &&
            (self.checksBodyWhenMatching ? [self bodyMatchesBodyOfURLRequest:request] : YES);
 }
