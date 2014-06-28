@@ -388,11 +388,16 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 
 + (void)markRequest:(NSURLRequest *)request asServicedByMockRequest:(id<UMKMockURLRequest>)mockRequest
 {
-    if ([self isVerificationEnabled]) {
-        dispatch_async(self.settings.servicedRequestsIsolationQueue, ^{
-            self.settings.servicedRequests[request] = mockRequest;
-        });
-        
+    if (![self isVerificationEnabled]) {
+        return;
+    }
+
+    dispatch_async(self.settings.servicedRequestsIsolationQueue, ^{
+        self.settings.servicedRequests[request] = mockRequest;
+    });
+
+    // If the mockRequest doesn't respond to shouldRemoveAfterServicingRequest: or it does and it responds YES, remove it
+    if (![mockRequest respondsToSelector:@selector(shouldRemoveAfterServicingRequest:)] || [mockRequest shouldRemoveAfterServicingRequest:request]) {
         [self removeExpectedMockRequest:mockRequest];
     }
 }
@@ -419,7 +424,6 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
                                        reason:UMKExceptionString(self, _cmd, @"Verification is not enabled.")
                                      userInfo:nil];
     }
-
 
     // We want to disallow any writes to either unexpectedRequests or expectedMockRequests until we're done copying both
     __block NSArray *unexpectedRequests = nil;

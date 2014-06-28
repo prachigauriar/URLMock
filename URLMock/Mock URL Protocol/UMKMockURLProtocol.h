@@ -161,7 +161,7 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
 #pragma mark
 
 /*!
- The UMKMockURLRequest protocol declares messages that mock requests in the MockURL system must respond to.
+ The UMKMockURLRequest protocol declares messages that mock requests in the URLMock system must respond to.
  */
 @protocol UMKMockURLRequest <NSObject>
 
@@ -181,13 +181,26 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
  */
 - (id<UMKMockURLResponder>)responderForURLRequest:(NSURLRequest *)request;
 
+@optional
+
+/*!
+ @abstract Returns whether the receiver should be removed from UMKMockURLProtocol’s set of
+     expected mock requests after servicing the specified request.
+ @discussion This message is only sent to mock requests when verification is enabled on 
+     UMKMockURLProtocol. If a mock request does not respond to it, UMKMockURLProtocol will remove
+     the request.
+ @param request The request being serviced.
+ @result Whether the receiver should remove the receiver from the set of expected mock requests
+ */
+- (BOOL)shouldRemoveAfterServicingRequest:(NSURLRequest *)request;
+
 @end
 
 
 #pragma mark
 
 /*!
- The UMKMockURLResponder protocol declares messages that responders to mock requests in the MockURL system
+ The UMKMockURLResponder protocol declares messages that responders to mock requests in the URLMock system
  must respond to.
  */
 @protocol UMKMockURLResponder <NSObject>
