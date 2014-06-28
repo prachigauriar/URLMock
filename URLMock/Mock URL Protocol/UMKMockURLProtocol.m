@@ -436,7 +436,10 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
     });
     
     BOOL receivedUnexpectedRequest = unexpectedRequests.count > 0;
-    BOOL hasUnservicedMockRequests = expectedMockRequests.count > 0;
+
+    NSMutableSet *unservicedMockRequests = [NSMutableSet setWithArray:expectedMockRequests];
+    [unservicedMockRequests minusSet:[NSSet setWithArray:self.servicedRequests.allValues]];
+    BOOL hasUnservicedMockRequests = unservicedMockRequests.count > 0;
 
     BOOL passed = !(receivedUnexpectedRequest || hasUnservicedMockRequests);
     if (passed || !outError) {
@@ -458,7 +461,7 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
     }
     
     if (hasUnservicedMockRequests) {
-        userInfo[kUMKUnservicedMockRequestsKey] = expectedMockRequests;
+        userInfo[kUMKUnservicedMockRequestsKey] = [unservicedMockRequests allObjects];
     }
     
     *outError = [NSError errorWithDomain:kUMKErrorDomain code:code userInfo:userInfo];
