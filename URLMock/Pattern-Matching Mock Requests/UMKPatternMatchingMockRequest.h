@@ -49,14 +49,19 @@ typedef id<UMKMockURLResponder>(^UMKPatternMatchingResponderGenerationBlock)(NSU
 
 
 /*!
- UMKPatternMatchingMockRequest are mock requests that match URL requests based on a URL pattern. Each pattern- matching
- request has an associated URL pattern and a responder generation block. The URL pattern is a SOCKit pattern, e.g.,
+ UMKPatternMatchingMockRequest are mock requests that match URL requests based on a URL pattern. Each pattern-matching
+ mock request has an associated URL pattern and a responder generation block. The URL pattern is a SOCKit pattern, e.g.,
  http://hostname.com/:directory/:subdirectory/:resource. When a URL request matches the receiver’s URL pattern, the
  receiver calls its responder generation block with the request and the URL pattern parameters parsed from the request’s
  URL. You can use this block to generate an appropriate responder based on the contents of the URL request.
 
  In addition to the URL pattern, you can optionally provide a set of HTTP methods and a request-matching block to
  perform further tests on a request before matching it. See the documentation below for more details.
+ 
+ Note that due to the fact that a single pattern-matching mock request can match many actual requests, pattern-matching
+ mock requests are not removed from UMKMockURLProtocol’s set of expected mock requests after they service a request. To
+ remove a pattern-matching mock request, you can either remove the request manually using +[UMKMockURLProtocol
+ removeExpectedMockRequest:] or reset UMKMockURLProtocol entirely using +[UMKMockURLProtocol reset].
  */
 @interface UMKPatternMatchingMockRequest : NSObject <UMKMockURLRequest>
 

@@ -26,6 +26,7 @@ Pod::Spec.new do |s|
                     'URLMock/Mock Messages/UMKMockHTTPResponder.{h,m}',
                     'URLMock/Mock URL Protocol/UMKMockURLProtocol+UMKHTTPConvenienceMethods.{h,m}',
                     'URLMock/Mock URL Protocol/UMKMockURLProtocol.{h,m}',
+                    'URLMock/Pattern-Matching Mock Requests/UMKPatternMatchingMockRequest.{h,m}',
                     'URLMock/Utilities/UMKMessageCountingProxy.{h,m}'
 
   s.dependency 'SOCKit', '~> 1.1'
