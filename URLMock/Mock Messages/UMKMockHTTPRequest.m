@@ -40,7 +40,7 @@ NSString *const kUMKMockHTTPRequestPostMethod = @"POST";
 NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 
 
-#pragma mark
+#pragma mark -
 
 /*!
  UMKMockHTTPRequestSettings store settings for the UMKMockHTTPRequest class.
@@ -57,7 +57,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 @end
 
 
-#pragma mark
+#pragma mark -
 
 @interface UMKMockHTTPRequest ()
 
@@ -77,7 +77,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 @end
 
 
-#pragma mark
+#pragma mark -
 
 @implementation UMKMockHTTPRequest
 

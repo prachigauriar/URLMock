@@ -26,6 +26,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 /*! The error domain for the URLMock framework. */
 extern NSString *const kUMKErrorDomain;
 
@@ -158,7 +159,7 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
 @end
 
 
-#pragma mark
+#pragma mark -
 
 /*!
  The UMKMockURLRequest protocol declares messages that mock requests in the URLMock system must respond to.
@@ -197,7 +198,7 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
 @end
 
 
-#pragma mark
+#pragma mark -
 
 /*!
  The UMKMockURLResponder protocol declares messages that responders to mock requests in the URLMock system

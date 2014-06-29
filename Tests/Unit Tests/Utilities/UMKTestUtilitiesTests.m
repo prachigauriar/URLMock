@@ -26,12 +26,6 @@
 
 #import "UMKRandomizedTestCase.h"
 
-#import <URLMock/URLMock.h>
-
-#import "UMKRandomizedTestCase.h"
-
-static const NSUInteger UMKIterationCount = 512;
-
 
 @interface UMKTestUtilitiesTest : UMKRandomizedTestCase
 

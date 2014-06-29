@@ -29,7 +29,8 @@
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
 #import <URLMock/UMKErrorUtilities.h>
 
-#pragma mark - Constants
+
+#pragma mark Constants
 
 NSString *const kUMKErrorDomain = @"UMKErrorDomain";
 NSString *const kUMKUnexpectedRequestsKey = @"UMKUnexpectedRequests";
@@ -119,7 +120,7 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 @end
 
 
-#pragma mark
+#pragma mark -
 
 @implementation UMKMockURLProtocolSettings
 
@@ -187,7 +188,7 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 @end
 
 
-#pragma mark
+#pragma mark -
 
 @implementation UMKMockURLProtocol
 

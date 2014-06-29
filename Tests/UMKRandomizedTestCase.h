@@ -24,7 +24,13 @@
 //  THE SOFTWARE.
 //
 
+#import <URLMock/URLMock.h>
 #import <XCTest/XCTest.h>
+
+
+/*! A reasonable number of iterations to run a randomized test. */
+extern NSUInteger UMKIterationCount;
+
 
 /*!
  UMKRandomizedTestCases simply override +setUp to call srandomdev() and -setUp to generate and log a

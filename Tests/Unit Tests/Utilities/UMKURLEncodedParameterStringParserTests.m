@@ -27,9 +27,6 @@
 #import "UMKRandomizedTestCase.h"
 
 #import <URLMock/UMKURLEncodedParameterStringParser.h>
-#import <URLMock/URLMock.h>
-
-static const NSUInteger UMKIterationCount = 512;
 
 
 @interface UMKURLEncodedParameterStringParserTests : UMKRandomizedTestCase

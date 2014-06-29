@@ -26,9 +26,8 @@
 
 #import "UMKIntegrationTestCase.h"
 
-#import <URLMock/URLMock.h>
-
 #import "UMKURLConnectionVerifier.h"
+
 
 @interface URLMockIntegrationTests : UMKIntegrationTestCase
 

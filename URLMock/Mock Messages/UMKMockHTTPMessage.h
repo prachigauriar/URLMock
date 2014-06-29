@@ -26,6 +26,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 #pragma mark Constants
 
 /*! The HTTP header field for the Accepts header, i.e., "Accepts". */
@@ -53,7 +54,7 @@ extern NSString *const kUMKMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValu
 extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue;
 
 
-#pragma mark
+#pragma mark -
 
 /*!
  UMKMockHTTPMessage is an abstract class that collects common data and behavior for mock HTTP requests and responses.

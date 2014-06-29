@@ -24,7 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import "NSURLRequest+UMKHTTPConvenience.h"
+#import <URLMock/NSURLRequest+UMKHTTPConvenience.h>
+
 
 @implementation NSURLRequest (UMKHTTPConvenience)
 

@@ -29,6 +29,7 @@
 #import <URLMock/UMKParameterPair.h>
 #import <URLMock/UMKURLEncodedParameterStringParser.h>
 
+
 #pragma mark UMKURLEncoding Informal Protocol
 
 @interface NSObject (UMKURLEncoding)
@@ -53,7 +54,7 @@
 @end
 
 
-#pragma mark
+#pragma mark -
 
 @implementation NSObject (UMKURLEncoding)
 
@@ -71,7 +72,7 @@
 @end
 
 
-#pragma mark
+#pragma mark -
 
 @implementation NSArray (UMKURLEncoding)
 
@@ -104,7 +105,7 @@
 @end
 
 
-#pragma mark
+#pragma mark -
 
 @implementation NSDictionary (UMKURLEncoding)
 
@@ -180,7 +181,7 @@
 @end
 
 
-#pragma mark
+#pragma mark -
 
 @implementation NSSet (UMKURLEncoding)
 
@@ -213,7 +214,7 @@
 @end
 
 
-#pragma mark
+#pragma mark -
 
 @implementation NSString (UMKURLEncoding)
 
