@@ -31,6 +31,7 @@
 
 @interface UMKPatternMatchingMockRequest ()
 
+/*! The SOCKit pattern associated with the URL pattern. */
 @property (nonatomic, strong, readonly) SOCPattern *pattern;
 
 @end
@@ -42,32 +43,27 @@
 
 - (instancetype)init
 {
-    return [self initWithURLPattern:nil HTTPMethods:nil responderGenerationBlock:nil];
-}
-
-
-- (instancetype)initWithURLPattern:(NSString *)URLPattern responderGenerationBlock:(UMKPatternMatchingResponderGenerationBlock)responderGenerationBlock
-{
-    return [self initWithURLPattern:URLPattern HTTPMethods:nil responderGenerationBlock:responderGenerationBlock];
+    return [self initWithURLPattern:nil];
 }
 
 
 - (instancetype)initWithURLPattern:(NSString *)URLPattern
-                       HTTPMethods:(NSArray *)HTTPMethods
-          responderGenerationBlock:(UMKPatternMatchingResponderGenerationBlock)responderGenerationBlock
 {
     NSParameterAssert(URLPattern);
-    NSParameterAssert(responderGenerationBlock);
 
     self = [super init];
     if (self) {
         _URLPattern = [URLPattern copy];
         _pattern = [[SOCPattern alloc] initWithString:_URLPattern];
-        _responderGenerationBlock = [responderGenerationBlock copy];
-        _HTTPMethods = HTTPMethods ? [NSSet setWithArray:[HTTPMethods valueForKey:@"uppercaseString"]] : nil;
     }
 
     return self;
+}
+
+
+- (void)setHTTPMethods:(NSSet *)HTTPMethods
+{
+    _HTTPMethods = [HTTPMethods valueForKey:@"uppercaseString"];
 }
 
 
@@ -85,12 +81,20 @@
     }
 
     NSString *URLString = [self canonicalURLStringExcludingQueryForURL:request.URL];
-    return [self.pattern stringMatches:URLString] && (self.requestMatchingBlock ? self.requestMatchingBlock(request) : YES);
+    if (![self.pattern stringMatches:URLString]) {
+        return NO;
+    }
+
+    return self.requestMatchingBlock ? self.requestMatchingBlock(request, [self.pattern parameterDictionaryFromSourceString:URLString]) : YES;
 }
 
 
 - (id<UMKMockURLResponder>)responderForURLRequest:(NSURLRequest *)request
 {
+    if (!self.responderGenerationBlock) {
+        return nil;
+    }
+
     NSString *URLString = [self canonicalURLStringExcludingQueryForURL:request.URL];
     return self.responderGenerationBlock(request, [self.pattern parameterDictionaryFromSourceString:URLString]);
 }

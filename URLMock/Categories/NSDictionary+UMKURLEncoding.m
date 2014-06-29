@@ -118,7 +118,7 @@
 
 + (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string encoding:(NSStringEncoding)encoding
 {
-    NSCParameterAssert(string);
+    NSParameterAssert(string);
     UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string encoding:encoding];
     return [parser parse];
 }

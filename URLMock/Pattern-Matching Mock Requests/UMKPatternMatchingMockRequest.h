@@ -33,9 +33,10 @@
  @discussion This block type is used by pattern-matching mock requests to determine if the mock request matches
      a request.
  @param request The request being matched
+ @param parameters The URL pattern parameters that were parsed from the request’s URL
  @result Whether the request matches or not
  */
-typedef BOOL(^UMKRequestMatchingBlock)(NSURLRequest *request);
+typedef BOOL(^UMKParameterizedRequestMatchingBlock)(NSURLRequest *request, NSDictionary *parameters);
 
 /*!
  @abstract Block type for generating a responder based on a request and the specified URL path parameters.
@@ -46,7 +47,7 @@ typedef BOOL(^UMKRequestMatchingBlock)(NSURLRequest *request);
  @param parameters The URL pattern parameters that were parsed from the request’s URL
  @result A mock responder that responds to the specified request. May not be nil.
  */
-typedef id<UMKMockURLResponder>(^UMKPatternMatchingResponderGenerationBlock)(NSURLRequest *request, NSDictionary *parameters);
+typedef id<UMKMockURLResponder>(^UMKParameterizedResponderGenerationBlock)(NSURLRequest *request, NSDictionary *parameters);
 
 
 /*!
@@ -76,12 +77,18 @@ typedef id<UMKMockURLResponder>(^UMKPatternMatchingResponderGenerationBlock)(NSU
  */
 @property (nonatomic, copy, readonly) NSString *URLPattern;
 
+/*!
+ @abstract The HTTP methods that the instance matches.
+ @discussion If nil, the instance does not check a request’s HTTP method when matching.
+ */
+@property (nonatomic, copy) NSSet *HTTPMethods;
+
 /*! 
  @abstract The instance’s responder generation block.
- @discussion This block generates a mock responder for a given URL request and URL pattern parameters. It may not
-     return nil.
+ @discussion This block generates a mock responder for a given URL request and URL pattern parameters. It may not 
+     return nil. The return value of this block is what is returned by -responderForURLRequest:.
  */
-@property (nonatomic, copy, readonly) UMKPatternMatchingResponderGenerationBlock responderGenerationBlock;
+@property (nonatomic, copy) UMKParameterizedResponderGenerationBlock responderGenerationBlock;
 
 /*!
  @abstract The instance’s request-matching block.
@@ -90,35 +97,15 @@ typedef id<UMKMockURLResponder>(^UMKPatternMatchingResponderGenerationBlock)(NSU
      additional tests on the URL request being matched. The return value of the block will determine if the instance
      matches the request or not.
  */
-@property (nonatomic, copy) UMKRequestMatchingBlock requestMatchingBlock;
-
-/*! 
- @abstract The HTTP methods that the instance matches. 
- @discussion If nil, the instance does not check a request’s HTTP method when matching.
- */
-@property (nonatomic, copy, readonly) NSSet *HTTPMethods;
-
+@property (nonatomic, copy) UMKParameterizedRequestMatchingBlock requestMatchingBlock;
 
 /*!
  @abstract Initializes a newly allocated instance with the specified URL pattern and responder generation block.
- @discussion The returned object does not check a request’s HTTP method when matching.
- @param URLPattern The URL pattern for the new instance. May not be nil.
- @param responderGenerationBlock The responder generation block for the new instance. May not be nil.
- @result An initialized pattern-matching mock request instance.
- */
-- (instancetype)initWithURLPattern:(NSString *)URLPattern responderGenerationBlock:(UMKPatternMatchingResponderGenerationBlock)responderGenerationBlock;
-
-/*!
- @abstract Initializes a newly allocated instance with the specified URL pattern, HTTP methods, and responder
-     generation block.
  @discussion This is the class’s designated initializer.
+
  @param URLPattern The URL pattern for the new instance. May not be nil.
- @param HTTPMethods The HTTP methods the new instance uses to match URL requests. 
- @param responderGenerationBlock The responder generation block for the new instance. May not be nil.
  @result An initialized pattern-matching mock request instance.
  */
-- (instancetype)initWithURLPattern:(NSString *)URLPattern
-                       HTTPMethods:(NSArray *)HTTPMethods
-          responderGenerationBlock:(UMKPatternMatchingResponderGenerationBlock)responderGenerationBlock;
+- (instancetype)initWithURLPattern:(NSString *)URLPattern;
 
 @end

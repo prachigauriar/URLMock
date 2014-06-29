@@ -26,6 +26,8 @@
 
 #import <URLMock/NSURLRequest+UMKHTTPConvenience.h>
 
+#import <URLMock/NSDictionary+UMKURLEncoding.h>
+
 
 @implementation NSURLRequest (UMKHTTPConvenience)
 
@@ -57,6 +59,32 @@
 
     [bodyStream close];
     return [data copy];
+}
+
+
+- (id)umk_JSONObjectFromHTTPBody
+{
+    NSData *body = [self umk_HTTPBodyData];
+    return body ? [NSJSONSerialization JSONObjectWithData:body options:0 error:NULL] : nil;
+}
+
+
+- (NSDictionary *)umk_parametersFromURLEncodedHTTPBody
+{
+    NSString *bodyString = [self umk_stringFromHTTPBody];
+    return bodyString ? [NSDictionary umk_dictionaryWithURLEncodedParameterString:bodyString] : nil;
+}
+
+
+- (NSString *)umk_stringFromHTTPBody
+{
+    return [self umk_stringFromHTTPBodyWithEncoding:NSUTF8StringEncoding];
+}
+
+
+- (NSString *)umk_stringFromHTTPBodyWithEncoding:(NSStringEncoding)encoding
+{
+    return [[NSString alloc] initWithData:[self umk_HTTPBodyData] encoding:encoding];
 }
 
 

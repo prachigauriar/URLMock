@@ -33,6 +33,8 @@
 #import <URLMock/UMKMockHTTPRequest.h>
 #import <URLMock/UMKMockHTTPResponder.h>
 
+#import <URLMock/UMKPatternMatchingMockRequest.h>
+
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
 #import <URLMock/NSException+UMKSubclassResponsibility.h>
 #import <URLMock/NSURL+UMKQueryParameters.h>
