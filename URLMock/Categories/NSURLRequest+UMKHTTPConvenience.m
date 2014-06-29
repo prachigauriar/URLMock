@@ -84,13 +84,14 @@
 
 - (NSString *)umk_stringFromHTTPBodyWithEncoding:(NSStringEncoding)encoding
 {
-    return [[NSString alloc] initWithData:[self umk_HTTPBodyData] encoding:encoding];
+    NSData *bodyData = [self umk_HTTPBodyData];
+    return bodyData ? [[NSString alloc] initWithData:bodyData encoding:encoding] : nil;
 }
 
 
 - (BOOL)umk_HTTPHeadersAreEqualToHeaders:(NSDictionary *)headers
 {
-    if (!headers || headers.count != self.allHTTPHeaderFields.count) {
+    if (headers.count != self.allHTTPHeaderFields.count) {
         return NO;
     }
 

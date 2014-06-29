@@ -96,6 +96,11 @@ typedef id<UMKMockURLResponder>(^UMKParameterizedResponderGenerationBlock)(NSURL
      methods. If you provide a request-matching block, it will be called afterwards so that you can perform
      additional tests on the URL request being matched. The return value of the block will determine if the instance
      matches the request or not.
+ 
+     If a request has a non-nil HTTPBodyStream, your request matching block should not attempt to read it under any
+     circumstances, even by using -umk_HTTPBodyData. Doing so will make the body unreadable on subsequent attempts,
+     most notably by other potential mock requests or in the body of your responder generation block. This is due to
+     the nature of data streams. If the request has a non-nil HTTPBody, you may freely read the body in your block.
  */
 @property (nonatomic, copy) UMKParameterizedRequestMatchingBlock requestMatchingBlock;
 

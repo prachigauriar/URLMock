@@ -39,17 +39,24 @@
  @discussion This method works by first checking if the receiver has an HTTP body stream. If so,
      the stream’s data is collected in an NSData instance and returned. Otherwise, this method
      just returns the same thing as -HTTPBody.
+ 
+     Note that if the receiver has an HTTP body stream, this method may only be invoked once per URL request.
+     Subsequent invocations will return nil.
  */
 - (NSData *)umk_HTTPBodyData;
 
 /*!
  @abstract Returns the receiver's HTTP body as a JSON object.
+ @discussion This method is implemented using -umk_HTTPBodyData. As such, if the receiver has an HTTP body stream, 
+     this method may only be invoked once per URL request. Subsequent invocations will return nil.
  @result The receiver's body as a JSON object, or nil if the receiver's body does not contain valid JSON data.
  */
 - (id)umk_JSONObjectFromHTTPBody;
 
 /*!
  @abstract Returns a dictionary representation of the receiver's HTTP body intepreted as URL-encoded WWW form parameters.
+ @discussion This method is implemented using -umk_HTTPBodyData. As such, if the receiver has an HTTP body stream,
+     this method may only be invoked once per URL request. Subsequent invocations will return nil.
  @result A dictionary of the receiver's body as form parameters. Keys are strings. Values are either strings or the
      NSNull instance.
  */
@@ -57,12 +64,16 @@
 
 /*!
  @abstract Returns the receiver's HTTP body as a UTF-8-encoded string.
+ @discussion This method is implemented using -umk_HTTPBodyData. As such, if the receiver has an HTTP body stream,
+     this method may only be invoked once per URL request. Subsequent invocations will return nil.
  @result The receiver's HTTP body as a UTF-8 encoded string.
  */
 - (NSString *)umk_stringFromHTTPBody;
 
 /*!
  @abstract Returns the receiver's HTTP body as a string in the specified encoding.
+ @discussion This method is implemented using -umk_HTTPBodyData. As such, if the receiver has an HTTP body stream,
+     this method may only be invoked once per URL request. Subsequent invocations will return nil.
  @param encoding The encoding to use to convert the string to a data object.
  @result The receiver's HTTP body as a string in the specified encoding.
  */
