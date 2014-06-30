@@ -38,7 +38,7 @@
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
 #import <URLMock/NSException+UMKSubclassResponsibility.h>
 #import <URLMock/NSURL+UMKQueryParameters.h>
-#import <URLMock/NSURLRequest+UMKHTTPConvenience.h>
+#import <URLMock/NSURLRequest+UMKHTTPConvenienceMethods.h>
 
 #import <URLMock/UMKMessageCountingProxy.h>
 #import <URLMock/UMKErrorUtilities.h>

@@ -19,8 +19,10 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source       = { :git => "https://github.com/twotoasters/URLMock.git", :tag => s.version.to_s }
+  s.dependency 'SOCKit', '~> 1.1'
 
   s.source_files  = 'URLMock/URLMock.h',
+                    'URLMock/Categories/NSURLRequest+UMKHTTPConvenienceMethods.{h,m}'
                     'URLMock/Mock Messages/UMKMockHTTPMessage.{h,m}',
                     'URLMock/Mock Messages/UMKMockHTTPRequest.{h,m}',
                     'URLMock/Mock Messages/UMKMockHTTPResponder.{h,m}',
@@ -28,8 +30,6 @@ Pod::Spec.new do |s|
                     'URLMock/Mock URL Protocol/UMKMockURLProtocol.{h,m}',
                     'URLMock/Pattern-Matching Mock Requests/UMKPatternMatchingMockRequest.{h,m}',
                     'URLMock/Utilities/UMKMessageCountingProxy.{h,m}'
-
-  s.dependency 'SOCKit', '~> 1.1'
 
   s.subspec 'TestHelpers' do |ss|
     ss.requires_arc = true

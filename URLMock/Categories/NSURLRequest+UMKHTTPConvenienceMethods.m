@@ -1,5 +1,5 @@
 //
-//  NSURLRequest+UMKHTTPConvenience.m
+//  NSURLRequest+UMKHTTPConvenienceMethods.m
 //  URLMock
 //
 //  Created by Prachi Gauriar on 6/25/2014.
@@ -24,12 +24,12 @@
 //  THE SOFTWARE.
 //
 
-#import <URLMock/NSURLRequest+UMKHTTPConvenience.h>
+#import <URLMock/NSURLRequest+UMKHTTPConvenienceMethods.h>
 
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
 
 
-@implementation NSURLRequest (UMKHTTPConvenience)
+@implementation NSURLRequest (UMKHTTPConvenienceMethods)
 
 - (NSData *)umk_HTTPBodyData
 {

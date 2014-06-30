@@ -386,31 +386,26 @@
 
     NSString *pattern = @"https://domain.com/subdomain/:resource";
     NSURL *URL = [NSURL URLWithString:[pattern stringByReplacingOccurrencesOfString:@":resource" withString:@"users"]];
-    NSData *requestBody = [UMKRandomUnicodeString() dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *body = [UMKRandomUnicodeString() dataUsingEncoding:NSUTF8StringEncoding];
 
     UMKPatternMatchingMockRequest *mockRequest = [[UMKPatternMatchingMockRequest alloc] initWithURLPattern:pattern];
     mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSDictionary *parameters) {
         UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random() % 500];
-        responder.body = request.HTTPBody;
+        responder.body = [request umk_HTTPBodyData];
         return responder;
-    };
-
-    mockRequest.requestMatchingBlock = ^BOOL(NSURLRequest *request, NSDictionary *parameters) {
-        NSData *bodyData = [request umk_HTTPBodyData];
-        return bodyData != nil;
     };
 
     [UMKMockURLProtocol expectMockRequest:mockRequest];
 
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-    request.HTTPBodyStream = [NSInputStream inputStreamWithData:requestBody];
+    request.HTTPBodyStream = [NSInputStream inputStreamWithData:body];
 
     id verifier = [self verifierForConnectionWithURLRequest:request];
     XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
 
     XCTAssertTrue([UMKMockURLProtocol verifyWithError:NULL], @"Returned NO despite no unexpected or un-serviced requests");
     XCTAssertEqualObjects([UMKMockURLProtocol expectedMockRequests], @[ mockRequest ], @"Mock request was removed after being serviced");
-    XCTAssertEqualObjects([verifier body], requestBody, @"Received wrong body");
+    XCTAssertEqualObjects([verifier body], body, @"Received wrong body");
 
     [UMKMockURLProtocol setVerificationEnabled:NO];
 }

@@ -31,7 +31,7 @@
 
 @interface UMKPatternMatchingMockRequest ()
 
-/*! The SOCKit pattern associated with the URL pattern. */
+/*! The SOCKit pattern associated with the instance’s URL pattern. */
 @property (nonatomic, strong, readonly) SOCPattern *pattern;
 
 @end

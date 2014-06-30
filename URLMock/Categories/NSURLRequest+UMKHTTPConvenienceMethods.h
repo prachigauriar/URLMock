@@ -1,5 +1,5 @@
 //
-//  NSURLRequest+UMKHTTPConvenience.h
+//  NSURLRequest+UMKHTTPConvenienceMethods.h
 //  URLMock
 //
 //  Created by Prachi Gauriar on 6/25/2014.
@@ -28,11 +28,10 @@
 
 
 /*!
- The UMKHTTPConvenience category on NSURLRequest adds methods to NSURLRequests to make it easier 
- to get the request’s HTTP body as an NSData instance and compare its HTTP headers to those in a
- specified dictionary.
+ The UMKHTTPConvenienceMethods category on NSURLRequest adds methods to NSURLRequests to make it easier to
+ get the request’s HTTP body in numerous forms and compare its HTTP headers to those in a specified dictionary.
  */
-@interface NSURLRequest (UMKHTTPConvenience)
+@interface NSURLRequest (UMKHTTPConvenienceMethods)
 
 /*!
  @abstract Returns the receiver’s HTTP body as an NSData instance.

@@ -27,7 +27,7 @@
 #import <URLMock/UMKMockHTTPMessage.h>
 
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
-#import <URLMock/NSURLRequest+UMKHTTPConvenience.h>
+#import <URLMock/NSURLRequest+UMKHTTPConvenienceMethods.h>
 #import <URLMock/UMKErrorUtilities.h>
 
 
