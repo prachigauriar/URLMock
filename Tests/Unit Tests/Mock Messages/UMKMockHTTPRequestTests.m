@@ -26,7 +26,6 @@
 
 #import "UMKRandomizedTestCase.h"
 
-#import <URLMock/URLMock.h>
 
 @interface UMKMockHTTPRequestTests : UMKRandomizedTestCase
 

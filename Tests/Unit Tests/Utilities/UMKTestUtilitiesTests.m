@@ -26,12 +26,6 @@
 
 #import "UMKRandomizedTestCase.h"
 
-#import <URLMock/URLMock.h>
-
-#import "UMKRandomizedTestCase.h"
-
-static const NSUInteger UMKIterationCount = 512;
-
 
 @interface UMKTestUtilitiesTest : UMKRandomizedTestCase
 
@@ -39,6 +33,8 @@ static const NSUInteger UMKIterationCount = 512;
 - (void)testRandomAlphanumericStringWithLength;
 - (void)testRandomUnicodeString;
 - (void)testRandomUnicodeStringWithLength;
+- (void)testRandomIdentifierString;
+- (void)testRandomIdentifierStringWithLength;
 - (void)testRandomBoolean;
 - (void)testRandomUnsignedNumber;
 - (void)testRandomUnsignedNumberInRange;
@@ -90,18 +86,30 @@ static const NSUInteger UMKIterationCount = 512;
 }
 
 
++ (NSRegularExpression *)identifierRegularExpression
+{
+    static NSRegularExpression *identifierRegularExpression = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        identifierRegularExpression = [[NSRegularExpression alloc] initWithPattern:@"^[A-Za-z_][A-Za-z0-9_]*$" options:0 error:NULL];
+    });
+
+    return identifierRegularExpression;
+}
+
+
 - (void)testRandomAlphanumericString
 {
     NSCharacterSet *invertedAlphanumerics = [[self class] invertedAlphanumericCharacterSet];
     
     for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
         NSString *randomString = UMKRandomAlphanumericString();
-        XCTAssertNotNil(randomString, @"Randomly generated string was nil");
+        XCTAssertNotNil(randomString, @"Randomly generated string is nil");
         XCTAssertTrue([randomString length] >= 1, @"Randomly generated string did not contain at least one character");
-        XCTAssertTrue([randomString length] <= 128, @"Randomly generated string contained more than 128 characters");
+        XCTAssertTrue([randomString length] <= 128, @"Randomly generated string contains more than 128 characters");
 
         NSRange foundRange = [randomString rangeOfCharacterFromSet:invertedAlphanumerics];
-        XCTAssertEqual(foundRange.location, (NSUInteger)NSNotFound, @"Randomly generated string contained non-alphanumeric characters");
+        XCTAssertEqual(foundRange.location, (NSUInteger)NSNotFound, @"Randomly generated string contains non-alphanumeric characters");
     }
 }
 
@@ -114,11 +122,11 @@ static const NSUInteger UMKIterationCount = 512;
         NSUInteger length = random() % 1024 + 1;
 
         NSString *randomString = UMKRandomAlphanumericStringWithLength(length);
-        XCTAssertNotNil(randomString, @"Randomly generated string was nil");
-        XCTAssertEqual([randomString length], length, @"Randomly generated string had incorrect length");
+        XCTAssertNotNil(randomString, @"Randomly generated string is nil");
+        XCTAssertEqual([randomString length], length, @"Randomly generated string has incorrect length");
 
         NSRange foundRange = [randomString rangeOfCharacterFromSet:invertedAlphanumerics];
-        XCTAssertEqual(foundRange.location, (NSUInteger)NSNotFound, @"Randomly generated string contained non-alphanumeric characters");
+        XCTAssertEqual(foundRange.location, (NSUInteger)NSNotFound, @"Randomly generated string contains non-alphanumeric characters");
     }
 }
 
@@ -129,12 +137,12 @@ static const NSUInteger UMKIterationCount = 512;
     
     for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
         NSString *randomString = UMKRandomUnicodeString();
-        XCTAssertNotNil(randomString, @"Randomly generated string was nil");
+        XCTAssertNotNil(randomString, @"Randomly generated string is nil");
         XCTAssertTrue([randomString length] >= 1, @"Randomly generated string did not contain at least one character");
-        XCTAssertTrue([randomString length] <= 128, @"Randomly generated string contained more than 128 characters");
+        XCTAssertTrue([randomString length] <= 128, @"Randomly generated string contains more than 128 characters");
         
         NSRange foundRange = [randomString rangeOfCharacterFromSet:invertedRandomUnicodeCharacters];
-        XCTAssertEqual(foundRange.location, (NSUInteger)NSNotFound, @"Randomly generated string contained Unicode characters outside the specified range");
+        XCTAssertEqual(foundRange.location, (NSUInteger)NSNotFound, @"Randomly generated string contains Unicode characters outside the specified range");
     }
 }
 
@@ -147,11 +155,48 @@ static const NSUInteger UMKIterationCount = 512;
         NSUInteger length = random() % 1024 + 1;
         
         NSString *randomString = UMKRandomUnicodeStringWithLength(length);
-        XCTAssertNotNil(randomString, @"Randomly generated string was nil");
-        XCTAssertEqual([randomString length], length, @"Randomly generated string had incorrect length");
+        XCTAssertNotNil(randomString, @"Randomly generated string is nil");
+        XCTAssertEqual([randomString length], length, @"Randomly generated string has incorrect length");
         
         NSRange foundRange = [randomString rangeOfCharacterFromSet:invertedRandomUnicodeCharacters];
-        XCTAssertEqual(foundRange.location, (NSUInteger)NSNotFound, @"Randomly generated string contained Unicode characters outside the specified range");
+        XCTAssertEqual(foundRange.location, (NSUInteger)NSNotFound, @"Randomly generated string contains Unicode characters outside the specified range");
+    }
+}
+
+
+- (void)testRandomIdentifierString
+{
+    NSRegularExpression *identifierRegularExpression = [[self class] identifierRegularExpression];
+
+    for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
+        NSString *randomString = UMKRandomIdentifierString();
+        XCTAssertNotNil(randomString, @"Randomly generated string is nil");
+        XCTAssertTrue([randomString length] >= 1, @"Randomly generated string did not contain at least one character");
+        XCTAssertTrue([randomString length] <= 128, @"Randomly generated string contains more than 128 characters");
+
+        NSUInteger matchCount = [identifierRegularExpression numberOfMatchesInString:randomString
+                                                                             options:NSMatchingAnchored
+                                                                               range:NSMakeRange(0, randomString.length)];
+        XCTAssertEqual(matchCount, (NSUInteger)1, @"Randomly generated string does not match identifier regular expresion");
+    }
+}
+
+
+- (void)testRandomIdentifierStringWithLength
+{
+    NSRegularExpression *identifierRegularExpression = [[self class] identifierRegularExpression];
+
+    for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
+        NSUInteger length = random() % 1024 + 1;
+ 
+        NSString *randomString = UMKRandomIdentifierStringWithLength(length);
+        XCTAssertNotNil(randomString, @"Randomly generated string is nil");
+        XCTAssertEqual([randomString length], length, @"Randomly generated string has incorrect length");
+
+        NSUInteger matchCount = [identifierRegularExpression numberOfMatchesInString:randomString
+                                                                             options:NSMatchingAnchored
+                                                                               range:NSMakeRange(0, randomString.length)];
+        XCTAssertEqual(matchCount, (NSUInteger)1, @"Randomly generated string does not match identifier regular expresion");
     }
 }
 
@@ -340,7 +385,7 @@ static const NSUInteger UMKIterationCount = 512;
 
         XCTAssertNotNil(error.domain, @"domain is nil");
         XCTAssertEqual(error.domain.length, (NSUInteger)10, @"domain length is incorrect");
-        [domains addObject:domains];
+        [domains addObject:error.domain];
 
         [codes addObject:@(error.code)];
 
@@ -364,12 +409,12 @@ static const NSUInteger UMKIterationCount = 512;
     NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];
     XCTAssertFalse(UMKWaitForCondition(timeout, ^BOOL{ return NO; }));
     NSTimeInterval end = [NSDate timeIntervalSinceReferenceDate];
-    XCTAssertTrue(end - start >= timeout, @"Elapsed time (%f) was less than timeout (%f)", end - start, timeout);
+    XCTAssertTrue(end - start >= timeout, @"Elapsed time (%f) is less than timeout (%f)", end - start, timeout);
 
     start = [NSDate timeIntervalSinceReferenceDate];
     XCTAssertTrue(UMKWaitForCondition(timeout, ^BOOL{ return YES; }));
     end = [NSDate timeIntervalSinceReferenceDate];
-    XCTAssertTrue(end - start < timeout, @"Elapsed time (%f) was greater than timeout (%f)", end - start, timeout);
+    XCTAssertTrue(end - start < timeout, @"Elapsed time (%f) is greater than timeout (%f)", end - start, timeout);
 }
 
 @end

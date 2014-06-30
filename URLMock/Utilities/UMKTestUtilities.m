@@ -28,6 +28,7 @@
 
 #import <URLMock/NSURL+UMKQueryParameters.h>
 
+
 #pragma mark Private Type and Function Declarations
 
 /*! 
@@ -110,12 +111,12 @@ NSString *UMKRandomAlphanumericStringWithLength(NSUInteger length)
 {
     NSCParameterAssert(length > 0);
 
-    static const char *alphanumericCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    static const char *kUMKAlphanumericCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     static const NSUInteger kUMKAlphanumericCharacterCount = 62;
 
     char *randomCString = calloc(length + 1, sizeof(char));
     for (NSUInteger i = 0; i < length; ++i) {
-        randomCString[i] = alphanumericCharacters[random() % kUMKAlphanumericCharacterCount];
+        randomCString[i] = kUMKAlphanumericCharacters[random() % kUMKAlphanumericCharacterCount];
     }
 
     NSString *randomString = [NSString stringWithUTF8String:randomCString];
@@ -139,17 +140,44 @@ NSString *UMKRandomUnicodeStringWithLength(NSUInteger length)
     //     More Greek and Coptic: 0x03A3-0x03FF; Cyrillic: 0x0400-0x046F; Hebrew: 0x05D0-0x05EA;
     //     Arabic: 0x0621-0x063A; Devanagari: 0x0904-0x0939; Hiragana: 0x3041-0x3096; Katakana: 0x30A0-0x30F0
     static const NSUInteger kUMKCharacterSetCount = 10;
-    static const unichar characterSetFirst[kUMKCharacterSetCount] = { 0x0020, 0x00A0, 0x0391, 0x03A3, 0x0400, 0x05D0, 0x0621, 0x0904, 0x3041, 0x30A0 };
-    static const unichar characterSetLast[kUMKCharacterSetCount] = { 0x007E, 0x00FF, 0x03A1, 0x03FF, 0x046F, 0x05EA, 0x063A, 0x0939, 0x3096, 0x30F0 };
-    
+    static const unichar kUMKCharacterSetFirst[kUMKCharacterSetCount] = { 0x0020, 0x00A0, 0x0391, 0x03A3, 0x0400, 0x05D0, 0x0621, 0x0904, 0x3041, 0x30A0 };
+    static const unichar kUMKCharacterSetLast[kUMKCharacterSetCount] = { 0x007E, 0x00FF, 0x03A1, 0x03FF, 0x046F, 0x05EA, 0x063A, 0x0939, 0x3096, 0x30F0 };
+
     unichar *randomUnicodeString = calloc(length, sizeof(unichar));
     for (NSUInteger i = 0; i < length; ++i) {
         NSUInteger characterSet = random() % kUMKCharacterSetCount;
-        randomUnicodeString[i] = characterSetFirst[characterSet] + random() % (characterSetLast[characterSet] - characterSetFirst[characterSet]);
+        randomUnicodeString[i] = kUMKCharacterSetFirst[characterSet] + random() % (kUMKCharacterSetLast[characterSet] - kUMKCharacterSetFirst[characterSet]);
     }
 
     NSString *randomString = [NSString stringWithCharacters:randomUnicodeString length:length];
     free(randomUnicodeString);
+    return randomString;
+}
+
+
+NSString *UMKRandomIdentifierString(void)
+{
+    return UMKRandomIdentifierStringWithLength(1 + random() % 128);
+}
+
+
+NSString *UMKRandomIdentifierStringWithLength(NSUInteger length)
+{
+    NSCParameterAssert(length > 0);
+
+    static const char *kUMKInitialIdentifierCharacters = "_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    static const char *kUMKIdentifierCharacters = "_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    static const NSUInteger kUMKInitialIdentifierCharacterCount = 53;
+    static const NSUInteger kUMKIdentifierCharacterCount = 63;
+
+    char *randomCString = calloc(length + 1, sizeof(char));
+    randomCString[0] = kUMKInitialIdentifierCharacters[random() % kUMKInitialIdentifierCharacterCount];
+    for (NSUInteger i = 1; i < length; ++i) {
+        randomCString[i] = kUMKIdentifierCharacters[random() % kUMKIdentifierCharacterCount];
+    }
+
+    NSString *randomString = [NSString stringWithUTF8String:randomCString];
+    free(randomCString);
     return randomString;
 }
 

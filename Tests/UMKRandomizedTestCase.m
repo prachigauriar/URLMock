@@ -26,6 +26,13 @@
 
 #import "UMKRandomizedTestCase.h"
 
+#pragma mark Constants
+
+NSUInteger UMKIterationCount = 512;
+
+
+#pragma mark -
+
 @implementation UMKRandomizedTestCase
 
 + (void)setUp

@@ -26,21 +26,20 @@
 
 #import "UMKIntegrationTestCase.h"
 
-#import <URLMock/URLMock.h>
-
 #import "UMKURLConnectionVerifier.h"
+
 
 @interface URLMockIntegrationTests : UMKIntegrationTestCase
 
-- (void)testMockRequestsWithErrorResponse;
-- (void)testMockRequestsWithStatusCodeResponse;
-- (void)testMockRequestsWithDataResponseInOneChunk;
-- (void)testMockRequestsWithDataResponseInMultipleChunks;
+- (void)testConnectionMockRequestsWithErrorResponse;
+- (void)testConnectionMockRequestsWithStatusCodeResponse;
+- (void)testConnectionMockRequestsWithDataResponseInOneChunk;
+- (void)testConnectionMockRequestsWithDataResponseInMultipleChunks;
 
-- (void)testMockRequestsWithGeneratedErrorResponse;
-- (void)testMockRequestsWithGeneratedStatusCodeResponse;
-- (void)testMockRequestsWithGeneratedDataResponseInOneChunk;
-- (void)testMockRequestsWithGeneratedDataResponseInMultipleChunks;
+- (void)testSessionMockRequestsWithErrorResponse;
+- (void)testSessionMockRequestsWithStatusCodeResponse;
+- (void)testSessionMockRequestsWithDataResponseInOneChunk;
+- (void)testSessionMockRequestsWithDataResponseInMultipleChunks;
 
 - (void)testVerifyWithUnexpectedRequest;
 - (void)testVerifyWithUnservicedRequest;
@@ -54,7 +53,7 @@
 
 #pragma mark - Static Responders
 
-- (void)testMockRequestsWithErrorResponse
+- (void)testConnectionMockRequestsWithErrorResponse
 {
     for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
         NSURL *URL = UMKRandomHTTPURL();
@@ -79,7 +78,7 @@
 }
 
 
-- (void)testMockRequestsWithStatusCodeResponse
+- (void)testConnectionMockRequestsWithStatusCodeResponse
 {
     for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
         NSURL *URL = UMKRandomHTTPURL();
@@ -115,7 +114,7 @@
 }
 
 
-- (void)testMockRequestsWithDataResponseInOneChunk
+- (void)testConnectionMockRequestsWithDataResponseInOneChunk
 {
     for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
         NSURL *URL = UMKRandomHTTPURL();
@@ -152,7 +151,7 @@
 }
 
 
-- (void)testMockRequestsWithDataResponseInMultipleChunks
+- (void)testConnectionMockRequestsWithDataResponseInMultipleChunks
 {
     for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
         NSURL *URL = UMKRandomHTTPURL();
@@ -192,7 +191,7 @@
 
 #pragma mark - Generated Responders
 
-- (void)testMockRequestsWithGeneratedErrorResponse
+- (void)testSessionMockRequestsWithErrorResponse
 {
     for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
         NSURL *URL = UMKRandomHTTPURL();
@@ -218,7 +217,7 @@
 }
 
 
-- (void)testMockRequestsWithGeneratedStatusCodeResponse
+- (void)testSessionMockRequestsWithStatusCodeResponse
 {
     for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
         NSURL *URL = UMKRandomHTTPURL();
@@ -254,7 +253,7 @@
 }
 
 
-- (void)testMockRequestsWithGeneratedDataResponseInOneChunk
+- (void)testSessionMockRequestsWithDataResponseInOneChunk
 {
     for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
         NSURL *URL = UMKRandomHTTPURL();
@@ -291,7 +290,7 @@
 }
 
 
-- (void)testMockRequestsWithGeneratedDataResponseInMultipleChunks
+- (void)testSessionMockRequestsWithDataResponseInMultipleChunks
 {
     for (NSString *method in @[ @"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT" ]) {
         NSURL *URL = UMKRandomHTTPURL();
@@ -365,8 +364,11 @@
 {
     [UMKMockURLProtocol setVerificationEnabled:YES];
 
-    UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURL:UMKRandomHTTPURL()];
-    mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random() % 500];
+    UMKPatternMatchingMockRequest *mockRequest = [[UMKPatternMatchingMockRequest alloc] initWithURLPattern:@"https://domain.com/subdomain/:resource"];
+    mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSDictionary *parameters) {
+        return [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random() % 500];
+    };
+
     [UMKMockURLProtocol expectMockRequest:mockRequest];
 
     NSError *error = nil;
@@ -381,17 +383,34 @@
 - (void)testVerifySuccess
 {
     [UMKMockURLProtocol setVerificationEnabled:YES];
-    
-    NSURL *URL = UMKRandomHTTPURL();
-    UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPGetRequestWithURL:URL];
-    mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random() % 500];
+
+    NSString *pattern = @"https://domain.com/subdomain/:resource";
+    NSURL *URL = [NSURL URLWithString:[pattern stringByReplacingOccurrencesOfString:@":resource" withString:@"users"]];
+    NSData *requestBody = [UMKRandomUnicodeString() dataUsingEncoding:NSUTF8StringEncoding];
+
+    UMKPatternMatchingMockRequest *mockRequest = [[UMKPatternMatchingMockRequest alloc] initWithURLPattern:pattern];
+    mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSDictionary *parameters) {
+        UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random() % 500];
+        responder.body = request.HTTPBody;
+        return responder;
+    };
+
+    mockRequest.requestMatchingBlock = ^BOOL(NSURLRequest *request, NSDictionary *parameters) {
+        NSData *bodyData = [request umk_HTTPBodyData];
+        return bodyData != nil;
+    };
+
     [UMKMockURLProtocol expectMockRequest:mockRequest];
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+    request.HTTPBodyStream = [NSInputStream inputStreamWithData:requestBody];
+
     id verifier = [self verifierForConnectionWithURLRequest:request];
     XCTAssertTrue([verifier waitForCompletionWithTimeout:1.0], @"Request did not complete in time");
 
     XCTAssertTrue([UMKMockURLProtocol verifyWithError:NULL], @"Returned NO despite no unexpected or un-serviced requests");
+    XCTAssertEqualObjects([UMKMockURLProtocol expectedMockRequests], @[ mockRequest ], @"Mock request was removed after being serviced");
+    XCTAssertEqualObjects([verifier body], requestBody, @"Received wrong body");
 
     [UMKMockURLProtocol setVerificationEnabled:NO];
 }

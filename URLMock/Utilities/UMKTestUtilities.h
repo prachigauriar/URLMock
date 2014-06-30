@@ -32,6 +32,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 /*! @functiongroup Block-generated collections */
 
 /*!
@@ -121,6 +122,21 @@ extern NSString *UMKRandomUnicodeString(void);
  @result A random string of Unicode characters of the specified length.
  */
 extern NSString *UMKRandomUnicodeStringWithLength(NSUInteger length);
+
+/*!
+ @abstract Returns a random string suitable for use as a C identifier.
+ @discussion The length of the string is (randomly) between 1 and 128.
+ @result A random string suitable for use as a C identifier.
+ */
+extern NSString *UMKRandomIdentifierString(void);
+
+/*!
+ @abstract Returns a random string of the specified length suitable for use as a C identifier.
+ @discussion The returned string matches the regular expression '[A-Za-z_][A-Za-z0-9_]*'
+ @param length The length of the random string. Must be non-zero.
+ @result A random string of the specified length suitable for use as a C identifier.
+ */
+extern NSString *UMKRandomIdentifierStringWithLength(NSUInteger length);
 
 
 /*! @functiongroup Random booleans and numbers */

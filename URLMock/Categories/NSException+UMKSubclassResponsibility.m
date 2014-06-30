@@ -28,6 +28,7 @@
 
 #import <URLMock/UMKErrorUtilities.h>
 
+
 @implementation NSException (UMKSubclassResponsibility)
 
 + (instancetype)umk_subclassResponsibilityExceptionWithReceiver:(id)receiver selector:(SEL)selector

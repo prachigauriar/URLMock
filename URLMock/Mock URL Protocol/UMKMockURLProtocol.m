@@ -29,7 +29,8 @@
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
 #import <URLMock/UMKErrorUtilities.h>
 
-#pragma mark - Constants
+
+#pragma mark Constants
 
 NSString *const kUMKErrorDomain = @"UMKErrorDomain";
 NSString *const kUMKUnexpectedRequestsKey = @"UMKUnexpectedRequests";
@@ -119,7 +120,7 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 @end
 
 
-#pragma mark
+#pragma mark -
 
 @implementation UMKMockURLProtocolSettings
 
@@ -187,7 +188,7 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 @end
 
 
-#pragma mark
+#pragma mark -
 
 @implementation UMKMockURLProtocol
 
@@ -388,11 +389,16 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 
 + (void)markRequest:(NSURLRequest *)request asServicedByMockRequest:(id<UMKMockURLRequest>)mockRequest
 {
-    if ([self isVerificationEnabled]) {
-        dispatch_async(self.settings.servicedRequestsIsolationQueue, ^{
-            self.settings.servicedRequests[request] = mockRequest;
-        });
-        
+    if (![self isVerificationEnabled]) {
+        return;
+    }
+
+    dispatch_async(self.settings.servicedRequestsIsolationQueue, ^{
+        self.settings.servicedRequests[request] = mockRequest;
+    });
+
+    // If the mockRequest doesn't respond to shouldRemoveAfterServicingRequest: or it does and it responds YES, remove it
+    if (![mockRequest respondsToSelector:@selector(shouldRemoveAfterServicingRequest:)] || [mockRequest shouldRemoveAfterServicingRequest:request]) {
         [self removeExpectedMockRequest:mockRequest];
     }
 }
@@ -420,7 +426,6 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
                                      userInfo:nil];
     }
 
-
     // We want to disallow any writes to either unexpectedRequests or expectedMockRequests until we're done copying both
     __block NSArray *unexpectedRequests = nil;
     __block NSArray *expectedMockRequests = nil;
@@ -432,7 +437,10 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
     });
     
     BOOL receivedUnexpectedRequest = unexpectedRequests.count > 0;
-    BOOL hasUnservicedMockRequests = expectedMockRequests.count > 0;
+
+    NSMutableSet *unservicedMockRequests = [NSMutableSet setWithArray:expectedMockRequests];
+    [unservicedMockRequests minusSet:[NSSet setWithArray:self.servicedRequests.allValues]];
+    BOOL hasUnservicedMockRequests = unservicedMockRequests.count > 0;
 
     BOOL passed = !(receivedUnexpectedRequest || hasUnservicedMockRequests);
     if (passed || !outError) {
@@ -454,7 +462,7 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
     }
     
     if (hasUnservicedMockRequests) {
-        userInfo[kUMKUnservicedMockRequestsKey] = expectedMockRequests;
+        userInfo[kUMKUnservicedMockRequestsKey] = [unservicedMockRequests allObjects];
     }
     
     *outError = [NSError errorWithDomain:kUMKErrorDomain code:code userInfo:userInfo];

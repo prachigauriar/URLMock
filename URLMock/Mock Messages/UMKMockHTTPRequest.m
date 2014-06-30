@@ -27,8 +27,8 @@
 #import <URLMock/UMKMockHTTPRequest.h>
 
 #import <URLMock/NSDictionary+UMKURLEncoding.h>
+#import <URLMock/NSURLRequest+UMKHTTPConvenience.h>
 
-#import "NSInputStream+UMKAvailableData.h"
 
 #pragma mark Constants
 
@@ -40,7 +40,7 @@ NSString *const kUMKMockHTTPRequestPostMethod = @"POST";
 NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 
 
-#pragma mark
+#pragma mark -
 
 /*!
  UMKMockHTTPRequestSettings store settings for the UMKMockHTTPRequest class.
@@ -57,7 +57,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 @end
 
 
-#pragma mark
+#pragma mark -
 
 @interface UMKMockHTTPRequest ()
 
@@ -77,7 +77,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 @end
 
 
-#pragma mark
+#pragma mark -
 
 @implementation UMKMockHTTPRequest
 
@@ -199,7 +199,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 - (BOOL)matchesURLRequest:(NSURLRequest *)request
 {
     return [self.canonicalURL isEqual:[UMKMockURLProtocol canonicalURLForURL:request.URL]] &&
-           [self.HTTPMethod caseInsensitiveCompare:request.HTTPMethod] == NSOrderedSame &&
+           (request.HTTPMethod && [self.HTTPMethod caseInsensitiveCompare:request.HTTPMethod] == NSOrderedSame) &&
            (self.checksHeadersWhenMatching ? [self headersAreEqualToHeadersOfRequest:request] : YES) &&
            (self.checksBodyWhenMatching ? [self bodyMatchesBodyOfURLRequest:request] : YES);
 }
@@ -213,17 +213,9 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 
 #pragma mark - Private Methods
 
-- (NSData *)bodyForURLRequest:(NSURLRequest *)request
-{
-    // If the original request has an HTTP body, we’re done. Otherwise, make a mutable copy and get the data from its body stream.
-    // Making a mutable copy is required, as otherwise we can’t read the stream’s bytes.
-    return request.HTTPBody ? request.HTTPBody : [[[request mutableCopy] HTTPBodyStream] umk_availableData];
-}
-
-
 - (BOOL)bodyMatchesBodyOfURLRequest:(NSURLRequest *)request
 {
-    NSData *body = [self bodyForURLRequest:request];
+    NSData *body = [request umk_HTTPBodyData];
 
     // If one of these is nil and the other isn't, they don't match. Otherwise, if one is nil,
     // they're both nil, so they do match.

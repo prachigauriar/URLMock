@@ -26,6 +26,7 @@
 
 #import <URLMock/UMKMessageCountingProxy.h>
 
+
 @interface UMKMessageCountingProxy ()
 
 @property (nonatomic, strong) NSMutableDictionary *receivedMessageCounts;
@@ -33,7 +34,7 @@
 @end
 
 
-#pragma mark
+#pragma mark -
 
 @implementation UMKMessageCountingProxy
 

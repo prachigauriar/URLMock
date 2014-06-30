@@ -1,14 +1,13 @@
-platform :osx, '10.9'
-  
-target 'URLMock Tests'.to_sym do
-  pod 'OCMock', '~> 2.0'  
-end
+Target = Struct.new(:target, :platform, :platform_version)
 
-target :libURLMock, exclusive: false do
-  platform :ios, '7.0'
+[ Target.new('URLMock', :osx, '10.8'), Target.new('libURLMock', :ios, '6.1') ].each do |t|
+  target t.target.to_sym, exclusive: true do
+    platform t.platform, t.platform_version
+    pod 'SOCKit', '~> 1.1'
+  end
 
-  target 'libURLMock Tests'.to_sym do
+  target "#{t.target} Tests".to_sym, exclusive: true do
+    platform t.platform, t.platform_version
     pod 'OCMock', '~> 2.0'
   end
 end
-

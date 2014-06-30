@@ -26,8 +26,13 @@
 
 #import <URLMock/UMKParameterPair.h>
 
+
+#pragma mark Constants
+
 static const NSString *const kUMKParameterPairEscapedCharacters = @":/?&=;+!@#$()',*";
 
+
+#pragma mark -
 
 @implementation UMKParameterPair
 
