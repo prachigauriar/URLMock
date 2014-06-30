@@ -17,9 +17,10 @@ no changes to your code.
 * Works on both Mac OS X and iOS
 
 
-## What’s New in URLMock 1.2
+## What’s New in URLMock 1.2.1
 
-URLMock 1.2 is a major update that adds the following new functionality:
+URLMock 1.2.1 adds support for iOS 6.0. URLMock 1.2 is a major update that adds
+the following new functionality:
 
 * Pattern-based request matching using `UMKPatternMatchingMockRequest`
 * Support for stream-based requests, including those created with `NSURLSession`
@@ -29,14 +30,14 @@ URLMock 1.2 is a major update that adds the following new functionality:
   inside arrays inside dictionaries.
 * New test utility functions for generating random errors and C identifier
   strings
-* Official support for OS X 10.8 and iOS 6.1.
+* Official support for OS X 10.8 and iOS 6.0.
 
 
 ## Installation
 
 The easiest way to start using URLMock is to install it with CocoaPods. 
 
-    pod 'URLMock', '~> 1.2'
+    pod 'URLMock', '~> 1.2.1'
 
 You can also build it and include the built products in your project. For OS X,
 just add `URLMock.framework` to your project. For iOS, add URLMock’s public
