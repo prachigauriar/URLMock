@@ -147,8 +147,8 @@ Using URLMock for response stubbing is simple:
 ### Pattern-Matching Mock Requests
 
 You can also create a mock request that responds dynamically to the request it
-matches against using `UMKPatternMatchingMockRequest`. To create a pattern-
-matching mock request, you need to provide a URL pattern, e.g.,
+matches against using `UMKPatternMatchingMockRequest`. To create a
+pattern-matching mock request, you need to provide a URL pattern, e.g.,
 `@"http://hostname.com/:resource/:resourceID"`. When a URL request matches this
 pattern, the mock request generates an appropriate responder using its responder
 generation block:
@@ -244,12 +244,12 @@ a few additional APIs to make unit testing easier.
 
 ### Non-HTTP Protocols
 
-Out of the box, URLMock only supports HTTP and HTTPS. However, it is designed to 
-work with any URL protocol that the NSURL loading system can support. If you are 
-using a custom scheme or URL protocol and would like to add support for mocking 
-requests and responses, you need only create classes that conform to the 
-UMKMockURLRequest and UMKMockURLResponder protocols. See the implementations of
-UMKMockHTTPRequest and UMKMockHTTPResponder for examples.
+Out of the box, URLMock only supports HTTP and HTTPS. However, it is designed to
+work with any URL protocol that the NSURL loading system can support. If you are
+using a custom scheme or URL protocol and would like to add support for mocking
+requests and responses, you need only create classes that conform to the
+`UMKMockURLRequest` and `UMKMockURLResponder` protocols. See the implementations
+of `UMKMockHTTPRequest` and `UMKMockHTTPResponder` for examples.
 
 
 ## Contributing, Filing Bugs, and Requesting Enhancements
