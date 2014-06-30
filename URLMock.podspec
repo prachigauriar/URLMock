@@ -15,14 +15,14 @@ Pod::Spec.new do |s|
   s.license      = { :type => "MIT", :file => "LICENSE" }
 
   s.ios.deployment_target = '6.1'
-  s.osx.deployment_target = '10.7'
+  s.osx.deployment_target = '10.8'
   s.requires_arc = true
 
   s.source       = { :git => "https://github.com/twotoasters/URLMock.git", :tag => s.version.to_s }
   s.dependency 'SOCKit', '~> 1.1'
 
   s.source_files  = 'URLMock/URLMock.h',
-                    'URLMock/Categories/NSURLRequest+UMKHTTPConvenienceMethods.{h,m}'
+                    'URLMock/Categories/NSURLRequest+UMKHTTPConvenienceMethods.{h,m}',
                     'URLMock/Mock Messages/UMKMockHTTPMessage.{h,m}',
                     'URLMock/Mock Messages/UMKMockHTTPRequest.{h,m}',
                     'URLMock/Mock Messages/UMKMockHTTPResponder.{h,m}',

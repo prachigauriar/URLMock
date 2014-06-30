@@ -29,7 +29,7 @@ URLMock 1.2 is a major update that adds the following new functionality:
   inside arrays inside dictionaries.
 * New test utility functions for generating random errors and C identifier
   strings
-* Official support for OS X 10.7 and iOS 6.1.
+* Official support for OS X 10.8 and iOS 6.1.
 
 
 ## Installation
