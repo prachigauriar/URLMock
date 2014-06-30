@@ -83,9 +83,9 @@ Using URLMock for response stubbing is simple:
 
         [UMKMockURLProtocol enable];
 
-If you are using `NSURLSession` and not using the shared session, you also need
-to add `UMKMockURLProtocol` to your session configuration’s set of allowed
-protocol classes.
+   If you are using `NSURLSession` and not using the shared session, you also
+   need to add `UMKMockURLProtocol` to your session configuration’s set of
+   allowed protocol classes.
 
         NSURLSessionConfiguration *configuration = …;
         configuration.protocolClasses = @[ [UMKMockURLProtocol class] ];
