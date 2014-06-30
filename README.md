@@ -56,12 +56,12 @@ URLMock has two CocoaPods subspecs, `TestHelpers` and `SubclassResponsibility`.
 [`UMKTestUtilities.h`][UMKTestUtilities] for more details. It can be installed by
 adding the following line to your Podfile:
 
-    pod 'URLMock/TestHelpers', '~> 1.2'
+    pod 'URLMock/TestHelpers', '~> 1.2.1'
 
 Similarly, the `SubclassResponsibility` subspec can be installed by adding the 
 following line to your Podfile:
 
-    pod 'URLMock/SubclassResponsibility', '~> 1.2'
+    pod 'URLMock/SubclassResponsibility', '~> 1.2.1'
 
 This subspec adds methods to `NSException` to easily raise exceptions in methods 
 for which subclasses must provide an implementation. See 
