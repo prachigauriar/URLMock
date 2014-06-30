@@ -2,8 +2,8 @@
 
 URLMock is an Objective-C framework for mocking and stubbing URL requests and
 responses. It works with APIs built on the Foundation NSURL loading
-system—NSURLConnection and AFNetworking, for example—without any changes to
-your code.
+system—NSURLConnection, NSURLSession, and AFNetworking, for example—with almost
+no changes to your code.
 
 
 ## Features
@@ -17,45 +17,57 @@ your code.
 * Works on both Mac OS X and iOS
 
 
-## What’s New in URLMock 1.1.2
+## What’s New in URLMock 1.2
 
-URLMock 1.1.2 is a minor bug fix update. URLMock 1.1 introduced the following
-new functionality:
+URLMock 1.2 is a major update that adds the following new functionality:
 
-* Better unexpected request detection when verification is enabled
-* Better request/response description methods to aid in debugging failures
-* New convenience methods for adding mock HTTP requests and responses with 
-  JSON bodies.
-* New test utility functions for generating arrays, dictionaries, and sets with
-  blocks. These are great for randomly generating data for use in unit tests.
-  These and other test utilities are available in the `TestHelpers` Pod subspec.
-* New `SubclassResponsibilty` Pod subspec for easily throwing NSException
-  instances when a subclass failed to override an abstract method. 
-
-
-## Known Issues and Limitations
-
-* URLMock does not support stream-based requests, which means that it is
-  currently incompatible with NSURLSession. We are tracking this as a [GitHub 
-  issue][Issue-StreamBasedRequests] and hope to have it fixed soon. In the 
-  meantime, both NSURLConnection and AFNetworking 2.0 work.
-* URLMock can’t currently match requests and generate responses based on a
-  pattern or block. We plan to add a mechanism for doing this in the near
-  future. ([GitHub issue][Issue-PatternBasedRequests])
-
-[Issue-StreamBasedRequests]: https://github.com/twotoasters/URLMock/issues/3
-[Issue-PatternBasedRequests]: https://github.com/twotoasters/URLMock/issues/4
+* Pattern-based request matching using `UMKPatternMatchingMockRequest`
+* Support for stream-based requests, including those created with `NSURLSession`
+* More complete support for Rails/Rack-style nested parameter query strings.
+  We should now be able to encode and decode query strings with deeply nested
+  objects, e.g., strings inside dictionaries inside arrays inside dictionaries
+  inside arrays inside dictionaries.
+* New test utility functions for generating random errors and C identifier
+  strings
+* Official support for OS X 10.7 and iOS 6.1.
 
 
 ## Installation
 
 The easiest way to start using URLMock is to install it with CocoaPods. 
 
-    pod 'URLMock', '~> 1.1.2'
+    pod 'URLMock', '~> 1.2'
 
 You can also build it and include the built products in your project. For OS X,
-just add URLMock.framework to your project. For iOS, add URLMock’s public
-headers to your header search path and link in libURLMock.a.
+just add `URLMock.framework` to your project. For iOS, add URLMock’s public
+headers to your header search path and link in `libURLMock.a`.
+
+Note that URLMock depends on [SOCKit][SOCKit], so it may be necessary to get
+that separately if you’re not using CocoaPods. That said, we highly recommend
+you use CocoaPods.
+
+[SOCKit]: https://github.com/NimbusKit/sockit "SOCKit"
+
+### Installing Subspecs
+
+URLMock has two CocoaPods subspecs, `TestHelpers` and `SubclassResponsibility`. 
+`TestHelpers` includes a wide variety of useful testing functions. See
+[`UMKTestUtilities.h`][UMKTestUtilities] for more details. It can be installed by
+adding the following line to your Podfile:
+
+    pod 'URLMock/TestHelpers', '~> 1.2'
+
+Similarly, the `SubclassResponsibility` subspec can be installed by adding the 
+following line to your Podfile:
+
+    pod 'URLMock/SubclassResponsibility', '~> 1.2'
+
+This subspec adds methods to `NSException` to easily raise exceptions in methods 
+for which subclasses must provide an implementation. See 
+[NSException+UMKSubclassResponsibility.h][SubclassResponsibility] for details.
+
+[UMKTestUtilities]: https://github.com/twotoasters/URLMock/blob/master/URLMock/Utilities/UMKTestUtilities.h "UMKTestUtilities.h"
+[SubclassResponsibility]: https://github.com/twotoasters/URLMock/blob/master/URLMock/Categories/NSException%2BUMKSubclassResponsibility.h "NSException+UMKSubclassResponsibility.h"
 
 
 ## Using URLMock
@@ -70,6 +82,14 @@ Using URLMock for response stubbing is simple:
 1. Enable URLMock.
 
         [UMKMockURLProtocol enable];
+
+If you are using `NSURLSession` and not using the shared session, you also need
+to add `UMKMockURLProtocol` to your session configuration’s set of allowed
+protocol classes.
+
+        NSURLSessionConfiguration *configuration = …;
+        configuration.protocolClasses = @[ [UMKMockURLProtocol class] ];
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
 
 2. Add an expected mock request and response.
 
@@ -123,7 +143,41 @@ Using URLMock for response stubbing is simple:
             …
         }];    
 
+
+### Pattern-Matching Mock Requests
+
+You can also create a mock request that responds dynamically to the request it
+matches against using `UMKPatternMatchingMockRequest`. To create a pattern-
+matching mock request, you need to provide a URL pattern, e.g.,
+`@"http://hostname.com/:resource/:resourceID"`. When a URL request matches this
+pattern, the mock request generates an appropriate responder using its responder
+generation block:
+
+        NSString *pattern = @"http://hostname.com/accounts/:accountID/followers";
+        UMKPatternMatchingMockRequest *mockRequest =  [[UMKPatternMatchingMockRequest alloc] initWithPattern:pattern];
+        mockRequest.HTTPMethods = [NSSet setWithObject:kUMKMockHTTPRequestPostMethod];
         
+        // Respond with 
+        mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSDictionary *parameters) {
+            NSDictionary *requestJSON = [request umk_JSONObjectFromHTTPBody];
+
+            // Respond with 
+            //   { 
+            //     "account_id": «New follower’s ID»,
+            //     "following":  «Account ID that was POSTed to» 
+            //   }
+            NSDictionary *responseJSON = @{ @"follower_id" : requestJSON[@"follower_id"] 
+                                            @"following_id" : @([parameters[@"accountID"] integerValue]) };
+            UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:200];
+            [responder setBodyWithJSONObject:responseJSON];
+            return responder;
+        };
+        
+        [UMKMockURLProtocol addExpectedMockRequest:mockRequest];
+
+See the documentation for `UMKPatternMatchingMockRequest` for more information.
+
+
 ### Unit testing
 
 Unit testing with URLMock is very similar to response stubbing, but you can use 
