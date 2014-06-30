@@ -163,13 +163,12 @@ generation block:
 
             // Respond with 
             //   { 
-            //     "account_id": «New follower’s ID»,
-            //     "following":  «Account ID that was POSTed to» 
+            //     "follower_id": «New follower’s ID»,
+            //     "following_id":  «Account ID that was POSTed to» 
             //   }
-            NSDictionary *responseJSON = @{ @"follower_id" : requestJSON[@"follower_id"] 
-                                            @"following_id" : @([parameters[@"accountID"] integerValue]) };
             UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:200];
-            [responder setBodyWithJSONObject:responseJSON];
+            [responder setBodyWithJSONObject:@{ @"follower_id" : requestJSON[@"follower_id"] 
+                                                @"following_id" : @([parameters[@"accountID"] integerValue]) }];
             return responder;
         };
         
