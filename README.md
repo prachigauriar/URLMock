@@ -158,7 +158,6 @@ generation block:
         UMKPatternMatchingMockRequest *mockRequest =  [[UMKPatternMatchingMockRequest alloc] initWithPattern:pattern];
         mockRequest.HTTPMethods = [NSSet setWithObject:kUMKMockHTTPRequestPostMethod];
         
-        // Respond with 
         mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSDictionary *parameters) {
             NSDictionary *requestJSON = [request umk_JSONObjectFromHTTPBody];
 
