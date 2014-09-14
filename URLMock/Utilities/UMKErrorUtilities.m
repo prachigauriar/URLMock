@@ -26,17 +26,19 @@
 
 #import <URLMock/UMKErrorUtilities.h>
 
+#import <ObjC/ObjC-Runtime.h>
+
 
 NSString *UMKPrettySelector(id receiver, SEL selector)
 {
-    char methodType = [receiver isMemberOfClass:[receiver class]] ? '-' : '+';
+    char methodType = class_isMetaClass([receiver class]) ? '+' : '-';
     return [NSString stringWithFormat:@"%c%@", methodType, NSStringFromSelector(selector)];
 }
 
 
 NSString *UMKPrettyMethodName(id receiver, SEL selector)
 {
-    char methodType = [receiver isMemberOfClass:[receiver class]] ? '-' : '+';
+    char methodType = class_isMetaClass([receiver class]) ? '+' : '-';
     return [NSString stringWithFormat:@"%c[%@ %@]", methodType, NSStringFromClass([receiver class]), NSStringFromSelector(selector)];
 }
 
