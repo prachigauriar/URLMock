@@ -26,7 +26,7 @@
 
 #import <URLMock/UMKErrorUtilities.h>
 
-#import <ObjC/ObjC-Runtime.h>
+#import <objc/runtime.h>
 
 
 NSString *UMKPrettySelector(id receiver, SEL selector)
