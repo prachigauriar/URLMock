@@ -481,7 +481,7 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
     NSString *query = canonicalURL.query;
 
     // If there's a query, make sure the order of the parameters is consistent
-    if (query) {
+    if (query.length > 0) {
         NSString *canonicalQueryString = [[NSDictionary umk_dictionaryWithURLEncodedParameterString:query] umk_URLEncodedParameterString];
         NSString *URLString = [canonicalURL absoluteString];
         canonicalURL = [NSURL URLWithString:[URLString stringByReplacingCharactersInRange:[URLString rangeOfString:query]

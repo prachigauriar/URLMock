@@ -95,5 +95,21 @@
     XCTAssertEqualObjects([UMKMockURLProtocol expectedMockRequests], @[], @"Mock request not removed");
 }
 
+- (void)testCanonicalURL
+{
+    NSURL *testURL1 = [NSURL URLWithString:@"http://domain.com"];
+    NSURL *canonicalURL1 = [UMKMockURLProtocol canonicalURLForURL:testURL1];
+    XCTAssertEqualObjects(testURL1, canonicalURL1, @"canonicalURL should not mutate a URL without a query string");
+    
+    NSURL *testURL2 = [NSURL URLWithString:@"http://domain.com?"];
+    NSURL *canonicalURL2 = [UMKMockURLProtocol canonicalURLForURL:testURL2];
+    XCTAssertEqualObjects(testURL2, canonicalURL2, @"canonicalURL should not mutate a URL with an empty query string");
+    
+    NSURL *testURL3 = [NSURL URLWithString:@"http://domain?a=foo&b=bar&c=baz"];
+    NSURL *canonicalURL3 = [UMKMockURLProtocol canonicalURLForURL:testURL3];
+    NSURL *testURL4 = [NSURL URLWithString:@"http://domain?b=bar&c=baz&a=foo"];
+    NSURL *canonicalURL4 = [UMKMockURLProtocol canonicalURLForURL:testURL4];
+    XCTAssertEqualObjects(canonicalURL3, canonicalURL4, @"canonical URLs should be equal regardless of parameter order");
+}
 
 @end
