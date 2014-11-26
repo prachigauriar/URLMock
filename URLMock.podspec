@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "URLMock"
-  s.version      = "1.2.1"
+  s.version      = "1.2.2"
 
   s.summary      = "A Cocoa framework for mocking and stubbing URL requests and responses."
   s.description  = <<-DESC
@@ -29,15 +29,15 @@ Pod::Spec.new do |s|
                     'URLMock/Mock URL Protocol/UMKMockURLProtocol+UMKHTTPConvenienceMethods.{h,m}',
                     'URLMock/Mock URL Protocol/UMKMockURLProtocol.{h,m}',
                     'URLMock/Pattern-Matching Mock Requests/UMKPatternMatchingMockRequest.{h,m}',
-                    'URLMock/Utilities/UMKMessageCountingProxy.{h,m}'
 
   s.subspec 'TestHelpers' do |ss|
     ss.requires_arc = true
-    ss.source_files = 'URLMock/Utilities/UMKTestUtilities.{h,m}',
-                      'URLMock/Utilities/UMKErrorUtilities.{h,m}',
-                      'URLMock/Categories/NSURL+UMKQueryParameters.{h,m}',
+    ss.source_files = 'URLMock/Categories/NSURL+UMKQueryParameters.{h,m}',
                       'URLMock/Categories/NSDictionary+UMKURLEncoding.{h,m}',
+                      'URLMock/Utilities/UMKErrorUtilities.{h,m}',
+                      'URLMock/Utilities/UMKMessageCountingProxy.{h,m}'
                       'URLMock/Utilities/UMKParameterPair.{h,m}',
+                      'URLMock/Utilities/UMKTestUtilities.{h,m}',
                       'URLMock/Utilities/UMKURLEncodedParameterStringParser.{h,m}'
   end
 

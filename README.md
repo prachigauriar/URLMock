@@ -16,10 +16,10 @@ AFNetworking, for example—with almost no changes to your code.
 * Works on both Mac OS X and iOS
 
 
-## What’s New in URLMock 1.2.1
+## What’s New in URLMock 1.2.2
 
-URLMock 1.2.1 adds support for iOS 6.0. URLMock 1.2 is a major update that adds the following new
-functionality:
+URLMock 1.2.2 adds `UMKMessageCountingProxy` to the `TestHelpers` pod spec. URLMock 1.2 is a major
+update that adds the following new functionality:
 
 * Pattern-based request matching using `UMKPatternMatchingMockRequest`
 * Support for stream-based requests, including those created with `NSURLSession`
@@ -36,7 +36,7 @@ functionality:
 The easiest way to start using URLMock is to install it with CocoaPods. 
 
 ```ruby
-pod 'URLMock', '~> 1.2.1'
+pod 'URLMock', '~> 1.2.2'
 ```
 
 You can also build it and include the built products in your project. For OS X, just add
