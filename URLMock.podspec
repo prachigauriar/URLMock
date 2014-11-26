@@ -28,14 +28,14 @@ Pod::Spec.new do |s|
                     'URLMock/Mock Messages/UMKMockHTTPResponder.{h,m}',
                     'URLMock/Mock URL Protocol/UMKMockURLProtocol+UMKHTTPConvenienceMethods.{h,m}',
                     'URLMock/Mock URL Protocol/UMKMockURLProtocol.{h,m}',
-                    'URLMock/Pattern-Matching Mock Requests/UMKPatternMatchingMockRequest.{h,m}',
+                    'URLMock/Pattern-Matching Mock Requests/UMKPatternMatchingMockRequest.{h,m}'
 
   s.subspec 'TestHelpers' do |ss|
     ss.requires_arc = true
     ss.source_files = 'URLMock/Categories/NSURL+UMKQueryParameters.{h,m}',
                       'URLMock/Categories/NSDictionary+UMKURLEncoding.{h,m}',
                       'URLMock/Utilities/UMKErrorUtilities.{h,m}',
-                      'URLMock/Utilities/UMKMessageCountingProxy.{h,m}'
+                      'URLMock/Utilities/UMKMessageCountingProxy.{h,m}',
                       'URLMock/Utilities/UMKParameterPair.{h,m}',
                       'URLMock/Utilities/UMKTestUtilities.{h,m}',
                       'URLMock/Utilities/UMKURLEncodedParameterStringParser.{h,m}'
