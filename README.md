@@ -56,14 +56,14 @@ for more details. It can be installed by adding the following line to your Podfi
 
 
 ```ruby
-pod 'URLMock/TestHelpers', '~> 1.2.1'
+pod 'URLMock/TestHelpers', '~> 1.2.2'
 ```
 
 Similarly, the `SubclassResponsibility` subspec can be installed by adding the following line to
 your Podfile:
 
 ```ruby
-pod 'URLMock/SubclassResponsibility', '~> 1.2.1'
+pod 'URLMock/SubclassResponsibility', '~> 1.2.2'
 ```
 
 This subspec adds methods to `NSException` to easily raise exceptions in methods for which
