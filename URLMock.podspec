@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "URLMock"
-  s.version      = "1.2.2"
+  s.version      = "1.2.3"
 
   s.summary      = "A Cocoa framework for mocking and stubbing URL requests and responses."
   s.description  = <<-DESC
@@ -19,19 +19,20 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source       = { :git => "https://github.com/twotoasters/URLMock.git", :tag => s.version.to_s }
-  s.dependency 'SOCKit', '~> 1.1'
 
-  s.source_files  = 'URLMock/URLMock.h',
-                    'URLMock/Categories/NSURLRequest+UMKHTTPConvenienceMethods.{h,m}',
-                    'URLMock/Mock Messages/UMKMockHTTPMessage.{h,m}',
-                    'URLMock/Mock Messages/UMKMockHTTPRequest.{h,m}',
-                    'URLMock/Mock Messages/UMKMockHTTPResponder.{h,m}',
-                    'URLMock/Mock URL Protocol/UMKMockURLProtocol+UMKHTTPConvenienceMethods.{h,m}',
-                    'URLMock/Mock URL Protocol/UMKMockURLProtocol.{h,m}',
-                    'URLMock/Pattern-Matching Mock Requests/UMKPatternMatchingMockRequest.{h,m}'
+  s.subspec 'Core' do |ss|
+    ss.dependency 'SOCKit', '~> 1.1'
+    s.source_files  = 'URLMock/URLMock.h',
+                      'URLMock/Categories/NSURLRequest+UMKHTTPConvenienceMethods.{h,m}',
+                      'URLMock/Mock Messages/UMKMockHTTPMessage.{h,m}',
+                      'URLMock/Mock Messages/UMKMockHTTPRequest.{h,m}',
+                      'URLMock/Mock Messages/UMKMockHTTPResponder.{h,m}',
+                      'URLMock/Mock URL Protocol/UMKMockURLProtocol+UMKHTTPConvenienceMethods.{h,m}',
+                      'URLMock/Mock URL Protocol/UMKMockURLProtocol.{h,m}',
+                      'URLMock/Pattern-Matching Mock Requests/UMKPatternMatchingMockRequest.{h,m}'
+  end                    
 
   s.subspec 'TestHelpers' do |ss|
-    ss.requires_arc = true
     ss.source_files = 'URLMock/Categories/NSURL+UMKQueryParameters.{h,m}',
                       'URLMock/Categories/NSDictionary+UMKURLEncoding.{h,m}',
                       'URLMock/Utilities/UMKErrorUtilities.{h,m}',
@@ -42,7 +43,6 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'SubclassResponsibility' do |ss|
-    ss.requires_arc = true
     ss.dependency 'URLMock/TestHelpers'
     ss.source_files = 'URLMock/Categories/NSException+UMKSubclassResponsibility.{h,m}'
   end
