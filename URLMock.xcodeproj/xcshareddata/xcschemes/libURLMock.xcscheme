@@ -33,8 +33,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4C0FBDC0187DF55A00D5C4B8"
-               BuildableName = "libURLMock Tests.xctest"
-               BlueprintName = "libURLMock Tests"
+               BuildableName = "libURLMockTests.xctest"
+               BlueprintName = "libURLMockTests"
                ReferencedContainer = "container:URLMock.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -49,6 +49,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "4C45E810182EAF44002F2096"
+            BuildableName = "libURLMock.a"
+            BlueprintName = "libURLMock"
+            ReferencedContainer = "container:URLMock.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

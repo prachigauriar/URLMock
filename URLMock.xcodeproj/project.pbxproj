@@ -153,7 +153,10 @@
 		4CD4B05B195BA771006CFB65 /* NSURLRequest+UMKHTTPConvenienceMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD4B059195BA771006CFB65 /* NSURLRequest+UMKHTTPConvenienceMethods.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CD4B05D195BA771006CFB65 /* NSURLRequest+UMKHTTPConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD4B05A195BA771006CFB65 /* NSURLRequest+UMKHTTPConvenienceMethods.m */; };
 		4CD4B05E195BA771006CFB65 /* NSURLRequest+UMKHTTPConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD4B05A195BA771006CFB65 /* NSURLRequest+UMKHTTPConvenienceMethods.m */; };
+		538813FDBDED139619B19974 /* libPods-URLMock-iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41EB89FBBAE1CD4979565F12 /* libPods-URLMock-iOSTests.a */; };
+		60C09D87161DF1922A7A1552 /* libPods-URLMockTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7728255C65E1003D6993EE43 /* libPods-URLMockTests.a */; };
 		7A2DC81F2B47473BAF16627E /* libPods-libURLMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B562C5F1E2A4ECF9E3BBC6C /* libPods-libURLMock.a */; };
+		8A5D8547C73FDB32876870D9 /* libPods-libURLMockTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 488DB97BFD0202A6033EAFC2 /* libPods-libURLMockTests.a */; };
 		917DA2FEAA0D4775A9752024 /* libPods-URLMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 913E10467DBC490EA8F784A6 /* libPods-URLMock.a */; };
 		D884D9C8E5FE72A2CAC42B3F /* libPods-URLMock-iOS Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F5978DC5F8685620E7303C /* libPods-URLMock-iOS Tests.a */; };
 		FCA4833DA9154A3C5FD574ED /* libPods-URLMock-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 652F11CB0390ED875AE80B08 /* libPods-URLMock-iOS.a */; };
@@ -199,10 +202,14 @@
 		01E6158231A8B31582A9588E /* Pods-URLMock-iOS Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-iOS Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-iOS Tests/Pods-URLMock-iOS Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		094CDFF725310B1596A348DA /* Pods-libURLMock Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libURLMock Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-libURLMock Tests/Pods-libURLMock Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		0C05E4FC476678CD161649BB /* Pods-libURLMock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libURLMock.debug.xcconfig"; path = "Pods/Target Support Files/Pods-libURLMock/Pods-libURLMock.debug.xcconfig"; sourceTree = "<group>"; };
+		0CD818745FCA08417FCB83AD /* Pods-libURLMockTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libURLMockTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-libURLMockTests/Pods-libURLMockTests.release.xcconfig"; sourceTree = "<group>"; };
 		23F41C03D776CF25ED817223 /* Pods-URLMock Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock Tests/Pods-URLMock Tests.release.xcconfig"; sourceTree = "<group>"; };
 		25D102087D5D7CA3F8E9AF88 /* Pods-URLMock-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-iOS/Pods-URLMock-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		27F7D6475533434BA74B1144 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B469D9ED4132578C282CC73 /* Pods-URLMock-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-iOSTests/Pods-URLMock-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		2B5C20DE5E8C3561058305A2 /* Pods-URLMock-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-iOS/Pods-URLMock-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		41EB89FBBAE1CD4979565F12 /* libPods-URLMock-iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock-iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		488DB97BFD0202A6033EAFC2 /* libPods-libURLMockTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-libURLMockTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B562C5F1E2A4ECF9E3BBC6C /* libPods-libURLMock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-libURLMock.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0D38491879AFA6000A04DE /* NSException+UMKSubclassResponsibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSException+UMKSubclassResponsibility.h"; sourceTree = "<group>"; };
 		4C0D384A1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSException+UMKSubclassResponsibility.m"; sourceTree = "<group>"; };
@@ -213,11 +220,10 @@
 		4C0D3886187CD506000A04DE /* UMKParameterPair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKParameterPair.m; sourceTree = "<group>"; };
 		4C0D388C187CD657000A04DE /* NSDictionary+UMKURLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+UMKURLEncoding.h"; sourceTree = "<group>"; };
 		4C0D388D187CD657000A04DE /* NSDictionary+UMKURLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+UMKURLEncoding.m"; sourceTree = "<group>"; };
-		4C0FBDC1187DF55A00D5C4B8 /* libURLMock Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "libURLMock Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C0FBDC1187DF55A00D5C4B8 /* libURLMockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libURLMockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0FBDC4187DF55A00D5C4B8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		4C0FBDD4187DF5A000D5C4B8 /* libURLMock Tests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "libURLMock Tests-Prefix.pch"; sourceTree = "<group>"; };
-		4C1C148D183289C700DE8195 /* URLMock Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "URLMock Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C1C1491183289C700DE8195 /* URLMock Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "URLMock Tests-Info.plist"; sourceTree = "<group>"; };
+		4C1C148D183289C700DE8195 /* URLMockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLMockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C1C1491183289C700DE8195 /* URLMockTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "URLMockTests-Info.plist"; sourceTree = "<group>"; };
 		4C1C1493183289C700DE8195 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4C1C14A2183298F200DE8195 /* UMKMessageCountingProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKMessageCountingProxy.h; sourceTree = "<group>"; };
 		4C1C14A3183298F200DE8195 /* UMKMessageCountingProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKMessageCountingProxy.m; sourceTree = "<group>"; };
@@ -229,7 +235,6 @@
 		4C45E811182EAF44002F2096 /* libURLMock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libURLMock.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C45E814182EAF44002F2096 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4C45E822182EAF44002F2096 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		4C45E838182EAFBC002F2096 /* URLMock-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "URLMock-Prefix.pch"; sourceTree = "<group>"; };
 		4C45E83A182EAFCB002F2096 /* UMKMockHTTPMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKMockHTTPMessage.h; sourceTree = "<group>"; };
 		4C45E83B182EAFCB002F2096 /* UMKMockHTTPMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKMockHTTPMessage.m; sourceTree = "<group>"; };
 		4C45E83C182EAFCB002F2096 /* UMKMockHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKMockHTTPRequest.h; sourceTree = "<group>"; };
@@ -265,7 +270,7 @@
 		4C8F6031186158A900B3B2CB /* UMKURLConnectionVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKURLConnectionVerifier.m; sourceTree = "<group>"; };
 		4C8F60331861594B00B3B2CB /* UMKMockURLProtocolTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UMKMockURLProtocolTests.m; path = "Mock URL Protocol/UMKMockURLProtocolTests.m"; sourceTree = "<group>"; };
 		4C96CA031A5605BD003763D3 /* URLMock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLMock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C96CA0D1A5605BD003763D3 /* URLMock-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "URLMock-iOSTests.xctest"; path = "URLMock-iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C96CA0D1A5605BD003763D3 /* URLMock-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "URLMock-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C972EB11960AA1000D573D3 /* NSURLRequestUMKHTTPConvenienceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLRequestUMKHTTPConvenienceTests.m; sourceTree = "<group>"; };
 		4CC86F1C1836785100B878D6 /* UMKMockHTTPMessageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UMKMockHTTPMessageTests.m; path = "Mock Messages/UMKMockHTTPMessageTests.m"; sourceTree = "<group>"; };
 		4CC86F1F18367A7A00B878D6 /* UMKTestUtilitiesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKTestUtilitiesTests.m; sourceTree = "<group>"; };
@@ -274,14 +279,19 @@
 		4EC45F6000504F6581495339 /* libPods-URLMock Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC16A38890104CB48F18CB3 /* Pods-URLMock-iOS Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-iOS Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-iOS Tests/Pods-URLMock-iOS Tests.release.xcconfig"; sourceTree = "<group>"; };
 		53F5978DC5F8685620E7303C /* libPods-URLMock-iOS Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock-iOS Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		62EE12DC4091FA096C62DF82 /* Pods-URLMock-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-iOSTests/Pods-URLMock-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		652F11CB0390ED875AE80B08 /* libPods-URLMock-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7728255C65E1003D6993EE43 /* libPods-URLMockTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMockTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8427DFD818A41DD28906C1D8 /* Pods-URLMock Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock Tests/Pods-URLMock Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		8B16873E13664D0881DC763F /* libPods-libURLMock Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-libURLMock Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		913E10467DBC490EA8F784A6 /* libPods-URLMock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A83E476D95CE2E9650BB303 /* Pods-URLMock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock.release.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock/Pods-URLMock.release.xcconfig"; sourceTree = "<group>"; };
+		BF34F99C02A7507D69B48B30 /* Pods-URLMockTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMockTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-URLMockTests/Pods-URLMockTests.release.xcconfig"; sourceTree = "<group>"; };
 		C0A130DCAA5E5F645225D842 /* Pods-libURLMock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libURLMock.release.xcconfig"; path = "Pods/Target Support Files/Pods-libURLMock/Pods-libURLMock.release.xcconfig"; sourceTree = "<group>"; };
 		C0EE3EF0C1414FB491CB4433 /* libPods-libURLMock-libURLMock Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-libURLMock-libURLMock Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2031F73BA8083AAB026EC4A /* Pods-URLMock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock/Pods-URLMock.debug.xcconfig"; sourceTree = "<group>"; };
+		C21B7B3BA754B24988FA3007 /* Pods-URLMockTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMockTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URLMockTests/Pods-URLMockTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F32BAB0793D759BA74CEC46B /* Pods-libURLMockTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libURLMockTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-libURLMockTests/Pods-libURLMockTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FCCBB93F861BF312DD38A33C /* Pods-libURLMock Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libURLMock Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-libURLMock Tests/Pods-libURLMock Tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -294,6 +304,7 @@
 				4C0FBDC2187DF55A00D5C4B8 /* XCTest.framework in Frameworks */,
 				4CD058C2187E12C20071C2BF /* libURLMock.a in Frameworks */,
 				17BC8F45D79A4F7686BB16FE /* libPods-libURLMock Tests.a in Frameworks */,
+				8A5D8547C73FDB32876870D9 /* libPods-libURLMockTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +315,7 @@
 				4C5D0F49187DCB8200794855 /* Foundation.framework in Frameworks */,
 				4C1C148E183289C700DE8195 /* XCTest.framework in Frameworks */,
 				0B0396AF46334D1D88C3DE2F /* libPods-URLMock Tests.a in Frameworks */,
+				60C09D87161DF1922A7A1552 /* libPods-URLMockTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +351,7 @@
 			files = (
 				4C96CA0E1A5605BD003763D3 /* URLMock.framework in Frameworks */,
 				D884D9C8E5FE72A2CAC42B3F /* libPods-URLMock-iOS Tests.a in Frameworks */,
+				538813FDBDED139619B19974 /* libPods-URLMock-iOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,9 +385,8 @@
 		4C1C1490183289C700DE8195 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4C1C1491183289C700DE8195 /* URLMock Tests-Info.plist */,
+				4C1C1491183289C700DE8195 /* URLMockTests-Info.plist */,
 				4C1C1492183289C700DE8195 /* InfoPlist.strings */,
-				4C0FBDD4187DF5A000D5C4B8 /* libURLMock Tests-Prefix.pch */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -410,8 +422,8 @@
 			children = (
 				4C45E811182EAF44002F2096 /* libURLMock.a */,
 				4C45E8AF182FF1E1002F2096 /* URLMock.framework */,
-				4C1C148D183289C700DE8195 /* URLMock Tests.xctest */,
-				4C0FBDC1187DF55A00D5C4B8 /* libURLMock Tests.xctest */,
+				4C1C148D183289C700DE8195 /* URLMockTests.xctest */,
+				4C0FBDC1187DF55A00D5C4B8 /* libURLMockTests.xctest */,
 				4C96CA031A5605BD003763D3 /* URLMock.framework */,
 				4C96CA0D1A5605BD003763D3 /* URLMock-iOSTests.xctest */,
 			);
@@ -434,6 +446,9 @@
 				913E10467DBC490EA8F784A6 /* libPods-URLMock.a */,
 				652F11CB0390ED875AE80B08 /* libPods-URLMock-iOS.a */,
 				53F5978DC5F8685620E7303C /* libPods-URLMock-iOS Tests.a */,
+				41EB89FBBAE1CD4979565F12 /* libPods-URLMock-iOSTests.a */,
+				7728255C65E1003D6993EE43 /* libPods-URLMockTests.a */,
+				488DB97BFD0202A6033EAFC2 /* libPods-libURLMockTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -456,7 +471,6 @@
 			isa = PBXGroup;
 			children = (
 				4C45E8E2182FF397002F2096 /* URLMock-Info.plist */,
-				4C45E838182EAFBC002F2096 /* URLMock-Prefix.pch */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -610,6 +624,12 @@
 				C0A130DCAA5E5F645225D842 /* Pods-libURLMock.release.xcconfig */,
 				094CDFF725310B1596A348DA /* Pods-libURLMock Tests.debug.xcconfig */,
 				FCCBB93F861BF312DD38A33C /* Pods-libURLMock Tests.release.xcconfig */,
+				62EE12DC4091FA096C62DF82 /* Pods-URLMock-iOSTests.debug.xcconfig */,
+				2B469D9ED4132578C282CC73 /* Pods-URLMock-iOSTests.release.xcconfig */,
+				C21B7B3BA754B24988FA3007 /* Pods-URLMockTests.debug.xcconfig */,
+				BF34F99C02A7507D69B48B30 /* Pods-URLMockTests.release.xcconfig */,
+				F32BAB0793D759BA74CEC46B /* Pods-libURLMockTests.debug.xcconfig */,
+				0CD818745FCA08417FCB83AD /* Pods-libURLMockTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -688,9 +708,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		4C0FBDC0187DF55A00D5C4B8 /* libURLMock Tests */ = {
+		4C0FBDC0187DF55A00D5C4B8 /* libURLMockTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4C0FBDD1187DF55A00D5C4B8 /* Build configuration list for PBXNativeTarget "libURLMock Tests" */;
+			buildConfigurationList = 4C0FBDD1187DF55A00D5C4B8 /* Build configuration list for PBXNativeTarget "libURLMockTests" */;
 			buildPhases = (
 				83F91932E1454B40B7E33993 /* Check Pods Manifest.lock */,
 				4C0FBDBD187DF55A00D5C4B8 /* Sources */,
@@ -703,14 +723,14 @@
 			dependencies = (
 				4C0FBDD0187DF55A00D5C4B8 /* PBXTargetDependency */,
 			);
-			name = "libURLMock Tests";
+			name = libURLMockTests;
 			productName = "libURLMock Tests";
-			productReference = 4C0FBDC1187DF55A00D5C4B8 /* libURLMock Tests.xctest */;
+			productReference = 4C0FBDC1187DF55A00D5C4B8 /* libURLMockTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		4C1C148C183289C700DE8195 /* URLMock Tests */ = {
+		4C1C148C183289C700DE8195 /* URLMockTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4C1C149C183289C700DE8195 /* Build configuration list for PBXNativeTarget "URLMock Tests" */;
+			buildConfigurationList = 4C1C149C183289C700DE8195 /* Build configuration list for PBXNativeTarget "URLMockTests" */;
 			buildPhases = (
 				846F651C5141430FA0556A2F /* Check Pods Manifest.lock */,
 				4C1C1489183289C700DE8195 /* Sources */,
@@ -723,9 +743,9 @@
 			dependencies = (
 				4C1C1499183289C700DE8195 /* PBXTargetDependency */,
 			);
-			name = "URLMock Tests";
+			name = URLMockTests;
 			productName = "URLMock Tests";
-			productReference = 4C1C148D183289C700DE8195 /* URLMock Tests.xctest */;
+			productReference = 4C1C148D183289C700DE8195 /* URLMockTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		4C45E810182EAF44002F2096 /* libURLMock */ = {
@@ -788,9 +808,9 @@
 			productReference = 4C96CA031A5605BD003763D3 /* URLMock.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		4C96CA0C1A5605BD003763D3 /* URLMock-iOS Tests */ = {
+		4C96CA0C1A5605BD003763D3 /* URLMock-iOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4C96CA1B1A5605BD003763D3 /* Build configuration list for PBXNativeTarget "URLMock-iOS Tests" */;
+			buildConfigurationList = 4C96CA1B1A5605BD003763D3 /* Build configuration list for PBXNativeTarget "URLMock-iOSTests" */;
 			buildPhases = (
 				4AA4DE4059FD3526A839E364 /* Check Pods Manifest.lock */,
 				4C96CA091A5605BD003763D3 /* Sources */,
@@ -803,7 +823,7 @@
 			dependencies = (
 				4C96CA101A5605BD003763D3 /* PBXTargetDependency */,
 			);
-			name = "URLMock-iOS Tests";
+			name = "URLMock-iOSTests";
 			productName = "URLMock-iOSTests";
 			productReference = 4C96CA0D1A5605BD003763D3 /* URLMock-iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -842,11 +862,11 @@
 			projectRoot = "";
 			targets = (
 				4C45E8AE182FF1E1002F2096 /* URLMock */,
-				4C1C148C183289C700DE8195 /* URLMock Tests */,
+				4C1C148C183289C700DE8195 /* URLMockTests */,
 				4C96CA021A5605BD003763D3 /* URLMock-iOS */,
-				4C96CA0C1A5605BD003763D3 /* URLMock-iOS Tests */,
+				4C96CA0C1A5605BD003763D3 /* URLMock-iOSTests */,
 				4C45E810182EAF44002F2096 /* libURLMock */,
-				4C0FBDC0187DF55A00D5C4B8 /* libURLMock Tests */,
+				4C0FBDC0187DF55A00D5C4B8 /* libURLMockTests */,
 			);
 		};
 /* End PBXProject section */
@@ -919,7 +939,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMock-iOS Tests/Pods-URLMock-iOS Tests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMock-iOSTests/Pods-URLMock-iOSTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4AA4DE4059FD3526A839E364 /* Check Pods Manifest.lock */ = {
@@ -1024,7 +1044,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-libURLMock Tests/Pods-libURLMock Tests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-libURLMockTests/Pods-libURLMockTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B781B570A6D71A3FCDCA8510 /* Copy Pods Resources */ = {
@@ -1069,7 +1089,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMock Tests/Pods-URLMock Tests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMockTests/Pods-URLMockTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1238,7 +1258,7 @@
 /* Begin XCBuildConfiguration section */
 		4C0FBDD2187DF55A00D5C4B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 094CDFF725310B1596A348DA /* Pods-libURLMock Tests.debug.xcconfig */;
+			baseConfigurationReference = F32BAB0793D759BA74CEC46B /* Pods-libURLMockTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1263,7 +1283,6 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$SRCROOT/Tests/Supporting Files/libURLMock Tests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"DEBUG=1",
@@ -1280,7 +1299,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(BUILT_PRODUCTS_DIR)",
 				);
-				INFOPLIST_FILE = "$SRCROOT/Tests/Supporting Files/URLMock Tests-Info.plist";
+				INFOPLIST_FILE = "$SRCROOT/Tests/Supporting Files/URLMockTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -1295,7 +1314,7 @@
 		};
 		4C0FBDD3187DF55A00D5C4B8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FCCBB93F861BF312DD38A33C /* Pods-libURLMock Tests.release.xcconfig */;
+			baseConfigurationReference = 0CD818745FCA08417FCB83AD /* Pods-libURLMockTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1319,7 +1338,6 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$SRCROOT/Tests/Supporting Files/libURLMock Tests-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1331,7 +1349,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(BUILT_PRODUCTS_DIR)",
 				);
-				INFOPLIST_FILE = "$SRCROOT/Tests/Supporting Files/URLMock Tests-Info.plist";
+				INFOPLIST_FILE = "$SRCROOT/Tests/Supporting Files/URLMockTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1346,7 +1364,7 @@
 		};
 		4C1C149A183289C700DE8195 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8427DFD818A41DD28906C1D8 /* Pods-URLMock Tests.debug.xcconfig */;
+			baseConfigurationReference = C21B7B3BA754B24988FA3007 /* Pods-URLMockTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/URLMock.framework/Versions/A/URLMock";
@@ -1372,7 +1390,6 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$SRCROOT/Tests/Supporting Files/URLMock Tests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1384,7 +1401,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "$SRCROOT/Tests/Supporting Files/URLMock Tests-Info.plist";
+				INFOPLIST_FILE = "$SRCROOT/Tests/Supporting Files/URLMockTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1395,7 +1412,7 @@
 		};
 		4C1C149B183289C700DE8195 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 23F41C03D776CF25ED817223 /* Pods-URLMock Tests.release.xcconfig */;
+			baseConfigurationReference = BF34F99C02A7507D69B48B30 /* Pods-URLMockTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/URLMock.framework/Versions/A/URLMock";
@@ -1421,14 +1438,13 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$SRCROOT/Tests/Supporting Files/URLMock Tests-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "$SRCROOT/Tests/Supporting Files/URLMock Tests-Info.plist";
+				INFOPLIST_FILE = "$SRCROOT/Tests/Supporting Files/URLMockTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1488,7 +1504,6 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "URLMock/Supporting Files/URLMock-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1536,7 +1551,6 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "URLMock/Supporting Files/URLMock-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1583,7 +1597,6 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "URLMock/Supporting Files/URLMock-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1596,7 +1609,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "URLMock/Supporting Files/URLMock-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = URLMock;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
@@ -1633,7 +1646,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "URLMock/Supporting Files/URLMock-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1641,7 +1653,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "URLMock/Supporting Files/URLMock-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = URLMock;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
@@ -1689,7 +1701,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/URLMock/Supporting Files/URLMock-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = URLMock;
@@ -1736,7 +1748,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/URLMock/Supporting Files/URLMock-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = URLMock;
@@ -1751,7 +1763,7 @@
 		};
 		4C96CA181A5605BD003763D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 01E6158231A8B31582A9588E /* Pods-URLMock-iOS Tests.debug.xcconfig */;
+			baseConfigurationReference = 62EE12DC4091FA096C62DF82 /* Pods-URLMock-iOSTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1786,7 +1798,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "$SRCROOT/Tests/Supporting Files/URLMock Tests-Info.plist";
+				INFOPLIST_FILE = "$SRCROOT/Tests/Supporting Files/URLMockTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1797,7 +1809,7 @@
 		};
 		4C96CA191A5605BD003763D3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4FC16A38890104CB48F18CB3 /* Pods-URLMock-iOS Tests.release.xcconfig */;
+			baseConfigurationReference = 2B469D9ED4132578C282CC73 /* Pods-URLMock-iOSTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1826,7 +1838,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "$SRCROOT/Tests/Supporting Files/URLMock Tests-Info.plist";
+				INFOPLIST_FILE = "$SRCROOT/Tests/Supporting Files/URLMockTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -1839,7 +1851,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4C0FBDD1187DF55A00D5C4B8 /* Build configuration list for PBXNativeTarget "libURLMock Tests" */ = {
+		4C0FBDD1187DF55A00D5C4B8 /* Build configuration list for PBXNativeTarget "libURLMockTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4C0FBDD2187DF55A00D5C4B8 /* Debug */,
@@ -1848,7 +1860,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4C1C149C183289C700DE8195 /* Build configuration list for PBXNativeTarget "URLMock Tests" */ = {
+		4C1C149C183289C700DE8195 /* Build configuration list for PBXNativeTarget "URLMockTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4C1C149A183289C700DE8195 /* Debug */,
@@ -1893,7 +1905,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4C96CA1B1A5605BD003763D3 /* Build configuration list for PBXNativeTarget "URLMock-iOS Tests" */ = {
+		4C96CA1B1A5605BD003763D3 /* Build configuration list for PBXNativeTarget "URLMock-iOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4C96CA181A5605BD003763D3 /* Debug */,

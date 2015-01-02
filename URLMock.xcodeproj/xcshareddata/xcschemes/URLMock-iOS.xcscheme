@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4C96CA0C1A5605BD003763D3"
-               BuildableName = "URLMock-iOS Tests.xctest"
-               BlueprintName = "URLMock-iOS Tests"
+               BuildableName = "URLMock-iOSTests.xctest"
+               BlueprintName = "URLMock-iOSTests"
                ReferencedContainer = "container:URLMock.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,8 +47,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4C96CA0C1A5605BD003763D3"
-               BuildableName = "URLMock-iOS Tests.xctest"
-               BlueprintName = "URLMock-iOS Tests"
+               BuildableName = "URLMock-iOSTests.xctest"
+               BlueprintName = "URLMock-iOSTests"
                ReferencedContainer = "container:URLMock.xcodeproj">
             </BuildableReference>
          </TestableReference>
