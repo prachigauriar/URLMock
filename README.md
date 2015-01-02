@@ -16,9 +16,9 @@ AFNetworking, for example—with almost no changes to your code.
 * Works on both Mac OS X and iOS
 
 
-## What’s New in URLMock 1.2.2
+## What’s New in URLMock 1.2.3
 
-URLMock 1.2.2 adds `UMKMessageCountingProxy` to the `TestHelpers` pod spec. URLMock 1.2 is a major
+URLMock 1.2.3 makes minor non-functional changes to the URLMock podspec. URLMock 1.2 is a major
 update that adds the following new functionality:
 
 * Pattern-based request matching using `UMKPatternMatchingMockRequest`
@@ -36,7 +36,7 @@ update that adds the following new functionality:
 The easiest way to start using URLMock is to install it with CocoaPods. 
 
 ```ruby
-pod 'URLMock', '~> 1.2.2'
+pod 'URLMock', '~> 1.2.3'
 ```
 
 You can also build it and include the built products in your project. For OS X, just add
@@ -56,14 +56,14 @@ for more details. It can be installed by adding the following line to your Podfi
 
 
 ```ruby
-pod 'URLMock/TestHelpers', '~> 1.2.2'
+pod 'URLMock/TestHelpers', '~> 1.2.3'
 ```
 
 Similarly, the `SubclassResponsibility` subspec can be installed by adding the following line to
 your Podfile:
 
 ```ruby
-pod 'URLMock/SubclassResponsibility', '~> 1.2.2'
+pod 'URLMock/SubclassResponsibility', '~> 1.2.3'
 ```
 
 This subspec adds methods to `NSException` to easily raise exceptions in methods for which
