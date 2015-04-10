@@ -32,6 +32,99 @@
 
 @implementation UMKMockURLProtocol (UMKHTTPConvenienceMethods)
 
++ (UMKMockHTTPRequest *)expectMockHTTPGetRequestWithURL:(NSURL *)URL responseError:(NSError *)error
+{
+    return [self expectMockHTTPRequestWithMethod:kUMKMockHTTPRequestGetMethod URL:URL requestJSON:nil responseError:error];
+}
+
++ (UMKMockHTTPRequest *)expectMockHTTPRequestWithMethod:(NSString *)method URL:(NSURL *)URL requestXML:(NSString *)requestXML responseError:(NSError *)error
+{
+    NSParameterAssert(method);
+    NSParameterAssert(URL);
+    NSParameterAssert(error);
+
+    UMKMockHTTPRequest *mockRequest = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:method URL:URL];
+    if (requestXML) {
+        [mockRequest setBodyWithXMLString:requestXML];
+    }
+
+    mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithError:error];
+    [self expectMockRequest:mockRequest];
+    return mockRequest;
+}
+
+
++ (UMKMockHTTPRequest *)expectMockHTTPPatchRequestWithURL:(NSURL *)URL requestXML:(NSString *)requestXML responseError:(NSError *)error
+{
+    return [self expectMockHTTPRequestWithMethod:kUMKMockHTTPRequestPatchMethod URL:URL requestXML:requestXML responseError:error];
+}
+
+
++ (UMKMockHTTPRequest *)expectMockHTTPPostRequestWithURL:(NSURL *)URL requestXML:(NSString *)requestXML responseError:(NSError *)error
+{
+    return [self expectMockHTTPRequestWithMethod:kUMKMockHTTPRequestPostMethod URL:URL requestXML:requestXML responseError:error];
+}
+
+
++ (UMKMockHTTPRequest *)expectMockHTTPPutRequestWithURL:(NSURL *)URL requestXML:(NSString *)requestXML responseError:(NSError *)error
+{
+    return [self expectMockHTTPRequestWithMethod:kUMKMockHTTPRequestPutMethod URL:URL requestXML:requestXML responseError:error];
+}
+
+
++ (UMKMockHTTPRequest *)expectMockHTTPRequestWithMethod:(NSString *)method URL:(NSURL *)URL requestXML:(NSString *)requestXML
+                                     responseStatusCode:(NSInteger)statusCode responseXML:(NSString *)responseXML
+{
+    NSParameterAssert(method);
+    NSParameterAssert(URL);
+
+    UMKMockHTTPRequest *mockRequest = [[UMKMockHTTPRequest alloc] initWithHTTPMethod:method URL:URL];
+    if (requestXML) {
+        [mockRequest setBodyWithXMLString:requestXML];
+    }
+
+    UMKMockHTTPResponder *mockResponder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:statusCode];
+    if (responseXML) {
+        [mockResponder setBodyWithXMLString:responseXML];
+    }
+
+    mockRequest.responder = mockResponder;
+    [self expectMockRequest:mockRequest];
+    return mockRequest;
+}
+
+
++ (UMKMockHTTPRequest *)expectMockHTTPGetRequestWithURL:(NSURL *)URL responseStatusCode:(NSInteger)statusCode responseXML:(NSString *)responseXML
+{
+    return [self expectMockHTTPRequestWithMethod:kUMKMockHTTPRequestGetMethod URL:URL requestXML:nil
+                              responseStatusCode:statusCode responseXML:responseXML];
+}
+
+
++ (UMKMockHTTPRequest *)expectMockHTTPPatchRequestWithURL:(NSURL *)URL requestXML:(NSString *)requestXML
+                                       responseStatusCode:(NSInteger)statusCode responseXML:(NSString *)responseXML
+{
+    return [self expectMockHTTPRequestWithMethod:kUMKMockHTTPRequestPatchMethod URL:URL requestXML:requestXML
+                              responseStatusCode:statusCode responseXML:responseXML];
+}
+
+
++ (UMKMockHTTPRequest *)expectMockHTTPPostRequestWithURL:(NSURL *)URL requestXML:(NSString *)requestXML
+                                      responseStatusCode:(NSInteger)statusCode responseXML:(NSString *)responseXML
+{
+    return [self expectMockHTTPRequestWithMethod:kUMKMockHTTPRequestPostMethod URL:URL requestXML:requestXML
+                              responseStatusCode:statusCode responseXML:responseXML];
+}
+
+
++ (UMKMockHTTPRequest *)expectMockHTTPPutRequestWithURL:(NSURL *)URL requestXML:(NSString *)requestXML
+                                     responseStatusCode:(NSInteger)statusCode responseXML:(NSString *)responseXML
+{
+    return [self expectMockHTTPRequestWithMethod:kUMKMockHTTPRequestPutMethod URL:URL requestXML:requestXML
+                              responseStatusCode:statusCode responseXML:responseXML];
+}
+
+
 + (UMKMockHTTPRequest *)expectMockHTTPRequestWithMethod:(NSString *)method URL:(NSURL *)URL requestJSON:(id)requestJSON responseError:(NSError *)error
 {
     NSParameterAssert(method);
@@ -46,12 +139,6 @@
     mockRequest.responder = [UMKMockHTTPResponder mockHTTPResponderWithError:error];
     [self expectMockRequest:mockRequest];
     return mockRequest;
-}
-
-
-+ (UMKMockHTTPRequest *)expectMockHTTPGetRequestWithURL:(NSURL *)URL responseError:(NSError *)error
-{
-    return [self expectMockHTTPRequestWithMethod:kUMKMockHTTPRequestGetMethod URL:URL requestJSON:nil responseError:error];
 }
 
 

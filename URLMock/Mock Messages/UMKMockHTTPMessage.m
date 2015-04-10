@@ -38,6 +38,8 @@ NSString *const kUMKMockHTTPMessageContentTypeHeaderField = @"Content-Type";
 NSString *const kUMKMockHTTPMessageCookieHeaderField = @"Cookie";
 NSString *const kUMKMockHTTPMessageSetCookieHeaderField = @"Set-Cookie";
 
+NSString *const kUMKMockHTTPMessageXMLContentTypeHeaderValue = @"application/xml";
+NSString *const kUMKMockHTTPMessageUTF8XMLContentTypeHeaderValue = @"application/xml; charset=utf-8";
 NSString *const kUMKMockHTTPMessageJSONContentTypeHeaderValue = @"application/json";
 NSString *const kUMKMockHTTPMessageUTF8JSONContentTypeHeaderValue = @"application/json; charset=utf-8";
 NSString *const kUMKMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValue = @"application/x-www-form-urlencoded";
@@ -132,6 +134,14 @@ static BOOL UMKCaseInsensitiveStringIsEqualFunction(const void *item1, const voi
 
 
 #pragma mark - Body
+
+- (void)setBodyWithXMLString:(NSString *)xmlString
+{
+    [self setBodyWithString:xmlString];
+    if (![self valueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField]) {
+        [self setValue:kUMKMockHTTPMessageUTF8XMLContentTypeHeaderValue forHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
+    }
+}
 
 - (id)JSONObjectFromBody
 {

@@ -158,7 +158,6 @@
 		7A2DC81F2B47473BAF16627E /* libPods-libURLMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B562C5F1E2A4ECF9E3BBC6C /* libPods-libURLMock.a */; };
 		8A5D8547C73FDB32876870D9 /* libPods-libURLMockTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 488DB97BFD0202A6033EAFC2 /* libPods-libURLMockTests.a */; };
 		917DA2FEAA0D4775A9752024 /* libPods-URLMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 913E10467DBC490EA8F784A6 /* libPods-URLMock.a */; };
-		D884D9C8E5FE72A2CAC42B3F /* libPods-URLMock-iOS Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F5978DC5F8685620E7303C /* libPods-URLMock-iOS Tests.a */; };
 		FCA4833DA9154A3C5FD574ED /* libPods-URLMock-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 652F11CB0390ED875AE80B08 /* libPods-URLMock-iOS.a */; };
 /* End PBXBuildFile section */
 
@@ -350,7 +349,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C96CA0E1A5605BD003763D3 /* URLMock.framework in Frameworks */,
-				D884D9C8E5FE72A2CAC42B3F /* libPods-URLMock-iOS Tests.a in Frameworks */,
 				538813FDBDED139619B19974 /* libPods-URLMock-iOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

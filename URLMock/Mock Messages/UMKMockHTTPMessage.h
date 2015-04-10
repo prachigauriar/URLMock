@@ -41,6 +41,12 @@ extern NSString *const kUMKMockHTTPMessageCookieHeaderField;
 /*! The HTTP header field for the Set-Cookie header, i.e. "Set-Cookie". */
 extern NSString *const kUMKMockHTTPMessageSetCookieHeaderField;
 
+/*! The HTTP header value for the XML content type, i.e., "application/xml". */
+extern NSString *const kUMKMockHTTPMessageXMLContentTypeHeaderValue;
+
+/*! The HTTP header value for the UTF8-encoded XML content type, i.e., "application/xml; charset=utf-8".  */
+extern NSString *const kUMKMockHTTPMessageUTF8XMLContentTypeHeaderValue;
+
 /*! The HTTP header value for the JSON content type, i.e., "application/json". */
 extern NSString *const kUMKMockHTTPMessageJSONContentTypeHeaderValue;
 
@@ -106,6 +112,14 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
 
 
 /*! @methodgroup Geting and setting the body */
+
+/*!
+ @abstract Sets the receiver's body to the specified XML string.
+ @discussion If the receiver does not already have a value for the Content-type header field, sets the value of that
+ header to "application/xml; charset=utf-8".
+ @param xmlString The XML string set as the receiver's body.
+ */
+- (void)setBodyWithXMLString:(NSString *)xmlString;
 
 /*!
  @abstract Returns the receiver's body as a JSON object.
