@@ -36,127 +36,12 @@
 /*!
  @abstract Creates and expects a new mock HTTP GET request that responds with an error.
  @discussion There is no need to add the returned mock request to the list of expected mock requests, as
- this method adds it automatically.
+    this method adds it automatically.
  @param URL The URL for the mock GET request. May not be nil.
  @param error The error that the mock responder responds with. May not be nil.
  @result The newly created mock HTTP GET request. Its responder is set to the new mock error responder.
  */
 + (UMKMockHTTPRequest *)expectMockHTTPGetRequestWithURL:(NSURL *)URL responseError:(NSError *)error;
-
-/*! @methodgroup Mock Requests with XML Bodies with Error Responders */
-
-/*!
- @abstract Creates and expects a new mock HTTP request that responds with an error.
- @discussion There is no need to add the returned mock request to the list of expected mock requests, as
- this method adds it automatically.
- @param method The HTTP method for the mock HTTP request. May not be nil.
- @param URL The URL for the mock HTTP request. May not be nil.
- @param requestXML A XML string to use as the mock HTTP request body.
- @param error The error that the mock responder responds with. May not be nil.
- @result The newly created mock HTTP request. Its responder is set to the new mock error responder.
- */
-+ (UMKMockHTTPRequest *)expectMockHTTPRequestWithMethod:(NSString *)method URL:(NSURL *)URL
-                                             requestXML:(NSString *)requestXML responseError:(NSError *)error;
-
-/*!
- @abstract Creates and expects a new mock HTTP PATCH request that responds with an error.
- @discussion There is no need to add the returned mock request to the list of expected mock requests, as
- this method adds it automatically.
- @param URL The URL for the mock PATCH request. May not be nil.
- @param requestXML A XML string to use as the mock HTTP PATCH request body.
- @param error The error that the mock responder responds with. May not be nil.
- @result The newly created mock HTTP PATCH request. Its responder is set to the new mock error responder.
- */
-+ (UMKMockHTTPRequest *)expectMockHTTPPatchRequestWithURL:(NSURL *)URL requestXML:(NSString *)requestXML responseError:(NSError *)error;
-
-/*!
- @abstract Creates and expects a new mock HTTP POST request that responds with an error.
- @discussion There is no need to add the returned mock request to the list of expected mock requests, as
- this method adds it automatically.
- @param URL The URL for the mock POST request. May not be nil.
- @param requestXML A XML string to use as the mock HTTP POST request body.
- @param error The error that the mock responder responds with. May not be nil.
- @result The newly created mock HTTP POST request. Its responder is set to the new mock error responder.
- */
-+ (UMKMockHTTPRequest *)expectMockHTTPPostRequestWithURL:(NSURL *)URL requestXML:(NSString *)requestXML responseError:(NSError *)error;
-
-/*!
- @abstract Creates and expects a new mock HTTP PUT request that responds with an error.
- @discussion There is no need to add the returned mock request to the list of expected mock requests, as
- this method adds it automatically.
- @param URL The URL for the mock PUT request. May not be nil.
- @param requestXML A XML string to use as the mock HTTP PUT request body.
- @param error The error that the mock responder responds with. May not be nil.
- @result The newly created mock HTTP PUT request. Its responder is set to the new mock error responder.
- */
-+ (UMKMockHTTPRequest *)expectMockHTTPPutRequestWithURL:(NSURL *)URL requestXML:(NSString *)requestXML responseError:(NSError *)error;
-
-
-/*! @methodgroup Mock Requests and Responders with XML Bodies */
-
-/*!
- @abstract Creates and expects a new mock HTTP request that responds with a XML string.
- @discussion There is no need to add the returned mock request to the list of expected mock requests, as
- this method adds it automatically.
- @param method The HTTP method for the mock HTTP request. May not be nil.
- @param URL The URL for the mock HTTP request. May not be nil.
- @param requestXML A XML string to use as the mock HTTP request body.
- @param statusCode The status code for the HTTP response.
- @param responseXML A XML string to use as the mock HTTP response body.
- @result The newly created mock HTTP request. Its responder is set to the new mock XML body responder.
- */
-+ (UMKMockHTTPRequest *)expectMockHTTPRequestWithMethod:(NSString *)method URL:(NSURL *)URL requestXML:(NSString *)requestXML
-                                     responseStatusCode:(NSInteger)statusCode responseXML:(NSString *)responseXML;
-
-/*!
- @abstract Creates and expects a new mock HTTP GET request that responds with a XML string.
- @discussion There is no need to add the returned mock request to the list of expected mock requests, as
- this method adds it automatically.
- @param URL The URL for the mock GET request. May not be nil.
- @param statusCode The status code for the HTTP response.
- @param responseXML A XML string to use as the mock HTTP response body.
- @result The newly created mock HTTP GET request. Its responder is set to the new mock XML body responder.
- */
-+ (UMKMockHTTPRequest *)expectMockHTTPGetRequestWithURL:(NSURL *)URL responseStatusCode:(NSInteger)statusCode responseXML:(NSString *)responseXML;
-
-/*!
- @abstract Creates and expects a new mock HTTP PATCH request that responds with a XML string.
- @discussion There is no need to add the returned mock request to the list of expected mock requests, as
- this method adds it automatically.
- @param URL The URL for the mock PATCH request. May not be nil.
- @param requestXML A XML string to use as the mock HTTP PATCH request body.
- @param statusCode The status code for the HTTP response.
- @param responseXML A XML string to use as the mock HTTP response body.
- @result The newly created mock HTTP PATCH request. Its responder is set to the new mock XML body responder.
- */
-+ (UMKMockHTTPRequest *)expectMockHTTPPatchRequestWithURL:(NSURL *)URL requestXML:(NSString *)requestXML
-                                       responseStatusCode:(NSInteger)statusCode responseXML:(NSString *)responseXML;
-
-/*!
- @abstract Creates and expects a new mock HTTP POST request that responds with a XML string.
- @discussion There is no need to add the returned mock request to the list of expected mock requests, as
- this method adds it automatically.
- @param URL The URL for the mock POST request. May not be nil.
- @param requestXML A XML string to use as the mock HTTP POST request body.
- @param statusCode The status code for the HTTP response.
- @param responseXML A XML string to use as the mock HTTP response body.
- @result The newly created mock HTTP POST request. Its responder is set to the new mock XML body responder.
- */
-+ (UMKMockHTTPRequest *)expectMockHTTPPostRequestWithURL:(NSURL *)URL requestXML:(NSString *)requestXML
-                                      responseStatusCode:(NSInteger)statusCode responseXML:(NSString *)responseXML;
-
-/*!
- @abstract Creates and expects a new mock HTTP PUT request that responds with a XML string.
- @discussion There is no need to add the returned mock request to the list of expected mock requests, as
- this method adds it automatically.
- @param URL The URL for the mock PUT request. May not be nil.
- @param requestXML A XML string to use as the mock HTTP PUT request body.
- @param statusCode The status code for the HTTP response.
- @param responseXML A XML string to use as the mock HTTP response body.
- @result The newly created mock HTTP PUT request. Its responder is set to the new mock XML body responder.
- */
-+ (UMKMockHTTPRequest *)expectMockHTTPPutRequestWithURL:(NSURL *)URL requestXML:(NSString *)requestXML
-                                     responseStatusCode:(NSInteger)statusCode responseXML:(NSString *)responseXML;
 
 
 /*! @methodgroup Mock Requests with JSON Bodies with Error Responders */
@@ -273,5 +158,121 @@
  */
 + (UMKMockHTTPRequest *)expectMockHTTPPutRequestWithURL:(NSURL *)URL requestJSON:(id)requestJSON
                                      responseStatusCode:(NSInteger)statusCode responseJSON:(id)responseJSON;
+
+
+/*! @methodgroup Mock Requests with XML Bodies with Error Responders */
+
+/*!
+ @abstract Creates and expects a new mock HTTP request that responds with an error.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param method The HTTP method for the mock HTTP request. May not be nil.
+ @param URL The URL for the mock HTTP request. May not be nil.
+ @param requestXMLString An XML string to use as the mock HTTP request body.
+ @param error The error that the mock responder responds with. May not be nil.
+ @result The newly created mock HTTP request. Its responder is set to the new mock error responder.
+ */
++ (UMKMockHTTPRequest *)expectMockHTTPRequestWithMethod:(NSString *)method URL:(NSURL *)URL
+                                       requestXMLString:(NSString *)requestXMLString responseError:(NSError *)error;
+
+/*!
+ @abstract Creates and expects a new mock HTTP PATCH request that responds with an error.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param URL The URL for the mock PATCH request. May not be nil.
+ @param requestXMLString An XML string to use as the mock HTTP PATCH request body.
+ @param error The error that the mock responder responds with. May not be nil.
+ @result The newly created mock HTTP PATCH request. Its responder is set to the new mock error responder.
+ */
++ (UMKMockHTTPRequest *)expectMockHTTPPatchRequestWithURL:(NSURL *)URL requestXMLString:(NSString *)requestXMLString responseError:(NSError *)error;
+
+/*!
+ @abstract Creates and expects a new mock HTTP POST request that responds with an error.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param URL The URL for the mock POST request. May not be nil.
+ @param requestXMLString An XML string to use as the mock HTTP POST request body.
+ @param error The error that the mock responder responds with. May not be nil.
+ @result The newly created mock HTTP POST request. Its responder is set to the new mock error responder.
+ */
++ (UMKMockHTTPRequest *)expectMockHTTPPostRequestWithURL:(NSURL *)URL requestXMLString:(NSString *)requestXMLString responseError:(NSError *)error;
+
+/*!
+ @abstract Creates and expects a new mock HTTP PUT request that responds with an error.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param URL The URL for the mock PUT request. May not be nil.
+ @param requestXMLString An XML string to use as the mock HTTP PUT request body.
+ @param error The error that the mock responder responds with. May not be nil.
+ @result The newly created mock HTTP PUT request. Its responder is set to the new mock error responder.
+ */
++ (UMKMockHTTPRequest *)expectMockHTTPPutRequestWithURL:(NSURL *)URL requestXMLString:(NSString *)requestXMLString responseError:(NSError *)error;
+
+
+/*! @methodgroup Mock Requests and Responders with XML Bodies */
+
+/*!
+ @abstract Creates and expects a new mock HTTP request that responds with a XML string.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param method The HTTP method for the mock HTTP request. May not be nil.
+ @param URL The URL for the mock HTTP request. May not be nil.
+ @param requestXMLString An XML string to use as the mock HTTP request body.
+ @param statusCode The status code for the HTTP response.
+ @param responseXMLString An XML string to use as the mock HTTP response body.
+ @result The newly created mock HTTP request. Its responder is set to the new mock XML body responder.
+ */
++ (UMKMockHTTPRequest *)expectMockHTTPRequestWithMethod:(NSString *)method URL:(NSURL *)URL requestXMLString:(NSString *)requestXMLString
+                                     responseStatusCode:(NSInteger)statusCode responseXMLString:(NSString *)responseXMLString;
+
+/*!
+ @abstract Creates and expects a new mock HTTP GET request that responds with a XML string.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param URL The URL for the mock GET request. May not be nil.
+ @param statusCode The status code for the HTTP response.
+ @param responseXMLString An XML string to use as the mock HTTP response body.
+ @result The newly created mock HTTP GET request. Its responder is set to the new mock XML body responder.
+ */
++ (UMKMockHTTPRequest *)expectMockHTTPGetRequestWithURL:(NSURL *)URL responseStatusCode:(NSInteger)statusCode responseXMLString:(NSString *)responseXMLString;
+
+/*!
+ @abstract Creates and expects a new mock HTTP PATCH request that responds with a XML string.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param URL The URL for the mock PATCH request. May not be nil.
+ @param requestXMLString An XML string to use as the mock HTTP PATCH request body.
+ @param statusCode The status code for the HTTP response.
+ @param responseXMLString An XML string to use as the mock HTTP response body.
+ @result The newly created mock HTTP PATCH request. Its responder is set to the new mock XML body responder.
+ */
++ (UMKMockHTTPRequest *)expectMockHTTPPatchRequestWithURL:(NSURL *)URL requestXMLString:(NSString *)requestXMLString
+                                       responseStatusCode:(NSInteger)statusCode responseXMLString:(NSString *)responseXMLString;
+
+/*!
+ @abstract Creates and expects a new mock HTTP POST request that responds with a XML string.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param URL The URL for the mock POST request. May not be nil.
+ @param requestXMLString An XML string to use as the mock HTTP POST request body.
+ @param statusCode The status code for the HTTP response.
+ @param responseXMLString An XML string to use as the mock HTTP response body.
+ @result The newly created mock HTTP POST request. Its responder is set to the new mock XML body responder.
+ */
++ (UMKMockHTTPRequest *)expectMockHTTPPostRequestWithURL:(NSURL *)URL requestXMLString:(NSString *)requestXMLString
+                                      responseStatusCode:(NSInteger)statusCode responseXMLString:(NSString *)responseXMLString;
+
+/*!
+ @abstract Creates and expects a new mock HTTP PUT request that responds with a XML string.
+ @discussion There is no need to add the returned mock request to the list of expected mock requests, as
+     this method adds it automatically.
+ @param URL The URL for the mock PUT request. May not be nil.
+ @param requestXMLString An XML string to use as the mock HTTP PUT request body.
+ @param statusCode The status code for the HTTP response.
+ @param responseXMLString An XML string to use as the mock HTTP response body.
+ @result The newly created mock HTTP PUT request. Its responder is set to the new mock XML body responder.
+ */
++ (UMKMockHTTPRequest *)expectMockHTTPPutRequestWithURL:(NSURL *)URL requestXMLString:(NSString *)requestXMLString
+                                     responseStatusCode:(NSInteger)statusCode responseXMLString:(NSString *)responseXMLString;
 
 @end

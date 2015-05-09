@@ -110,17 +110,6 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
  */
 - (BOOL)headersAreEqualToHeadersOfRequest:(NSURLRequest *)request;
 
-
-/*! @methodgroup Geting and setting the body */
-
-/*!
- @abstract Sets the receiver's body to the specified XML string.
- @discussion If the receiver does not already have a value for the Content-type header field, sets the value of that
- header to "application/xml; charset=utf-8".
- @param xmlString The XML string set as the receiver's body.
- */
-- (void)setBodyWithXMLString:(NSString *)xmlString;
-
 /*!
  @abstract Returns the receiver's body as a JSON object.
  @result The receiver's body as a JSON object, or nil if the receiver's body does not contain valid JSON data.
@@ -178,5 +167,15 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
  @param encoding The encoding to use to convert the string to a data object.
  */
 - (void)setBodyWithString:(NSString *)string encoding:(NSStringEncoding)encoding;
+
+/*! @methodgroup Geting and setting the body */
+
+/*!
+ @abstract Sets the receiver's body to the specified XML string.
+ @discussion If the receiver does not already have a value for the Content-type header field, sets the value of that
+     header to "application/xml; charset=utf-8".
+ @param XMLString The XML string set as the receiver's body.
+ */
+- (void)setBodyWithXMLString:(NSString *)XMLString;
 
 @end

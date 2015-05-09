@@ -135,14 +135,6 @@ static BOOL UMKCaseInsensitiveStringIsEqualFunction(const void *item1, const voi
 
 #pragma mark - Body
 
-- (void)setBodyWithXMLString:(NSString *)xmlString
-{
-    [self setBodyWithString:xmlString];
-    if (![self valueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField]) {
-        [self setValue:kUMKMockHTTPMessageUTF8XMLContentTypeHeaderValue forHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
-    }
-}
-
 - (id)JSONObjectFromBody
 {
     return self.body ? [NSJSONSerialization JSONObjectWithData:self.body options:0 error:NULL] : nil;
@@ -203,6 +195,14 @@ static BOOL UMKCaseInsensitiveStringIsEqualFunction(const void *item1, const voi
 - (void)setBodyWithString:(NSString *)string encoding:(NSStringEncoding)encoding
 {
     self.body = [string dataUsingEncoding:encoding];
+}
+
+- (void)setBodyWithXMLString:(NSString *)XMLString
+{
+    [self setBodyWithString:XMLString];
+    if (![self valueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField]) {
+        [self setValue:kUMKMockHTTPMessageUTF8XMLContentTypeHeaderValue forHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
+    }
 }
 
 @end
