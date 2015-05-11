@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/8/2013.
-//  Copyright (c) 2013–2014 Two Toasters, LLC.
+//  Copyright (c) 2015 Ticketmaster.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
