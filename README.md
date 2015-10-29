@@ -175,7 +175,7 @@ mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *re
     //     "following_id":  «Account ID that was POSTed to» 
     //   }
     UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:200];
-    [responder setBodyWithJSONObject:@{ @"follower_id" : requestJSON[@"follower_id"] 
+    [responder setBodyWithJSONObject:@{ @"follower_id" : requestJSON[@"follower_id"],
                                         @"following_id" : @([parameters[@"accountID"] integerValue]) }];
     return responder;
 };
