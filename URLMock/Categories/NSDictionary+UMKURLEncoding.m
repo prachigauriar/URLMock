@@ -146,20 +146,20 @@
 
 - (NSString *)umk_URLEncodedParameterString
 {
-    return [self umk_URLEncodedParameterStringWithEncoding:NSUTF8StringEncoding];
+    NSArray *pairs = [self umk_parameterPairsWithKey:nil];
+    NSMutableArray *pairStrings = [[NSMutableArray alloc] initWithCapacity:pairs.count];
+
+    for (UMKParameterPair *pair in pairs) {
+        [pairStrings addObject:[pair URLEncodedStringValue]];
+    }
+
+    return [pairStrings componentsJoinedByString:@"&"];
 }
 
 
 - (NSString *)umk_URLEncodedParameterStringWithEncoding:(NSStringEncoding)encoding
 {
-    NSArray *pairs = [self umk_parameterPairsWithKey:nil];
-    NSMutableArray *pairStrings = [[NSMutableArray alloc] initWithCapacity:pairs.count];
-    
-    for (UMKParameterPair *pair in pairs) {
-        [pairStrings addObject:[pair URLEncodedStringValueWithEncoding:encoding]];
-    }
-    
-    return [pairStrings componentsJoinedByString:@"&"];
+    return [self umk_URLEncodedParameterString];
 }
 
 

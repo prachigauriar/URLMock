@@ -28,11 +28,6 @@
 #import <URLMock/UMKParameterPair.h>
 
 
-#pragma mark Constants
-
-static const NSString *const kUMKParameterPairEscapedCharacters = @":/?&=;+!@#$()',*";
-
-
 #pragma mark -
 
 @implementation UMKParameterPair
@@ -51,33 +46,28 @@ static const NSString *const kUMKParameterPairEscapedCharacters = @":/?&=;+!@#$(
 
 - (NSString *)URLEncodedStringValueWithEncoding:(NSStringEncoding)encoding
 {
-    NSString *stringValue = [self URLEncodedKeyStringWithEncoding:encoding];
+    return [self URLEncodedStringValue];
+}
+
+
+- (NSString *)URLEncodedStringValue
+{
+    static NSString *const kUMKKeyAllowedCharacters = @"[]ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~";
+    static NSString *const kUMKValueAllowedCharacters = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~";
+
+    NSString *stringValue = [self URLEncodedString:self.key allowedCharacters:kUMKKeyAllowedCharacters];
     if (self.value && self.value != [NSNull null]) {
-        stringValue = [stringValue stringByAppendingFormat:@"=%@", [self URLEncodedValueStringWithEncoding:encoding]];
+        stringValue = [stringValue stringByAppendingFormat:@"=%@", [self URLEncodedString:self.value allowedCharacters:kUMKValueAllowedCharacters]];
     }
     
     return stringValue;
 }
 
 
-- (NSString *)URLEncodedKeyStringWithEncoding:(NSStringEncoding)encoding
+- (NSString *)URLEncodedString:(NSString *)string allowedCharacters:(NSString *)allowedCharacters
 {
-    static NSString *const kUMKUnescapedCharacters = @".[]";
-	return CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                                     (__bridge CFStringRef)self.key,
-                                                                     (__bridge CFStringRef)kUMKUnescapedCharacters,
-                                                                     (__bridge CFStringRef)kUMKParameterPairEscapedCharacters,
-                                                                     CFStringConvertNSStringEncodingToEncoding(encoding)));
-}
-
-
-- (NSString *)URLEncodedValueStringWithEncoding:(NSStringEncoding)encoding
-{
-    return CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                                     (__bridge CFStringRef)[self.value description],
-                                                                     NULL,
-                                                                     (__bridge CFStringRef)kUMKParameterPairEscapedCharacters,
-                                                                     CFStringConvertNSStringEncodingToEncoding(encoding)));
+    NSCharacterSet *allowedCharacterSet = [NSCharacterSet characterSetWithCharactersInString:allowedCharacters];
+    return [string stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacterSet];
 }
 
 @end
