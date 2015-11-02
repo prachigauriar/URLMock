@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B0396AF46334D1D88C3DE2F /* libPods-URLMock Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EC45F6000504F6581495339 /* libPods-URLMock Tests.a */; };
-		17BC8F45D79A4F7686BB16FE /* libPods-libURLMock Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B16873E13664D0881DC763F /* libPods-libURLMock Tests.a */; };
 		4C0957FA187E043600436F23 /* UMKTestUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C34F62A183346FB00AD2A6D /* UMKTestUtilities.m */; };
 		4C0957FB187E043800436F23 /* UMKTestUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C34F62A183346FB00AD2A6D /* UMKTestUtilities.m */; };
 		4C0957FC187E043F00436F23 /* UMKMessageCountingProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C14A3183298F200DE8195 /* UMKMessageCountingProxy.m */; };
@@ -158,7 +156,6 @@
 		7A2DC81F2B47473BAF16627E /* libPods-libURLMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B562C5F1E2A4ECF9E3BBC6C /* libPods-libURLMock.a */; };
 		8A5D8547C73FDB32876870D9 /* libPods-libURLMockTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 488DB97BFD0202A6033EAFC2 /* libPods-libURLMockTests.a */; };
 		917DA2FEAA0D4775A9752024 /* libPods-URLMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 913E10467DBC490EA8F784A6 /* libPods-URLMock.a */; };
-		D884D9C8E5FE72A2CAC42B3F /* libPods-URLMock-iOS Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F5978DC5F8685620E7303C /* libPods-URLMock-iOS Tests.a */; };
 		FCA4833DA9154A3C5FD574ED /* libPods-URLMock-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 652F11CB0390ED875AE80B08 /* libPods-URLMock-iOS.a */; };
 /* End PBXBuildFile section */
 
@@ -303,7 +300,6 @@
 				4C0FBDC3187DF55A00D5C4B8 /* Foundation.framework in Frameworks */,
 				4C0FBDC2187DF55A00D5C4B8 /* XCTest.framework in Frameworks */,
 				4CD058C2187E12C20071C2BF /* libURLMock.a in Frameworks */,
-				17BC8F45D79A4F7686BB16FE /* libPods-libURLMock Tests.a in Frameworks */,
 				8A5D8547C73FDB32876870D9 /* libPods-libURLMockTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,7 +310,6 @@
 			files = (
 				4C5D0F49187DCB8200794855 /* Foundation.framework in Frameworks */,
 				4C1C148E183289C700DE8195 /* XCTest.framework in Frameworks */,
-				0B0396AF46334D1D88C3DE2F /* libPods-URLMock Tests.a in Frameworks */,
 				60C09D87161DF1922A7A1552 /* libPods-URLMockTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,7 +345,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C96CA0E1A5605BD003763D3 /* URLMock.framework in Frameworks */,
-				D884D9C8E5FE72A2CAC42B3F /* libPods-URLMock-iOS Tests.a in Frameworks */,
 				538813FDBDED139619B19974 /* libPods-URLMock-iOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1274,11 +1268,6 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1332,11 +1321,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1793,10 +1777,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1841,10 +1821,6 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
