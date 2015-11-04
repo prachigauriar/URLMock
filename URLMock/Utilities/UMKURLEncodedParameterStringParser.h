@@ -45,17 +45,26 @@
 /*! The string the instance parses. */
 @property (nonatomic, copy, readonly) NSString *string;
 
-/*! The encoding that the instance's percent-escape sequences were encoded in. */
-@property (nonatomic, assign, readonly) NSStringEncoding encoding;
+/*!
+ Deprecated. UTF-8 is always used during parsing.
+ */
+@property (nonatomic, assign, readonly) NSStringEncoding encoding DEPRECATED_ATTRIBUTE;
 
 
 /*!
- @abstract Initializes a new UMKURLEncodedParameterStringParser instance with the specified string and encoding.
+ @abstract Initializes a new UMKURLEncodedParameterStringParser instance with the specified string.
  @param string The URL encoded parameter string to parse.
- @param encoding The encoding that the string used for percent-escape sequences.
  @result A newly initialized UMKURLEncodedParameterStringParser.
  */
-- (instancetype)initWithString:(NSString *)string encoding:(NSStringEncoding)encoding;
+- (instancetype)initWithString:(NSString *)string;
+
+/*!
+ @abstract Deprecated. Use -initWithString: instead.
+ @param string The URL encoded parameter string to parse.
+ @param encoding Ignored.
+ @result A newly initialized UMKURLEncodedParameterStringParser.
+ */
+- (instancetype)initWithString:(NSString *)string encoding:(NSStringEncoding)encoding DEPRECATED_ATTRIBUTE;
 
 /*!
  @abstract Parses the receiver's string and returns a dictionary of the resulting object.

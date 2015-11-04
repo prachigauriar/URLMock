@@ -113,15 +113,15 @@
 
 + (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string
 {
-    return [self umk_dictionaryWithURLEncodedParameterString:string encoding:NSUTF8StringEncoding];
+    NSParameterAssert(string);
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string];
+    return [parser parse];
 }
 
 
 + (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string encoding:(NSStringEncoding)encoding
 {
-    NSParameterAssert(string);
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string encoding:encoding];
-    return [parser parse];
+    return [self umk_dictionaryWithURLEncodedParameterString:string];
 }
 
 
