@@ -75,16 +75,16 @@
 
 /*!
  @abstract Returns a URL encoded parameter string representation of the receiver.
- @discussion UTF-8 encoding is used when percent-escaping the parameter string.
  @result A URL encoded parameter string representation of the receiver.
  */
 - (NSString *)umk_URLEncodedParameterString;
 
 /*!
  @abstract Returns a URL encoded parameter string representation of the receiver.
- @param encoding The encoding to use when percent-escaping the parameter string.
+ @discussion Deprecated. Use -umk_URLEncodedParameterString instead.
+ @param encoding This parameter is ignored.
  @result A URL encoded parameter string representation of the receiver.
  */
-- (NSString *)umk_URLEncodedParameterStringWithEncoding:(NSStringEncoding)encoding;
+- (NSString *)umk_URLEncodedParameterStringWithEncoding:(NSStringEncoding)encoding DEPRECATED_ATTRIBUTE;
 
 @end

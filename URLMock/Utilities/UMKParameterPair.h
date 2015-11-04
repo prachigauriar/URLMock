@@ -50,10 +50,20 @@
 
 /*! 
  @abstract Returns a URL encoded string representation of the receiver.
- @discussion Characters that can't be represented in a URL are percent-escaped the specified encoding.
- @param encoding The encoding to use when percent-escaping the receiver key and value.
+ @discussion Deprecated. Use -URLEncodedStringValue instead.
+ @param encoding This parameter is ignored.
  @result A URL encoded string representation of the receiver.
  */
-- (NSString *)URLEncodedStringValueWithEncoding:(NSStringEncoding)encoding;
+- (NSString *)URLEncodedStringValueWithEncoding:(NSStringEncoding)encoding DEPRECATED_ATTRIBUTE;
+
+/*!
+ @abstract Returns a URL encoded string representation of the receiver.
+ @discussion RFC 3986 lists unreserved characters in section 2.3. All other characters in the key
+     and value are percent encoded and the resulting strings are joined with the '=' character.
+     One exception is that the characters '[' and ']' are also allowed in the key in order to
+     support the encoding of arrays. If value is nil or NSNull the result is just the encoded key.
+ @result A URL encoded string representation of the receiver.
+ */
+- (NSString *)URLEncodedStringValue;
 
 @end
