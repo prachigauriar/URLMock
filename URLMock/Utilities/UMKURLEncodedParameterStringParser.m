@@ -35,21 +35,32 @@
 
 - (instancetype)init
 {
-    return [self initWithString:nil encoding:NSUTF8StringEncoding];
+    return [self initWithString:nil];
+}
+
+
+- (instancetype)initWithString:(NSString *)string
+{
+    NSParameterAssert(string);
+
+    self = [super init];
+    if (self) {
+        _string = [string copy];
+    }
+
+    return self;
 }
 
 
 - (instancetype)initWithString:(NSString *)string encoding:(NSStringEncoding)encoding
 {
-    NSParameterAssert(string);
-    
-    self = [super init];
-    if (self) {
-        _string = [string copy];
-        _encoding = encoding;
-    }
-    
-    return self;
+    return [self initWithString:string];
+}
+
+
+- (NSStringEncoding)encoding
+{
+    return NSUTF8StringEncoding;
 }
 
 
@@ -80,8 +91,8 @@
     
     for (NSString *keyValueString in keyValueStrings) {
         NSArray *keyValuePair = [keyValueString componentsSeparatedByString:@"="];
-        id key = [keyValuePair[0] stringByReplacingPercentEscapesUsingEncoding:self.encoding];
-        id value = (keyValuePair.count > 1) ? [keyValuePair[1] stringByReplacingPercentEscapesUsingEncoding:self.encoding] : [NSNull null];
+        id key = [keyValuePair[0] stringByRemovingPercentEncoding];
+        id value = (keyValuePair.count > 1) ? [keyValuePair[1] stringByRemovingPercentEncoding] : [NSNull null];
         [pairs addObject:[[UMKParameterPair alloc] initWithKey:key value:value]];
     }
 

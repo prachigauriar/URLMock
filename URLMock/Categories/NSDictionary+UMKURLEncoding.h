@@ -57,12 +57,12 @@
 + (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string;
 
 /*!
- @abstract Returns a new dictionary by parsing the specified URL encoded parameter string with the specified encoding.
+ @abstract Deprecated. Use +umk_dictionaryWithURLEncodedParameterString instead.
  @param string The URL encoded parameter string to parse.
- @param encoding The string encoding to use when unescaping the parameter string's percent sequences.
+ @param encoding Ignored.
  @result A new dictionary containing the objects specified in the URL encoded parameter string.
  */
-+ (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string encoding:(NSStringEncoding)encoding;
++ (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string encoding:(NSStringEncoding)encoding DEPRECATED_ATTRIBUTE;
 
 /*!
  @abstract Returns whether the receiver is a valid URL encoded parameter dictionary.

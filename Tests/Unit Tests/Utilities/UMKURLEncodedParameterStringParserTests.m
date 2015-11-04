@@ -42,13 +42,11 @@
 - (void)testInit
 {
     NSString *string = UMKRandomUnicodeString();
-    NSStringEncoding encoding = random() % 16 + 1;
-    
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string encoding:encoding];
+
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string];
     
     XCTAssertNotNil(parser, @"Returns nil");
     XCTAssertEqualObjects(parser.string, string, @"String is not set correctly");
-    XCTAssertEqual(parser.encoding, encoding, @"Encoding is not set correctly");
 }
 
 
@@ -61,7 +59,7 @@
         NSDictionary *dictionary = UMKRandomURLEncodedParameterDictionary(maxNestingDepth, maxElementCountPerCollection);
         NSString *string = [dictionary umk_URLEncodedParameterString];
         
-        UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string encoding:NSUTF8StringEncoding];
+        UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string];
         NSDictionary *parsedDictionary = [parser parse];
         XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
     }
@@ -82,7 +80,7 @@
     NSString *generatedString = [dictionary umk_URLEncodedParameterString];
     NSString *string = @"x[y][z]=10";
     
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
     XCTAssertEqualObjects(string, generatedString, @"Incorrect parameter string");
@@ -95,7 +93,7 @@
     NSString *generatedString = [dictionary umk_URLEncodedParameterString];
     NSString *string = @"x[y][z][]=10";
     
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
     XCTAssertEqualObjects(string, generatedString, @"Incorrect parameter string");
@@ -108,7 +106,7 @@
     NSString *generatedString = [dictionary umk_URLEncodedParameterString];
     NSString *string = @"x[y][z][]=10&x[y][z][]=5";
     
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
     XCTAssertEqualObjects(string, generatedString, @"Incorrect parameter string");
@@ -121,7 +119,7 @@
     NSString *generatedString = [dictionary umk_URLEncodedParameterString];
     NSString *string = @"x[y][][z]=10";
     
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
     XCTAssertEqualObjects(string, generatedString, @"Incorrect parameter string");
@@ -134,7 +132,7 @@
     NSString *generatedString = [dictionary umk_URLEncodedParameterString];
     NSString *string = @"x[y][][w]=10&x[y][][z]=10";
     
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
     XCTAssertEqualObjects(string, generatedString, @"Incorrect parameter string");
@@ -147,7 +145,7 @@
     NSString *generatedString = [dictionary umk_URLEncodedParameterString];
     NSString *string = @"x[y][][v][w]=10";
     
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
     XCTAssertEqualObjects(string, generatedString, @"Incorrect parameter string");
@@ -160,7 +158,7 @@
     NSString *generatedString = [dictionary umk_URLEncodedParameterString];
     NSString *string = @"x[y][][v][w]=10&x[y][][z]=10";
     
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
     XCTAssertEqualObjects(string, generatedString, @"Incorrect parameter string");
@@ -173,7 +171,7 @@
     NSString *generatedString = [dictionary umk_URLEncodedParameterString];
     NSString *string = @"x[y][][z]=10&x[y][][z]=20";
 
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
     XCTAssertEqualObjects(string, generatedString, @"Incorrect parameter string");
@@ -186,7 +184,7 @@
     NSString *generatedString = [dictionary umk_URLEncodedParameterString];
     NSString *string = @"x[y][][w]=a&x[y][][z]=10&x[y][][w]=b&x[y][][z]=20";
     
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
     XCTAssertEqualObjects(string, generatedString, @"Incorrect parameter string");
@@ -199,7 +197,7 @@
     NSString *generatedString = [dictionary umk_URLEncodedParameterString];
     NSString *string = @"baz=&foo=bar";
 
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
     XCTAssertEqualObjects(string, generatedString, @"Incorrect parameter string");
@@ -212,7 +210,7 @@
     NSString *generatedString = [dictionary umk_URLEncodedParameterString];
     NSString *string = @"baz[]=1&baz[]=2&baz[]=3&foo=bar";
 
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
     XCTAssertEqualObjects(string, generatedString, @"Incorrect parameter string");
@@ -225,7 +223,7 @@
     NSString *generatedString = [dictionary umk_URLEncodedParameterString];
     NSString *string = @"baz[]=1&baz[]=2&baz[]=3&foo[]=bar";
 
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:generatedString];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
     XCTAssertEqualObjects(string, generatedString, @"Incorrect parameter string");
@@ -237,7 +235,7 @@
     NSString *string = @"x=a&x=b";
     NSDictionary *dictionary = @{ @"x" : @"b" };
 
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
 }
@@ -248,7 +246,7 @@
     NSString *string = @"x[y]=a&x[y]=b";
     NSDictionary *dictionary = @{ @"x" : @{ @"y" : @"b" } };
 
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
 }
@@ -259,7 +257,7 @@
     NSString *string = @"a[b[][c]]=d";
     NSDictionary *dictionary = @{ @"a" : @{ @"b" : @[ @{ @"c" : @"d" } ] } };
 
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
 }
@@ -270,7 +268,7 @@
     NSString *string = @"x[]=a&x[]=b";
     NSDictionary *dictionary = @{ @"x" : @[ @"a", @"b" ] };
 
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
 }
@@ -281,7 +279,7 @@
     NSString *string = @"a][b=c";
     NSDictionary *dictionary = @{ @"a" : @{ @"b" : @"c" } };
 
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
 }
@@ -292,7 +290,7 @@
     NSString *string = @"a]=b";
     NSDictionary *dictionary = @{ @"a" : @"b" };
 
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
 }
@@ -303,7 +301,7 @@
     NSString *string = @"a[=b";
     NSDictionary *dictionary = @{ @"a" : @{} };
 
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
 }
@@ -314,7 +312,7 @@
     NSString *string = @"a]c[=b";
     NSDictionary *dictionary = @{ @"a" : @{ @"c" : @{} } };
 
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
 }
@@ -325,7 +323,7 @@
     NSString *string = @"a_./[*)@(ಠ_ಠ=b";
     NSDictionary *dictionary = @{ @"a_./" : @{ @"*)@(ಠ_ಠ" : @"b" } };
 
-    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string encoding:NSUTF8StringEncoding];
+    UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string];
     NSDictionary *parsedDictionary = [parser parse];
     XCTAssertEqualObjects(dictionary, parsedDictionary, @"Incorrect parse result");
 }
