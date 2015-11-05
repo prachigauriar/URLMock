@@ -16,19 +16,10 @@ AFNetworking, for example—with almost no changes to your code.
 * Works on both Mac OS X and iOS
 
 
-## What’s New in URLMock 1.2.3
+## What’s New in URLMock 1.3.1
 
-URLMock 1.2.3 makes minor non-functional changes to the URLMock podspec. URLMock 1.2 is a major
-update that adds the following new functionality:
-
-* Pattern-based request matching using `UMKPatternMatchingMockRequest`
-* Support for stream-based requests, including those created with `NSURLSession`
-* More complete support for Rails/Rack-style nested parameter query strings. We should now be able
-  to encode and decode query strings with deeply nested objects, e.g., strings inside dictionaries
-  inside arrays inside dictionaries
-  inside arrays inside dictionaries.
-* New test utility functions for generating random errors and C identifier strings
-* Official support for OS X 10.8 and iOS 6.0.
+URLMock 1.3 changes the minimum supported platform versions to OS X 10.8 and iOS 7.0 and removes
+deprecated API usage. URLMock 1.3.1 fixes a bug related to query parameter string construction. 
 
 
 ## Installation
@@ -36,7 +27,7 @@ update that adds the following new functionality:
 The easiest way to start using URLMock is to install it with CocoaPods. 
 
 ```ruby
-pod 'URLMock', '~> 1.2.3'
+pod 'URLMock', '~> 1.3.1'
 ```
 
 You can also build it and include the built products in your project. For OS X, just add
@@ -56,14 +47,14 @@ for more details. It can be installed by adding the following line to your Podfi
 
 
 ```ruby
-pod 'URLMock/TestHelpers', '~> 1.2.3'
+pod 'URLMock/TestHelpers', '~> 1.3.1'
 ```
 
 Similarly, the `SubclassResponsibility` subspec can be installed by adding the following line to
 your Podfile:
 
 ```ruby
-pod 'URLMock/SubclassResponsibility', '~> 1.2.3'
+pod 'URLMock/SubclassResponsibility', '~> 1.3.1'
 ```
 
 This subspec adds methods to `NSException` to easily raise exceptions in methods for which
