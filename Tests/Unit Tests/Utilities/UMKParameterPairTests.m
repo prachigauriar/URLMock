@@ -64,4 +64,14 @@
     value = nil;
 }
 
+- (void)testURLEncodingNonStringValues
+{
+    NSString *key = UMKRandomUnicodeString();
+    id value = @1;
+
+    UMKParameterPair *pair = [[UMKParameterPair alloc] initWithKey:key value:value];
+
+    XCTAssertNoThrow([pair URLEncodedStringValue], @"-URLEncodedStringValue should not throw");
+}
+
 @end

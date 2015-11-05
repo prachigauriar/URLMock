@@ -57,7 +57,7 @@
 
     NSString *stringValue = [self URLEncodedString:self.key allowedCharacters:kUMKKeyAllowedCharacters];
     if (self.value && self.value != [NSNull null]) {
-        stringValue = [stringValue stringByAppendingFormat:@"=%@", [self URLEncodedString:self.value allowedCharacters:kUMKValueAllowedCharacters]];
+        stringValue = [stringValue stringByAppendingFormat:@"=%@", [self URLEncodedString:[self.value description] allowedCharacters:kUMKValueAllowedCharacters]];
     }
     
     return stringValue;

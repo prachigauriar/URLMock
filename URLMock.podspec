@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "URLMock"
-  s.version      = "1.3.0"
+  s.version      = "1.3.1"
 
   s.summary      = "A Cocoa framework for mocking and stubbing URL requests and responses."
   s.description  = <<-DESC
