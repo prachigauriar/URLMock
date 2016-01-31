@@ -70,7 +70,7 @@
 {
     id verifier = [UMKMessageCountingProxy messageCountingProxyWithObject:[[UMKURLConnectionVerifier alloc] init]];
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:verifier startImmediately:NO];
-    connection.delegateQueue = [[self class] networkOperationQueue];
+    connection.delegateQueue = [self.class networkOperationQueue];
     [connection start];
     return verifier;
 }
@@ -83,7 +83,7 @@
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.protocolClasses = @[ [UMKMockURLProtocol class] ];
 
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:verifier delegateQueue:[[self class] networkOperationQueue]];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:verifier delegateQueue:[self.class networkOperationQueue]];
 
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request];
     [task resume];

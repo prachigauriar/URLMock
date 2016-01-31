@@ -33,6 +33,8 @@
 #import <Foundation/Foundation.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*! @functiongroup Block-generated collections */
 
 /*!
@@ -54,7 +56,7 @@ extern NSArray *UMKGeneratedArrayWithElementCount(NSUInteger count, id (^element
      will not terminate. For example, the following invocation will never return, as (random() % 4) can only return
      four values, but the requested element count is 5.
  
-         NSDictionary *randomStrings = UMKGeneratedDictionaryWithElementCount(5, id^{
+         NSDictionary<NSNumber *, NSString *> *randomStrings = UMKGeneratedDictionaryWithElementCount(5, id^{
              return @(random() % 4);
          }, id^(id key) {
              return UMKRandomUnicodeStringWithLength([key unsignedIntegerValue]);
@@ -78,7 +80,7 @@ extern NSDictionary *UMKGeneratedDictionaryWithElementCount(NSUInteger count, id
      will not terminate. For example, the following invocation will never return, as (random() % 4) can only return
      four values, but the requested element count is 5.
  
-         NSSet *randomNumbers = UMKGeneratedSetWithElementCount(5, id^{
+         NSSet<NSNumber *> *randomNumbers = UMKGeneratedSetWithElementCount(5, id^{
              return @(random() % 4);
          });
  @param count The number of elements in the newly created set.
@@ -168,7 +170,7 @@ extern NSNumber *UMKRandomUnsignedNumberInRange(NSRange range);
  @param count The number of entries in the newly created dictionary.
  @result A dictionary of random string key-value pairs.
  */
-extern NSDictionary *UMKRandomDictionaryOfStringsWithElementCount(NSUInteger count);
+extern NSDictionary<NSString *, NSString *> *UMKRandomDictionaryOfStringsWithElementCount(NSUInteger count);
 
 /*!
  @abstract Returns a new random dictionary that can be safely converted to and from a URL encoded parameter string.
@@ -180,7 +182,7 @@ extern NSDictionary *UMKRandomDictionaryOfStringsWithElementCount(NSUInteger cou
      object. Must be positive.
  @result A new random dictionary that can be safely converted to and from a URL encoded parameter string.
  */
-extern NSDictionary *UMKRandomURLEncodedParameterDictionary(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection);
+extern NSDictionary<NSString *, id> *UMKRandomURLEncodedParameterDictionary(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection);
 
 
 /*! @functiongroup Random JSON objects */
@@ -250,3 +252,5 @@ extern BOOL UMKWaitForCondition(NSTimeInterval timeoutInterval, BOOL (^condition
  */
 #define UMKAssertTrueBeforeTimeout(timeoutInterval, expression, format...) \
     XCTAssertTrue(UMKWaitForCondition((timeoutInterval), ^BOOL{ return (expression); }), ## format)
+
+NS_ASSUME_NONNULL_END

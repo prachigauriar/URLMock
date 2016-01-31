@@ -34,9 +34,11 @@
 
 - (instancetype)initWithKey:(NSString *)key value:(id)value
 {
+    NSParameterAssert(key);
+
     self = [super init];
     if (self) {
-        _key = key;
+        _key = [key copy];
         _value = value;
     }
     
@@ -57,7 +59,8 @@
 
     NSString *stringValue = [self URLEncodedString:self.key allowedCharacters:kUMKKeyAllowedCharacters];
     if (self.value && self.value != [NSNull null]) {
-        stringValue = [stringValue stringByAppendingFormat:@"=%@", [self URLEncodedString:[self.value description] allowedCharacters:kUMKValueAllowedCharacters]];
+        stringValue = [stringValue stringByAppendingFormat:@"=%@", [self URLEncodedString:[self.value description]
+                                                                        allowedCharacters:kUMKValueAllowedCharacters]];
     }
     
     return stringValue;

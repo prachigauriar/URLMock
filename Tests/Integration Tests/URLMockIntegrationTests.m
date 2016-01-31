@@ -344,11 +344,11 @@
     XCTAssertFalse([UMKMockURLProtocol verifyWithError:&error], @"Returned YES despite unexpected request");
     XCTAssertEqual([error code], kUMKUnexpectedRequestErrorCode, @"Incorrect error code");
 
-    NSArray *unexpectedRequests = [[error userInfo] objectForKey:kUMKUnexpectedRequestsKey];
+    NSArray<NSURLRequest *> *unexpectedRequests = error.userInfo[kUMKUnexpectedRequestsKey];
     XCTAssertNotNil(unexpectedRequests, @"Unexpected requests not included in error userInfo dictionary");
     XCTAssertEqual(unexpectedRequests.count, (NSUInteger)1, @"Unexpected requests contains wrong number of requests");
     
-    NSURLRequest *unexpectedRequest = [unexpectedRequests firstObject];
+    NSURLRequest *unexpectedRequest = unexpectedRequests.firstObject;
     NSURL *canonicalRequestURL = [UMKMockURLProtocol canonicalURLForURL:request.URL];
     NSURL *canonicalUnexpectedRequestURL = [UMKMockURLProtocol canonicalURLForURL:unexpectedRequest.URL];
 
@@ -365,7 +365,7 @@
     [UMKMockURLProtocol setVerificationEnabled:YES];
 
     UMKPatternMatchingMockRequest *mockRequest = [[UMKPatternMatchingMockRequest alloc] initWithURLPattern:@"https://domain.com/subdomain/:resource"];
-    mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSDictionary *parameters) {
+    mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSDictionary<NSString *, NSString *> *parameters) {
         return [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random() % 500];
     };
 
@@ -389,7 +389,7 @@
     NSData *body = [UMKRandomUnicodeString() dataUsingEncoding:NSUTF8StringEncoding];
 
     UMKPatternMatchingMockRequest *mockRequest = [[UMKPatternMatchingMockRequest alloc] initWithURLPattern:pattern];
-    mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSDictionary *parameters) {
+    mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSDictionary<NSString *, NSString *> *parameters) {
         UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:random() % 500];
         responder.body = [request umk_HTTPBodyData];
         return responder;

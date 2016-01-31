@@ -51,6 +51,8 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 @end
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 #pragma mark - Private Subclass Interfaces
 
 /*!
@@ -61,6 +63,8 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 /*! The error that the instance responds with. */
 @property (readonly, strong, nonatomic) NSError *error;
 
+- (instancetype)init NS_UNAVAILABLE;
+
 /*!
  @abstract Initializes a newly-created UMKMockHTTPErrorResponder instance with the specified error.
  @discussion This is the error that is sent to the NSURL system in response to a mock URL request. The NSURL system may modify it by adding 
@@ -69,7 +73,7 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
  @param error The error to respond with. May not be nil.
  @result A newly initialized UMKMockHTTPErrorResponder with the specified error.
  */
-- (instancetype)initWithError:(NSError *)error;
+- (instancetype)initWithError:(NSError *)error NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -88,6 +92,8 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 /*! The delay in seconds that the instance waits between sending chunks. */
 @property (readonly, nonatomic) NSTimeInterval delayBetweenChunks;
 
+- (instancetype)init NS_UNAVAILABLE;
+
 /*!
  @abstract Initializes a newly-created UMKMockHTTPResponseResponder instance with the specified status code, headers, body, chunk count hint,
      and delay between chunks.
@@ -100,10 +106,15 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
      than 1. Must be non-negative.
  @result A newly initialized UMKMockHTTPResponseResponder with the specified parameters.
  */
-- (instancetype)initWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body
-                    chunkCountHint:(NSUInteger)hint delayBetweenChunks:(NSTimeInterval)delay;
+- (instancetype)initWithStatusCode:(NSInteger)statusCode
+                           headers:(NSDictionary<NSString *, NSString *> * _Nullable)headers
+                              body:(NSData * _Nullable)body
+                    chunkCountHint:(NSUInteger)hint
+                delayBetweenChunks:(NSTimeInterval)delay NS_DESIGNATED_INITIALIZER;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 
 #pragma mark - Base Class Implementation
@@ -123,7 +134,7 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 }
 
 
-+ (instancetype)mockHTTPResponderWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers
++ (instancetype)mockHTTPResponderWithStatusCode:(NSInteger)statusCode headers:(NSDictionary<NSString *, NSString *> * _Nullable)headers
 {
     return [self mockHTTPResponderWithStatusCode:statusCode headers:headers body:nil chunkCountHint:1 delayBetweenChunks:0.0];
 }
@@ -135,19 +146,25 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 }
 
 
-+ (instancetype)mockHTTPResponderWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body
++ (instancetype)mockHTTPResponderWithStatusCode:(NSInteger)statusCode headers:(NSDictionary<NSString *, NSString *> * _Nullable)headers body:(NSData *)body
 {
     return [self mockHTTPResponderWithStatusCode:statusCode headers:headers body:body chunkCountHint:1 delayBetweenChunks:0.0];
 }
 
 
-+ (instancetype)mockHTTPResponderWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body
-                                 chunkCountHint:(NSUInteger)chunkCountHint delayBetweenChunks:(NSTimeInterval)delay
++ (instancetype)mockHTTPResponderWithStatusCode:(NSInteger)statusCode
+                                        headers:(NSDictionary<NSString *, NSString *> * _Nullable)headers
+                                           body:(NSData *)body
+                                 chunkCountHint:(NSUInteger)chunkCountHint
+                             delayBetweenChunks:(NSTimeInterval)delay
 {
     NSParameterAssert(chunkCountHint != 0);
     NSParameterAssert(delay >= 0.0);
-    return [[UMKMockHTTPResponseResponder alloc] initWithStatusCode:statusCode headers:headers body:body
-                                                     chunkCountHint:chunkCountHint delayBetweenChunks:delay];
+    return [[UMKMockHTTPResponseResponder alloc] initWithStatusCode:statusCode
+                                                            headers:headers
+                                                               body:body
+                                                     chunkCountHint:chunkCountHint
+                                                 delayBetweenChunks:delay];
 }
 
 
@@ -198,8 +215,11 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 
 @implementation UMKMockHTTPResponseResponder
 
-- (instancetype)initWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body
-                    chunkCountHint:(NSUInteger)hint delayBetweenChunks:(NSTimeInterval)delay
+- (instancetype)initWithStatusCode:(NSInteger)statusCode
+                           headers:(NSDictionary<NSString *, NSString *> * _Nullable)headers
+                              body:(NSData *)body
+                    chunkCountHint:(NSUInteger)hint
+                delayBetweenChunks:(NSTimeInterval)delay
 {
     NSParameterAssert(hint > 0);
     NSParameterAssert(delay >= 0.0);
@@ -221,11 +241,15 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
 {
     self.responding = YES;
 
-    NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:protocol.request.URL statusCode:self.statusCode
-                                                             HTTPVersion:kUMKHTTP11VersionString headerFields:self.headers];
+    NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:protocol.request.URL
+                                                              statusCode:self.statusCode
+                                                             HTTPVersion:kUMKHTTP11VersionString
+                                                            headerFields:self.headers];
 
     // Stop if we were canceled in another thread.
-    if (!self.responding) return;
+    if (!self.responding) {
+        return;
+    }
 
     [client URLProtocol:protocol didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
 
@@ -248,13 +272,17 @@ static NSString *const kUMKHTTP11VersionString = @"HTTP/1.1";
             }
         }
 
-        if (!self.responding) return;
+        if (!self.responding) {
+            return;
+        }
 
         NSUInteger startingLocation = (chunkCount - 1) * bytesPerChunk;
         [client URLProtocol:protocol didLoadData:[self.body subdataWithRange:NSMakeRange(startingLocation, self.body.length - startingLocation)]];
     }
     
-    if (!self.responding) return;
+    if (!self.responding) {
+        return;
+    }
 
     [client URLProtocolDidFinishLoading:protocol];
     self.responding = NO;

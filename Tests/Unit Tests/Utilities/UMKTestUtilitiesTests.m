@@ -100,7 +100,7 @@
 
 - (void)testRandomAlphanumericString
 {
-    NSCharacterSet *invertedAlphanumerics = [[self class] invertedAlphanumericCharacterSet];
+    NSCharacterSet *invertedAlphanumerics = [self.class invertedAlphanumericCharacterSet];
     
     for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
         NSString *randomString = UMKRandomAlphanumericString();
@@ -116,7 +116,7 @@
 
 - (void)testRandomAlphanumericStringWithLength
 {
-    NSCharacterSet *invertedAlphanumerics = [[self class] invertedAlphanumericCharacterSet];
+    NSCharacterSet *invertedAlphanumerics = [self.class invertedAlphanumericCharacterSet];
 
     for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
         NSUInteger length = random() % 1024 + 1;
@@ -133,7 +133,7 @@
 
 - (void)testRandomUnicodeString
 {
-    NSCharacterSet *invertedRandomUnicodeCharacters = [[self class] invertedRandomUnicodeCharacterSet];
+    NSCharacterSet *invertedRandomUnicodeCharacters = [self.class invertedRandomUnicodeCharacterSet];
     
     for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
         NSString *randomString = UMKRandomUnicodeString();
@@ -149,7 +149,7 @@
 
 - (void)testRandomUnicodeStringWithLength
 {
-    NSCharacterSet *invertedRandomUnicodeCharacters = [[self class] invertedRandomUnicodeCharacterSet];
+    NSCharacterSet *invertedRandomUnicodeCharacters = [self.class invertedRandomUnicodeCharacterSet];
     
     for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
         NSUInteger length = random() % 1024 + 1;
@@ -166,7 +166,7 @@
 
 - (void)testRandomIdentifierString
 {
-    NSRegularExpression *identifierRegularExpression = [[self class] identifierRegularExpression];
+    NSRegularExpression *identifierRegularExpression = [self.class identifierRegularExpression];
 
     for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
         NSString *randomString = UMKRandomIdentifierString();
@@ -184,7 +184,7 @@
 
 - (void)testRandomIdentifierStringWithLength
 {
-    NSRegularExpression *identifierRegularExpression = [[self class] identifierRegularExpression];
+    NSRegularExpression *identifierRegularExpression = [self.class identifierRegularExpression];
 
     for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
         NSUInteger length = random() % 1024 + 1;
@@ -247,7 +247,7 @@
 - (void)testRandomDictionaryOfStringsWithElementCount
 {
     NSUInteger elementCount = random() % 100 + 1;
-    NSDictionary *dictionary = UMKRandomDictionaryOfStringsWithElementCount(elementCount);
+    NSDictionary<NSString *, NSString *> *dictionary = UMKRandomDictionaryOfStringsWithElementCount(elementCount);
     
     XCTAssertEqual(dictionary.count, elementCount, @"Returned dictionary's element count is incorrect");
     [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
@@ -324,8 +324,8 @@
 
 - (void)testRandomHTTPURL
 {
-    NSMutableSet *URLs = [[NSMutableSet alloc] initWithCapacity:UMKIterationCount];
-    NSMutableSet *hosts = [[NSMutableSet alloc] initWithCapacity:UMKIterationCount];
+    NSMutableSet<NSURL *> *URLs = [[NSMutableSet alloc] initWithCapacity:UMKIterationCount];
+    NSMutableSet<NSString *> *hosts = [[NSMutableSet alloc] initWithCapacity:UMKIterationCount];
     
     NSUInteger fragmentCount = 0;
     for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
@@ -338,7 +338,7 @@
         XCTAssertTrue(URL.pathComponents.count >= 2 && URL.pathComponents.count <= 11, @"Incorrect number of path components");
 
         if (URL.query.length > 0) {
-            NSDictionary *parameters = [NSDictionary umk_dictionaryWithURLEncodedParameterString:URL.query];
+            NSDictionary<NSString *, id> *parameters = [NSDictionary umk_dictionaryWithURLEncodedParameterString:URL.query];
             XCTAssertNotNil(parameters, @"parameters from query is nil");
             XCTAssertTrue([parameters umk_isValidURLEncodedParameterDictionary], @"parameters is not a valid URL encoded parameter dictionary");
             
@@ -364,8 +364,8 @@
 
 - (void)testRandomHTTPMethod
 {
-    NSSet *methods = [NSSet setWithObjects:@"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT", nil];
-    NSMutableSet *returnedValues = [NSMutableSet setWithCapacity:methods.count];
+    NSSet<NSString *> *methods = [NSSet setWithObjects:@"DELETE", @"GET", @"HEAD", @"PATCH", @"POST", @"PUT", nil];
+    NSMutableSet<NSString *> *returnedValues = [NSMutableSet setWithCapacity:methods.count];
     for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
         [returnedValues addObject:UMKRandomHTTPMethod()];
     }
@@ -376,8 +376,8 @@
 
 - (void)testRandomError
 {
-    NSMutableSet *domains = [[NSMutableSet alloc] initWithCapacity:UMKIterationCount];
-    NSMutableSet *codes = [[NSMutableSet alloc] initWithCapacity:UMKIterationCount];
+    NSMutableSet<NSString *> *domains = [[NSMutableSet alloc] initWithCapacity:UMKIterationCount];
+    NSMutableSet<NSNumber *> *codes = [[NSMutableSet alloc] initWithCapacity:UMKIterationCount];
 
     for (NSUInteger i = 0; i < UMKIterationCount; ++i) {
         NSError *error = UMKRandomError();

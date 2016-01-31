@@ -28,6 +28,8 @@
 #import <Foundation/Foundation.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*!
  The UMKURLEncoding category of NSDictionary provides a methods for easily URL encoding and decoding dictionary
  objects.
@@ -54,7 +56,7 @@
  @param string The URL encoded parameter string to parse.
  @result A new dictionary containing the objects specified in the URL encoded parameter string.
  */
-+ (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string;
++ (NSDictionary<NSString *, id> * _Nullable)umk_dictionaryWithURLEncodedParameterString:(NSString *)string;
 
 /*!
  @abstract Deprecated. Use +umk_dictionaryWithURLEncodedParameterString instead.
@@ -62,7 +64,7 @@
  @param encoding Ignored.
  @result A new dictionary containing the objects specified in the URL encoded parameter string.
  */
-+ (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string encoding:(NSStringEncoding)encoding DEPRECATED_ATTRIBUTE;
++ (NSDictionary<NSString *, id> * _Nullable)umk_dictionaryWithURLEncodedParameterString:(NSString *)string encoding:(NSStringEncoding)encoding DEPRECATED_ATTRIBUTE;
 
 /*!
  @abstract Returns whether the receiver is a valid URL encoded parameter dictionary.
@@ -88,3 +90,5 @@
 - (NSString *)umk_URLEncodedParameterStringWithEncoding:(NSStringEncoding)encoding DEPRECATED_ATTRIBUTE;
 
 @end
+
+NS_ASSUME_NONNULL_END

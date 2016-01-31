@@ -69,7 +69,7 @@
 }
 
 
-- (NSDictionary *)umk_parametersFromURLEncodedHTTPBody
+- (NSDictionary<NSString *, id> * _Nullable)umk_parametersFromURLEncodedHTTPBody
 {
     NSString *bodyString = [self umk_stringFromHTTPBody];
     return bodyString ? [NSDictionary umk_dictionaryWithURLEncodedParameterString:bodyString] : nil;
@@ -89,7 +89,7 @@
 }
 
 
-- (BOOL)umk_HTTPHeadersAreEqualToHeaders:(NSDictionary *)headers
+- (BOOL)umk_HTTPHeadersAreEqualToHeaders:(NSDictionary<NSString *, NSString *> * _Nullable)headers
 {
     if (headers.count != self.allHTTPHeaderFields.count) {
         return NO;

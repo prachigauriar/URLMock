@@ -29,6 +29,9 @@
 
 @class UMKMockHTTPRequest;
 
+
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UMKMockURLProtocol (UMKHTTPConvenienceMethods)
 
 /*! @methodgroup Mock Requests with JSON Bodies with Error Responders */
@@ -43,8 +46,10 @@
  @param error The error that the mock responder responds with. May not be nil.
  @result The newly created mock HTTP request. Its responder is set to the new mock error responder.
  */
-+ (UMKMockHTTPRequest *)expectMockHTTPRequestWithMethod:(NSString *)method URL:(NSURL *)URL
-                                            requestJSON:(id)requestJSON responseError:(NSError *)error;
++ (UMKMockHTTPRequest *)expectMockHTTPRequestWithMethod:(NSString *)method
+                                                    URL:(NSURL *)URL
+                                            requestJSON:(_Nullable id)requestJSON
+                                          responseError:(NSError *)error;
 
 /*!
  @abstract Creates and expects a new mock HTTP GET request that responds with an error.
@@ -65,7 +70,7 @@
  @param error The error that the mock responder responds with. May not be nil.
  @result The newly created mock HTTP PATCH request. Its responder is set to the new mock error responder.
  */
-+ (UMKMockHTTPRequest *)expectMockHTTPPatchRequestWithURL:(NSURL *)URL requestJSON:(id)requestJSON responseError:(NSError *)error;
++ (UMKMockHTTPRequest *)expectMockHTTPPatchRequestWithURL:(NSURL *)URL requestJSON:(_Nullable id)requestJSON responseError:(NSError *)error;
 
 /*!
  @abstract Creates and expects a new mock HTTP POST request that responds with an error.
@@ -76,7 +81,7 @@
  @param error The error that the mock responder responds with. May not be nil.
  @result The newly created mock HTTP POST request. Its responder is set to the new mock error responder.
  */
-+ (UMKMockHTTPRequest *)expectMockHTTPPostRequestWithURL:(NSURL *)URL requestJSON:(id)requestJSON responseError:(NSError *)error;
++ (UMKMockHTTPRequest *)expectMockHTTPPostRequestWithURL:(NSURL *)URL requestJSON:(_Nullable id)requestJSON responseError:(NSError *)error;
 
 /*!
  @abstract Creates and expects a new mock HTTP PUT request that responds with an error.
@@ -87,7 +92,7 @@
  @param error The error that the mock responder responds with. May not be nil.
  @result The newly created mock HTTP PUT request. Its responder is set to the new mock error responder.
  */
-+ (UMKMockHTTPRequest *)expectMockHTTPPutRequestWithURL:(NSURL *)URL requestJSON:(id)requestJSON responseError:(NSError *)error;
++ (UMKMockHTTPRequest *)expectMockHTTPPutRequestWithURL:(NSURL *)URL requestJSON:(_Nullable id)requestJSON responseError:(NSError *)error;
 
 
 /*! @methodgroup Mock Requests and Responders with JSON Bodies */
@@ -103,8 +108,11 @@
  @param responseJSON A JSON object to use as the mock HTTP response body.
  @result The newly created mock HTTP request. Its responder is set to the new mock JSON body responder.
  */
-+ (UMKMockHTTPRequest *)expectMockHTTPRequestWithMethod:(NSString *)method URL:(NSURL *)URL requestJSON:(id)requestJSON
-                                     responseStatusCode:(NSInteger)statusCode responseJSON:(id)responseJSON;
++ (UMKMockHTTPRequest *)expectMockHTTPRequestWithMethod:(NSString *)method
+                                                    URL:(NSURL *)URL
+                                            requestJSON:(_Nullable id)requestJSON
+                                     responseStatusCode:(NSInteger)statusCode
+                                           responseJSON:(_Nullable id)responseJSON;
 
 /*!
  @abstract Creates and expects a new mock HTTP GET request that responds with a JSON object.
@@ -115,7 +123,9 @@
  @param responseJSON A JSON object to use as the mock HTTP response body.
  @result The newly created mock HTTP GET request. Its responder is set to the new mock JSON body responder.
  */
-+ (UMKMockHTTPRequest *)expectMockHTTPGetRequestWithURL:(NSURL *)URL responseStatusCode:(NSInteger)statusCode responseJSON:(id)responseJSON;
++ (UMKMockHTTPRequest *)expectMockHTTPGetRequestWithURL:(NSURL *)URL
+                                     responseStatusCode:(NSInteger)statusCode
+                                           responseJSON:(_Nullable id)responseJSON;
 
 /*!
  @abstract Creates and expects a new mock HTTP PATCH request that responds with a JSON object.
@@ -127,8 +137,10 @@
  @param responseJSON A JSON object to use as the mock HTTP response body.
  @result The newly created mock HTTP PATCH request. Its responder is set to the new mock JSON body responder.
  */
-+ (UMKMockHTTPRequest *)expectMockHTTPPatchRequestWithURL:(NSURL *)URL requestJSON:(id)requestJSON
-                                       responseStatusCode:(NSInteger)statusCode responseJSON:(id)responseJSON;
++ (UMKMockHTTPRequest *)expectMockHTTPPatchRequestWithURL:(NSURL *)URL
+                                              requestJSON:(_Nullable id)requestJSON
+                                       responseStatusCode:(NSInteger)statusCode
+                                             responseJSON:(_Nullable id)responseJSON;
 
 /*!
  @abstract Creates and expects a new mock HTTP POST request that responds with a JSON object.
@@ -140,8 +152,10 @@
  @param responseJSON A JSON object to use as the mock HTTP response body.
  @result The newly created mock HTTP POST request. Its responder is set to the new mock JSON body responder.
  */
-+ (UMKMockHTTPRequest *)expectMockHTTPPostRequestWithURL:(NSURL *)URL requestJSON:(id)requestJSON
-                                      responseStatusCode:(NSInteger)statusCode responseJSON:(id)responseJSON;
++ (UMKMockHTTPRequest *)expectMockHTTPPostRequestWithURL:(NSURL *)URL
+                                             requestJSON:(_Nullable id)requestJSON
+                                      responseStatusCode:(NSInteger)statusCode
+                                            responseJSON:(_Nullable id)responseJSON;
 
 /*!
  @abstract Creates and expects a new mock HTTP PUT request that responds with a JSON object.
@@ -153,7 +167,11 @@
  @param responseJSON A JSON object to use as the mock HTTP response body.
  @result The newly created mock HTTP PUT request. Its responder is set to the new mock JSON body responder.
  */
-+ (UMKMockHTTPRequest *)expectMockHTTPPutRequestWithURL:(NSURL *)URL requestJSON:(id)requestJSON
-                                     responseStatusCode:(NSInteger)statusCode responseJSON:(id)responseJSON;
++ (UMKMockHTTPRequest *)expectMockHTTPPutRequestWithURL:(NSURL *)URL
+                                            requestJSON:(_Nullable id)requestJSON
+                                     responseStatusCode:(NSInteger)statusCode
+                                           responseJSON:(_Nullable id)responseJSON;
 
 @end
+
+NS_ASSUME_NONNULL_END

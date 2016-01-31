@@ -99,7 +99,7 @@
 {
     XCTAssertNil([UMKMockHTTPRequest defaultHeaders], @"Not initially nil");
     
-    NSDictionary *defaultHeaders = UMKRandomDictionaryOfStringsWithElementCount(random() % 10 + 1);
+    NSDictionary<NSString *, NSString *> *defaultHeaders = UMKRandomDictionaryOfStringsWithElementCount(random() % 10 + 1);
     [UMKMockHTTPRequest setDefaultHeaders:defaultHeaders];
     XCTAssertEqualObjects([UMKMockHTTPRequest defaultHeaders], defaultHeaders, @"Not set correctly");
 
@@ -119,7 +119,7 @@
     NSURL *URL = UMKRandomHTTPURL();
 
     UMKMockHTTPRequest *mockRequest = [UMKMockHTTPRequest mockHTTPPostRequestWithURL:URL];
-    NSDictionary *headers = UMKRandomDictionaryOfStringsWithElementCount(12);
+    NSDictionary<NSString *, NSString *> *headers = UMKRandomDictionaryOfStringsWithElementCount(12);
     mockRequest.headers = headers;
 
     NSString *bodyString = UMKRandomUnicodeStringWithLength(1024);
@@ -154,7 +154,7 @@
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:JSONObject options:0 error:NULL];
     XCTAssertTrue([mockRequest matchesURLRequest:request], @"Does not match equivalent request.");
     
-    NSDictionary *parameters = UMKRandomDictionaryOfStringsWithElementCount(4);
+    NSDictionary<NSString *, NSString *> *parameters = UMKRandomDictionaryOfStringsWithElementCount(4);
     [mockRequest setBodyByURLEncodingParameters:parameters];
     [mockRequest setValue:kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeaderValue forHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
     XCTAssertFalse([mockRequest matchesURLRequest:request], @"Matches request with incorrect headers and body.");
@@ -174,7 +174,9 @@
     mockRequest.responder = responder;
     
     XCTAssertEqualObjects(responder, mockRequest.responder, @"Responder is not set correctly.");
-    XCTAssertEqualObjects(responder, [mockRequest responderForURLRequest:nil], @"Incorrect responder returned");
+
+    NSURLRequest *arbitraryRequest = [[NSURLRequest alloc] initWithURL:UMKRandomHTTPURL()];
+    XCTAssertEqualObjects(responder, [mockRequest responderForURLRequest:arbitraryRequest], @"Incorrect responder returned");
 
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:URL];
     XCTAssertEqualObjects(responder, [mockRequest responderForURLRequest:request], @"Incorrect responder returned");

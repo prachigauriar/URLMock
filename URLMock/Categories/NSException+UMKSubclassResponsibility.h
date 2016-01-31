@@ -27,6 +27,8 @@
 #import <Foundation/Foundation.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*!
  The UMKSubclassResponsibility category of NSException provides a convenience factory method for creating
  exceptions when implementing a given method is a subclass's responsibility.
@@ -43,3 +45,5 @@
 + (instancetype)umk_subclassResponsibilityExceptionWithReceiver:(id)receiver selector:(SEL)selector;
 
 @end
+
+NS_ASSUME_NONNULL_END

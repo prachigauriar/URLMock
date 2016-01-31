@@ -74,7 +74,7 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:UMKRandomHTTPURL()];
     XCTAssertNil([request umk_parametersFromURLEncodedHTTPBody], @"Does not return nil when body is nil");
 
-    NSDictionary *parameters = UMKRandomDictionaryOfStringsWithElementCount(10);
+    NSDictionary<NSString *, NSString *> *parameters = UMKRandomDictionaryOfStringsWithElementCount(10);
     request.HTTPBody = [[parameters umk_URLEncodedParameterString] dataUsingEncoding:NSUTF8StringEncoding];
     XCTAssertEqualObjects([request umk_parametersFromURLEncodedHTTPBody], parameters, @"Returns incorrect parameters");
 
@@ -103,9 +103,11 @@
 - (void)testHTTPHeadersAreEqualToHeaders
 {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    XCTAssertTrue([request umk_HTTPHeadersAreEqualToHeaders:nil], @"Headers are not equal");
 
-    NSDictionary *headers = UMKRandomDictionaryOfStringsWithElementCount(12);
+    id nilObject = nil;
+    XCTAssertTrue([request umk_HTTPHeadersAreEqualToHeaders:nilObject], @"Headers are not equal");
+
+    NSDictionary<NSString *, NSString *> *headers = UMKRandomDictionaryOfStringsWithElementCount(12);
     [request setAllHTTPHeaderFields:headers];
 
     NSUInteger i = 0;
@@ -130,7 +132,7 @@
 
     [request setValue:nil forHTTPHeaderField:[request.allHTTPHeaderFields.keyEnumerator nextObject]];
     XCTAssertFalse([request umk_HTTPHeadersAreEqualToHeaders:headers], @"Headers are equal when they shouldn't be");
-    XCTAssertFalse([request umk_HTTPHeadersAreEqualToHeaders:nil], @"Headers are equal when they shouldn't be");
+    XCTAssertFalse([request umk_HTTPHeadersAreEqualToHeaders:nilObject], @"Headers are equal when they shouldn't be");
 }
 
 @end

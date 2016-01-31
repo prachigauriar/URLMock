@@ -28,6 +28,8 @@
 #import <URLMock/UMKMockURLProtocol.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*!
  @abstract Block type that return whether a mock request matches a request.
  @discussion This block type is used by pattern-matching mock requests to determine if the mock request matches
@@ -36,7 +38,7 @@
  @param parameters The URL pattern parameters that were parsed from the request’s URL
  @result Whether the request matches or not
  */
-typedef BOOL(^UMKParameterizedRequestMatchingBlock)(NSURLRequest *request, NSDictionary *parameters);
+typedef BOOL(^UMKParameterizedRequestMatchingBlock)(NSURLRequest *request, NSDictionary<NSString *, NSString *> *parameters);
 
 /*!
  @abstract Block type for generating a responder based on a request and the specified URL path parameters.
@@ -47,7 +49,7 @@ typedef BOOL(^UMKParameterizedRequestMatchingBlock)(NSURLRequest *request, NSDic
  @param parameters The URL pattern parameters that were parsed from the request’s URL
  @result A mock responder that responds to the specified request. May not be nil.
  */
-typedef id<UMKMockURLResponder>(^UMKParameterizedResponderGenerationBlock)(NSURLRequest *request, NSDictionary *parameters);
+typedef _Nonnull id<UMKMockURLResponder>(^UMKParameterizedResponderGenerationBlock)(NSURLRequest *request, NSDictionary<NSString *, NSString *> *parameters);
 
 
 /*!
@@ -81,14 +83,14 @@ typedef id<UMKMockURLResponder>(^UMKParameterizedResponderGenerationBlock)(NSURL
  @abstract The HTTP methods that the instance matches.
  @discussion If nil, the instance does not check a request’s HTTP method when matching.
  */
-@property (nonatomic, copy) NSSet *HTTPMethods;
+@property (nonatomic, copy, nullable) NSSet<NSString *> *HTTPMethods;
 
 /*! 
  @abstract The instance’s responder generation block.
  @discussion This block generates a mock responder for a given URL request and URL pattern parameters. It may not 
-     return nil. The return value of this block is what is returned by -responderForURLRequest:.
+     return nil. The return value of this block is what is returned by -responderForURLRequest:. 
  */
-@property (nonatomic, copy) UMKParameterizedResponderGenerationBlock responderGenerationBlock;
+@property (nonatomic, copy, nullable) UMKParameterizedResponderGenerationBlock responderGenerationBlock;
 
 /*!
  @abstract The instance’s request-matching block.
@@ -102,7 +104,12 @@ typedef id<UMKMockURLResponder>(^UMKParameterizedResponderGenerationBlock)(NSURL
      most notably by other potential mock requests or in the body of your responder generation block. This is due to
      the nature of data streams. If the request has a non-nil HTTPBody, you may freely read the body in your block.
  */
-@property (nonatomic, copy) UMKParameterizedRequestMatchingBlock requestMatchingBlock;
+@property (nonatomic, copy, nullable) UMKParameterizedRequestMatchingBlock requestMatchingBlock;
+
+/*!
+ @abstract ‑init is unavailable, because a mock request with a nil URL pattern is nonsensical.
+ */
+- (instancetype)init NS_UNAVAILABLE;
 
 /*!
  @abstract Initializes a newly allocated instance with the specified URL pattern and responder generation block.
@@ -111,6 +118,8 @@ typedef id<UMKMockURLResponder>(^UMKParameterizedResponderGenerationBlock)(NSURL
  @param URLPattern The URL pattern for the new instance. May not be nil.
  @result An initialized pattern-matching mock request instance.
  */
-- (instancetype)initWithURLPattern:(NSString *)URLPattern;
+- (instancetype)initWithURLPattern:(NSString *)URLPattern NS_DESIGNATED_INITIALIZER;
 
 @end
+
+NS_ASSUME_NONNULL_END

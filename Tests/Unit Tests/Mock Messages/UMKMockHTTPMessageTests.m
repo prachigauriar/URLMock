@@ -67,12 +67,13 @@
 - (void)testHeadersAccessors
 {
     // Getting and setting headers as a dictionary
-    NSDictionary *headers = UMKRandomDictionaryOfStringsWithElementCount(12);
+    NSDictionary<NSString *, NSString *> *headers = UMKRandomDictionaryOfStringsWithElementCount(12);
     self.message.headers = headers;
     XCTAssertEqualObjects(self.message.headers, headers, @"Headers not set correctly");
 
     // Getting nil and unset headers
-    XCTAssertNil([self.message valueForHeaderField:nil], @"Non-nil header value for nil field");
+    id nilObject = nil;
+    XCTAssertNil([self.message valueForHeaderField:nilObject], @"Non-nil header value for nil field");
     XCTAssertNil([self.message valueForHeaderField:UMKRandomAlphanumericString()], @"Non-nil header value for unset field");
 
     // Case-insensitivity for getting header values
@@ -85,9 +86,9 @@
 
     
     // Setting nil keys or values
-    XCTAssertThrowsSpecificNamed([self.message setValue:nil forHeaderField:UMKRandomAlphanumericString()], NSException,
+    XCTAssertThrowsSpecificNamed([self.message setValue:nilObject forHeaderField:UMKRandomAlphanumericString()], NSException,
                                  NSInvalidArgumentException, @"Does not throw when given nil value");
-    XCTAssertThrowsSpecificNamed([self.message setValue:UMKRandomAlphanumericString() forHeaderField:nil], NSException,
+    XCTAssertThrowsSpecificNamed([self.message setValue:UMKRandomAlphanumericString() forHeaderField:nilObject], NSException,
                                  NSInvalidArgumentException, @"Does not throw when given nil field");
 
     // Case-insensitivity for setting field values
@@ -109,7 +110,7 @@
         XCTAssertEqualObjects([self.message valueForHeaderField:field], randomValue, @"Incorrect header value set for capitalized field");
     }];
 
-    NSDictionary *before = self.message.headers;
+    NSDictionary<NSString *, NSString *> *before = self.message.headers;
     [self.message removeValueForHeaderField:UMKRandomAlphanumericString()];
     XCTAssertEqualObjects(self.message.headers, before, @"Removal of unset key changed headers");
 
@@ -141,7 +142,7 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     XCTAssertTrue([self.message headersAreEqualToHeadersOfRequest:request], @"Headers are not equal");
     
-    NSDictionary *headers = UMKRandomDictionaryOfStringsWithElementCount(12);
+    NSDictionary<NSString *, NSString *> *headers = UMKRandomDictionaryOfStringsWithElementCount(12);
     self.message.headers = headers;
 
     NSUInteger i = 0;
@@ -164,13 +165,13 @@
 
     XCTAssertTrue([self.message headersAreEqualToHeadersOfRequest:request], @"Headers are not equal");
     XCTAssertFalse([self.message headersAreEqualToHeadersOfRequest:[[NSURLRequest alloc] init]], @"Headers are equal when they should not be.");
-    XCTAssertFalse([self.message headersAreEqualToHeadersOfRequest:nil], @"Headers are equal to those of a nil request.");
+
 
     [self.message removeValueForHeaderField:[self.message.headers.keyEnumerator nextObject]];
     XCTAssertFalse([self.message headersAreEqualToHeadersOfRequest:request], @"Headers are equal when they shouldn't be");
 
     self.message.headers = nil;
-    XCTAssertFalse([self.message headersAreEqualToHeadersOfRequest:nil], @"Headers are equal to those of a nil request");
+    XCTAssertFalse([self.message headersAreEqualToHeadersOfRequest:request], @"Headers are equal when they shouldn't be");
 }
 
 
@@ -220,11 +221,11 @@
     NSString *contentType = UMKRandomAlphanumericStringWithLength(8);
     [self.message setValue:contentType forHeaderField:kUMKMockHTTPMessageContentTypeHeaderField];
 
-    NSDictionary *parameters = UMKRandomDictionaryOfStringsWithElementCount(10);
+    NSDictionary<NSString *, NSString *> *parameters = UMKRandomDictionaryOfStringsWithElementCount(10);
     [self.message setBodyByURLEncodingParameters:parameters];
 
     NSString *bodyString = [[NSString alloc] initWithData:self.message.body encoding:NSUTF8StringEncoding];
-    NSDictionary *manuallyDecodedBody = [NSDictionary umk_dictionaryWithURLEncodedParameterString:bodyString];
+    NSDictionary<NSString *, id> *manuallyDecodedBody = [NSDictionary umk_dictionaryWithURLEncodedParameterString:bodyString];
     XCTAssertEqualObjects([self.message parametersFromURLEncodedBody], parameters, @"Did not set body correctly");
     XCTAssertEqualObjects([self.message parametersFromURLEncodedBody], manuallyDecodedBody, @"Did not set body correctly");
     XCTAssertEqualObjects([self.message valueForHeaderField:kUMKMockHTTPMessageContentTypeHeaderField], contentType, @"Content-Type header value was overwritten");
@@ -239,7 +240,7 @@
 
 - (void)testStringBodyAccessors
 {
-    NSDictionary *beforeHeaders = self.message.headers;
+    NSDictionary<NSString *, NSString *> *beforeHeaders = self.message.headers;
     NSString *bodyString = UMKRandomUnicodeString();
     [self.message setBodyWithString:bodyString];
     XCTAssertEqualObjects(self.message.body, [bodyString dataUsingEncoding:NSUTF8StringEncoding], @"Body string was not set correctly");

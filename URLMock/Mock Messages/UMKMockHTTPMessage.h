@@ -27,6 +27,8 @@
 #import <Foundation/Foundation.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 #pragma mark Constants
 
 /*! The HTTP header field for the Accepts header, i.e., "Accepts". */
@@ -62,14 +64,14 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
  */
 @interface UMKMockHTTPMessage : NSObject {
 @protected
-    NSMapTable *_headers;
+    NSMapTable<NSString *, NSString *> *_headers;
 }
 
 /*! The instance's body. */
-@property (nonatomic, copy) NSData *body;
+@property (nonatomic, copy, nullable) NSData *body;
 
 /*! The instance's HTTP headers. */
-@property (nonatomic, copy) NSDictionary *headers;
+@property (nonatomic, copy, null_resettable) NSDictionary<NSString *, NSString *> *headers;
 
 
 /*! @methodgroup HTTP headers */
@@ -79,7 +81,7 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
  @param field The header field whose value should be retrieved.
  @result The value for the specified header field or nil if the receiver has no such header.
  */
-- (NSString *)valueForHeaderField:(NSString *)field;
+- (NSString * _Nullable)valueForHeaderField:(NSString *)field;
 
 /*!
  @abstract Sets the receiver's header value for the specified header field.
@@ -111,7 +113,7 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
  @abstract Returns the receiver's body as a JSON object.
  @result The receiver's body as a JSON object, or nil if the receiver's body does not contain valid JSON data.
  */
-- (id)JSONObjectFromBody;
+- (_Nullable id)JSONObjectFromBody;
 
 /*!
  @abstract Sets the receiver's body to a serialized form of the specified JSON object.
@@ -127,7 +129,7 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
  @result A dictionary of the receiver's body as form parameters. Keys are strings. Values are either strings or the
      NSNull instance.
  */
-- (NSDictionary *)parametersFromURLEncodedBody;
+- (NSDictionary<NSString *, id> * _Nullable)parametersFromURLEncodedBody;
 
 /*!
  @abstract Sets the receiver's body as a WWW Form URL-encoded representation of the specified dictionary.
@@ -137,13 +139,13 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
      Values may be any object type; the value used in the receiver's body will be the result of invoking -description
      on the value.
  */
-- (void)setBodyByURLEncodingParameters:(NSDictionary *)parameters;
+- (void)setBodyByURLEncodingParameters:(NSDictionary<NSString *, id> *)parameters;
 
 /*!
  @abstract Returns the receiver's body as a UTF-8-encoded string.
  @result The receiver's body as a UTF-8 encoded string.
  */
-- (NSString *)stringFromBody;
+- (NSString * _Nullable)stringFromBody;
 
 /*!
  @abstract Sets the receiver's body as a UTF-8 encoded version of the specified string.
@@ -156,7 +158,7 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
  @param encoding The encoding to use to convert the string to a data object.
  @result The receiver's body as a string in the specified encoding.
  */
-- (NSString *)stringFromBodyWithEncoding:(NSStringEncoding)encoding;
+- (NSString * _Nullable)stringFromBodyWithEncoding:(NSStringEncoding)encoding;
 
 /*!
  @abstract Sets the receiver's body to the specified string in the specified encoding.
@@ -166,3 +168,5 @@ extern NSString *const kUMKMockHTTPMessageUTF8WWWFormURLEncodedContentTypeHeader
 - (void)setBodyWithString:(NSString *)string encoding:(NSStringEncoding)encoding;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -33,12 +33,6 @@
 
 @implementation UMKURLEncodedParameterStringParser
 
-- (instancetype)init
-{
-    return [self initWithString:nil];
-}
-
-
 - (instancetype)initWithString:(NSString *)string
 {
     NSParameterAssert(string);
@@ -64,9 +58,9 @@
 }
 
 
-- (NSDictionary *)parse
+- (NSDictionary<NSString *, id> * _Nullable)parse
 {
-    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary<NSString *, id> *dictionary = [[NSMutableDictionary alloc] init];
     for (UMKParameterPair *pair in self.parameterPairs) {
         // If an error occurs while parsing the pair, return nil. Since there are some crazy things that
         // could happen, like taking something that had a string value and indexing into it like an array,
@@ -84,14 +78,14 @@
 }
 
 
-- (NSArray *)parameterPairs
+- (NSArray<UMKParameterPair *> *)parameterPairs
 {
-    NSArray *keyValueStrings = [self.string componentsSeparatedByString:@"&"];
-    NSMutableArray *pairs = [[NSMutableArray alloc] initWithCapacity:keyValueStrings.count];
+    NSArray<NSString *> *keyValueStrings = [self.string componentsSeparatedByString:@"&"];
+    NSMutableArray<UMKParameterPair *> *pairs = [[NSMutableArray alloc] initWithCapacity:keyValueStrings.count];
     
     for (NSString *keyValueString in keyValueStrings) {
-        NSArray *keyValuePair = [keyValueString componentsSeparatedByString:@"="];
-        id key = [keyValuePair[0] stringByRemovingPercentEncoding];
+        NSArray<NSString *> *keyValuePair = [keyValueString componentsSeparatedByString:@"="];
+        NSString *key = [keyValuePair[0] stringByRemovingPercentEncoding];
         id value = (keyValuePair.count > 1) ? [keyValuePair[1] stringByRemovingPercentEncoding] : [NSNull null];
         [pairs addObject:[[UMKParameterPair alloc] initWithKey:key value:value]];
     }
@@ -110,9 +104,9 @@
     NSString *leftKey = @"";
     NSString *rightKey = @"";
     
-    NSTextCheckingResult *leftKeyResult = [[[self class] keyRegularExpression] firstMatchInString:key options:0 range:NSMakeRange(0, key.length)];
+    NSTextCheckingResult *leftKeyResult = [[self.class keyRegularExpression] firstMatchInString:key options:0 range:NSMakeRange(0, key.length)];
 
-    if ([leftKeyResult numberOfRanges] > 1) {
+    if (leftKeyResult.numberOfRanges > 1) {
         leftKey = [key substringWithRange:[leftKeyResult rangeAtIndex:1]];
         
         NSRange patternMatchRange = [leftKeyResult rangeAtIndex:0];
@@ -126,12 +120,16 @@
     // Check if the right key contains an array indicator ([]) with additional keys
     NSString *arrayKey = nil;
     if (rightKey.length != 0) {
-        NSTextCheckingResult *nestedArrayResult = [[[self class] nestedArrayRegularExpression] firstMatchInString:rightKey options:0 range:NSMakeRange(0, rightKey.length)];
-        NSTextCheckingResult *arrayResult = [[[self class] arrayRegularExpression] firstMatchInString:rightKey options:0 range:NSMakeRange(0, rightKey.length)];
+        NSTextCheckingResult *nestedArrayResult = [[self.class nestedArrayRegularExpression] firstMatchInString:rightKey
+                                                                                                        options:0
+                                                                                                          range:NSMakeRange(0, rightKey.length)];
+        NSTextCheckingResult *arrayResult = [[self.class arrayRegularExpression] firstMatchInString:rightKey
+                                                                                            options:0
+                                                                                              range:NSMakeRange(0, rightKey.length)];
         
-        if (nestedArrayResult && [nestedArrayResult numberOfRanges] > 1) {
+        if (nestedArrayResult.numberOfRanges > 1) {
             arrayKey = [rightKey substringWithRange:[nestedArrayResult rangeAtIndex:1]];
-        } else if (arrayResult && [arrayResult numberOfRanges] > 1) {
+        } else if (arrayResult.numberOfRanges > 1) {
             arrayKey = [rightKey substringWithRange:[arrayResult rangeAtIndex:1]];
         }
     }
@@ -142,7 +140,7 @@
     } else if ([rightKey isEqualToString:@"[]"]) {
         // We have an array indicator with no additional keys, if we already have an
         // array for the key append the value, otherwise add a new array containing the value
-        id array = [dictionary objectForKey:leftKey];
+        id array = dictionary[leftKey];
         if (!array) {
             array = [[NSMutableArray alloc] init];
         }
@@ -156,7 +154,7 @@
         dictionary[leftKey] = array;
     } else if (arrayKey) {
         // We have an array indicator with additional keys
-        id array = [dictionary objectForKey:leftKey];
+        id array = dictionary[leftKey];
         if (!array) {
             array = [[NSMutableArray alloc] init];
         }
@@ -180,7 +178,7 @@
         dictionary[leftKey] = array;
     } else {
         // We have a nested key, so recurse on that
-        id subDictionary = [dictionary objectForKey:leftKey];
+        id subDictionary = dictionary[leftKey];
         if (!subDictionary) {
             subDictionary = [[NSMutableDictionary alloc] init];
         }
@@ -231,7 +229,7 @@
         // Matches an array indicator ([]) followed by a nested dictionary indicator ([x])
         nestedArrayRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"^\\[\\]\\[([^\\[\\]]+)\\]$" options:0 error:&error];
         
-        if (nestedArrayRegularExpression) {
+        if (!nestedArrayRegularExpression) {
             NSLog(@"Error creating regular expression: %@", [error description]);
         }
     });
@@ -251,7 +249,7 @@
         // Matches an array indicator ([]) followed by additional keys
         arrayRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"^\\[\\](.+)$" options:0 error:&error];
         
-        if (error) {
+        if (!arrayRegularExpression) {
             NSLog(@"Error creating regular expression: %@", [error description]);
         }
     });

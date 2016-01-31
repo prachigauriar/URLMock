@@ -41,12 +41,6 @@
 
 @implementation UMKPatternMatchingMockRequest
 
-- (instancetype)init
-{
-    return [self initWithURLPattern:nil];
-}
-
-
 - (instancetype)initWithURLPattern:(NSString *)URLPattern
 {
     NSParameterAssert(URLPattern);
@@ -61,7 +55,7 @@
 }
 
 
-- (void)setHTTPMethods:(NSSet *)HTTPMethods
+- (void)setHTTPMethods:(NSSet<NSString *> *)HTTPMethods
 {
     _HTTPMethods = [HTTPMethods valueForKey:@"uppercaseString"];
 }
@@ -83,9 +77,12 @@
     NSString *URLString = [self canonicalURLStringExcludingQueryForURL:request.URL];
     if (![self.pattern stringMatches:URLString]) {
         return NO;
+    } else if (!self.requestMatchingBlock) {
+        return YES;
     }
 
-    return self.requestMatchingBlock ? self.requestMatchingBlock(request, [self.pattern parameterDictionaryFromSourceString:URLString]) : YES;
+    NSDictionary<NSString *, NSString *> *parameters = [self.pattern parameterDictionaryFromSourceString:URLString];
+    return self.requestMatchingBlock(request, parameters ? parameters : nil);
 }
 
 
@@ -96,7 +93,8 @@
     }
 
     NSString *URLString = [self canonicalURLStringExcludingQueryForURL:request.URL];
-    return self.responderGenerationBlock(request, [self.pattern parameterDictionaryFromSourceString:URLString]);
+    NSDictionary<NSString *, NSString *> *parameters = [self.pattern parameterDictionaryFromSourceString:URLString];
+    return self.responderGenerationBlock(request, parameters ? parameters : nil);
 }
 
 

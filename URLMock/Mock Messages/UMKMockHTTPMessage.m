@@ -82,13 +82,13 @@ static BOOL UMKCaseInsensitiveStringIsEqualFunction(const void *item1, const voi
 
 #pragma mark - Headers
 
-- (NSDictionary *)headers
+- (NSDictionary<NSString *, NSString *> *)headers
 {
     return [_headers dictionaryRepresentation];
 }
 
 
-- (void)setHeaders:(NSDictionary *)headers
+- (void)setHeaders:(NSDictionary<NSString *, NSString *> * _Nullable)headers
 {
     [_headers removeAllObjects];
     [headers enumerateKeysAndObjectsUsingBlock:^(NSString *field, NSString *value, BOOL *stop) {
@@ -97,7 +97,7 @@ static BOOL UMKCaseInsensitiveStringIsEqualFunction(const void *item1, const voi
 }
 
 
-- (NSString *)valueForHeaderField:(NSString *)field
+- (NSString * _Nullable)valueForHeaderField:(NSString *)field
 {
     return [_headers objectForKey:field];
 }
@@ -133,7 +133,7 @@ static BOOL UMKCaseInsensitiveStringIsEqualFunction(const void *item1, const voi
 
 #pragma mark - Body
 
-- (id)JSONObjectFromBody
+- (_Nullable id)JSONObjectFromBody
 {
     return self.body ? [NSJSONSerialization JSONObjectWithData:self.body options:0 error:NULL] : nil;
 }
@@ -155,13 +155,13 @@ static BOOL UMKCaseInsensitiveStringIsEqualFunction(const void *item1, const voi
 }
 
 
-- (NSDictionary *)parametersFromURLEncodedBody
+- (NSDictionary<NSString *, id> * _Nullable)parametersFromURLEncodedBody
 {
     return self.body ? [NSDictionary umk_dictionaryWithURLEncodedParameterString:[self stringFromBody]] : nil;
 }
 
 
-- (void)setBodyByURLEncodingParameters:(NSDictionary *)parameters
+- (void)setBodyByURLEncodingParameters:(NSDictionary<NSString *, id> *)parameters
 {
     NSParameterAssert(parameters);
     

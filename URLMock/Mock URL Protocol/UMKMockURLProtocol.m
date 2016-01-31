@@ -63,6 +63,8 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 @end
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 #pragma mark - UMKMockURLProtocolSettings
 
 /*!
@@ -85,7 +87,7 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
      writes should be done using dispatch_barrier_async. This allows for multiple simultaneous readers, but only one writer,
      and prevents a read from occurring during a write.
  */
-@property (nonatomic, strong, readonly) NSMutableArray *expectedMockRequests;
+@property (nonatomic, strong, readonly) NSMutableArray<id<UMKMockURLRequest>> *expectedMockRequests;
 
 /*! The isolation queue for reading/writing unexpected requests. */
 @property (nonatomic, copy, readonly) dispatch_queue_t unexpectedRequestsIsolationQueue;
@@ -96,7 +98,7 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
      writes should be done using dispatch_barrier_async. This allows for multiple simultaneous readers, but only one writer,
      and prevents a read from occurring during a write.
 */
-@property (nonatomic, strong, readonly) NSMutableArray *unexpectedRequests;
+@property (nonatomic, strong, readonly) NSMutableArray<NSURLRequest *> *unexpectedRequests;
 
 /*! The isolation queue for reading/writing serviced requests. */
 @property (nonatomic, copy, readonly) dispatch_queue_t servicedRequestsIsolationQueue;
@@ -107,7 +109,7 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
      writes should be done using dispatch_barrier_async. This allows for multiple simultaneous readers, but only one writer,
      and prevents a read from occurring during a write.
  */
-@property (nonatomic, strong, readonly) NSMutableDictionary *servicedRequests;
+@property (nonatomic, strong, readonly) NSMutableDictionary<NSURLRequest *, id<UMKMockURLRequest>> *servicedRequests;
 
 
 /*!
@@ -119,6 +121,8 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 
 @end
 
+NS_ASSUME_NONNULL_END
+
 
 #pragma mark -
 
@@ -129,15 +133,15 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
     self = [super init];
     if (self) {
         _unexpectedRequests = [[NSMutableArray alloc] init];
-        NSString *label = [NSString stringWithFormat:@"%@.isolation.unexpectedRequests", [self class]];
+        NSString *label = [NSString stringWithFormat:@"%@.isolation.unexpectedRequests", self.class];
         _unexpectedRequestsIsolationQueue = dispatch_queue_create([label UTF8String], 0);
         
         _expectedMockRequests = [[NSMutableArray alloc] init];
-        label = [NSString stringWithFormat:@"%@.isolation.expectedMockRequests", [self class]];
+        label = [NSString stringWithFormat:@"%@.isolation.expectedMockRequests", self.class];
         _expectedMockRequestsIsolationQueue = dispatch_queue_create([label UTF8String], 0);
         
         _servicedRequests = [[NSMutableDictionary alloc] init];
-        label = [NSString stringWithFormat:@"%@.isolation.servicedRequests", [self class]];
+        label = [NSString stringWithFormat:@"%@.isolation.servicedRequests", self.class];
         _servicedRequestsIsolationQueue = dispatch_queue_create([label UTF8String], 0);
     }
 
@@ -164,7 +168,7 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 - (NSString *)debugDescription
 {
     return [NSString stringWithFormat:@"<%@: %p> enabled: %@; verificationEnabled: %@, receivedUnexpectedRequest: %@; "
-                                      @"expectedMockRequests: %@, servicedRequests: %@", [self class], self,
+                                      @"expectedMockRequests: %@, servicedRequests: %@", self.class, self,
                                                                                          self.enabled ? @"YES" : @"NO",
                                                                                          self.verificationEnabled ? @"YES" : @"NO",
                                                                                          self.unexpectedRequests.debugDescription,
@@ -196,16 +200,16 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 {
     self = [super initWithRequest:request cachedResponse:cachedResponse client:client];
     if (self) {
-        _mockRequest = [[self class] expectedMockRequestMatchingURLRequest:request];
+        _mockRequest = [self.class expectedMockRequestMatchingURLRequest:request];
 
         // If there was a mock request, mark it as serviced. Otherwise, respond with an unexpected request responder
         if (_mockRequest) {
             _mockResponder = [_mockRequest responderForURLRequest:request];
             NSAssert(_mockResponder, @"No responder for mock request: %@", _mockRequest);
-            [[self class] markRequest:request asServicedByMockRequest:_mockRequest];
+            [self.class markRequest:request asServicedByMockRequest:_mockRequest];
         } else {
             _mockResponder = [[UMKUnexpectedRequestResponder alloc] init];
-            [[self class] addUnexpectedRequest:request];
+            [self.class addUnexpectedRequest:request];
         }
     }
 
@@ -309,11 +313,10 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 {
     NSParameterAssert(request);
 
-    __block NSUInteger index = 0;
     __block id<UMKMockURLRequest> mockRequest = nil;
 
-    dispatch_sync([[[self class] settings] expectedMockRequestsIsolationQueue] , ^{
-        index = [self.settings.expectedMockRequests indexOfObjectPassingTest:^BOOL(id<UMKMockURLRequest> mockRequest, NSUInteger idx, BOOL *stop) {
+    dispatch_sync([[self.class settings] expectedMockRequestsIsolationQueue] , ^{
+        NSUInteger index = [self.settings.expectedMockRequests indexOfObjectPassingTest:^BOOL(id<UMKMockURLRequest> mockRequest, NSUInteger idx, BOOL *stop) {
             return [mockRequest matchesURLRequest:request];
         }];
         
@@ -324,9 +327,9 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 }
 
 
-+ (NSArray *)expectedMockRequests
++ (NSArray<id<UMKMockURLRequest>> *)expectedMockRequests
 {
-    __block NSArray *expectedMockRequests = nil;
+    __block NSArray<id<UMKMockURLRequest>> *expectedMockRequests = nil;
     dispatch_sync(self.settings.expectedMockRequestsIsolationQueue, ^{
         expectedMockRequests = [self.settings.expectedMockRequests copy];
     });
@@ -355,9 +358,9 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 
 #pragma mark - Unexpected Requests
 
-+ (NSArray *)unexpectedRequests
++ (NSArray<NSURLRequest *> *)unexpectedRequests
 {
-    __block NSArray *unexpectedRequests = nil;
+    __block NSArray<NSURLRequest *> *unexpectedRequests = nil;
     dispatch_sync(self.settings.unexpectedRequestsIsolationQueue, ^{
         unexpectedRequests = [self.settings.unexpectedRequests copy];
     });
@@ -376,9 +379,9 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 
 #pragma mark - Servicing Requests
 
-+ (NSDictionary *)servicedRequests
++ (NSDictionary<NSURLRequest *, id<UMKMockURLRequest>> *)servicedRequests
 {
-    __block NSDictionary *servicedRequests = nil;
+    __block NSDictionary<NSURLRequest *, id<UMKMockURLRequest>> *servicedRequests = nil;
     dispatch_sync(self.settings.servicedRequestsIsolationQueue, ^{
         servicedRequests = [self.settings.servicedRequests copy];
     });
@@ -387,7 +390,7 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
 }
 
 
-+ (void)markRequest:(NSURLRequest *)request asServicedByMockRequest:(id<UMKMockURLRequest>)mockRequest
++ (void)markRequest:(NSURLRequest * _Nonnull)request asServicedByMockRequest:(_Nonnull id<UMKMockURLRequest>)mockRequest
 {
     if (![self isVerificationEnabled]) {
         return;
@@ -427,8 +430,8 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
     }
 
     // We want to disallow any writes to either unexpectedRequests or expectedMockRequests until we're done copying both
-    __block NSArray *unexpectedRequests = nil;
-    __block NSArray *expectedMockRequests = nil;
+    __block NSArray<NSURLRequest *> *unexpectedRequests = nil;
+    __block NSArray<id<UMKMockURLRequest>> *expectedMockRequests = nil;
     dispatch_sync(self.settings.unexpectedRequestsIsolationQueue, ^{
         dispatch_sync(self.settings.expectedMockRequestsIsolationQueue, ^{
             unexpectedRequests = [self.settings.unexpectedRequests copy];
@@ -438,7 +441,7 @@ NSString *const kUMKUnservicedMockRequestsKey = @"UMKUnservicedMockRequests";
     
     BOOL receivedUnexpectedRequest = unexpectedRequests.count > 0;
 
-    NSMutableSet *unservicedMockRequests = [NSMutableSet setWithArray:expectedMockRequests];
+    NSMutableSet<id<UMKMockURLRequest>> *unservicedMockRequests = [NSMutableSet setWithArray:expectedMockRequests];
     [unservicedMockRequests minusSet:[NSSet setWithArray:self.servicedRequests.allValues]];
     BOOL hasUnservicedMockRequests = unservicedMockRequests.count > 0;
 

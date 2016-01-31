@@ -42,13 +42,15 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 
 #pragma mark -
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*!
  UMKMockHTTPRequestSettings store settings for the UMKMockHTTPRequest class.
  */
 @interface UMKMockHTTPRequestSettings : NSObject
 
 /*! The default headers for all new instances. Initially nil. */
-@property (copy) NSDictionary *defaultHeaders;
+@property (nonatomic, copy, nullable) NSDictionary<NSString *, NSString *> *defaultHeaders;
 
 @end
 
@@ -62,7 +64,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 @interface UMKMockHTTPRequest ()
 
 /*! A canonical version of the instance's URL. */
-@property (readonly, strong, nonatomic) NSURL *canonicalURL;
+@property (nonatomic, strong, readonly) NSURL *canonicalURL;
 
 /*!
  @abstract Returns whether the receiver's body matches that of the specified URL request.
@@ -76,16 +78,12 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 
 @end
 
+NS_ASSUME_NONNULL_END
+
 
 #pragma mark -
 
 @implementation UMKMockHTTPRequest
-
-- (instancetype)init
-{
-    return [self initWithHTTPMethod:nil URL:nil];
-}
-
 
 - (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL
 {
@@ -112,8 +110,8 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
         _checksHeadersWhenMatching = checksHeaders;
         _checksBodyWhenMatching = checksBody;
         
-        if ([[self class] defaultHeaders]) {
-            self.headers = [[self class] defaultHeaders];
+        if ([self.class defaultHeaders]) {
+            self.headers = [self.class defaultHeaders];
         }
         
     }
@@ -182,13 +180,13 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
 }
 
 
-+ (NSDictionary *)defaultHeaders
++ (NSDictionary<NSString *, NSString *> * _Nullable)defaultHeaders
 {
     return self.settings.defaultHeaders;
 }
 
 
-+ (void)setDefaultHeaders:(NSDictionary *)defaultHeaders
++ (void)setDefaultHeaders:(NSDictionary<NSString *, NSString *> * _Nullable)defaultHeaders
 {
     self.settings.defaultHeaders = defaultHeaders;
 }
@@ -233,7 +231,7 @@ NSString *const kUMKMockHTTPRequestPutMethod = @"PUT";
             return [[self JSONObjectFromBody] isEqual:[NSJSONSerialization JSONObjectWithData:body options:0 error:NULL]];
         } else if ([contentType rangeOfString:kUMKMockHTTPMessageWWWFormURLEncodedContentTypeHeaderValue].location != NSNotFound) {
             NSString *requestBodyString = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
-            NSDictionary *bodyParameters = [NSDictionary umk_dictionaryWithURLEncodedParameterString:requestBodyString];
+            NSDictionary<NSString *, id> *bodyParameters = [NSDictionary umk_dictionaryWithURLEncodedParameterString:requestBodyString];
             return [[self parametersFromURLEncodedBody] isEqualToDictionary:bodyParameters];
         }
     }
