@@ -254,13 +254,23 @@ conform to the `UMKMockURLRequest` and `UMKMockURLResponder` protocols. See the 
 `UMKMockHTTPRequest` and `UMKMockHTTPResponder` for examples.
 
 
+## Owners
+
+@jnjosh, @prachigauriar, @macdrevx, and @dfowj currently act as the owners of URLMock. Mention us in issues or pull requests for
+questions about features, project direction, or to request code review.
+
+
 ## Contributing, Filing Bugs, and Requesting Enhancements
 
 URLMock is very usable in its current state, but there’s still a lot that could be done. If you
 would like to help fix bugs or add features, send us a pull request!
 
 We use GitHub issues for bugs, enhancement requests, and the limited support we provide, so open an
-issue for any of those.
+issue for any of those. 
+
+Typically, a pull request should receive a code review and a :+1: from at least 2 project owners before being merged.
+In cases where a pull request review needs to be expedited a single :+1: from an owner will suffice, though this should 
+be the exception, not the rule.
 
  
 ## License
