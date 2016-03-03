@@ -27,6 +27,8 @@
 #import <Foundation/Foundation.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*!
  UMKURLEncodedParameterStringParser objects parse URL encoded parameter strings.
  
@@ -50,13 +52,17 @@
  */
 @property (nonatomic, assign, readonly) NSStringEncoding encoding DEPRECATED_ATTRIBUTE;
 
+/*!
+ @abstract ‑init is unavailable, because a string parser with a nil string is nonsensical.
+ */
+- (instancetype)init NS_UNAVAILABLE;
 
 /*!
  @abstract Initializes a new UMKURLEncodedParameterStringParser instance with the specified string.
  @param string The URL encoded parameter string to parse.
  @result A newly initialized UMKURLEncodedParameterStringParser.
  */
-- (instancetype)initWithString:(NSString *)string;
+- (instancetype)initWithString:(NSString *)string NS_DESIGNATED_INITIALIZER;
 
 /*!
  @abstract Deprecated. Use -initWithString: instead.
@@ -72,6 +78,8 @@
      keys, array values, and set values are strings. Sets never contain fewer than two items.
  @result The dictionary that results from parsing the receiver's string or nil if a parse error occurred.
  */
-- (NSDictionary *)parse;
+- (NSDictionary<NSString *, id> * _Nullable)parse;
 
 @end
+
+NS_ASSUME_NONNULL_END

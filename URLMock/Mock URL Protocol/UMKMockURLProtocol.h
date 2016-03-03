@@ -27,6 +27,8 @@
 #import <Foundation/Foundation.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*! The error domain for the URLMock framework. */
 extern NSString *const kUMKErrorDomain;
 
@@ -79,7 +81,7 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
  @abstract Returns all expected mock requests.
  @result An array of all mock requests that are currently expected.
  */
-+ (NSArray *)expectedMockRequests;
++ (NSArray<id<UMKMockURLRequest>> *)expectedMockRequests;
 
 /*!
  @abstract Adds the specified mock request to the protocol's set of expected mock requests.
@@ -130,13 +132,13 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
  @throws NSInternalInconsistencyException if verification is not enabled.
  @result Whether verification succeeded.
  */
-+ (BOOL)verifyWithError:(NSError **)outError;
++ (BOOL)verifyWithError:(NSError * _Nullable * _Nullable)outError;
 
 /*!
  @abstract Returns an array of unexpected requests received since the last reset.
  @result An array of unexpected requests received since the receiver last received the +reset message.
  */
-+ (NSArray *)unexpectedRequests;
++ (NSArray<NSURLRequest *> *)unexpectedRequests;
 
 /*!
  @abstract Returns a dictionary of requests serviced since the last reset.
@@ -144,7 +146,7 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
      requests that serviced them.
  @result A dictionary of requests serviced since the receiver last received the +reset message.
  */
-+ (NSDictionary *)servicedRequests;
++ (NSDictionary<NSURLRequest *, id<UMKMockURLRequest>> *)servicedRequests;
 
 
 /*! @methodgroup Getting canonical URLs */
@@ -223,3 +225,5 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
 - (void)cancelResponse;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -28,6 +28,8 @@
 #import <Foundation/Foundation.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*!
  UMKParameterPair objects store a key-value pair for use with URL encoding/decoding APIs in URLMock.
  @note The basic design and some of the code here is adapted or borrowed from AFNetworking.
@@ -35,10 +37,13 @@
 @interface UMKParameterPair : NSObject
 
 /*! The instance's key. */
-@property (nonatomic, strong) NSString *key;
+@property (nonatomic, copy) NSString *key;
 
 /*! The instance's value. */
-@property (nonatomic, strong) id value;
+@property (nonatomic, strong, nullable) id value;
+
+
+- (instancetype)init NS_UNAVAILABLE;
 
 /*!
  @abstract Returns a newly initialized UMKParameterPair instance with the specfied key and value.
@@ -46,7 +51,7 @@
  @param value The value for the new pair object.
  @result A newly initialized UMKParameterPair with the specified key and value.
  */
-- (instancetype)initWithKey:(NSString *)key value:(id)value;
+- (instancetype)initWithKey:(NSString *)key value:(_Nullable id)value NS_DESIGNATED_INITIALIZER;
 
 /*! 
  @abstract Returns a URL encoded string representation of the receiver.
@@ -67,3 +72,5 @@
 - (NSString *)URLEncodedStringValue;
 
 @end
+
+NS_ASSUME_NONNULL_END

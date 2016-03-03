@@ -27,6 +27,8 @@
 #import <Foundation/Foundation.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*!
  Instances of UMKMessageCountingProxy count how many times their associated objects have received messages.
  This is useful when testing that APIs are actually being invoked.
@@ -76,3 +78,5 @@
 - (NSUInteger)receivedMessageCountForSelector:(SEL)selector;
 
 @end
+
+NS_ASSUME_NONNULL_END

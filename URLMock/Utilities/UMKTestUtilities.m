@@ -255,7 +255,7 @@ NSDictionary *UMKGeneratedDictionaryWithElementCount(NSUInteger count, id (^keyG
 }
 
 
-NSDictionary *UMKRandomDictionaryOfStringsWithElementCount(NSUInteger count)
+NSDictionary<NSString *, NSString *> *UMKRandomDictionaryOfStringsWithElementCount(NSUInteger count)
 {
     return UMKGeneratedDictionaryWithElementCount(count, ^id{
         return UMKRandomAlphanumericString();
@@ -289,7 +289,7 @@ static id UMKRandomURLEncodedParameterArray(NSUInteger maxElementCountPerCollect
 }
 
 
-NSDictionary *UMKRandomURLEncodedParameterDictionary(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection)
+NSDictionary<NSString *, id> *UMKRandomURLEncodedParameterDictionary(NSUInteger maxNestingDepth, NSUInteger maxElementCountPerCollection)
 {
     NSCParameterAssert(maxNestingDepth > 0);
     NSCParameterAssert(maxElementCountPerCollection > 0);

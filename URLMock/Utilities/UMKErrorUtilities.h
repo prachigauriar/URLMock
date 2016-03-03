@@ -34,6 +34,8 @@
 #import <Foundation/Foundation.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*!
  @abstract Returns an NSString representation of the selector.
  @discussion This simply returns the result of NSStringFromSelector(selector), prefixed with a '+' if receiver is 
@@ -73,3 +75,5 @@ extern NSString *UMKAssertionString(id receiver, SEL selector, NSString *format,
  @result An NSString formatted suitable for use as an exception message.
  */
 extern NSString *UMKExceptionString(id receiver, SEL selector, NSString *format, ...) NS_FORMAT_FUNCTION(3, 4);
+
+NS_ASSUME_NONNULL_END

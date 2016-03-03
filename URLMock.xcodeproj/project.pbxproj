@@ -825,6 +825,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = UMK;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Ticketmaster Entertainment, Inc.";
 				TargetAttributes = {

@@ -28,6 +28,8 @@
 #import <URLMock/UMKMockURLProtocol.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 #pragma mark Constants
 
 /*! The DELETE HTTP method. */
@@ -79,6 +81,11 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
 @property (nonatomic, assign) BOOL checksBodyWhenMatching;
 
 /*!
+ @abstract ‑init is unavailable, because a request with a nil HTTPMethod or URL is nonsensical.
+ */
+- (instancetype)init NS_UNAVAILABLE;
+
+/*!
  @abstract Initializes a newly allocated instance with the specified HTTP method and URL.
  @discussion The returned object does not test header equivalence when matching.
  @param method The HTTP method for the new instance. May not be nil.
@@ -108,7 +115,10 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
  @param checksBody Whether the new instance should check body equality when determining if it matches a URL request.
  @result An initialized mock request instance.
  */
-- (instancetype)initWithHTTPMethod:(NSString *)method URL:(NSURL *)URL checksHeadersWhenMatching:(BOOL)checksHeaders checksBodyWhenMatching:(BOOL)checksBody;
+- (instancetype)initWithHTTPMethod:(NSString *)method
+                               URL:(NSURL *)URL
+         checksHeadersWhenMatching:(BOOL)checksHeaders
+            checksBodyWhenMatching:(BOOL)checksBody NS_DESIGNATED_INITIALIZER;
 
 /*!
  @abstract Creates and returns a new mock HTTP DELETE request to the specified URL.
@@ -159,7 +169,7 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
  @abstract Returns the default headers for new UMKMockHTTPRequest instances.
  @result The default headers for new UMKMockHTTPRequest instances or nil if no default has been set.
  */
-+ (NSDictionary *)defaultHeaders;
++ (NSDictionary<NSString *, NSString *> * _Nullable)defaultHeaders;
 
 /*!
  @abstract Sets the default headers for new UMKMockHTTPRequest instances.
@@ -168,7 +178,7 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
      process.
  @param defaultHeaders The headers that should be the default for all new UMKMockHTTPRequest instances.
  */
-+ (void)setDefaultHeaders:(NSDictionary *)defaultHeaders;
++ (void)setDefaultHeaders:(NSDictionary<NSString *, NSString *> * _Nullable)defaultHeaders;
 
 
 /*! @methodgroup URL request matching */
@@ -184,3 +194,5 @@ extern NSString *const kUMKMockHTTPRequestPutMethod;
 - (BOOL)matchesURLRequest:(NSURLRequest *)request;
 
 @end
+
+NS_ASSUME_NONNULL_END

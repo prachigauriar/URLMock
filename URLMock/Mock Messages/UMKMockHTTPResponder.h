@@ -28,6 +28,8 @@
 #import <URLMock/UMKMockURLProtocol.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*!
  UMKMockHTTPResponder objects respond to mock HTTP URL requests. Instances can be created to respond with
  an NSError, an HTTP response, or even an HTTP response with its body broken into multiple chunks that are
@@ -75,7 +77,7 @@
  @param headers The HTTP headers to respond with.
  @result A newly initialized UMKMockHTTPResponseResponder with the specified status code and headers.
  */
-+ (instancetype)mockHTTPResponderWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers;
++ (instancetype)mockHTTPResponderWithStatusCode:(NSInteger)statusCode headers:(NSDictionary<NSString *, NSString *> * _Nullable)headers;
 
 /*!
  @abstract Returns a new UMKMockHTTPResponder instance that responds by sending an HTTP response with the
@@ -86,7 +88,7 @@
  @param body The HTTP body to respond with.
  @result A newly initialized UMKMockHTTPResponseResponder with the specified status code and body.
  */
-+ (instancetype)mockHTTPResponderWithStatusCode:(NSInteger)statusCode body:(NSData *)body;
++ (instancetype)mockHTTPResponderWithStatusCode:(NSInteger)statusCode body:(NSData * _Nullable)body;
 
 /*!
  @abstract Returns a new UMKMockHTTPResponder instance that responds by sending an HTTP response with the
@@ -98,7 +100,9 @@
  @param body The HTTP body to respond with.
  @result A newly initialized UMKMockHTTPResponseResponder with the specified status code, headers, and body.
  */
-+ (instancetype)mockHTTPResponderWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body;
++ (instancetype)mockHTTPResponderWithStatusCode:(NSInteger)statusCode
+                                        headers:(NSDictionary<NSString *, NSString *> * _Nullable)headers
+                                           body:(NSData * _Nullable)body;
 
 /*!
  @abstract Returns a new UMKMockHTTPResponder instance with the specified status code, headers, body, chunk
@@ -112,7 +116,12 @@
      is only used if chunks is more than 1. Must be non-negative.
  @result A newly initialized UMKMockHTTPResponder with the specified parameters.
  */
-+ (instancetype)mockHTTPResponderWithStatusCode:(NSInteger)statusCode headers:(NSDictionary *)headers body:(NSData *)body
-                                 chunkCountHint:(NSUInteger)hint delayBetweenChunks:(NSTimeInterval)delay;
++ (instancetype)mockHTTPResponderWithStatusCode:(NSInteger)statusCode
+                                        headers:(NSDictionary<NSString *, NSString *> * _Nullable)headers
+                                           body:(NSData * _Nullable)body
+                                 chunkCountHint:(NSUInteger)hint
+                             delayBetweenChunks:(NSTimeInterval)delay;
 
 @end
+
+NS_ASSUME_NONNULL_END

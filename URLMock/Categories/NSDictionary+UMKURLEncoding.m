@@ -40,7 +40,7 @@
      values represent the values in the receiver.
  @result An array of parameter pairs.
  */
-- (NSArray *)umk_parameterPairsWithKey:(NSString *)key;
+- (NSArray<UMKParameterPair *> *)umk_parameterPairsWithKey:(NSString *)key;
 
 /*!
  @abstract Returns whether the object is a valid URL encoded parameter object.
@@ -59,7 +59,7 @@
 
 @implementation NSObject (UMKURLEncoding)
 
-- (NSArray *)umk_parameterPairsWithKey:(NSString *)key
+- (NSArray<UMKParameterPair *> *)umk_parameterPairsWithKey:(NSString *)key
 {
     return @[ [[UMKParameterPair alloc] initWithKey:key value:self] ];
 }
@@ -77,9 +77,9 @@
 
 @implementation NSArray (UMKURLEncoding)
 
-- (NSArray *)umk_parameterPairsWithKey:(NSString *)key
+- (NSArray<UMKParameterPair *> *)umk_parameterPairsWithKey:(NSString *)key
 {
-    NSMutableArray *pairs = [[NSMutableArray alloc] initWithCapacity:self.count];
+    NSMutableArray<UMKParameterPair *> *pairs = [[NSMutableArray alloc] initWithCapacity:self.count];
     NSString *nestedKey = [NSString stringWithFormat:@"%@[]", key];
     for (id value in self) {
         [pairs addObjectsFromArray:[value umk_parameterPairsWithKey:nestedKey]];
@@ -90,7 +90,7 @@
 
 - (BOOL)umk_isValidURLEncodedParameterObject
 {
-    if ([self count] == 0) {
+    if (self.count == 0) {
         return NO;
     }
     
@@ -111,7 +111,7 @@
 @implementation NSDictionary (UMKURLEncoding)
 
 
-+ (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string
++ (NSDictionary<NSString *, id> * _Nullable)umk_dictionaryWithURLEncodedParameterString:(NSString *)string
 {
     NSParameterAssert(string);
     UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string];
@@ -119,7 +119,7 @@
 }
 
 
-+ (instancetype)umk_dictionaryWithURLEncodedParameterString:(NSString *)string encoding:(NSStringEncoding)encoding
++ (NSDictionary<NSString *, id> * _Nullable)umk_dictionaryWithURLEncodedParameterString:(NSString *)string encoding:(NSStringEncoding)encoding
 {
     return [self umk_dictionaryWithURLEncodedParameterString:string];
 }
@@ -128,7 +128,7 @@
 - (BOOL)umk_isValidURLEncodedParameterObject
 {
     for (id key in self) {
-        id value = [self objectForKey:key];
+        id value = self[key];
         if (![key isKindOfClass:[NSString class]] || ![value umk_isValidURLEncodedParameterObject]) {
             return NO;
         }
@@ -146,14 +146,8 @@
 
 - (NSString *)umk_URLEncodedParameterString
 {
-    NSArray *pairs = [self umk_parameterPairsWithKey:nil];
-    NSMutableArray *pairStrings = [[NSMutableArray alloc] initWithCapacity:pairs.count];
-
-    for (UMKParameterPair *pair in pairs) {
-        [pairStrings addObject:[pair URLEncodedStringValue]];
-    }
-
-    return [pairStrings componentsJoinedByString:@"&"];
+    NSArray<UMKParameterPair *> *pairs = [self umk_parameterPairsWithKey:nil];
+    return [[pairs valueForKey:NSStringFromSelector(@selector(URLEncodedStringValue))] componentsJoinedByString:@"&"];
 }
 
 
@@ -163,13 +157,13 @@
 }
 
 
-- (NSArray *)umk_parameterPairsWithKey:(NSString *)key
+- (NSArray<UMKParameterPair *> *)umk_parameterPairsWithKey:(NSString *)key
 {
     NSArray *sortedNestedKeys = [[self allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [[obj1 description] caseInsensitiveCompare:[obj2 description]];
     }];
 
-    NSMutableArray *pairs = [[NSMutableArray alloc] initWithCapacity:self.count];
+    NSMutableArray<UMKParameterPair *> *pairs = [[NSMutableArray alloc] initWithCapacity:self.count];
     for (id nestedKey in sortedNestedKeys) {
         NSString *parameterPairKey = key ? [NSString stringWithFormat:@"%@[%@]", key, nestedKey] : nestedKey;
         id value = self[nestedKey];
@@ -186,9 +180,9 @@
 
 @implementation NSSet (UMKURLEncoding)
 
-- (NSArray *)umk_parameterPairsWithKey:(NSString *)key
+- (NSArray<UMKParameterPair *> *)umk_parameterPairsWithKey:(NSString *)key
 {
-    NSMutableArray *pairs = [[NSMutableArray alloc] initWithCapacity:self.count];
+    NSMutableArray<UMKParameterPair *> *pairs = [[NSMutableArray alloc] initWithCapacity:self.count];
     for (id element in self) {
         [pairs addObjectsFromArray:[element umk_parameterPairsWithKey:key]];
     }
@@ -199,7 +193,7 @@
 
 - (BOOL)umk_isValidURLEncodedParameterObject
 {
-    if ([self count] < 2) {
+    if (self.count < 2) {
         return NO;
     }
     

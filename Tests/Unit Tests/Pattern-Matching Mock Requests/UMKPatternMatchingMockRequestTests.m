@@ -43,8 +43,8 @@
 {
     NSString *pattern = UMKRandomAlphanumericString();
 
-    XCTAssertThrowsSpecificNamed([[UMKPatternMatchingMockRequest alloc] init], NSException, NSInternalInconsistencyException, @"does not raise assertion");
-    XCTAssertThrowsSpecificNamed([[UMKPatternMatchingMockRequest alloc] initWithURLPattern:nil], NSException, NSInternalInconsistencyException,
+    id nilObject = nil;
+    XCTAssertThrowsSpecificNamed([[UMKPatternMatchingMockRequest alloc] initWithURLPattern:nilObject], NSException, NSInternalInconsistencyException,
                                  @"does not raise assertion");
     UMKPatternMatchingMockRequest *mockRequest = [[UMKPatternMatchingMockRequest alloc] initWithURLPattern:pattern];
     XCTAssertNotNil(mockRequest, "Returns nil");
@@ -55,22 +55,24 @@
     XCTAssertTrue([mockRequest conformsToProtocol:@protocol(UMKMockURLRequest)], @"Does not conform to UMKMockURLRequest protocol");
 
     XCTAssertTrue([mockRequest respondsToSelector:@selector(shouldRemoveAfterServicingRequest:)], @"Does not implement -shouldRemoveAfterServicingRequest:");
-    XCTAssertFalse([mockRequest shouldRemoveAfterServicingRequest:nil], @"Returns NO for -shouldRemoveAfterServicingRequest:");
+
+    NSURLRequest *arbitraryRequest = [[NSURLRequest alloc] initWithURL:UMKRandomHTTPURL()];
+    XCTAssertFalse([mockRequest shouldRemoveAfterServicingRequest:arbitraryRequest], @"Returns NO for -shouldRemoveAfterServicingRequest:");
 }
 
 
 - (void)testHTTPMethods
 {
-    NSSet *HTTPMethods = UMKGeneratedSetWithElementCount(random() % 5 + 2, ^id{
+    NSSet<NSString *> *HTTPMethods = UMKGeneratedSetWithElementCount(random() % 5 + 2, ^id{
         return [UMKRandomAlphanumericStringWithLength(7) uppercaseString];
     });
 
-    NSSet *HTTPMethodsWithDuplicate = [HTTPMethods setByAddingObject:[[HTTPMethods anyObject] lowercaseString]];
+    NSSet<NSString *> *HTTPMethodsWithDuplicate = [HTTPMethods setByAddingObject:[[HTTPMethods anyObject] lowercaseString]];
 
     UMKPatternMatchingMockRequest *mockRequest = [[UMKPatternMatchingMockRequest alloc] initWithURLPattern:UMKRandomAlphanumericString()];
     mockRequest.HTTPMethods = HTTPMethodsWithDuplicate;
 
-    NSSet *uppercaseActualHTTPMethods = [mockRequest.HTTPMethods valueForKey:@"uppercaseString"];
+    NSSet<NSString *> *uppercaseActualHTTPMethods = [mockRequest.HTTPMethods valueForKey:@"uppercaseString"];
     XCTAssertEqualObjects(uppercaseActualHTTPMethods, HTTPMethods, @"HTTP methods is set incorrectly");
 }
 
@@ -78,7 +80,7 @@
 - (void)testMatchesURLRequest
 {
     NSString *pattern = @"https://api.hostname.com/:resource/:resourceID/search";
-    NSSet *HTTPMethods = UMKGeneratedSetWithElementCount(random() % 3 + 2, ^id{
+    NSSet<NSString *> *HTTPMethods = UMKGeneratedSetWithElementCount(random() % 3 + 2, ^id{
         return UMKRandomHTTPMethod();
     });
 
@@ -99,14 +101,14 @@
     request.HTTPMethod = [HTTPMethods anyObject];
     XCTAssertTrue([mockRequest matchesURLRequest:request], @"Does not match request with correct URL pattern and HTTP method");
 
-    mockRequest.requestMatchingBlock = ^BOOL(NSURLRequest *request, NSDictionary *parameters) {
+    mockRequest.requestMatchingBlock = ^BOOL(NSURLRequest *request, NSDictionary<NSString *, NSString *> *parameters) {
         return NO;
     };
 
     XCTAssertFalse([mockRequest matchesURLRequest:request], @"Matches request with failing request-matching block");
 
-    mockRequest.requestMatchingBlock = ^BOOL(NSURLRequest *request, NSDictionary *parameters) {
-        NSDictionary *queryParameters = [NSDictionary umk_dictionaryWithURLEncodedParameterString:request.URL.query];
+    mockRequest.requestMatchingBlock = ^BOOL(NSURLRequest *request, NSDictionary<NSString *, NSString *> *parameters) {
+        NSDictionary<NSString *, NSString *> *queryParameters = [NSDictionary umk_dictionaryWithURLEncodedParameterString:request.URL.query];
         return [parameters[@"resource"] isEqualToString:@"users"] && [queryParameters[@"a"] isEqualToString:@"b"];
     };
 
@@ -123,7 +125,7 @@
 
     UMKPatternMatchingMockRequest *mockRequest = [[UMKPatternMatchingMockRequest alloc] initWithURLPattern:pattern];
 
-    mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSDictionary *parameters) {
+    mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSDictionary<NSString *, NSString *> *parameters) {
         NSMutableDictionary *responseJSON = [[request umk_JSONObjectFromHTTPBody] mutableCopy];
         responseJSON[@"following"] = @[ @([parameters[@"accountID"] integerValue]) ];
         UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:200];

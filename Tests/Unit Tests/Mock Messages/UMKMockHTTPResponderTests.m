@@ -105,7 +105,7 @@
 - (void)testMockHTTPResponderWithStatusCodeHeaders
 {
     NSUInteger statusCode = random() % 500 + 100;
-    NSDictionary *headers = UMKRandomDictionaryOfStringsWithElementCount(10);
+    NSDictionary<NSString *, NSString *> *headers = UMKRandomDictionaryOfStringsWithElementCount(10);
 
     UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:statusCode headers:headers];
 
@@ -150,7 +150,7 @@
 - (void)testMockHTTPResponderWithStatusCodeHeadersBody
 {
     NSUInteger statusCode = random() % 500 + 100;
-    NSDictionary *headers = UMKRandomDictionaryOfStringsWithElementCount(10);
+    NSDictionary<NSString *, NSString *> *headers = UMKRandomDictionaryOfStringsWithElementCount(10);
     NSData *body = [UMKRandomUnicodeStringWithLength(1024) dataUsingEncoding:NSUTF8StringEncoding];
 
     UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:statusCode headers:headers body:body];
@@ -174,7 +174,7 @@
 - (void)testMockHTTPResponderWithStatusCodeHeadersBodyChunkCountHintDelayBetweenChunks
 {
     NSUInteger statusCode = random() % 500 + 100;
-    NSDictionary *headers = UMKRandomDictionaryOfStringsWithElementCount(10);
+    NSDictionary<NSString *, NSString *> *headers = UMKRandomDictionaryOfStringsWithElementCount(10);
     NSData *body = [UMKRandomUnicodeStringWithLength(1024) dataUsingEncoding:NSUTF8StringEncoding];
 
     UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:statusCode headers:headers body:body];

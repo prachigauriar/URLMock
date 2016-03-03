@@ -27,6 +27,8 @@
 #import <Foundation/Foundation.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*!
  The UMKHTTPConvenienceMethods category on NSURLRequest adds methods to NSURLRequests to make it easier to
  get the request’s HTTP body in numerous forms and compare its HTTP headers to those in a specified dictionary.
@@ -42,7 +44,7 @@
      Note that if the receiver has an HTTP body stream, this method may only be invoked once per URL request.
      Subsequent invocations will return nil.
  */
-- (NSData *)umk_HTTPBodyData;
+- (NSData * _Nullable)umk_HTTPBodyData;
 
 /*!
  @abstract Returns the receiver's HTTP body as a JSON object.
@@ -50,7 +52,7 @@
      this method may only be invoked once per URL request. Subsequent invocations will return nil.
  @result The receiver's body as a JSON object, or nil if the receiver's body does not contain valid JSON data.
  */
-- (id)umk_JSONObjectFromHTTPBody;
+- (_Nullable id)umk_JSONObjectFromHTTPBody;
 
 /*!
  @abstract Returns a dictionary representation of the receiver's HTTP body intepreted as URL-encoded WWW form parameters.
@@ -59,7 +61,7 @@
  @result A dictionary of the receiver's body as form parameters. Keys are strings. Values are either strings or the
      NSNull instance.
  */
-- (NSDictionary *)umk_parametersFromURLEncodedHTTPBody;
+- (NSDictionary<NSString *, id> * _Nullable)umk_parametersFromURLEncodedHTTPBody;
 
 /*!
  @abstract Returns the receiver's HTTP body as a UTF-8-encoded string.
@@ -67,7 +69,7 @@
      this method may only be invoked once per URL request. Subsequent invocations will return nil.
  @result The receiver's HTTP body as a UTF-8 encoded string.
  */
-- (NSString *)umk_stringFromHTTPBody;
+- (NSString * _Nullable)umk_stringFromHTTPBody;
 
 /*!
  @abstract Returns the receiver's HTTP body as a string in the specified encoding.
@@ -76,15 +78,17 @@
  @param encoding The encoding to use to convert the string to a data object.
  @result The receiver's HTTP body as a string in the specified encoding.
  */
-- (NSString *)umk_stringFromHTTPBodyWithEncoding:(NSStringEncoding)encoding;
+- (NSString * _Nullable)umk_stringFromHTTPBodyWithEncoding:(NSStringEncoding)encoding;
 
 /*!
  @abstract Returns whether the specified headers are equal to the receiver's HTTP headers.
  @discussion The receiver and the request have equal headers if they have the same number of them, their header fields
      are the same (case-insensitively), and the header values for those fields identical.
  @param headers The HTTP headers being compared to the receiver's.
- @result Whether the receiver's headers are equal to those specified. Returns NO if headers is nil.
+ @result Whether the receiver's headers are equal to those specified. 
  */
-- (BOOL)umk_HTTPHeadersAreEqualToHeaders:(NSDictionary *)headers;
+- (BOOL)umk_HTTPHeadersAreEqualToHeaders:(NSDictionary<NSString *, NSString *> * _Nullable)headers;
 
 @end
+
+NS_ASSUME_NONNULL_END

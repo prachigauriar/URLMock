@@ -29,7 +29,7 @@
 
 @interface UMKMessageCountingProxy ()
 
-@property (nonatomic, strong) NSMutableDictionary *receivedMessageCounts;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *receivedMessageCounts;
 
 @end
 

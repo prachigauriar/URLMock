@@ -27,6 +27,8 @@
 #import <Foundation/Foundation.h>
 
 
+NS_ASSUME_NONNULL_BEGIN
+
 /*!
  The UMKQueryParameters category of NSURL adds methods to create and initialize NSURLs with 
  URL-encoded query parameters.
@@ -37,27 +39,30 @@
  @abstract Returns a newly initialized NSURL object with the specified URL string and query parameters.
  @discussion This method expects URLString to contain only characters that are allowed in a properly
      formed URL. All other characters must be properly percent escaped. Any percent-escaped characters
-     are interpreted using UTF-8 encoding. May not be nil.
+     are interpreted using UTF-8 encoding.
  @param URLString The URL string with which to initialize the NSURL object. May not be nil. Must conform
      to RFC 2396.
  @param parameters The parameters object to use to build the NSURL object's query string.
  @result A newly initialized NSURL object
  */
-- (instancetype)umk_initWithString:(NSString *)URLString parameters:(NSDictionary *)parameters;
+- (_Nullable instancetype)umk_initWithString:(NSString *)URLString
+                                  parameters:(NSDictionary * _Nullable)parameters NS_SWIFT_UNAVAILABLE("use init(string:parameters:) instead");
 
 /*!
  @abstract Returns a newly initialized NSURL object with the specified base URL, relative
      string, and query parameters.
  @discussion This method expects URLString to contain only characters that are allowed in a properly
      formed URL. All other characters must be properly percent escaped. Any percent-escaped characters
-     are interpreted using UTF-8 encoding. May not be nil.
+     are interpreted using UTF-8 encoding.
  @param URLString The URL string with which to initialize the NSURL object. May not be nil. Must conform
      to RFC 2396.
  @param parameters The parameters object to use to build the NSURL object's query string.
  @param baseURL The base URL for the NSURL object.
  @result A newly initialized NSURL object
  */
-- (instancetype)umk_initWithString:(NSString *)URLString parameters:(NSDictionary *)parameters relativeToURL:(NSURL *)baseURL;
+- (_Nullable instancetype)umk_initWithString:(NSString *)URLString
+                                  parameters:(NSDictionary * _Nullable)parameters
+                               relativeToURL:(NSURL * _Nullable)baseURL NS_SWIFT_UNAVAILABLE("use init(string:parameters:relativeToURL:) instead");
 
 /*!
  @abstract Creates and returns an NSURL object initialized with the specified URL string and query parameters.
@@ -69,7 +74,8 @@
  @param parameters The parameters object to use to build the NSURL object's query string.
  @result An NSURL object
  */
-+ (instancetype)umk_URLWithString:(NSString *)URLString parameters:(NSDictionary *)parameters;
++ (_Nullable instancetype)umk_URLWithString:(NSString *)URLString
+                                 parameters:(NSDictionary * _Nullable)parameters NS_SWIFT_NAME(init(string:parameters:));
 
 /*!
  @abstract Creates and returns an NSURL object initialized with the specified base URL, relative
@@ -83,6 +89,10 @@
  @param baseURL The base URL for the NSURL object.
  @result An NSURL object
  */
-+ (instancetype)umk_URLWithString:(NSString *)URLString parameters:(NSDictionary *)parameters relativeToURL:(NSURL *)baseURL;
++ (_Nullable instancetype)umk_URLWithString:(NSString *)URLString
+                                 parameters:(NSDictionary * _Nullable)parameters
+                              relativeToURL:(NSURL * _Nullable)baseURL NS_SWIFT_NAME(init(string:parameters:relativeToURL:));
 
 @end
+
+NS_ASSUME_NONNULL_END
