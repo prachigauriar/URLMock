@@ -219,7 +219,7 @@ NS_ASSUME_NONNULL_END
     // they're both nil, so they do match.
     if ((self.body != nil) != (body != nil)) {
         return NO;
-    } else if (!self.body) {
+    } else if (!body) {
         return YES;
     }
     
