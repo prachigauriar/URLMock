@@ -95,8 +95,11 @@
     XCTAssertEqualObjects([UMKMockURLProtocol expectedMockRequests], @[], @"Mock request not removed");
 }
 
+
 - (void)testCanonicalURL
 {
+    XCTAssertNil([UMKMockURLProtocol canonicalURLForURL:nil], @"returns non-nil for nil URL");
+
     NSURL *testURL1 = [NSURL URLWithString:@"http://domain.com"];
     NSURL *canonicalURL1 = [UMKMockURLProtocol canonicalURLForURL:testURL1];
     XCTAssertEqualObjects(testURL1, canonicalURL1, @"canonicalURL should not mutate a URL without a query string");
