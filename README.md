@@ -1,13 +1,13 @@
 # URLMock
 
-URLMock is an Objective-C framework for mocking and stubbing URL requests and responses. It works
+URLMock is a Cocoa framework for mocking and stubbing URL requests and responses. It works
 with APIs built on the Foundation NSURL loading system—NSURLConnection, NSURLSession, and
 AFNetworking, for example—with almost no changes to your code.
 
 
 ## Features
 
-* Simple, well-documented Objective-C API
+* Simple, well-documented API that feels at home in both Swift and Objective-C
 * Minimal setup necessary
 * Works with APIs built atop the Foundation NSURL loading system
 * Designed with both response stubbing and unit testing in mind
@@ -16,10 +16,11 @@ AFNetworking, for example—with almost no changes to your code.
 * Works on both Mac OS X and iOS
 
 
-## What’s New in URLMock 1.3.1
+## What’s New in URLMock 1.3.2
 
 URLMock 1.3 changes the minimum supported platform versions to OS X 10.8 and iOS 7.0 and removes
-deprecated API usage. URLMock 1.3.1 fixes a bug related to query parameter string construction. 
+deprecated API usage. URLMock 1.3.2 improves interfaces to use Objective-C nullability specifiers
+and lightweight generics for to improve Swift compatibility.
 
 
 ## Installation
@@ -27,7 +28,7 @@ deprecated API usage. URLMock 1.3.1 fixes a bug related to query parameter strin
 The easiest way to start using URLMock is to install it with CocoaPods. 
 
 ```ruby
-pod 'URLMock', '~> 1.3.1'
+pod 'URLMock', '~> 1.3.2'
 ```
 
 You can also build it and include the built products in your project. For OS X, just add
@@ -47,14 +48,14 @@ for more details. It can be installed by adding the following line to your Podfi
 
 
 ```ruby
-pod 'URLMock/TestHelpers', '~> 1.3.1'
+pod 'URLMock/TestHelpers', '~> 1.3.2'
 ```
 
 Similarly, the `SubclassResponsibility` subspec can be installed by adding the following line to
 your Podfile:
 
 ```ruby
-pod 'URLMock/SubclassResponsibility', '~> 1.3.1'
+pod 'URLMock/SubclassResponsibility', '~> 1.3.2'
 ```
 
 This subspec adds methods to `NSException` to easily raise exceptions in methods for which
