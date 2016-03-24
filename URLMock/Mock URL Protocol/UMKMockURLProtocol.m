@@ -477,8 +477,6 @@ NS_ASSUME_NONNULL_END
 
 + (NSURL *)canonicalURLForURL:(NSURL *)URL
 {
-    NSParameterAssert(URL);
-
     // Always use the absolute URL
     NSURL *canonicalURL = URL.absoluteURL;
     NSString *query = canonicalURL.query;

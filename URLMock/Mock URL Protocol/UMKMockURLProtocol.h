@@ -153,10 +153,10 @@ typedef NS_ENUM(NSInteger, UMKErrorCode) {
 
 /*!
  @abstract Returns the canonical version of the specified URL.
- @param URL The URL. May not be nil.
- @result The canonical version of the specified URL.
+ @param URL The URL.
+ @result The canonical version of the specified URL. Returns nil if the URL parameter is nil.
  */
-+ (NSURL *)canonicalURLForURL:(NSURL *)URL;
++ (NSURL * _Nullable)canonicalURLForURL:(NSURL * _Nullable)URL;
 
 @end
 
