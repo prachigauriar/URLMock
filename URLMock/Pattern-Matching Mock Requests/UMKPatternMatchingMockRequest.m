@@ -89,7 +89,7 @@
 - (id<UMKMockURLResponder>)responderForURLRequest:(NSURLRequest *)request
 {
     if (!self.responderGenerationBlock) {
-        return nil;
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"nil responderGenerationBlock" userInfo:nil];
     }
 
     NSString *URLString = [self canonicalURLStringExcludingQueryForURL:request.URL];
