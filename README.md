@@ -13,31 +13,21 @@ AFNetworking, for example—with almost no changes to your code.
 * Designed with both response stubbing and unit testing in mind
 * Can be used for some or all of your project’s URL requests
 * Well-tested and includes lots of helpful testing utilities
-* Works on both Mac OS X and iOS
+* Works on macOS, iOS, and tvOS
 
 
-## What’s New in URLMock 1.3.1
+## What’s New in URLMock 1.3.3
 
-URLMock 1.3 changes the minimum supported platform versions to OS X 10.8 and iOS 7.0 and removes
-deprecated API usage. URLMock 1.3.1 fixes a bug related to query parameter string construction. 
+URLMock 1.3.3 is a tiny update that adds tvOS support.
 
 
 ## Installation
 
-The easiest way to start using URLMock is to install it with CocoaPods. 
+The easiest way to start using URLMock is to install it with CocoaPods.
 
 ```ruby
-pod 'URLMock', '~> 1.3.1'
+pod 'URLMock', '~> 1.3.3'
 ```
-
-You can also build it and include the built products in your project. For OS X, just add
-`URLMock.framework` to your project. For iOS, add URLMock’s public headers to your header search
-path and link in `libURLMock.a`.
-
-Note that URLMock depends on [SOCKit][SOCKit], so it may be necessary to get that separately if
-you’re not using CocoaPods. That said, we highly recommend you use CocoaPods.
-
-[SOCKit]: https://github.com/NimbusKit/sockit "SOCKit"
 
 ### Installing Subspecs
 
@@ -47,14 +37,14 @@ for more details. It can be installed by adding the following line to your Podfi
 
 
 ```ruby
-pod 'URLMock/TestHelpers', '~> 1.3.1'
+pod 'URLMock/TestHelpers', '~> 1.3.3'
 ```
 
 Similarly, the `SubclassResponsibility` subspec can be installed by adding the following line to
 your Podfile:
 
 ```ruby
-pod 'URLMock/SubclassResponsibility', '~> 1.3.1'
+pod 'URLMock/SubclassResponsibility', '~> 1.3.3'
 ```
 
 This subspec adds methods to `NSException` to easily raise exceptions in methods for which
@@ -94,18 +84,18 @@ Next, add an expected mock request and response.
 ```objc
 // The request is a POST with some JSON data
 NSURL *URL = [NSURL URLWithString:@"http://host.com/api/v1/person"];
-id requestJSON = @{ @"person" : @{ @"name" : @"John Doe", 
+id requestJSON = @{ @"person" : @{ @"name" : @"John Doe",
                                    @"age" : @47 } };
-id responseJSON = @{ @"person" : @{ @"id" : @1, 
-                                    @"name" : @"John Doe", 
+id responseJSON = @{ @"person" : @{ @"id" : @1,
+                                    @"name" : @"John Doe",
                                     @"age" : @47 } };
 
-[UMKMockURLProtocol expectMockHTTPPostRequestWithURL:URL 
+[UMKMockURLProtocol expectMockHTTPPostRequestWithURL:URL
                                          requestJSON:requestJSON
                                   responseStatusCode:200
                                         responseJSON:responseJSON];
 ```
-   
+
 Mock requests and responses are not limited to having JSON bodies; they can also have bodies with
 strings, WWW form-encoded parameter dictionaries, or arbitrary `NSData` instances. There are also
 mock responders for responding with an error or returning data in chunks with a delay between each
@@ -115,22 +105,22 @@ When you execute your real request, you will get the stubbed response back. You 
 any changes to your code when using URLMock. Things should just work. For example, the following
 URLConnection code will receive the mock response above:
 
-```objc   
+```objc
 NSURL *URL = [NSURL URLWithString:@"http://host.com/api/v1/person"];
 NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL];
 request.HTTPMethod = @"POST";
 id bodyJSON = @{ @"person" : @{ @"name" : @"John Doe", @"age" : @47 } };
 request.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyJSON
-                                                   options:0 
+                                                   options:0
                                                      error:NULL];
 
 // Create the connection as usual
 NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:…];
-```   
-   
+```
+
 The following AFNetworking code would accomplish the same thing:
 
-```objc   
+```objc
 NSURL *base = [NSURL URLWithString:@"http://host.com/api/v1/"];
 id params = @{ @"person" : @{ @"name" : @"John Doe", @"age" : @47 } };
 
@@ -141,7 +131,7 @@ om.requestSerializer = [AFJSONRequestSerializer serializer];
     …
 } failure:^(AFHTTPRequestOperation *op, NSError *error) {
     …
-}];    
+}];
 ```
 
 
@@ -160,10 +150,10 @@ mockRequest.HTTPMethods = [NSSet setWithObject:kUMKMockHTTPRequestPostMethod];
 mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSDictionary *parameters) {
     NSDictionary *requestJSON = [request umk_JSONObjectFromHTTPBody];
 
-    // Respond with 
-    //   { 
+    // Respond with
+    //   {
     //     "follower_id": «New follower’s ID»,
-    //     "following_id":  «Account ID that was POSTed to» 
+    //     "following_id":  «Account ID that was POSTed to»
     //   }
     UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:200];
     [responder setBodyWithJSONObject:@{ @"follower_id" : requestJSON[@"follower_id"],
@@ -201,7 +191,7 @@ XCTestCase’s `+setUp` method. You can also disable verification in your `+tear
     [super tearDown];
 }
 ```
-   
+
 Before (or after) each test, invoke `+[UMKMockURLProtocol reset]`. This resets `UMKMockURLProtocol`’s
 expectations to their original state. It does not change whether verification is enabled.
 
@@ -230,18 +220,18 @@ enabled, mock requests only match URL requests that have equivalent headers. You
 checking on mock HTTP request by setting its `checksHeadersWhenMatching` property to `YES` or by
 using `‑initWithHTTPMethod:URL:checksHeadersWhenMatching:`.
 
-```objc   
+```objc
 UMKMockHTTPRequest *request = [UMKMockHTTPRequest mockHTTPGetRequestWithURL:URL];
 request.checksHeadersWhenMatching = YES;
 ```
-   
+
 Note that some networking APIs—most notably AFNetworking—send headers that you didn’t explicitly
 set, so you should determine what those are before creating your mock requests. To make things a
 little easier, you can use `+[UMKMockHTTPRequest setDefaultHeaders:]` to set the default headers for
 new `UMKMockHTTPRequest` instances. For example, if you’re using AFNetworking’s default HTTP request
 serializer, you can set default headers this way:
 
-```objc   
+```objc
 [UMKMockHTTPRequest setDefaultHeaders:[[AFHTTPRequestSerializer serializer] HTTPRequestHeaders]];
 ```
 
@@ -266,13 +256,13 @@ URLMock is very usable in its current state, but there’s still a lot that coul
 would like to help fix bugs or add features, send us a pull request!
 
 We use GitHub issues for bugs, enhancement requests, and the limited support we provide, so open an
-issue for any of those. 
+issue for any of those.
 
 Typically, a pull request should receive a code review and a :+1: from at least 2 project owners before being merged.
-In cases where a pull request review needs to be expedited a single :+1: from an owner will suffice, though this should 
+In cases where a pull request review needs to be expedited a single :+1: from an owner will suffice, though this should
 be the exception, not the rule.
 
- 
+
 ## License
 
 All code is licensed under the MIT license. Do with it as you will.

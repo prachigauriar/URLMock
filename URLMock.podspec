@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "URLMock"
-  s.version      = "1.3.1"
+  s.version      = "1.3.3"
 
   s.summary      = "A Cocoa framework for mocking and stubbing URL requests and responses."
   s.description  = <<-DESC
@@ -10,15 +10,16 @@ Pod::Spec.new do |s|
                    to your code.
                    DESC
 
-  s.author       = { "Two Toasters" => "general@twotoasters.com" }
-  s.homepage     = "https://github.com/twotoasters/URLMock"
+  s.author       = { "Prachi Gauriar" => "prachi_github@quantumlenscap.com" }
+  s.homepage     = "https://github.com/prachigauriar/URLMock"
   s.license      = { :type => "MIT", :file => "LICENSE" }
 
   s.ios.deployment_target = '7.0'
+  s.tvos.deployment_target = '9.0'
   s.osx.deployment_target = '10.9'
   s.requires_arc = true
 
-  s.source       = { :git => "https://github.com/twotoasters/URLMock.git", :tag => s.version.to_s }
+  s.source       = { :git => "https://github.com/prachigauriar/URLMock.git", :tag => s.version.to_s }
 
   s.subspec 'Core' do |ss|
     ss.dependency 'SOCKit', '~> 1.1'
@@ -30,7 +31,7 @@ Pod::Spec.new do |s|
                       'URLMock/Mock URL Protocol/UMKMockURLProtocol+UMKHTTPConvenienceMethods.{h,m}',
                       'URLMock/Mock URL Protocol/UMKMockURLProtocol.{h,m}',
                       'URLMock/Pattern-Matching Mock Requests/UMKPatternMatchingMockRequest.{h,m}'
-  end                    
+  end
 
   s.subspec 'TestHelpers' do |ss|
     ss.source_files = 'URLMock/Categories/NSURL+UMKQueryParameters.{h,m}',
