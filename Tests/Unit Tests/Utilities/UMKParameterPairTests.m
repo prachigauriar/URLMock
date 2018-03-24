@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Andrew Hershberger on 11/2/15.
-//  Copyright © 2015 Ticketmaster Entertainment, Inc. All rights reserved.
+//  Copyright © 2015 Prachi Gauriar.
 //
 
 #import "UMKRandomizedTestCase.h"

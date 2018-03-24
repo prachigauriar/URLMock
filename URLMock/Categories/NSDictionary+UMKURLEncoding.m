@@ -3,8 +3,8 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 1/5/2014.
-//  Copyright (c) 2015 Ticketmaster Entertainment, Inc., (c) 2013 AFNetworking
-//      (http://afnetworking.com/). All rights reserved.
+//  Copyright (c) 2015 Prachi Gauriar., (c) 2013 AFNetworking
+//      (http://afnetworking.com/).
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal

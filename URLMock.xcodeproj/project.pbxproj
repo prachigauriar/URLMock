@@ -7,54 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0462B99648025E1BE8018C9E /* libPods-URLMockTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C05697D92C17B7B88926B19B /* libPods-URLMockTests.a */; };
+		23388DB22AA890A09CBD4A24 /* libPods-URLMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCD64B015210D24752DF195 /* libPods-URLMock.a */; };
 		49D5313B1BE813190009B068 /* UMKParameterPairTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D5313A1BE813190009B068 /* UMKParameterPairTests.m */; };
 		49D5313C1BE813190009B068 /* UMKParameterPairTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D5313A1BE813190009B068 /* UMKParameterPairTests.m */; };
-		49D5313D1BE813190009B068 /* UMKParameterPairTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D5313A1BE813190009B068 /* UMKParameterPairTests.m */; };
+		4BBF5E31F82A17DD7BD4A9B8 /* libPods-URLMock-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1C7653997B9FC4039AF1F0 /* libPods-URLMock-tvOSTests.a */; };
 		4C0957FA187E043600436F23 /* UMKTestUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C34F62A183346FB00AD2A6D /* UMKTestUtilities.m */; };
-		4C0957FB187E043800436F23 /* UMKTestUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C34F62A183346FB00AD2A6D /* UMKTestUtilities.m */; };
 		4C0957FC187E043F00436F23 /* UMKMessageCountingProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C14A3183298F200DE8195 /* UMKMessageCountingProxy.m */; };
-		4C0957FD187E044000436F23 /* UMKMessageCountingProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C14A3183298F200DE8195 /* UMKMessageCountingProxy.m */; };
-		4C0D384B1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D38491879AFA6000A04DE /* NSException+UMKSubclassResponsibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C0D384C1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D384A1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.m */; };
 		4C0D384D1879AFAA000A04DE /* NSException+UMKSubclassResponsibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D384A1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.m */; };
 		4C0D384E1879AFB5000A04DE /* NSException+UMKSubclassResponsibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D38491879AFA6000A04DE /* NSException+UMKSubclassResponsibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C0D387F187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D387D187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4C0D3880187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D387D187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		4C0D3881187A2A41000A04DE /* UMKURLEncodedParameterStringParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D387E187A2A41000A04DE /* UMKURLEncodedParameterStringParser.m */; };
 		4C0D3882187A2A41000A04DE /* UMKURLEncodedParameterStringParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D387E187A2A41000A04DE /* UMKURLEncodedParameterStringParser.m */; };
 		4C0D3884187A5135000A04DE /* UMKURLEncodedParameterStringParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D3883187A5135000A04DE /* UMKURLEncodedParameterStringParserTests.m */; };
-		4C0D3887187CD506000A04DE /* UMKParameterPair.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D3885187CD506000A04DE /* UMKParameterPair.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4C0D3888187CD506000A04DE /* UMKParameterPair.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D3885187CD506000A04DE /* UMKParameterPair.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		4C0D3889187CD506000A04DE /* UMKParameterPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D3886187CD506000A04DE /* UMKParameterPair.m */; };
 		4C0D388A187CD506000A04DE /* UMKParameterPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D3886187CD506000A04DE /* UMKParameterPair.m */; };
-		4C0D388E187CD657000A04DE /* NSDictionary+UMKURLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D388C187CD657000A04DE /* NSDictionary+UMKURLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C0D388F187CD657000A04DE /* NSDictionary+UMKURLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D388C187CD657000A04DE /* NSDictionary+UMKURLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C0D3890187CD657000A04DE /* NSDictionary+UMKURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D388D187CD657000A04DE /* NSDictionary+UMKURLEncoding.m */; };
 		4C0D3891187CD657000A04DE /* NSDictionary+UMKURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D388D187CD657000A04DE /* NSDictionary+UMKURLEncoding.m */; };
-		4C0FBDC2187DF55A00D5C4B8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E822182EAF44002F2096 /* XCTest.framework */; };
-		4C0FBDC3187DF55A00D5C4B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E814182EAF44002F2096 /* Foundation.framework */; };
-		4C0FBDD5187DF70100D5C4B8 /* UMKURLConnectionVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F6031186158A900B3B2CB /* UMKURLConnectionVerifier.m */; };
-		4C0FBDDF187DFF8600D5C4B8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C1C1492183289C700DE8195 /* InfoPlist.strings */; };
-		4C0FBDE4187E00DB00D5C4B8 /* UMKTestUtilitiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC86F1F18367A7A00B878D6 /* UMKTestUtilitiesTests.m */; };
 		4C1C148E183289C700DE8195 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E822182EAF44002F2096 /* XCTest.framework */; };
 		4C1C1494183289C700DE8195 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C1C1492183289C700DE8195 /* InfoPlist.strings */; };
 		4C31D33B1875B73100CD99F4 /* URLMockIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31D33A1875B73100CD99F4 /* URLMockIntegrationTests.m */; };
-		4C33F7361878AA1700643799 /* NSURL+UMKQueryParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C33F7341878AA1700643799 /* NSURL+UMKQueryParameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C33F7371878AA1700643799 /* NSURL+UMKQueryParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C33F7341878AA1700643799 /* NSURL+UMKQueryParameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C33F7381878AA1700643799 /* NSURL+UMKQueryParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C33F7351878AA1700643799 /* NSURL+UMKQueryParameters.m */; };
 		4C33F7391878AA1700643799 /* NSURL+UMKQueryParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C33F7351878AA1700643799 /* NSURL+UMKQueryParameters.m */; };
-		4C45E815182EAF44002F2096 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E814182EAF44002F2096 /* Foundation.framework */; };
-		4C45E840182EAFCB002F2096 /* UMKMockHTTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E83B182EAFCB002F2096 /* UMKMockHTTPMessage.m */; };
-		4C45E841182EAFCB002F2096 /* UMKMockHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E83D182EAFCB002F2096 /* UMKMockHTTPRequest.m */; };
-		4C45E842182EAFCB002F2096 /* UMKMockHTTPResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E83F182EAFCB002F2096 /* UMKMockHTTPResponder.m */; };
-		4C45E84A182EAFEB002F2096 /* UMKErrorUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E848182EAFEB002F2096 /* UMKErrorUtilities.m */; };
-		4C45E850182EB48B002F2096 /* URLMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E84B182EB00A002F2096 /* URLMock.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C45E851182EB48B002F2096 /* UMKMockHTTPMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E83A182EAFCB002F2096 /* UMKMockHTTPMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C45E852182EB48B002F2096 /* UMKMockHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E83C182EAFCB002F2096 /* UMKMockHTTPRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C45E853182EB48B002F2096 /* UMKMockHTTPResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E83E182EAFCB002F2096 /* UMKMockHTTPResponder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C45E855182EB499002F2096 /* UMKErrorUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E847182EAFEB002F2096 /* UMKErrorUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C45E85B182EBE12002F2096 /* UMKMockURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E859182EBE12002F2096 /* UMKMockURLProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C45E85C182EBE12002F2096 /* UMKMockURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E85A182EBE12002F2096 /* UMKMockURLProtocol.m */; };
 		4C45E8B0182FF1E1002F2096 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E882182FF1AA002F2096 /* Cocoa.framework */; };
 		4C45E8D4182FF24B002F2096 /* UMKMockHTTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E83B182EAFCB002F2096 /* UMKMockHTTPMessage.m */; };
 		4C45E8D5182FF24B002F2096 /* UMKMockHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E83D182EAFCB002F2096 /* UMKMockHTTPRequest.m */; };
@@ -70,22 +43,13 @@
 		4C5D0F49187DCB8200794855 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E885182FF1AA002F2096 /* Foundation.framework */; };
 		4C6841A11838173A00BACE61 /* UMKMockHTTPRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6841A01838173A00BACE61 /* UMKMockHTTPRequestTests.m */; };
 		4C691343195F97C50020C8FD /* UMKPatternMatchingMockRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C691342195F97C50020C8FD /* UMKPatternMatchingMockRequestTests.m */; };
-		4C691344195F97C80020C8FD /* UMKPatternMatchingMockRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C691342195F97C50020C8FD /* UMKPatternMatchingMockRequestTests.m */; };
 		4C6BFC43189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C6BFC41189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C6BFC44189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C6BFC41189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C6BFC45189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC42189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.m */; };
-		4C6BFC46189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC42189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.m */; };
 		4C6BFC50189DC5F200F79BCF /* UMKMockURLProtocolHTTPConvenienceMethodsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC4F189DC5F200F79BCF /* UMKMockURLProtocolHTTPConvenienceMethodsTests.m */; };
-		4C6BFC51189DC5F200F79BCF /* UMKMockURLProtocolHTTPConvenienceMethodsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC4F189DC5F200F79BCF /* UMKMockURLProtocolHTTPConvenienceMethodsTests.m */; };
 		4C6BFC54189DC67300F79BCF /* UMKIntegrationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC53189DC67300F79BCF /* UMKIntegrationTestCase.m */; };
-		4C6BFC55189DC67300F79BCF /* UMKIntegrationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC53189DC67300F79BCF /* UMKIntegrationTestCase.m */; };
 		4C7A22EC1958EB5700C440AB /* UMKURLSessionDataTaskVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7A22EB1958EB5700C440AB /* UMKURLSessionDataTaskVerifier.m */; };
-		4C7A22ED1958EB5700C440AB /* UMKURLSessionDataTaskVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7A22EB1958EB5700C440AB /* UMKURLSessionDataTaskVerifier.m */; };
 		4C7D0A23195BC2FF00A31B8D /* UMKPatternMatchingMockRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C7D0A21195BC2FF00A31B8D /* UMKPatternMatchingMockRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4C7D0A24195BC2FF00A31B8D /* UMKPatternMatchingMockRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C7D0A21195BC2FF00A31B8D /* UMKPatternMatchingMockRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C7D0A25195BC2FF00A31B8D /* UMKPatternMatchingMockRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D0A22195BC2FF00A31B8D /* UMKPatternMatchingMockRequest.m */; };
-		4C7D0A26195BC2FF00A31B8D /* UMKPatternMatchingMockRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D0A22195BC2FF00A31B8D /* UMKPatternMatchingMockRequest.m */; };
-		4C8A7089187E0C93002E33A7 /* UMKRandomizedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A7086187E0C93002E33A7 /* UMKRandomizedTestCase.m */; };
 		4C8A708A187E0DCB002E33A7 /* UMKRandomizedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A7086187E0C93002E33A7 /* UMKRandomizedTestCase.m */; };
 		4C8AF916185E6641001B468E /* UMKMockHTTPResponderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8AF915185E6641001B468E /* UMKMockHTTPResponderTests.m */; };
 		4C8F6032186158A900B3B2CB /* UMKURLConnectionVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F6031186158A900B3B2CB /* UMKURLConnectionVerifier.m */; };
@@ -137,39 +101,65 @@
 		4C96CA471A56085F003763D3 /* UMKMockURLProtocolHTTPConvenienceMethodsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC4F189DC5F200F79BCF /* UMKMockURLProtocolHTTPConvenienceMethodsTests.m */; };
 		4C96CA481A560876003763D3 /* URLMockIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31D33A1875B73100CD99F4 /* URLMockIntegrationTests.m */; };
 		4C972EB21960AA1000D573D3 /* NSURLRequestUMKHTTPConvenienceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C972EB11960AA1000D573D3 /* NSURLRequestUMKHTTPConvenienceTests.m */; };
-		4C972EB31960AA1000D573D3 /* NSURLRequestUMKHTTPConvenienceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C972EB11960AA1000D573D3 /* NSURLRequestUMKHTTPConvenienceTests.m */; };
-		4CC41F13187E10860008E38B /* URLMockIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31D33A1875B73100CD99F4 /* URLMockIntegrationTests.m */; };
+		4C9E230C20671652007B151E /* URLMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9E22FB206715EA007B151E /* URLMock.framework */; };
+		4C9E2312206716E1007B151E /* URLMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E84B182EB00A002F2096 /* URLMock.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C9E2313206716E1007B151E /* UMKMockURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E859182EBE12002F2096 /* UMKMockURLProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C9E2314206716E1007B151E /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C6BFC41189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C9E2315206716E1007B151E /* UMKMockHTTPMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E83A182EAFCB002F2096 /* UMKMockHTTPMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C9E2316206716E1007B151E /* UMKMockHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E83C182EAFCB002F2096 /* UMKMockHTTPRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C9E2317206716E1007B151E /* UMKMockHTTPResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E83E182EAFCB002F2096 /* UMKMockHTTPResponder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C9E2318206716E1007B151E /* UMKPatternMatchingMockRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C7D0A21195BC2FF00A31B8D /* UMKPatternMatchingMockRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C9E2319206716E1007B151E /* NSDictionary+UMKURLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D388C187CD657000A04DE /* NSDictionary+UMKURLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C9E231A206716E1007B151E /* NSException+UMKSubclassResponsibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D38491879AFA6000A04DE /* NSException+UMKSubclassResponsibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C9E231B206716E1007B151E /* NSURL+UMKQueryParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C33F7341878AA1700643799 /* NSURL+UMKQueryParameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C9E231C206716E1007B151E /* NSURLRequest+UMKHTTPConvenienceMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD4B059195BA771006CFB65 /* NSURLRequest+UMKHTTPConvenienceMethods.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C9E231D206716E1007B151E /* UMKErrorUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C45E847182EAFEB002F2096 /* UMKErrorUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C9E231E206716E1007B151E /* UMKTestUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C34F629183346FB00AD2A6D /* UMKTestUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C9E231F206716E1007B151E /* UMKMessageCountingProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C1C14A2183298F200DE8195 /* UMKMessageCountingProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C9E2320206716E1007B151E /* UMKParameterPair.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D3885187CD506000A04DE /* UMKParameterPair.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C9E2321206716E1007B151E /* UMKURLEncodedParameterStringParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C0D387D187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C9E232220671826007B151E /* UMKRandomizedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A7086187E0C93002E33A7 /* UMKRandomizedTestCase.m */; };
+		4C9E23232067182B007B151E /* UMKURLConnectionVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F6031186158A900B3B2CB /* UMKURLConnectionVerifier.m */; };
+		4C9E23242067182B007B151E /* UMKURLSessionDataTaskVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7A22EB1958EB5700C440AB /* UMKURLSessionDataTaskVerifier.m */; };
+		4C9E232520671838007B151E /* UMKMockURLProtocolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F60331861594B00B3B2CB /* UMKMockURLProtocolTests.m */; };
+		4C9E232620671838007B151E /* UMKMockHTTPMessageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC86F1C1836785100B878D6 /* UMKMockHTTPMessageTests.m */; };
+		4C9E232720671838007B151E /* UMKMockHTTPRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6841A01838173A00BACE61 /* UMKMockHTTPRequestTests.m */; };
+		4C9E232820671838007B151E /* UMKMockHTTPResponderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8AF915185E6641001B468E /* UMKMockHTTPResponderTests.m */; };
+		4C9E232920671838007B151E /* UMKPatternMatchingMockRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C691342195F97C50020C8FD /* UMKPatternMatchingMockRequestTests.m */; };
+		4C9E232A20671838007B151E /* NSURLRequestUMKHTTPConvenienceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C972EB11960AA1000D573D3 /* NSURLRequestUMKHTTPConvenienceTests.m */; };
+		4C9E232B20671838007B151E /* UMKTestUtilitiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC86F1F18367A7A00B878D6 /* UMKTestUtilitiesTests.m */; };
+		4C9E232C20671838007B151E /* UMKParameterPairTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D5313A1BE813190009B068 /* UMKParameterPairTests.m */; };
+		4C9E232D20671838007B151E /* UMKURLEncodedParameterStringParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D3883187A5135000A04DE /* UMKURLEncodedParameterStringParserTests.m */; };
+		4C9E232E20671838007B151E /* UMKIntegrationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC53189DC67300F79BCF /* UMKIntegrationTestCase.m */; };
+		4C9E232F20671838007B151E /* URLMockIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31D33A1875B73100CD99F4 /* URLMockIntegrationTests.m */; };
+		4C9E233020671838007B151E /* UMKMockURLProtocolHTTPConvenienceMethodsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC4F189DC5F200F79BCF /* UMKMockURLProtocolHTTPConvenienceMethodsTests.m */; };
+		4C9E234020671937007B151E /* UMKMockURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E85A182EBE12002F2096 /* UMKMockURLProtocol.m */; };
+		4C9E234120671937007B151E /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BFC42189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.m */; };
+		4C9E234220671937007B151E /* UMKMockHTTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E83B182EAFCB002F2096 /* UMKMockHTTPMessage.m */; };
+		4C9E234320671937007B151E /* UMKMockHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E83D182EAFCB002F2096 /* UMKMockHTTPRequest.m */; };
+		4C9E234420671937007B151E /* UMKMockHTTPResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E83F182EAFCB002F2096 /* UMKMockHTTPResponder.m */; };
+		4C9E234520671937007B151E /* UMKPatternMatchingMockRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D0A22195BC2FF00A31B8D /* UMKPatternMatchingMockRequest.m */; };
+		4C9E234620671937007B151E /* NSDictionary+UMKURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D388D187CD657000A04DE /* NSDictionary+UMKURLEncoding.m */; };
+		4C9E234720671937007B151E /* NSException+UMKSubclassResponsibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D384A1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.m */; };
+		4C9E234820671937007B151E /* NSURL+UMKQueryParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C33F7351878AA1700643799 /* NSURL+UMKQueryParameters.m */; };
+		4C9E234920671937007B151E /* NSURLRequest+UMKHTTPConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD4B05A195BA771006CFB65 /* NSURLRequest+UMKHTTPConvenienceMethods.m */; };
+		4C9E234A20671937007B151E /* UMKErrorUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C45E848182EAFEB002F2096 /* UMKErrorUtilities.m */; };
+		4C9E234B20671937007B151E /* UMKTestUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C34F62A183346FB00AD2A6D /* UMKTestUtilities.m */; };
+		4C9E234C20671937007B151E /* UMKMessageCountingProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C14A3183298F200DE8195 /* UMKMessageCountingProxy.m */; };
+		4C9E234D20671937007B151E /* UMKParameterPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D3886187CD506000A04DE /* UMKParameterPair.m */; };
+		4C9E234E20671937007B151E /* UMKURLEncodedParameterStringParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D387E187A2A41000A04DE /* UMKURLEncodedParameterStringParser.m */; };
 		4CC86F1518354AD500B878D6 /* UMKTestUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C34F629183346FB00AD2A6D /* UMKTestUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4CC86F1618354AD600B878D6 /* UMKTestUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C34F629183346FB00AD2A6D /* UMKTestUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4CC86F1718354D5200B878D6 /* UMKMessageCountingProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C1C14A2183298F200DE8195 /* UMKMessageCountingProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CC86F1818354D5200B878D6 /* UMKMessageCountingProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C1C14A2183298F200DE8195 /* UMKMessageCountingProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CC86F1D1836785100B878D6 /* UMKMockHTTPMessageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC86F1C1836785100B878D6 /* UMKMockHTTPMessageTests.m */; };
 		4CC86F2018367A7A00B878D6 /* UMKTestUtilitiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC86F1F18367A7A00B878D6 /* UMKTestUtilitiesTests.m */; };
-		4CD058BD187E12710071C2BF /* UMKMockURLProtocolTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F60331861594B00B3B2CB /* UMKMockURLProtocolTests.m */; };
-		4CD058BE187E12790071C2BF /* UMKMockHTTPMessageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC86F1C1836785100B878D6 /* UMKMockHTTPMessageTests.m */; };
-		4CD058BF187E12790071C2BF /* UMKMockHTTPRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6841A01838173A00BACE61 /* UMKMockHTTPRequestTests.m */; };
-		4CD058C0187E12790071C2BF /* UMKMockHTTPResponderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8AF915185E6641001B468E /* UMKMockHTTPResponderTests.m */; };
-		4CD058C1187E12790071C2BF /* UMKURLEncodedParameterStringParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D3883187A5135000A04DE /* UMKURLEncodedParameterStringParserTests.m */; };
-		4CD058C2187E12C20071C2BF /* libURLMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C45E811182EAF44002F2096 /* libURLMock.a */; };
 		4CD4B05B195BA771006CFB65 /* NSURLRequest+UMKHTTPConvenienceMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CD4B059195BA771006CFB65 /* NSURLRequest+UMKHTTPConvenienceMethods.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CD4B05D195BA771006CFB65 /* NSURLRequest+UMKHTTPConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD4B05A195BA771006CFB65 /* NSURLRequest+UMKHTTPConvenienceMethods.m */; };
-		4CD4B05E195BA771006CFB65 /* NSURLRequest+UMKHTTPConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD4B05A195BA771006CFB65 /* NSURLRequest+UMKHTTPConvenienceMethods.m */; };
-		538813FDBDED139619B19974 /* libPods-URLMock-iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41EB89FBBAE1CD4979565F12 /* libPods-URLMock-iOSTests.a */; };
-		60C09D87161DF1922A7A1552 /* libPods-URLMockTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7728255C65E1003D6993EE43 /* libPods-URLMockTests.a */; };
-		7A2DC81F2B47473BAF16627E /* libPods-libURLMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B562C5F1E2A4ECF9E3BBC6C /* libPods-libURLMock.a */; };
-		8A5D8547C73FDB32876870D9 /* libPods-libURLMockTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 488DB97BFD0202A6033EAFC2 /* libPods-libURLMockTests.a */; };
-		917DA2FEAA0D4775A9752024 /* libPods-URLMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 913E10467DBC490EA8F784A6 /* libPods-URLMock.a */; };
-		FCA4833DA9154A3C5FD574ED /* libPods-URLMock-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 652F11CB0390ED875AE80B08 /* libPods-URLMock-iOS.a */; };
+		4D17F5943AF0763F1C2D57B1 /* libPods-URLMock-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F881900AB2D1090452588454 /* libPods-URLMock-tvOS.a */; };
+		E87EE73AF8A5AE651F7C7630 /* libPods-URLMock-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E03BFA79475FAD7CA7A25 /* libPods-URLMock-iOS.a */; };
+		F0E49F314B09990909D2D723 /* libPods-URLMock-iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 929EE7661188E43A204F21ED /* libPods-URLMock-iOSTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4C0FBDCF187DF55A00D5C4B8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C45E807182EAEFC002F2096 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4C45E810182EAF44002F2096;
-			remoteInfo = libURLMock;
-		};
 		4C1C1498183289C700DE8195 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4C45E807182EAEFC002F2096 /* Project object */;
@@ -184,31 +174,21 @@
 			remoteGlobalIDString = 4C96CA021A5605BD003763D3;
 			remoteInfo = "URLMock-iOS";
 		};
+		4C9E230D20671652007B151E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C45E807182EAEFC002F2096 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C9E22FA206715EA007B151E;
+			remoteInfo = "URLMock-tvOS";
+		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		4C45E80F182EAF44002F2096 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		0C05E4FC476678CD161649BB /* Pods-libURLMock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libURLMock.debug.xcconfig"; path = "Pods/Target Support Files/Pods-libURLMock/Pods-libURLMock.debug.xcconfig"; sourceTree = "<group>"; };
-		0CD818745FCA08417FCB83AD /* Pods-libURLMockTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libURLMockTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-libURLMockTests/Pods-libURLMockTests.release.xcconfig"; sourceTree = "<group>"; };
-		25D102087D5D7CA3F8E9AF88 /* Pods-URLMock-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-iOS/Pods-URLMock-iOS.debug.xcconfig"; sourceTree = "<group>"; };
-		27F7D6475533434BA74B1144 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		2B469D9ED4132578C282CC73 /* Pods-URLMock-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-iOSTests/Pods-URLMock-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		2B5C20DE5E8C3561058305A2 /* Pods-URLMock-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-iOS/Pods-URLMock-iOS.release.xcconfig"; sourceTree = "<group>"; };
-		41EB89FBBAE1CD4979565F12 /* libPods-URLMock-iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock-iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		488DB97BFD0202A6033EAFC2 /* libPods-libURLMockTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-libURLMockTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1757F354E9C48AEB8C13C767 /* Pods-URLMock-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-tvOSTests/Pods-URLMock-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1B1C7653997B9FC4039AF1F0 /* libPods-URLMock-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F6E03BFA79475FAD7CA7A25 /* libPods-URLMock-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		31572A3807F4BD534DFD1BD6 /* Pods-URLMock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock.release.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock/Pods-URLMock.release.xcconfig"; sourceTree = "<group>"; };
 		49D5313A1BE813190009B068 /* UMKParameterPairTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKParameterPairTests.m; sourceTree = "<group>"; };
-		4B562C5F1E2A4ECF9E3BBC6C /* libPods-libURLMock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-libURLMock.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0D38491879AFA6000A04DE /* NSException+UMKSubclassResponsibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSException+UMKSubclassResponsibility.h"; sourceTree = "<group>"; };
 		4C0D384A1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSException+UMKSubclassResponsibility.m"; sourceTree = "<group>"; };
 		4C0D387D187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMKURLEncodedParameterStringParser.h; sourceTree = "<group>"; };
@@ -218,7 +198,6 @@
 		4C0D3886187CD506000A04DE /* UMKParameterPair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMKParameterPair.m; sourceTree = "<group>"; };
 		4C0D388C187CD657000A04DE /* NSDictionary+UMKURLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+UMKURLEncoding.h"; sourceTree = "<group>"; };
 		4C0D388D187CD657000A04DE /* NSDictionary+UMKURLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+UMKURLEncoding.m"; sourceTree = "<group>"; };
-		4C0FBDC1187DF55A00D5C4B8 /* libURLMockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libURLMockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0FBDC4187DF55A00D5C4B8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		4C1C148D183289C700DE8195 /* URLMockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLMockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C1C1491183289C700DE8195 /* URLMockTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "URLMockTests-Info.plist"; sourceTree = "<group>"; };
@@ -230,7 +209,6 @@
 		4C33F7351878AA1700643799 /* NSURL+UMKQueryParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+UMKQueryParameters.m"; sourceTree = "<group>"; };
 		4C34F629183346FB00AD2A6D /* UMKTestUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = UMKTestUtilities.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4C34F62A183346FB00AD2A6D /* UMKTestUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = UMKTestUtilities.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		4C45E811182EAF44002F2096 /* libURLMock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libURLMock.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C45E814182EAF44002F2096 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4C45E822182EAF44002F2096 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		4C45E83A182EAFCB002F2096 /* UMKMockHTTPMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = UMKMockHTTPMessage.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -270,54 +248,36 @@
 		4C96CA031A5605BD003763D3 /* URLMock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLMock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C96CA0D1A5605BD003763D3 /* URLMock-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "URLMock-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C972EB11960AA1000D573D3 /* NSURLRequestUMKHTTPConvenienceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLRequestUMKHTTPConvenienceTests.m; sourceTree = "<group>"; };
+		4C9E22FB206715EA007B151E /* URLMock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = URLMock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C9E230720671652007B151E /* URLMock-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "URLMock-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CC86F1C1836785100B878D6 /* UMKMockHTTPMessageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = UMKMockHTTPMessageTests.m; path = "Mock Messages/UMKMockHTTPMessageTests.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4CC86F1F18367A7A00B878D6 /* UMKTestUtilitiesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = UMKTestUtilitiesTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4CD4B059195BA771006CFB65 /* NSURLRequest+UMKHTTPConvenienceMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+UMKHTTPConvenienceMethods.h"; sourceTree = "<group>"; };
 		4CD4B05A195BA771006CFB65 /* NSURLRequest+UMKHTTPConvenienceMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+UMKHTTPConvenienceMethods.m"; sourceTree = "<group>"; };
-		4EC45F6000504F6581495339 /* libPods-URLMock Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		53F5978DC5F8685620E7303C /* libPods-URLMock-iOS Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock-iOS Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		62EE12DC4091FA096C62DF82 /* Pods-URLMock-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-iOSTests/Pods-URLMock-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		652F11CB0390ED875AE80B08 /* libPods-URLMock-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7728255C65E1003D6993EE43 /* libPods-URLMockTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMockTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B16873E13664D0881DC763F /* libPods-libURLMock Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-libURLMock Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		913E10467DBC490EA8F784A6 /* libPods-URLMock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A83E476D95CE2E9650BB303 /* Pods-URLMock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock.release.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock/Pods-URLMock.release.xcconfig"; sourceTree = "<group>"; };
-		BF34F99C02A7507D69B48B30 /* Pods-URLMockTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMockTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-URLMockTests/Pods-URLMockTests.release.xcconfig"; sourceTree = "<group>"; };
-		C0A130DCAA5E5F645225D842 /* Pods-libURLMock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libURLMock.release.xcconfig"; path = "Pods/Target Support Files/Pods-libURLMock/Pods-libURLMock.release.xcconfig"; sourceTree = "<group>"; };
-		C0EE3EF0C1414FB491CB4433 /* libPods-libURLMock-libURLMock Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-libURLMock-libURLMock Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C2031F73BA8083AAB026EC4A /* Pods-URLMock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock/Pods-URLMock.debug.xcconfig"; sourceTree = "<group>"; };
-		C21B7B3BA754B24988FA3007 /* Pods-URLMockTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMockTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URLMockTests/Pods-URLMockTests.debug.xcconfig"; sourceTree = "<group>"; };
-		F32BAB0793D759BA74CEC46B /* Pods-libURLMockTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-libURLMockTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-libURLMockTests/Pods-libURLMockTests.debug.xcconfig"; sourceTree = "<group>"; };
+		518063494B65A995FA800C91 /* Pods-URLMock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock/Pods-URLMock.debug.xcconfig"; sourceTree = "<group>"; };
+		55E7EBEB8AED1621884FB0F4 /* Pods-URLMock-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-tvOS/Pods-URLMock-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		758D2C4CD44E69462297AD39 /* Pods-URLMockTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMockTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-URLMockTests/Pods-URLMockTests.release.xcconfig"; sourceTree = "<group>"; };
+		798620C8044DC2D8747AC461 /* Pods-URLMock-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-tvOS/Pods-URLMock-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		929EE7661188E43A204F21ED /* libPods-URLMock-iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock-iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		93CDE94133A6AEC96009BEA7 /* Pods-URLMock-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-iOSTests/Pods-URLMock-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		A4900DA9FD27AA52FB22FA22 /* Pods-URLMock-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-iOS/Pods-URLMock-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		AD86AFCC6CB705D8E32708FD /* Pods-URLMock-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-tvOSTests/Pods-URLMock-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		BFCD64B015210D24752DF195 /* libPods-URLMock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C05697D92C17B7B88926B19B /* libPods-URLMockTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMockTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D38A5B8C9FEEC9E62D71B6DD /* Pods-URLMock-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-iOS/Pods-URLMock-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		F881900AB2D1090452588454 /* libPods-URLMock-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8EB594B431103825706EEE9 /* Pods-URLMock-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMock-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URLMock-iOSTests/Pods-URLMock-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		FAD941A38C66550EDF225350 /* Pods-URLMockTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLMockTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URLMockTests/Pods-URLMockTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4C0FBDBE187DF55A00D5C4B8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C0FBDC3187DF55A00D5C4B8 /* Foundation.framework in Frameworks */,
-				4C0FBDC2187DF55A00D5C4B8 /* XCTest.framework in Frameworks */,
-				4CD058C2187E12C20071C2BF /* libURLMock.a in Frameworks */,
-				8A5D8547C73FDB32876870D9 /* libPods-libURLMockTests.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4C1C148A183289C700DE8195 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				4C5D0F49187DCB8200794855 /* Foundation.framework in Frameworks */,
 				4C1C148E183289C700DE8195 /* XCTest.framework in Frameworks */,
-				60C09D87161DF1922A7A1552 /* libPods-URLMockTests.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4C45E80E182EAF44002F2096 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C45E815182EAF44002F2096 /* Foundation.framework in Frameworks */,
-				7A2DC81F2B47473BAF16627E /* libPods-libURLMock.a in Frameworks */,
+				0462B99648025E1BE8018C9E /* libPods-URLMockTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,7 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C45E8B0182FF1E1002F2096 /* Cocoa.framework in Frameworks */,
-				917DA2FEAA0D4775A9752024 /* libPods-URLMock.a in Frameworks */,
+				23388DB22AA890A09CBD4A24 /* libPods-URLMock.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,7 +294,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCA4833DA9154A3C5FD574ED /* libPods-URLMock-iOS.a in Frameworks */,
+				E87EE73AF8A5AE651F7C7630 /* libPods-URLMock-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,7 +303,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C96CA0E1A5605BD003763D3 /* URLMock.framework in Frameworks */,
-				538813FDBDED139619B19974 /* libPods-URLMock-iOSTests.a in Frameworks */,
+				F0E49F314B09990909D2D723 /* libPods-URLMock-iOSTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C9E22F7206715EA007B151E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D17F5943AF0763F1C2D57B1 /* libPods-URLMock-tvOS.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C9E230420671652007B151E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C9E230C20671652007B151E /* URLMock.framework in Frameworks */,
+				4BBF5E31F82A17DD7BD4A9B8 /* libPods-URLMock-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,19 +382,19 @@
 				4C1C148F183289C700DE8195 /* Tests */,
 				4C45E813182EAF44002F2096 /* Frameworks */,
 				4C45E812182EAF44002F2096 /* Products */,
-				C5C78A85A0D600AE885244CF /* Pods */,
+				AF9506615E4B82DC8ABC9E27 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
 		4C45E812182EAF44002F2096 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4C45E811182EAF44002F2096 /* libURLMock.a */,
 				4C45E8AF182FF1E1002F2096 /* URLMock.framework */,
 				4C1C148D183289C700DE8195 /* URLMockTests.xctest */,
-				4C0FBDC1187DF55A00D5C4B8 /* libURLMockTests.xctest */,
 				4C96CA031A5605BD003763D3 /* URLMock.framework */,
 				4C96CA0D1A5605BD003763D3 /* URLMock-iOSTests.xctest */,
+				4C9E22FB206715EA007B151E /* URLMock.framework */,
+				4C9E230720671652007B151E /* URLMock-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -430,17 +407,12 @@
 				4C45E882182FF1AA002F2096 /* Cocoa.framework */,
 				4C0FBDC4187DF55A00D5C4B8 /* UIKit.framework */,
 				4C45E884182FF1AA002F2096 /* Other Frameworks */,
-				4EC45F6000504F6581495339 /* libPods-URLMock Tests.a */,
-				C0EE3EF0C1414FB491CB4433 /* libPods-libURLMock-libURLMock Tests.a */,
-				27F7D6475533434BA74B1144 /* libPods.a */,
-				4B562C5F1E2A4ECF9E3BBC6C /* libPods-libURLMock.a */,
-				8B16873E13664D0881DC763F /* libPods-libURLMock Tests.a */,
-				913E10467DBC490EA8F784A6 /* libPods-URLMock.a */,
-				652F11CB0390ED875AE80B08 /* libPods-URLMock-iOS.a */,
-				53F5978DC5F8685620E7303C /* libPods-URLMock-iOS Tests.a */,
-				41EB89FBBAE1CD4979565F12 /* libPods-URLMock-iOSTests.a */,
-				7728255C65E1003D6993EE43 /* libPods-URLMockTests.a */,
-				488DB97BFD0202A6033EAFC2 /* libPods-libURLMockTests.a */,
+				BFCD64B015210D24752DF195 /* libPods-URLMock.a */,
+				1F6E03BFA79475FAD7CA7A25 /* libPods-URLMock-iOS.a */,
+				929EE7661188E43A204F21ED /* libPods-URLMock-iOSTests.a */,
+				F881900AB2D1090452588454 /* libPods-URLMock-tvOS.a */,
+				1B1C7653997B9FC4039AF1F0 /* libPods-URLMock-tvOSTests.a */,
+				C05697D92C17B7B88926B19B /* libPods-URLMockTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -602,21 +574,21 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		C5C78A85A0D600AE885244CF /* Pods */ = {
+		AF9506615E4B82DC8ABC9E27 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C2031F73BA8083AAB026EC4A /* Pods-URLMock.debug.xcconfig */,
-				9A83E476D95CE2E9650BB303 /* Pods-URLMock.release.xcconfig */,
-				25D102087D5D7CA3F8E9AF88 /* Pods-URLMock-iOS.debug.xcconfig */,
-				2B5C20DE5E8C3561058305A2 /* Pods-URLMock-iOS.release.xcconfig */,
-				0C05E4FC476678CD161649BB /* Pods-libURLMock.debug.xcconfig */,
-				C0A130DCAA5E5F645225D842 /* Pods-libURLMock.release.xcconfig */,
-				62EE12DC4091FA096C62DF82 /* Pods-URLMock-iOSTests.debug.xcconfig */,
-				2B469D9ED4132578C282CC73 /* Pods-URLMock-iOSTests.release.xcconfig */,
-				C21B7B3BA754B24988FA3007 /* Pods-URLMockTests.debug.xcconfig */,
-				BF34F99C02A7507D69B48B30 /* Pods-URLMockTests.release.xcconfig */,
-				F32BAB0793D759BA74CEC46B /* Pods-libURLMockTests.debug.xcconfig */,
-				0CD818745FCA08417FCB83AD /* Pods-libURLMockTests.release.xcconfig */,
+				518063494B65A995FA800C91 /* Pods-URLMock.debug.xcconfig */,
+				31572A3807F4BD534DFD1BD6 /* Pods-URLMock.release.xcconfig */,
+				D38A5B8C9FEEC9E62D71B6DD /* Pods-URLMock-iOS.debug.xcconfig */,
+				A4900DA9FD27AA52FB22FA22 /* Pods-URLMock-iOS.release.xcconfig */,
+				F8EB594B431103825706EEE9 /* Pods-URLMock-iOSTests.debug.xcconfig */,
+				93CDE94133A6AEC96009BEA7 /* Pods-URLMock-iOSTests.release.xcconfig */,
+				55E7EBEB8AED1621884FB0F4 /* Pods-URLMock-tvOS.debug.xcconfig */,
+				798620C8044DC2D8747AC461 /* Pods-URLMock-tvOS.release.xcconfig */,
+				1757F354E9C48AEB8C13C767 /* Pods-URLMock-tvOSTests.debug.xcconfig */,
+				AD86AFCC6CB705D8E32708FD /* Pods-URLMock-tvOSTests.release.xcconfig */,
+				FAD941A38C66550EDF225350 /* Pods-URLMockTests.debug.xcconfig */,
+				758D2C4CD44E69462297AD39 /* Pods-URLMockTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -624,28 +596,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		4C45E84F182EB477002F2096 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C0D388E187CD657000A04DE /* NSDictionary+UMKURLEncoding.h in Headers */,
-				4C45E850182EB48B002F2096 /* URLMock.h in Headers */,
-				4CC86F1718354D5200B878D6 /* UMKMessageCountingProxy.h in Headers */,
-				4C33F7361878AA1700643799 /* NSURL+UMKQueryParameters.h in Headers */,
-				4CC86F1618354AD600B878D6 /* UMKTestUtilities.h in Headers */,
-				4C45E851182EB48B002F2096 /* UMKMockHTTPMessage.h in Headers */,
-				4C0D387F187A2A41000A04DE /* UMKURLEncodedParameterStringParser.h in Headers */,
-				4C6BFC44189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h in Headers */,
-				4C45E852182EB48B002F2096 /* UMKMockHTTPRequest.h in Headers */,
-				4C0D384B1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.h in Headers */,
-				4C45E853182EB48B002F2096 /* UMKMockHTTPResponder.h in Headers */,
-				4C0D3887187CD506000A04DE /* UMKParameterPair.h in Headers */,
-				4C45E85B182EBE12002F2096 /* UMKMockURLProtocol.h in Headers */,
-				4C7D0A24195BC2FF00A31B8D /* UMKPatternMatchingMockRequest.h in Headers */,
-				4C45E855182EB499002F2096 /* UMKErrorUtilities.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4C45E8AC182FF1E1002F2096 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -692,40 +642,42 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4C9E22F8206715EA007B151E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C9E231B206716E1007B151E /* NSURL+UMKQueryParameters.h in Headers */,
+				4C9E2321206716E1007B151E /* UMKURLEncodedParameterStringParser.h in Headers */,
+				4C9E2320206716E1007B151E /* UMKParameterPair.h in Headers */,
+				4C9E2314206716E1007B151E /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.h in Headers */,
+				4C9E2313206716E1007B151E /* UMKMockURLProtocol.h in Headers */,
+				4C9E231E206716E1007B151E /* UMKTestUtilities.h in Headers */,
+				4C9E231F206716E1007B151E /* UMKMessageCountingProxy.h in Headers */,
+				4C9E2318206716E1007B151E /* UMKPatternMatchingMockRequest.h in Headers */,
+				4C9E2315206716E1007B151E /* UMKMockHTTPMessage.h in Headers */,
+				4C9E2319206716E1007B151E /* NSDictionary+UMKURLEncoding.h in Headers */,
+				4C9E231A206716E1007B151E /* NSException+UMKSubclassResponsibility.h in Headers */,
+				4C9E2312206716E1007B151E /* URLMock.h in Headers */,
+				4C9E231D206716E1007B151E /* UMKErrorUtilities.h in Headers */,
+				4C9E2316206716E1007B151E /* UMKMockHTTPRequest.h in Headers */,
+				4C9E231C206716E1007B151E /* NSURLRequest+UMKHTTPConvenienceMethods.h in Headers */,
+				4C9E2317206716E1007B151E /* UMKMockHTTPResponder.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		4C0FBDC0187DF55A00D5C4B8 /* libURLMockTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4C0FBDD1187DF55A00D5C4B8 /* Build configuration list for PBXNativeTarget "libURLMockTests" */;
-			buildPhases = (
-				83F91932E1454B40B7E33993 /* Check Pods Manifest.lock */,
-				4C0FBDBD187DF55A00D5C4B8 /* Sources */,
-				4C0FBDBE187DF55A00D5C4B8 /* Frameworks */,
-				4C0FBDBF187DF55A00D5C4B8 /* Resources */,
-				9E77275C5DC142C6A6BE2E54 /* Copy Pods Resources */,
-				93A974524B15DB6BEE48C41B /* Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4C0FBDD0187DF55A00D5C4B8 /* PBXTargetDependency */,
-			);
-			name = libURLMockTests;
-			productName = "libURLMock Tests";
-			productReference = 4C0FBDC1187DF55A00D5C4B8 /* libURLMockTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		4C1C148C183289C700DE8195 /* URLMockTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C1C149C183289C700DE8195 /* Build configuration list for PBXNativeTarget "URLMockTests" */;
 			buildPhases = (
-				846F651C5141430FA0556A2F /* Check Pods Manifest.lock */,
+				A924B87044839F9F2D10E6FB /* [CP] Check Pods Manifest.lock */,
 				4C1C1489183289C700DE8195 /* Sources */,
 				4C1C148A183289C700DE8195 /* Frameworks */,
 				4C1C148B183289C700DE8195 /* Resources */,
-				C5446B2FD3774B2197D26E20 /* Copy Pods Resources */,
-				C5035F03CBFBCFE122A89798 /* Embed Pods Frameworks */,
+				6BC8DF721768539C3300EC54 /* [CP] Embed Pods Frameworks */,
+				2EC83C48CDF4D8D2A0C7433E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -737,36 +689,16 @@
 			productReference = 4C1C148D183289C700DE8195 /* URLMockTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		4C45E810182EAF44002F2096 /* libURLMock */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4C45E832182EAF44002F2096 /* Build configuration list for PBXNativeTarget "libURLMock" */;
-			buildPhases = (
-				8BF605C29AA044978598AEFA /* Check Pods Manifest.lock */,
-				4C45E84F182EB477002F2096 /* Headers */,
-				4C45E80D182EAF44002F2096 /* Sources */,
-				4C45E80E182EAF44002F2096 /* Frameworks */,
-				4C45E80F182EAF44002F2096 /* CopyFiles */,
-				746D552CECAF4C348D8C54FE /* Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = libURLMock;
-			productName = URLMock;
-			productReference = 4C45E811182EAF44002F2096 /* libURLMock.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		4C45E8AE182FF1E1002F2096 /* URLMock */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C45E8CD182FF1E2002F2096 /* Build configuration list for PBXNativeTarget "URLMock" */;
 			buildPhases = (
-				0724A4875D034B3081A94305 /* Check Pods Manifest.lock */,
+				59B6086055A158175FABE85E /* [CP] Check Pods Manifest.lock */,
 				4C45E8AC182FF1E1002F2096 /* Headers */,
 				4C45E8AA182FF1E1002F2096 /* Sources */,
 				4C45E8AB182FF1E1002F2096 /* Frameworks */,
 				4C45E8AD182FF1E1002F2096 /* Resources */,
-				9556D0C04A3841BF8A09931E /* Copy Pods Resources */,
+				9E2ACE811C14723FD9CA7FA8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -781,12 +713,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C96CA1A1A5605BD003763D3 /* Build configuration list for PBXNativeTarget "URLMock-iOS" */;
 			buildPhases = (
-				BD6EFBB03355E7BCFC03C1BD /* Check Pods Manifest.lock */,
+				49E16FCE56ECC014C8A5BBCF /* [CP] Check Pods Manifest.lock */,
 				4C96C9FE1A5605BD003763D3 /* Sources */,
 				4C96C9FF1A5605BD003763D3 /* Frameworks */,
 				4C96CA001A5605BD003763D3 /* Headers */,
 				4C96CA011A5605BD003763D3 /* Resources */,
-				B781B570A6D71A3FCDCA8510 /* Copy Pods Resources */,
+				677FE368128774994E09F76F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -801,12 +733,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C96CA1B1A5605BD003763D3 /* Build configuration list for PBXNativeTarget "URLMock-iOSTests" */;
 			buildPhases = (
-				4AA4DE4059FD3526A839E364 /* Check Pods Manifest.lock */,
+				C23D452FF9C0145D785F3529 /* [CP] Check Pods Manifest.lock */,
 				4C96CA091A5605BD003763D3 /* Sources */,
 				4C96CA0A1A5605BD003763D3 /* Frameworks */,
 				4C96CA0B1A5605BD003763D3 /* Resources */,
-				13D18EEEC072620F18209449 /* Copy Pods Resources */,
-				D692F88B6851FF8C34A314C4 /* Embed Pods Frameworks */,
+				0908D7B166535776F0E96BFF /* [CP] Embed Pods Frameworks */,
+				C1B6CD7E18B90ACAC9BB5C7D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -818,6 +750,47 @@
 			productReference = 4C96CA0D1A5605BD003763D3 /* URLMock-iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		4C9E22FA206715EA007B151E /* URLMock-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C9E2300206715EA007B151E /* Build configuration list for PBXNativeTarget "URLMock-tvOS" */;
+			buildPhases = (
+				427E62939ACA35415385FDD7 /* [CP] Check Pods Manifest.lock */,
+				4C9E22F6206715EA007B151E /* Sources */,
+				4C9E22F7206715EA007B151E /* Frameworks */,
+				4C9E22F8206715EA007B151E /* Headers */,
+				4C9E22F9206715EA007B151E /* Resources */,
+				68F4028269860EF4C9AAD509 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "URLMock-tvOS";
+			productName = "URLMock-tvOS";
+			productReference = 4C9E22FB206715EA007B151E /* URLMock.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4C9E230620671652007B151E /* URLMock-tvOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C9E230F20671652007B151E /* Build configuration list for PBXNativeTarget "URLMock-tvOSTests" */;
+			buildPhases = (
+				5959D2A4BE7546489A948DF6 /* [CP] Check Pods Manifest.lock */,
+				4C9E230320671652007B151E /* Sources */,
+				4C9E230420671652007B151E /* Frameworks */,
+				4C9E230520671652007B151E /* Resources */,
+				DEDD28DFE0114B6FB7012F9D /* [CP] Embed Pods Frameworks */,
+				C811AA96FB0FA504F4238845 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4C9E230E20671652007B151E /* PBXTargetDependency */,
+			);
+			name = "URLMock-tvOSTests";
+			productName = "URLMock-tvOSTests";
+			productReference = 4C9E230720671652007B151E /* URLMock-tvOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -826,17 +799,22 @@
 			attributes = {
 				CLASSPREFIX = UMK;
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0710;
-				ORGANIZATIONNAME = "Ticketmaster Entertainment, Inc.";
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Prachi Gauriar";
 				TargetAttributes = {
-					4C0FBDC0187DF55A00D5C4B8 = {
-						TestTargetID = 4C45E810182EAF44002F2096;
-					};
 					4C96CA021A5605BD003763D3 = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
 					4C96CA0C1A5605BD003763D3 = {
 						CreatedOnToolsVersion = 6.1.1;
+					};
+					4C9E22FA206715EA007B151E = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					4C9E230620671652007B151E = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -856,21 +834,13 @@
 				4C1C148C183289C700DE8195 /* URLMockTests */,
 				4C96CA021A5605BD003763D3 /* URLMock-iOS */,
 				4C96CA0C1A5605BD003763D3 /* URLMock-iOSTests */,
-				4C45E810182EAF44002F2096 /* libURLMock */,
-				4C0FBDC0187DF55A00D5C4B8 /* libURLMockTests */,
+				4C9E22FA206715EA007B151E /* URLMock-tvOS */,
+				4C9E230620671652007B151E /* URLMock-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4C0FBDBF187DF55A00D5C4B8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C0FBDDF187DFF8600D5C4B8 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4C1C148B183289C700DE8195 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -900,227 +870,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4C9E22F9206715EA007B151E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C9E230520671652007B151E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0724A4875D034B3081A94305 /* Check Pods Manifest.lock */ = {
+		0908D7B166535776F0E96BFF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		13D18EEEC072620F18209449 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMock-iOSTests/Pods-URLMock-iOSTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4AA4DE4059FD3526A839E364 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		746D552CECAF4C348D8C54FE /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-libURLMock/Pods-libURLMock-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		83F91932E1454B40B7E33993 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		846F651C5141430FA0556A2F /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		8BF605C29AA044978598AEFA /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		93A974524B15DB6BEE48C41B /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-libURLMockTests/Pods-libURLMockTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9556D0C04A3841BF8A09931E /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMock/Pods-URLMock-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9E77275C5DC142C6A6BE2E54 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-libURLMockTests/Pods-libURLMockTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B781B570A6D71A3FCDCA8510 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMock-iOS/Pods-URLMock-iOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BD6EFBB03355E7BCFC03C1BD /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		C5035F03CBFBCFE122A89798 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMockTests/Pods-URLMockTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C5446B2FD3774B2197D26E20 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMockTests/Pods-URLMockTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D692F88B6851FF8C34A314C4 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1128,31 +902,237 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMock-iOSTests/Pods-URLMock-iOSTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		2EC83C48CDF4D8D2A0C7433E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMockTests/Pods-URLMockTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		427E62939ACA35415385FDD7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-URLMock-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		49E16FCE56ECC014C8A5BBCF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-URLMock-iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5959D2A4BE7546489A948DF6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-URLMock-tvOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		59B6086055A158175FABE85E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-URLMock-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		677FE368128774994E09F76F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMock-iOS/Pods-URLMock-iOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		68F4028269860EF4C9AAD509 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMock-tvOS/Pods-URLMock-tvOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6BC8DF721768539C3300EC54 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMockTests/Pods-URLMockTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9E2ACE811C14723FD9CA7FA8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMock/Pods-URLMock-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A924B87044839F9F2D10E6FB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-URLMockTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C1B6CD7E18B90ACAC9BB5C7D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMock-iOSTests/Pods-URLMock-iOSTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C23D452FF9C0145D785F3529 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-URLMock-iOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C811AA96FB0FA504F4238845 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMock-tvOSTests/Pods-URLMock-tvOSTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DEDD28DFE0114B6FB7012F9D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-URLMock-tvOSTests/Pods-URLMock-tvOSTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4C0FBDBD187DF55A00D5C4B8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C6BFC51189DC5F200F79BCF /* UMKMockURLProtocolHTTPConvenienceMethodsTests.m in Sources */,
-				4C6BFC55189DC67300F79BCF /* UMKIntegrationTestCase.m in Sources */,
-				4CD058BF187E12790071C2BF /* UMKMockHTTPRequestTests.m in Sources */,
-				4CC41F13187E10860008E38B /* URLMockIntegrationTests.m in Sources */,
-				4CD058C0187E12790071C2BF /* UMKMockHTTPResponderTests.m in Sources */,
-				4CD058BE187E12790071C2BF /* UMKMockHTTPMessageTests.m in Sources */,
-				4C0FBDE4187E00DB00D5C4B8 /* UMKTestUtilitiesTests.m in Sources */,
-				4C691344195F97C80020C8FD /* UMKPatternMatchingMockRequestTests.m in Sources */,
-				49D5313D1BE813190009B068 /* UMKParameterPairTests.m in Sources */,
-				4CD058BD187E12710071C2BF /* UMKMockURLProtocolTests.m in Sources */,
-				4C8A7089187E0C93002E33A7 /* UMKRandomizedTestCase.m in Sources */,
-				4C972EB31960AA1000D573D3 /* NSURLRequestUMKHTTPConvenienceTests.m in Sources */,
-				4C0FBDD5187DF70100D5C4B8 /* UMKURLConnectionVerifier.m in Sources */,
-				4C7A22ED1958EB5700C440AB /* UMKURLSessionDataTaskVerifier.m in Sources */,
-				4CD058C1187E12790071C2BF /* UMKURLEncodedParameterStringParserTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4C1C1489183289C700DE8195 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1172,28 +1152,6 @@
 				4C8A708A187E0DCB002E33A7 /* UMKRandomizedTestCase.m in Sources */,
 				4C7A22EC1958EB5700C440AB /* UMKURLSessionDataTaskVerifier.m in Sources */,
 				4C8F6032186158A900B3B2CB /* UMKURLConnectionVerifier.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4C45E80D182EAF44002F2096 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C6BFC46189D88E600F79BCF /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.m in Sources */,
-				4C0957FB187E043800436F23 /* UMKTestUtilities.m in Sources */,
-				4C45E841182EAFCB002F2096 /* UMKMockHTTPRequest.m in Sources */,
-				4C7D0A26195BC2FF00A31B8D /* UMKPatternMatchingMockRequest.m in Sources */,
-				4C0D3889187CD506000A04DE /* UMKParameterPair.m in Sources */,
-				4C45E842182EAFCB002F2096 /* UMKMockHTTPResponder.m in Sources */,
-				4C0D3890187CD657000A04DE /* NSDictionary+UMKURLEncoding.m in Sources */,
-				4C0D3881187A2A41000A04DE /* UMKURLEncodedParameterStringParser.m in Sources */,
-				4C33F7381878AA1700643799 /* NSURL+UMKQueryParameters.m in Sources */,
-				4C0957FD187E044000436F23 /* UMKMessageCountingProxy.m in Sources */,
-				4C0D384C1879AFA6000A04DE /* NSException+UMKSubclassResponsibility.m in Sources */,
-				4C45E840182EAFCB002F2096 /* UMKMockHTTPMessage.m in Sources */,
-				4C45E84A182EAFEB002F2096 /* UMKErrorUtilities.m in Sources */,
-				4C45E85C182EBE12002F2096 /* UMKMockURLProtocol.m in Sources */,
-				4CD4B05E195BA771006CFB65 /* NSURLRequest+UMKHTTPConvenienceMethods.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1263,14 +1221,53 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4C9E22F6206715EA007B151E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C9E234A20671937007B151E /* UMKErrorUtilities.m in Sources */,
+				4C9E234420671937007B151E /* UMKMockHTTPResponder.m in Sources */,
+				4C9E234220671937007B151E /* UMKMockHTTPMessage.m in Sources */,
+				4C9E234E20671937007B151E /* UMKURLEncodedParameterStringParser.m in Sources */,
+				4C9E234820671937007B151E /* NSURL+UMKQueryParameters.m in Sources */,
+				4C9E234720671937007B151E /* NSException+UMKSubclassResponsibility.m in Sources */,
+				4C9E234D20671937007B151E /* UMKParameterPair.m in Sources */,
+				4C9E234120671937007B151E /* UMKMockURLProtocol+UMKHTTPConvenienceMethods.m in Sources */,
+				4C9E234020671937007B151E /* UMKMockURLProtocol.m in Sources */,
+				4C9E234320671937007B151E /* UMKMockHTTPRequest.m in Sources */,
+				4C9E234920671937007B151E /* NSURLRequest+UMKHTTPConvenienceMethods.m in Sources */,
+				4C9E234620671937007B151E /* NSDictionary+UMKURLEncoding.m in Sources */,
+				4C9E234B20671937007B151E /* UMKTestUtilities.m in Sources */,
+				4C9E234520671937007B151E /* UMKPatternMatchingMockRequest.m in Sources */,
+				4C9E234C20671937007B151E /* UMKMessageCountingProxy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C9E230320671652007B151E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C9E232220671826007B151E /* UMKRandomizedTestCase.m in Sources */,
+				4C9E232720671838007B151E /* UMKMockHTTPRequestTests.m in Sources */,
+				4C9E232D20671838007B151E /* UMKURLEncodedParameterStringParserTests.m in Sources */,
+				4C9E23242067182B007B151E /* UMKURLSessionDataTaskVerifier.m in Sources */,
+				4C9E232920671838007B151E /* UMKPatternMatchingMockRequestTests.m in Sources */,
+				4C9E233020671838007B151E /* UMKMockURLProtocolHTTPConvenienceMethodsTests.m in Sources */,
+				4C9E232820671838007B151E /* UMKMockHTTPResponderTests.m in Sources */,
+				4C9E232A20671838007B151E /* NSURLRequestUMKHTTPConvenienceTests.m in Sources */,
+				4C9E232C20671838007B151E /* UMKParameterPairTests.m in Sources */,
+				4C9E232B20671838007B151E /* UMKTestUtilitiesTests.m in Sources */,
+				4C9E23232067182B007B151E /* UMKURLConnectionVerifier.m in Sources */,
+				4C9E232F20671838007B151E /* URLMockIntegrationTests.m in Sources */,
+				4C9E232620671838007B151E /* UMKMockHTTPMessageTests.m in Sources */,
+				4C9E232520671838007B151E /* UMKMockURLProtocolTests.m in Sources */,
+				4C9E232E20671838007B151E /* UMKIntegrationTestCase.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4C0FBDD0187DF55A00D5C4B8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4C45E810182EAF44002F2096 /* libURLMock */;
-			targetProxy = 4C0FBDCF187DF55A00D5C4B8 /* PBXContainerItemProxy */;
-		};
 		4C1C1499183289C700DE8195 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4C45E8AE182FF1E1002F2096 /* URLMock */;
@@ -1280,6 +1277,11 @@
 			isa = PBXTargetDependency;
 			target = 4C96CA021A5605BD003763D3 /* URLMock-iOS */;
 			targetProxy = 4C96CA0F1A5605BD003763D3 /* PBXContainerItemProxy */;
+		};
+		4C9E230E20671652007B151E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C9E22FA206715EA007B151E /* URLMock-tvOS */;
+			targetProxy = 4C9E230D20671652007B151E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1295,105 +1297,9 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		4C0FBDD2187DF55A00D5C4B8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F32BAB0793D759BA74CEC46B /* Pods-libURLMockTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"DEBUG=1",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(BUILT_PRODUCTS_DIR)",
-				);
-				INFOPLIST_FILE = "$SRCROOT/Tests/Supporting Files/URLMockTests-Info.plist";
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ticketmaster.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		4C0FBDD3187DF55A00D5C4B8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0CD818745FCA08417FCB83AD /* Pods-libURLMockTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(BUILT_PRODUCTS_DIR)",
-				);
-				INFOPLIST_FILE = "$SRCROOT/Tests/Supporting Files/URLMockTests-Info.plist";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ticketmaster.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 		4C1C149A183289C700DE8195 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C21B7B3BA754B24988FA3007 /* Pods-URLMockTests.debug.xcconfig */;
+			baseConfigurationReference = FAD941A38C66550EDF225350 /* Pods-URLMockTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/URLMock.framework/Versions/A/URLMock";
@@ -1441,7 +1347,7 @@
 		};
 		4C1C149B183289C700DE8195 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BF34F99C02A7507D69B48B30 /* Pods-URLMockTests.release.xcconfig */;
+			baseConfigurationReference = 758D2C4CD44E69462297AD39 /* Pods-URLMockTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/URLMock.framework/Versions/A/URLMock";
@@ -1487,10 +1393,33 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 			};
@@ -1501,105 +1430,39 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-			};
-			name = Release;
-		};
-		4C45E833182EAF44002F2096 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0C05E4FC476678CD161649BB /* Pods-libURLMock.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/URLMock.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				PRODUCT_NAME = URLMock;
-				PUBLIC_HEADERS_FOLDER_PATH = URLMock;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		4C45E834182EAF44002F2096 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C0A130DCAA5E5F645225D842 /* Pods-libURLMock.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/URLMock.dst;
-				ENABLE_NS_ASSERTIONS = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				PRODUCT_NAME = URLMock;
-				PUBLIC_HEADERS_FOLDER_PATH = URLMock;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		4C45E8CE182FF1E2002F2096 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C2031F73BA8083AAB026EC4A /* Pods-URLMock.debug.xcconfig */;
+			baseConfigurationReference = 518063494B65A995FA800C91 /* Pods-URLMock.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1641,7 +1504,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "URLMock/Supporting Files/URLMock-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ticketmaster.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.quantumlenscap.URLMock;
 				PRODUCT_NAME = URLMock;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
@@ -1650,7 +1513,7 @@
 		};
 		4C45E8CF182FF1E2002F2096 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9A83E476D95CE2E9650BB303 /* Pods-URLMock.release.xcconfig */;
+			baseConfigurationReference = 31572A3807F4BD534DFD1BD6 /* Pods-URLMock.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1687,7 +1550,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "URLMock/Supporting Files/URLMock-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ticketmaster.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.quantumlenscap.URLMock;
 				PRODUCT_NAME = URLMock;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
@@ -1696,7 +1559,7 @@
 		};
 		4C96CA161A5605BD003763D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 25D102087D5D7CA3F8E9AF88 /* Pods-URLMock-iOS.debug.xcconfig */;
+			baseConfigurationReference = D38A5B8C9FEEC9E62D71B6DD /* Pods-URLMock-iOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1711,7 +1574,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1738,7 +1601,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ticketmaster.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.quantumlenscap.URLMock;
 				PRODUCT_NAME = URLMock;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1750,7 +1613,7 @@
 		};
 		4C96CA171A5605BD003763D3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B5C20DE5E8C3561058305A2 /* Pods-URLMock-iOS.release.xcconfig */;
+			baseConfigurationReference = A4900DA9FD27AA52FB22FA22 /* Pods-URLMock-iOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1765,7 +1628,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1786,7 +1649,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ticketmaster.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.quantumlenscap.URLMock;
 				PRODUCT_NAME = URLMock;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1799,7 +1662,7 @@
 		};
 		4C96CA181A5605BD003763D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 62EE12DC4091FA096C62DF82 /* Pods-URLMock-iOSTests.debug.xcconfig */;
+			baseConfigurationReference = F8EB594B431103825706EEE9 /* Pods-URLMock-iOSTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1842,7 +1705,7 @@
 		};
 		4C96CA191A5605BD003763D3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B469D9ED4132578C282CC73 /* Pods-URLMock-iOSTests.release.xcconfig */;
+			baseConfigurationReference = 93CDE94133A6AEC96009BEA7 /* Pods-URLMock-iOSTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1878,18 +1741,245 @@
 			};
 			name = Release;
 		};
+		4C9E2301206715EA007B151E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55E7EBEB8AED1621884FB0F4 /* Pods-URLMock-tvOS.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/URLMock/Supporting Files/URLMock-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.quantumlenscap.URLMock;
+				PRODUCT_NAME = URLMock;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4C9E2302206715EA007B151E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 798620C8044DC2D8747AC461 /* Pods-URLMock-tvOS.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/URLMock/Supporting Files/URLMock-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.quantumlenscap.URLMock;
+				PRODUCT_NAME = URLMock;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4C9E231020671652007B151E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1757F354E9C48AEB8C13C767 /* Pods-URLMock-tvOSTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Tests/Supporting Files/URLMockTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.quantumlenscap.URLMock-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Debug;
+		};
+		4C9E231120671652007B151E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD86AFCC6CB705D8E32708FD /* Pods-URLMock-tvOSTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Tests/Supporting Files/URLMockTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.quantumlenscap.URLMock-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4C0FBDD1187DF55A00D5C4B8 /* Build configuration list for PBXNativeTarget "libURLMockTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4C0FBDD2187DF55A00D5C4B8 /* Debug */,
-				4C0FBDD3187DF55A00D5C4B8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		4C1C149C183289C700DE8195 /* Build configuration list for PBXNativeTarget "URLMockTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1904,15 +1994,6 @@
 			buildConfigurations = (
 				4C45E80B182EAEFC002F2096 /* Debug */,
 				4C45E80C182EAEFC002F2096 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4C45E832182EAF44002F2096 /* Build configuration list for PBXNativeTarget "libURLMock" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4C45E833182EAF44002F2096 /* Debug */,
-				4C45E834182EAF44002F2096 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1940,6 +2021,24 @@
 			buildConfigurations = (
 				4C96CA181A5605BD003763D3 /* Debug */,
 				4C96CA191A5605BD003763D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C9E2300206715EA007B151E /* Build configuration list for PBXNativeTarget "URLMock-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C9E2301206715EA007B151E /* Debug */,
+				4C9E2302206715EA007B151E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C9E230F20671652007B151E /* Build configuration list for PBXNativeTarget "URLMock-tvOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C9E231020671652007B151E /* Debug */,
+				4C9E231120671652007B151E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

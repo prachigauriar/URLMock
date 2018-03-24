@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/12/2013.
-//  Copyright (c) 2015 Ticketmaster Entertainment, Inc. All rights reserved.
+//  Copyright (c) 2015 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -40,7 +40,7 @@
 
 + (instancetype)messageCountingProxyWithObject:(NSObject *)object
 {
-    return [[self alloc] initWithObject:object];
+    return [[UMKMessageCountingProxy alloc] initWithObject:object];
 }
 
 

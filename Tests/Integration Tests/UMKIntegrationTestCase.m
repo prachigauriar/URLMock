@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 2/1/2014.
-//  Copyright (c) 2015 Ticketmaster Entertainment, Inc. All rights reserved.
+//  Copyright (c) 2015 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -59,7 +59,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         networkOperationQueue = [[NSOperationQueue alloc] init];
-        networkOperationQueue.name = @"com.ticketmaster.UMKIntegrationTestCase.networkOperationQueue";
+        networkOperationQueue.name = @"com.quantumlenscap.UMKIntegrationTestCase.networkOperationQueue";
     });
     
     return networkOperationQueue;

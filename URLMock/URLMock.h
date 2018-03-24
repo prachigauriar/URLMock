@@ -3,7 +3,7 @@
 //  URLMock
 //
 //  Created by Prachi Gauriar on 11/9/2013.
-//  Copyright (c) 2015 Ticketmaster Entertainment, Inc. All rights reserved.
+//  Copyright (c) 2015 Prachi Gauriar.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -43,3 +43,9 @@
 #import <URLMock/UMKMessageCountingProxy.h>
 #import <URLMock/UMKErrorUtilities.h>
 #import <URLMock/UMKTestUtilities.h>
+
+
+// Private
+#import <URLMock/UMKParameterPair.h>
+#import <URLMock/UMKURLEncodedParameterStringParser.h>
+
