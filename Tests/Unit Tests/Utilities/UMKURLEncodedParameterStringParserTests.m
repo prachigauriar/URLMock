@@ -233,7 +233,7 @@
 - (void)testParse13
 {
     NSString *string = @"x=a&x=b";
-    NSDictionary<NSString *, id> *dictionary = @{ @"x" : @"b" };
+    NSDictionary<NSString *, id> *dictionary = @{ @"x" : [NSSet setWithObjects:@"a", @"b", nil] };
 
     UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string];
     NSDictionary<NSString *, id> *parsedDictionary = [parser parse];
@@ -244,7 +244,7 @@
 - (void)testParse14
 {
     NSString *string = @"x[y]=a&x[y]=b";
-    NSDictionary<NSString *, id> *dictionary = @{ @"x" : @{ @"y" : @"b" } };
+    NSDictionary<NSString *, id> *dictionary = @{ @"x" : @{ @"y" : [NSSet setWithObjects:@"a", @"b", nil] } };
 
     UMKURLEncodedParameterStringParser *parser = [[UMKURLEncodedParameterStringParser alloc] initWithString:string];
     NSDictionary<NSString *, id> *parsedDictionary = [parser parse];

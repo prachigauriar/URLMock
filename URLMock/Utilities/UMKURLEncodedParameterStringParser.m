@@ -135,7 +135,18 @@
     }
     
     if (rightKey.length == 0) {
-        // If there is no right key, then just set the value
+        // If there is no right key, then just set the value. If we already have a value for the key,
+        // make a set of the values
+        id currentValue = dictionary[leftKey];
+        if (currentValue) {
+            if ([currentValue isKindOfClass:[NSSet class]]) {
+                NSSet *currentSet = currentValue;
+                value = [currentSet setByAddingObject:value];
+            } else {
+                value = [NSSet setWithObjects:currentValue, value, nil];
+            }
+        }
+
         dictionary[leftKey] = value;
     } else if ([rightKey isEqualToString:@"[]"]) {
         // We have an array indicator with no additional keys, if we already have an

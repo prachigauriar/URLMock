@@ -44,8 +44,3 @@
 #import <URLMock/UMKErrorUtilities.h>
 #import <URLMock/UMKTestUtilities.h>
 
-
-// Private
-#import <URLMock/UMKParameterPair.h>
-#import <URLMock/UMKURLEncodedParameterStringParser.h>
-

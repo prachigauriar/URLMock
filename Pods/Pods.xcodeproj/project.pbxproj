@@ -248,7 +248,7 @@
 		09E3BEBAB3F7BE781642C62252275E95 /* OCMockObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMockObject.h; path = Source/OCMock/OCMockObject.h; sourceTree = "<group>"; };
 		0A30DB120360FC60FB434E0C898302F6 /* Pods-URLMock-tvOSTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-URLMock-tvOSTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		0DCB99E44D80B1E72A288BD708F377C0 /* Pods-URLMock-tvOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-URLMock-tvOS-acknowledgements.markdown"; sourceTree = "<group>"; };
-		10258A5CC8EA6B51897396C743ACFEC6 /* libSOCKit-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libSOCKit-tvOS.a"; path = "libSOCKit-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		10258A5CC8EA6B51897396C743ACFEC6 /* libSOCKit-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSOCKit-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1040526512C2791F46E5AFB6EA62E08A /* Pods-URLMock-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-URLMock-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		163AC29C589633BB60805A0EFD5AAA79 /* OCMExceptionReturnValueProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMExceptionReturnValueProvider.h; path = Source/OCMock/OCMExceptionReturnValueProvider.h; sourceTree = "<group>"; };
 		18EBFE75F201F9BE29D89D83DF585AAD /* OCMockRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMockRecorder.h; path = Source/OCMock/OCMockRecorder.h; sourceTree = "<group>"; };
@@ -265,7 +265,7 @@
 		37A32891C9E0CE9E916DAC6377030C9A /* Pods-URLMock-iOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-URLMock-iOS-acknowledgements.markdown"; sourceTree = "<group>"; };
 		39D401F148CB2B7E16B052644AAFAB06 /* OCPartialMockObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCPartialMockObject.h; path = Source/OCMock/OCPartialMockObject.h; sourceTree = "<group>"; };
 		3BD39752AE4C7557BA8A4538EC7BCF42 /* Pods-URLMock-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-URLMock-resources.sh"; sourceTree = "<group>"; };
-		3D5C8DC1375FCF299DF76FB69FC1AC1B /* libPods-URLMock-iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-URLMock-iOSTests.a"; path = "libPods-URLMock-iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D5C8DC1375FCF299DF76FB69FC1AC1B /* libPods-URLMock-iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock-iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		453F72BC7E10B9C4A9FA110097397444 /* OCMArg.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMArg.h; path = Source/OCMock/OCMArg.h; sourceTree = "<group>"; };
 		48233FC070FA1CADC1C3A92C3D3948A1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		48F1898780E780097902F1221C6640D1 /* OCMObserverRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMObserverRecorder.m; path = Source/OCMock/OCMObserverRecorder.m; sourceTree = "<group>"; };
@@ -281,7 +281,7 @@
 		57D905DF5866E9B59CC99D69F4F1A21F /* Pods-URLMock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-URLMock.debug.xcconfig"; sourceTree = "<group>"; };
 		588D59A45CEDB0D381C67B1AA7394FC3 /* NSInvocation+OCMAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSInvocation+OCMAdditions.m"; path = "Source/OCMock/NSInvocation+OCMAdditions.m"; sourceTree = "<group>"; };
 		5931294100AEBE69D785217787A602F3 /* OCMArg.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMArg.m; path = Source/OCMock/OCMArg.m; sourceTree = "<group>"; };
-		5C8C89C9AAC2D1424B5DE48C24CD8233 /* libSOCKit-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libSOCKit-macOS.a"; path = "libSOCKit-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C8C89C9AAC2D1424B5DE48C24CD8233 /* libSOCKit-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSOCKit-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		619450E925FA6813620B5A4AE92F4ED1 /* NSObject+OCMAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+OCMAdditions.m"; path = "Source/OCMock/NSObject+OCMAdditions.m"; sourceTree = "<group>"; };
 		61A2E8B5025416363F0ADBEC0BAFA620 /* OCMRealObjectForwarder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMRealObjectForwarder.h; path = Source/OCMock/OCMRealObjectForwarder.h; sourceTree = "<group>"; };
 		64055F002E048197EDA4015DBF2F8C37 /* OCMBoxedReturnValueProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMBoxedReturnValueProvider.m; path = Source/OCMock/OCMBoxedReturnValueProvider.m; sourceTree = "<group>"; };
@@ -289,7 +289,7 @@
 		6A037711BED49EA0AF137B4F4F9DE34E /* OCMReturnValueProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMReturnValueProvider.m; path = Source/OCMock/OCMReturnValueProvider.m; sourceTree = "<group>"; };
 		6B91C3D5E71CAFCBF146CB2C3988785F /* OCMockRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMockRecorder.m; path = Source/OCMock/OCMockRecorder.m; sourceTree = "<group>"; };
 		6F521110999A6323E085B2EDF481286F /* OCObserverMockObject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCObserverMockObject.m; path = Source/OCMock/OCObserverMockObject.m; sourceTree = "<group>"; };
-		723ECD298A18AA55E2E2F2910819660D /* libPods-URLMock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-URLMock.a"; path = "libPods-URLMock.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		723ECD298A18AA55E2E2F2910819660D /* libPods-URLMock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73319D7C3DB99C2991C6951215D3C878 /* OCPartialMockRecorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCPartialMockRecorder.h; path = Source/OCMock/OCPartialMockRecorder.h; sourceTree = "<group>"; };
 		7461AAFB7A771BCEC6E4E09204991FB5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		7518197E4EF61FE51842CFF5F43A785A /* OCMock-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "OCMock-macOS-dummy.m"; path = "../OCMock-macOS/OCMock-macOS-dummy.m"; sourceTree = "<group>"; };
@@ -303,10 +303,10 @@
 		87F5C35A548265191DA29BF386371B46 /* Pods-URLMock-iOSTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-URLMock-iOSTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		893F0C8C693495CBE4D25EAAD376B89A /* OCMock-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "OCMock-macOS.xcconfig"; path = "../OCMock-macOS/OCMock-macOS.xcconfig"; sourceTree = "<group>"; };
 		8BCD8E098CDF96D9B311904FCC6CA466 /* Pods-URLMock-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-URLMock-iOS-dummy.m"; sourceTree = "<group>"; };
-		8FA1FF8EC6209E1F163AB48F0C7BC381 /* libOCMock-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libOCMock-tvOS.a"; path = "libOCMock-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FA1FF8EC6209E1F163AB48F0C7BC381 /* libOCMock-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libOCMock-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92506760E8B665B80E0A1EE2394C1272 /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSNotificationCenter+OCMAdditions.h"; path = "Source/OCMock/NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
 		92A8DB1350EEE0160D20D531B1EA98AF /* Pods-URLMock-tvOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-URLMock-tvOS-acknowledgements.plist"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		98B1EEB2EC893A6A46BCE2E3FA6A535E /* Pods-URLMockTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-URLMockTests.debug.xcconfig"; sourceTree = "<group>"; };
 		997531B15D67A2B31A86578555F7B5DF /* OCMock-tvOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "OCMock-tvOS.xcconfig"; path = "../OCMock-tvOS/OCMock-tvOS.xcconfig"; sourceTree = "<group>"; };
 		9978131FF2FBF6601AE481E23ED9E018 /* OCMBlockCaller.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMBlockCaller.m; path = Source/OCMock/OCMBlockCaller.m; sourceTree = "<group>"; };
@@ -316,8 +316,8 @@
 		9E91ECD25D35A70E2FBE6DECFD007A5A /* Pods-URLMock-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-URLMock-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		9FAEA1424B98536597804F9F4E014C99 /* Pods-URLMockTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-URLMockTests-dummy.m"; sourceTree = "<group>"; };
 		A149130D6E53FE68E99F195F20E52A57 /* Pods-URLMockTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-URLMockTests.release.xcconfig"; sourceTree = "<group>"; };
-		A242AFEBBB127025CE1947E23C0FEC31 /* libPods-URLMock-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-URLMock-tvOSTests.a"; path = "libPods-URLMock-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A2710039BDB50FF37C5F4030C173A039 /* libPods-URLMockTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-URLMockTests.a"; path = "libPods-URLMockTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A242AFEBBB127025CE1947E23C0FEC31 /* libPods-URLMock-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2710039BDB50FF37C5F4030C173A039 /* libPods-URLMockTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMockTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A77DFE0E7FE502EF0FB509007FCB3730 /* Pods-URLMockTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-URLMockTests-frameworks.sh"; sourceTree = "<group>"; };
 		AB171AB38FF1DA8162597B514CAB9992 /* Pods-URLMock-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-URLMock-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		AC48E780DC6FEEEC27AEB6B452A35147 /* Pods-URLMock-tvOSTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-URLMock-tvOSTests-dummy.m"; sourceTree = "<group>"; };
@@ -329,8 +329,8 @@
 		B554F644F6B203AD80C051E0FE2FDCF2 /* SOCKit-tvOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "SOCKit-tvOS.xcconfig"; path = "../SOCKit-tvOS/SOCKit-tvOS.xcconfig"; sourceTree = "<group>"; };
 		B5669F03AFBA81A8D157DE44880B3AC0 /* Pods-URLMock-iOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-URLMock-iOS-acknowledgements.plist"; sourceTree = "<group>"; };
 		B5CF97F901F5DEF997DC2B99CD16AE1E /* Pods-URLMock-iOSTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-URLMock-iOSTests-dummy.m"; sourceTree = "<group>"; };
-		BA319D8C7C893AF17DE3DFE513635893 /* libSOCKit-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libSOCKit-iOS.a"; path = "libSOCKit-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BACEC3A2E3489785ABD78ED7933EC50A /* libOCMock-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libOCMock-macOS.a"; path = "libOCMock-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA319D8C7C893AF17DE3DFE513635893 /* libSOCKit-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSOCKit-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BACEC3A2E3489785ABD78ED7933EC50A /* libOCMock-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libOCMock-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0D54443AED7306F1577D4434D44CBCB /* OCPartialMockRecorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCPartialMockRecorder.m; path = Source/OCMock/OCPartialMockRecorder.m; sourceTree = "<group>"; };
 		C494792A159A0C34F994E94A4348A084 /* OCMock.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMock.h; path = Source/OCMock/OCMock.h; sourceTree = "<group>"; };
 		C5C907703293E5DFC3D213245E124C0C /* OCObserverMockObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCObserverMockObject.h; path = Source/OCMock/OCObserverMockObject.h; sourceTree = "<group>"; };
@@ -340,18 +340,18 @@
 		CD58C8424BA059FD46D95FE0329D5FD9 /* Pods-URLMock-tvOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-URLMock-tvOS-dummy.m"; sourceTree = "<group>"; };
 		D38BF44F6D560D21B8BACE4A1263FE6F /* Pods-URLMock-tvOSTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-URLMock-tvOSTests-resources.sh"; sourceTree = "<group>"; };
 		D4F75539348EA42C6A0266D286AB2F01 /* Pods-URLMock-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-URLMock-acknowledgements.plist"; sourceTree = "<group>"; };
-		D6AE3EB1931899E2E217A4405FAC19FF /* libPods-URLMock-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-URLMock-iOS.a"; path = "libPods-URLMock-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6AE3EB1931899E2E217A4405FAC19FF /* libPods-URLMock-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D80B33AF4C6F5E1D0D1C702C77DD2BE9 /* OCMIndirectReturnValueProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMIndirectReturnValueProvider.h; path = Source/OCMock/OCMIndirectReturnValueProvider.h; sourceTree = "<group>"; };
 		D84B3E878319BBC76718C4AB73DF0F36 /* OCMIndirectReturnValueProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMIndirectReturnValueProvider.m; path = Source/OCMock/OCMIndirectReturnValueProvider.m; sourceTree = "<group>"; };
 		D8609946E93B009479F3A94EFDCD77C3 /* Pods-URLMock-tvOS-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-URLMock-tvOS-resources.sh"; sourceTree = "<group>"; };
 		DFA9892153E1060A5B2A7B38F2FD7FC1 /* OCClassMockObject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCClassMockObject.m; path = Source/OCMock/OCClassMockObject.m; sourceTree = "<group>"; };
 		E1835C9D023ECDF560518ECC1F2A9983 /* OCMBoxedReturnValueProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMBoxedReturnValueProvider.h; path = Source/OCMock/OCMBoxedReturnValueProvider.h; sourceTree = "<group>"; };
 		E3C5CB76ADCBA8E7982D4F36F7CD165D /* OCMRealObjectForwarder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMRealObjectForwarder.m; path = Source/OCMock/OCMRealObjectForwarder.m; sourceTree = "<group>"; };
-		E8749B07B1B26190E74D53B8D5383F9A /* libOCMock-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libOCMock-iOS.a"; path = "libOCMock-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8749B07B1B26190E74D53B8D5383F9A /* libOCMock-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libOCMock-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8FBF7F63CE508C5A6DAC6B740FC2C85 /* OCMPassByRefSetter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OCMPassByRefSetter.m; path = Source/OCMock/OCMPassByRefSetter.m; sourceTree = "<group>"; };
 		EB238E9D3A441F23CCD529E536257B9D /* Pods-URLMock-tvOSTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-URLMock-tvOSTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		EE1E48F003D0E53F650A4FDE93BF9108 /* Pods-URLMockTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-URLMockTests-acknowledgements.plist"; sourceTree = "<group>"; };
-		F01049DC3F68BC88CB667C6D2D65749C /* libPods-URLMock-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-URLMock-tvOS.a"; path = "libPods-URLMock-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F01049DC3F68BC88CB667C6D2D65749C /* libPods-URLMock-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URLMock-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F13AE0C0FCF977F7061EF3C6F147383C /* OCMock-tvOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "OCMock-tvOS-prefix.pch"; path = "../OCMock-tvOS/OCMock-tvOS-prefix.pch"; sourceTree = "<group>"; };
 		F15894CB03AF688F17B2D66FC3572FE9 /* OCMBlockCaller.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OCMBlockCaller.h; path = Source/OCMock/OCMBlockCaller.h; sourceTree = "<group>"; };
 		F2068FF8406D21783B0F8D68740F8A61 /* NSInvocation+OCMAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSInvocation+OCMAdditions.h"; path = "Source/OCMock/NSInvocation+OCMAdditions.h"; sourceTree = "<group>"; };
@@ -551,7 +551,6 @@
 				B42904150BE5FC08C12C6B48E3A35C29 /* OCProtocolMockObject.m */,
 				EF0F7B967C8719CC31600FC75CBD5995 /* Support Files */,
 			);
-			name = OCMock;
 			path = OCMock;
 			sourceTree = "<group>";
 		};
@@ -612,7 +611,6 @@
 				9AFB554665CB5BE7684115614B3C6C6D /* SOCKit.m */,
 				65409D3816E0CD24AF16071AA4822E97 /* Support Files */,
 			);
-			name = SOCKit;
 			path = SOCKit;
 			sourceTree = "<group>";
 		};
@@ -1069,7 +1067,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 0940;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1545,7 +1543,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/OCMock-iOS/OCMock-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -1689,7 +1687,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/OCMock-iOS/OCMock-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -1773,7 +1771,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/SOCKit-iOS/SOCKit-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -1938,7 +1936,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/SOCKit-iOS/SOCKit-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
