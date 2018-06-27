@@ -16,18 +16,17 @@ AFNetworking, for example—with almost no changes to your code.
 * Works on macOS, iOS, and tvOS
 
 
-## What’s New in URLMock 1.3.3
+## What’s New in URLMock 1.3.4
 
-URLMock 1.3.3 is a tiny update that adds tvOS support.
+URLMock 1.3.4 adds support for parsing query strings that have multiple values for the same
+parameter name. These values are parsed into sets.
 
 
 ## Installation
 
 The easiest way to start using URLMock is to install it with CocoaPods.
 
-```ruby
-pod 'URLMock', '~> 1.3.3'
-```
+    pod 'URLMock', '~> 1.3.4'
 
 ### Installing Subspecs
 
@@ -36,16 +35,12 @@ includes a wide variety of useful testing functions. See [`UMKTestUtilities.h`][
 for more details. It can be installed by adding the following line to your Podfile:
 
 
-```ruby
-pod 'URLMock/TestHelpers', '~> 1.3.3'
-```
+    pod 'URLMock/TestHelpers', '~> 1.3.4'
 
 Similarly, the `SubclassResponsibility` subspec can be installed by adding the following line to
 your Podfile:
 
-```ruby
-pod 'URLMock/SubclassResponsibility', '~> 1.3.3'
-```
+    pod 'URLMock/SubclassResponsibility', '~> 1.3.4'
 
 This subspec adds methods to `NSException` to easily raise exceptions in methods for which
 subclasses must provide an implementation. See
@@ -65,36 +60,30 @@ Using URLMock for response stubbing is simple:
 
 First, enable URLMock.
 
-```objc
-[UMKMockURLProtocol enable];
-```
+    [UMKMockURLProtocol enable];
 
 If you are using `NSURLSession` and not using the shared session, you also need to add
 `UMKMockURLProtocol` to your session configuration’s set of allowed protocol classes.
 
-```objc
-NSURLSessionConfiguration *configuration = …;
-configuration.protocolClasses = @[ [UMKMockURLProtocol class] ];
-NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-```
+    NSURLSessionConfiguration *configuration = …;
+    configuration.protocolClasses = @[ [UMKMockURLProtocol class] ];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
 
 
 Next, add an expected mock request and response.
 
-```objc
-// The request is a POST with some JSON data
-NSURL *URL = [NSURL URLWithString:@"http://host.com/api/v1/person"];
-id requestJSON = @{ @"person" : @{ @"name" : @"John Doe",
-                                   @"age" : @47 } };
-id responseJSON = @{ @"person" : @{ @"id" : @1,
-                                    @"name" : @"John Doe",
-                                    @"age" : @47 } };
+    // The request is a POST with some JSON data
+    NSURL *URL = [NSURL URLWithString:@"http://host.com/api/v1/person"];
+    id requestJSON = @{ @"person" : @{ @"name" : @"John Doe",
+                                       @"age" : @47 } };
+    id responseJSON = @{ @"person" : @{ @"id" : @1,
+                                        @"name" : @"John Doe",
+                                        @"age" : @47 } };
 
-[UMKMockURLProtocol expectMockHTTPPostRequestWithURL:URL
-                                         requestJSON:requestJSON
-                                  responseStatusCode:200
-                                        responseJSON:responseJSON];
-```
+    [UMKMockURLProtocol expectMockHTTPPostRequestWithURL:URL
+                                             requestJSON:requestJSON
+                                      responseStatusCode:200
+                                            responseJSON:responseJSON];
 
 Mock requests and responses are not limited to having JSON bodies; they can also have bodies with
 strings, WWW form-encoded parameter dictionaries, or arbitrary `NSData` instances. There are also
@@ -105,34 +94,30 @@ When you execute your real request, you will get the stubbed response back. You 
 any changes to your code when using URLMock. Things should just work. For example, the following
 URLConnection code will receive the mock response above:
 
-```objc
-NSURL *URL = [NSURL URLWithString:@"http://host.com/api/v1/person"];
-NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL];
-request.HTTPMethod = @"POST";
-id bodyJSON = @{ @"person" : @{ @"name" : @"John Doe", @"age" : @47 } };
-request.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyJSON
-                                                   options:0
-                                                     error:NULL];
+    NSURL *URL = [NSURL URLWithString:@"http://host.com/api/v1/person"];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL];
+    request.HTTPMethod = @"POST";
+    id bodyJSON = @{ @"person" : @{ @"name" : @"John Doe", @"age" : @47 } };
+    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyJSON
+                                                       options:0
+                                                         error:NULL];
 
-// Create the connection as usual
-NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:…];
-```
+    // Create the connection as usual
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:…];
 
 The following AFNetworking code would accomplish the same thing:
 
-```objc
-NSURL *base = [NSURL URLWithString:@"http://host.com/api/v1/"];
-id params = @{ @"person" : @{ @"name" : @"John Doe", @"age" : @47 } };
+    NSURL *base = [NSURL URLWithString:@"http://host.com/api/v1/"];
+    id params = @{ @"person" : @{ @"name" : @"John Doe", @"age" : @47 } };
 
-// Send a POST as usual
-AFHTTPRequestOperationManager *om = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:base];
-om.requestSerializer = [AFJSONRequestSerializer serializer];
-[om POST:@"person" parameters:params success:^(AFHTTPRequestOperation *op, id object) {
-    …
-} failure:^(AFHTTPRequestOperation *op, NSError *error) {
-    …
-}];
-```
+    // Send a POST as usual
+    AFHTTPRequestOperationManager *om = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:base];
+    om.requestSerializer = [AFJSONRequestSerializer serializer];
+    [om POST:@"person" parameters:params success:^(AFHTTPRequestOperation *op, id object) {
+        …
+    } failure:^(AFHTTPRequestOperation *op, NSError *error) {
+        …
+    }];
 
 
 ### Pattern-Matching Mock Requests
@@ -142,27 +127,25 @@ You can also create a mock request that responds dynamically to the request it m
 URL pattern, e.g., `@"http://hostname.com/:resource/:resourceID"`. When a URL request matches this
 pattern, the mock request generates an appropriate responder using its responder generation block:
 
-```objc
-NSString *pattern = @"http://hostname.com/accounts/:accountID/followers";
-UMKPatternMatchingMockRequest *mockRequest =  [[UMKPatternMatchingMockRequest alloc] initWithPattern:pattern];
-mockRequest.HTTPMethods = [NSSet setWithObject:kUMKMockHTTPRequestPostMethod];
+    NSString *pattern = @"http://hostname.com/accounts/:accountID/followers";
+    UMKPatternMatchingMockRequest *mockRequest =  [[UMKPatternMatchingMockRequest alloc] initWithPattern:pattern];
+    mockRequest.HTTPMethods = [NSSet setWithObject:kUMKMockHTTPRequestPostMethod];
 
-mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSDictionary *parameters) {
-    NSDictionary *requestJSON = [request umk_JSONObjectFromHTTPBody];
+    mockRequest.responderGenerationBlock = ^id<UMKMockURLResponder>(NSURLRequest *request, NSDictionary *parameters) {
+        NSDictionary *requestJSON = [request umk_JSONObjectFromHTTPBody];
 
-    // Respond with
-    //   {
-    //     "follower_id": «New follower’s ID»,
-    //     "following_id":  «Account ID that was POSTed to»
-    //   }
-    UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:200];
-    [responder setBodyWithJSONObject:@{ @"follower_id" : requestJSON[@"follower_id"],
-                                        @"following_id" : @([parameters[@"accountID"] integerValue]) }];
-    return responder;
-};
+        // Respond with
+        //   {
+        //     "follower_id": «New follower’s ID»,
+        //     "following_id":  «Account ID that was POSTed to»
+        //   }
+        UMKMockHTTPResponder *responder = [UMKMockHTTPResponder mockHTTPResponderWithStatusCode:200];
+        [responder setBodyWithJSONObject:@{ @"follower_id" : requestJSON[@"follower_id"],
+                                            @"following_id" : @([parameters[@"accountID"] integerValue]) }];
+        return responder;
+    };
 
-[UMKMockURLProtocol addExpectedMockRequest:mockRequest];
-```
+    [UMKMockURLProtocol addExpectedMockRequest:mockRequest];
 
 See the documentation for `UMKPatternMatchingMockRequest` for more information.
 
@@ -176,21 +159,20 @@ First, enable verification in `UMKMockURLProtocol` using `+setVerificationEnable
 tracking whether any unexpected requests were received. It makes sense to do this in your
 XCTestCase’s `+setUp` method. You can also disable verification in your `+tearDown` method.
 
-```objc
-+ (void)setUp
-{
-    [super setUp];
-    [UMKMockURLProtocol enable];
-    [UMKMockURLProtocol setVerificationEnabled:YES];
-}
+    + (void)setUp
+    {
+        [super setUp];
+        [UMKMockURLProtocol enable];
+        [UMKMockURLProtocol setVerificationEnabled:YES];
+    }
 
-+ (void)tearDown
-{
-    [UMKMockURLProtocol setVerificationEnabled:NO];
-    [UMKMockURLProtocol disable];
-    [super tearDown];
-}
-```
+
+    + (void)tearDown
+    {
+        [UMKMockURLProtocol setVerificationEnabled:NO];
+        [UMKMockURLProtocol disable];
+        [super tearDown];
+    }
 
 Before (or after) each test, invoke `+[UMKMockURLProtocol reset]`. This resets `UMKMockURLProtocol`’s
 expectations to their original state. It does not change whether verification is enabled.
@@ -198,32 +180,26 @@ expectations to their original state. It does not change whether verification is
 If you’re using XCTest, the ideal place to do this is in your test case’s `‑setUp` (or `‑tearDown`)
 method.
 
-```objc
-- (void)setUp
-{
-   [super setUp];
-   [UMKMockURLProtocol reset];
-}
-```
+    - (void)setUp
+    {
+       [super setUp];
+       [UMKMockURLProtocol reset];
+    }
 
 After you’ve executed the code you’re testing, send `UMKMockURLProtocol` the `+verifyWithError:`
 message. It will return `YES` if all expected mock requests were serviced and no unexpected mock
 requests were received.
 
-```objc
-NSError *error = nil;
-XCTAssertTrue([UMKMockURLProtocol verifyWithError:&error], @"…");
-```
+    NSError *error = nil;
+    XCTAssertTrue([UMKMockURLProtocol verifyWithError:&error], @"…");
 
 For the strictest testing, enable header checking on your `UMKMockHTTPRequest` instances. When
 enabled, mock requests only match URL requests that have equivalent headers. You can enable header
 checking on mock HTTP request by setting its `checksHeadersWhenMatching` property to `YES` or by
 using `‑initWithHTTPMethod:URL:checksHeadersWhenMatching:`.
 
-```objc
-UMKMockHTTPRequest *request = [UMKMockHTTPRequest mockHTTPGetRequestWithURL:URL];
-request.checksHeadersWhenMatching = YES;
-```
+    UMKMockHTTPRequest *request = [UMKMockHTTPRequest mockHTTPGetRequestWithURL:URL];
+    request.checksHeadersWhenMatching = YES;
 
 Note that some networking APIs—most notably AFNetworking—send headers that you didn’t explicitly
 set, so you should determine what those are before creating your mock requests. To make things a
@@ -231,9 +207,7 @@ little easier, you can use `+[UMKMockHTTPRequest setDefaultHeaders:]` to set the
 new `UMKMockHTTPRequest` instances. For example, if you’re using AFNetworking’s default HTTP request
 serializer, you can set default headers this way:
 
-```objc
-[UMKMockHTTPRequest setDefaultHeaders:[[AFHTTPRequestSerializer serializer] HTTPRequestHeaders]];
-```
+    [UMKMockHTTPRequest setDefaultHeaders:[[AFHTTPRequestSerializer serializer] HTTPRequestHeaders]];
 
 ### Non-HTTP Protocols
 
