@@ -1,5 +1,8 @@
 # URLMock
 
+[![Build Status](https://travis-ci.org/prachigauriar/URLMock.svg?branch=master)](https://travis-ci.org/prachigauriar/URLMock) [![codecov](https://codecov.io/gh/prachigauriar/URLMock/branch/master/graph/badge.svg)](https://codecov.io/gh/prachigauriar/URLMock)
+
+
 URLMock is an Objective-C framework for mocking and stubbing URL requests and responses. It works
 with APIs built on the Foundation NSURL loading system—NSURLConnection, NSURLSession, and
 AFNetworking, for example—with almost no changes to your code.
