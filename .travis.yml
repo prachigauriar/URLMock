@@ -1,0 +1,31 @@
+#
+#  .travis.yml
+#  URLMock
+#
+#  Created by Prachi Gauriar on 12/26/2018.
+#  Copyright © 2018 Prachi Gauriar. All rights reserved.
+#
+
+os: osx
+osx_image: xcode10.1
+language: swift
+xcode_workspace: URLMock.xcworkspace
+
+branches:
+ only:
+ - master
+
+matrix:
+  include:
+  - name: iOS
+    xcode_scheme: URLMock-iOS
+    xcode_destination: platform=iOS Simulator,OS=12.1,name=iPhone XR
+  - name: macOS
+    xcode_scheme: URLMock
+    xcode_destination: platform=macOS
+  - name: tvOS
+    xcode_scheme: URLMock-tvOS
+    xcode_destination: platform=tvOS Simulator,OS=12.1,name=Apple TV 4K
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
