@@ -19,10 +19,10 @@ AFNetworking, for example—with almost no changes to your code.
 * Works on macOS, iOS, and tvOS
 
 
-## What’s New in URLMock 1.3.4
+## What’s New in URLMock 1.3.5
 
-URLMock 1.3.4 adds support for parsing query strings that have multiple values for the same
-parameter name. These values are parsed into sets.
+URLMock 1.3.5 bugfix: when having a URL with multiple values for the same parameter name
+could fail to match it against the same URL if parameters were specified in different order
 
 
 ## Installation

@@ -183,7 +183,7 @@
 - (NSArray<UMKParameterPair *> *)umk_parameterPairsWithKey:(NSString *)key
 {
     NSMutableArray<UMKParameterPair *> *pairs = [[NSMutableArray alloc] initWithCapacity:self.count];
-    for (id element in self) {
+    for (id element in [self.allObjects sortedArrayUsingSelector:@selector(compare:)]) {
         [pairs addObjectsFromArray:[element umk_parameterPairsWithKey:key]];
     }
     
