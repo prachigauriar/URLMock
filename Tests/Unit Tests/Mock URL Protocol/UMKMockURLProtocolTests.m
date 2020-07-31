@@ -113,6 +113,12 @@
     NSURL *testURL4 = [NSURL URLWithString:@"http://domain?b=bar&c=baz&a=foo"];
     NSURL *canonicalURL4 = [UMKMockURLProtocol canonicalURLForURL:testURL4];
     XCTAssertEqualObjects(canonicalURL3, canonicalURL4, @"canonical URLs should be equal regardless of parameter order");
+
+    NSURL *testURL5 = [NSURL URLWithString:@"http://domain?arg=foo&arg=bar&arg=baz&arg=qux&arg=quux&arg=quuz"];
+    NSURL *canonicalURL5 = [UMKMockURLProtocol canonicalURLForURL:testURL5];
+    XCTAssertEqualObjects(canonicalURL5.absoluteString,
+                          @"http://domain?arg=bar&arg=baz&arg=foo&arg=quux&arg=quuz&arg=qux",
+                          @"canonical URL should have consistent order of set parameters");
 }
 
 @end
