@@ -29,7 +29,7 @@ could fail to match it against the same URL if parameters were specified in diff
 
 The easiest way to start using URLMock is to install it with CocoaPods.
 
-    pod 'URLMock', '~> 1.3.4'
+    pod 'URLMock'
 
 ### Installing Subspecs
 
@@ -38,12 +38,12 @@ includes a wide variety of useful testing functions. See [`UMKTestUtilities.h`][
 for more details. It can be installed by adding the following line to your Podfile:
 
 
-    pod 'URLMock/TestHelpers', '~> 1.3.4'
+    pod 'URLMock/TestHelpers'
 
 Similarly, the `SubclassResponsibility` subspec can be installed by adding the following line to
 your Podfile:
 
-    pod 'URLMock/SubclassResponsibility', '~> 1.3.4'
+    pod 'URLMock/SubclassResponsibility'
 
 This subspec adds methods to `NSException` to easily raise exceptions in methods for which
 subclasses must provide an implementation. See
