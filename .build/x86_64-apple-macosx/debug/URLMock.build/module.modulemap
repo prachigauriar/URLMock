@@ -1,0 +1,4 @@
+module URLMock {
+    umbrella header "/Users/pgauriar/Developer/URLMock/Sources/URLMock/Headers/Public/URLMock/URLMock.h"
+    export *
+}

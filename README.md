@@ -19,10 +19,9 @@ AFNetworking, for example—with almost no changes to your code.
 * Works on macOS, iOS, and tvOS
 
 
-## What’s New in URLMock 1.3.5
+## What’s New in URLMock 1.3.6
 
-URLMock 1.3.5 bugfix: when having a URL with multiple values for the same parameter name
-could fail to match it against the same URL if parameters were specified in different order
+URLMock 1.3.6 adds support for installing using Swift Package Manager.
 
 
 ## Installation
@@ -49,8 +48,8 @@ This subspec adds methods to `NSException` to easily raise exceptions in methods
 subclasses must provide an implementation. See
 [NSException+UMKSubclassResponsibility.h][SubclassResponsibility] for details.
 
-[UMKTestUtilities]: https://github.com/twotoasters/URLMock/blob/master/URLMock/Utilities/UMKTestUtilities.h "UMKTestUtilities.h"
-[SubclassResponsibility]: https://github.com/twotoasters/URLMock/blob/master/URLMock/Categories/NSException%2BUMKSubclassResponsibility.h "NSException+UMKSubclassResponsibility.h"
+[UMKTestUtilities]: https://github.com/prachigauriar/URLMock/blob/master/Sources/Headers/Public/URLMock/UMKTestUtilities.h "UMKTestUtilities.h"
+[SubclassResponsibility]: https://github.com/prachigauriar/URLMock/blob/master/Sources/Headers/Public/URLMock/NSException%2BUMKSubclassResponsibility.h "NSException+UMKSubclassResponsibility.h"
 
 
 ## Using URLMock

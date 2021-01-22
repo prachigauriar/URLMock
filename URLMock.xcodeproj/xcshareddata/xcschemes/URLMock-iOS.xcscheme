@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
+   LastUpgradeVersion = "1230"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4C96CA0C1A5605BD003763D3"
-               BuildableName = "URLMock-iOSTests.xctest"
-               BlueprintName = "URLMock-iOSTests"
+               BuildableName = "URLMockTests-iOS.xctest"
+               BlueprintName = "URLMockTests-iOS"
                ReferencedContainer = "container:URLMock.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -40,9 +40,18 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES"
       codeCoverageEnabled = "YES"
-      onlyGenerateCoverageForSpecifiedTargets = "YES"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      onlyGenerateCoverageForSpecifiedTargets = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "4C96CA021A5605BD003763D3"
+            BuildableName = "URLMock.framework"
+            BlueprintName = "URLMock-iOS"
+            ReferencedContainer = "container:URLMock.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <CodeCoverageTargets>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -58,23 +67,12 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4C96CA0C1A5605BD003763D3"
-               BuildableName = "URLMock-iOSTests.xctest"
-               BlueprintName = "URLMock-iOSTests"
+               BuildableName = "URLMockTests-iOS.xctest"
+               BlueprintName = "URLMockTests-iOS"
                ReferencedContainer = "container:URLMock.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4C96CA021A5605BD003763D3"
-            BuildableName = "URLMock.framework"
-            BlueprintName = "URLMock-iOS"
-            ReferencedContainer = "container:URLMock.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -95,8 +93,6 @@
             ReferencedContainer = "container:URLMock.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
