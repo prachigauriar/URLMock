@@ -1,84 +1,50 @@
-//---------------------------------------------------------------------------------------
-//  $Id$
-//  Copyright (c) 2005-2013 by Mulle Kybernetik. See License file for details.
-//---------------------------------------------------------------------------------------
+/*
+ *  Copyright (c) 2005-2020 Erik Doernenburg and contributors
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License"); you may
+ *  not use these files except in compliance with the License. You may obtain
+ *  a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ *  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ *  License for the specific language governing permissions and limitations
+ *  under the License.
+ */
 
 #import <objc/runtime.h>
 #import "OCClassMockObject.h"
-#import "NSMethodSignature+OCMAdditions.h"
 #import "NSObject+OCMAdditions.h"
-
-
-NSString *OCMRealMethodAliasPrefix = @"ocmock_replaced_";
-
+#import "OCMFunctionsPrivate.h"
+#import "OCMInvocationStub.h"
+#import "NSMethodSignature+OCMAdditions.h"
 
 @implementation OCClassMockObject
-
-#pragma mark  Mock table
-
-static NSMutableDictionary *mockTable;
-
-+ (void)initialize
-{
-	if(self == [OCClassMockObject class])
-		mockTable = [[NSMutableDictionary alloc] init];
-}
-
-+ (void)rememberMock:(OCClassMockObject *)mock forClass:(Class)aClass
-{
-    @synchronized(mockTable)
-    {
-        [mockTable setObject:[NSValue valueWithNonretainedObject:mock] forKey:[NSValue valueWithNonretainedObject:aClass]];
-    }
-}
-
-+ (void)forgetMockForClass:(Class)aClass
-{
-    @synchronized(mockTable)
-    {
-        [mockTable removeObjectForKey:[NSValue valueWithNonretainedObject:aClass]];
-    }
-}
-
-+ (OCClassMockObject *)existingMockForClass:(Class)aClass
-{
-    @synchronized(mockTable)
-    {
-        OCClassMockObject *mock = nil;
-        while((mock == nil) && (aClass != nil))
-        {
-            mock = [[mockTable objectForKey:[NSValue valueWithNonretainedObject:aClass]] nonretainedObjectValue];
-            aClass = class_getSuperclass(aClass);
-        }
-        if(mock == nil)
-            [NSException raise:NSInternalInconsistencyException format:@"No mock for class %@", NSStringFromClass(aClass)];
-        return mock;
-    }
-}
 
 #pragma mark  Initialisers, description, accessors, etc.
 
 - (id)initWithClass:(Class)aClass
 {
+	if(aClass == Nil)
+		[NSException raise:NSInvalidArgumentException format:@"Class cannot be Nil."];
+
 	[super init];
 	mockedClass = aClass;
+    [self prepareClassForClassMethodMocking];
 	return self;
 }
 
 - (void)dealloc
 {
-	if(replacedClassMethods != nil)
-    {
-		[self stopMocking];
-        [[self mockObjectClass] forgetMockForClass:mockedClass];
-        [replacedClassMethods release];
-    }
+	[self stopMocking];
 	[super dealloc];
 }
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"OCMockObject[%@]", NSStringFromClass(mockedClass)];
+	return [NSString stringWithFormat:@"OCClassMockObject(%@)", NSStringFromClass(mockedClass)];
 }
 
 - (Class)mockedClass
@@ -87,75 +53,134 @@ static NSMutableDictionary *mockTable;
 }
 
 
+#pragma mark  Extending/overriding superclass behaviour
+
+- (void)stopMocking
+{
+    if(originalMetaClass != nil)
+    {
+        [self stopMockingClassMethods];
+    }
+    if(classCreatedForNewMetaClass != nil)
+    {
+        OCMDisposeSubclass(classCreatedForNewMetaClass);
+        classCreatedForNewMetaClass = nil;
+    }
+    [super stopMocking];
+}
+
+
+- (void)stopMockingClassMethods
+{
+    OCMSetAssociatedMockForClass(nil, mockedClass);
+    object_setClass(mockedClass, originalMetaClass);
+    originalMetaClass = nil;
+    /* created meta class will be disposed later because partial mocks create another subclass depending on it */
+}
+
+
+- (void)addStub:(OCMInvocationStub *)aStub
+{
+    [super addStub:aStub];
+    if([aStub recordedAsClassMethod])
+        [self setupForwarderForClassMethodSelector:[[aStub recordedInvocation] selector]];
+}
+
+
 #pragma mark  Class method mocking
 
-- (void)setupClassForClassMethodMocking
+- (void)prepareClassForClassMethodMocking
 {
-    if(replacedClassMethods != nil)
+    /* the runtime and OCMock depend on string and array; we don't intercept methods on them to avoid endless loops */
+    if([[mockedClass class] isSubclassOfClass:[NSString class]] || [[mockedClass class] isSubclassOfClass:[NSArray class]])
+        return;
+    
+    /* trying to replace class methods on NSManagedObject and subclasses of it doesn't work; see #339 */
+    if([mockedClass isSubclassOfClass:objc_getClass("NSManagedObject")])
         return;
 
-    replacedClassMethods = [[NSMutableDictionary alloc] init];
-    [[self mockObjectClass] rememberMock:self forClass:mockedClass];
+    /* if there is another mock for this exact class, stop it */
+    id otherMock = OCMGetAssociatedMockForClass(mockedClass, NO);
+    if(otherMock != nil)
+        [otherMock stopMockingClassMethods];
 
-    Method method = class_getClassMethod(mockedClass, @selector(forwardInvocation:));
-    IMP originalIMP = method_getImplementation(method);
-    [replacedClassMethods setObject:[NSValue valueWithPointer:originalIMP] forKey:NSStringFromSelector(@selector(forwardInvocation:))];
+    OCMSetAssociatedMockForClass(self, mockedClass);
 
+    /* dynamically create a subclass and use its meta class as the meta class for the mocked class */
+    classCreatedForNewMetaClass = OCMCreateSubclass(mockedClass, mockedClass);
+    originalMetaClass = object_getClass(mockedClass);
+    id newMetaClass = object_getClass(classCreatedForNewMetaClass);
+
+    /* create a dummy initialize method */
+    Method myDummyInitializeMethod = class_getInstanceMethod([self mockObjectClass], @selector(initializeForClassObject));
+    const char *initializeTypes = method_getTypeEncoding(myDummyInitializeMethod);
+    IMP myDummyInitializeIMP = method_getImplementation(myDummyInitializeMethod);
+    class_addMethod(newMetaClass, @selector(initialize), myDummyInitializeIMP, initializeTypes);
+
+    object_setClass(mockedClass, newMetaClass); // only after dummy initialize is installed (iOS9)
+
+    /* point forwardInvocation: of the object to the implementation in the mock */
     Method myForwardMethod = class_getInstanceMethod([self mockObjectClass], @selector(forwardInvocationForClassObject:));
-   	IMP myForwardIMP = method_getImplementation(myForwardMethod);
-    Class metaClass = object_getClass(mockedClass);
-	class_replaceMethod(metaClass, @selector(forwardInvocation:), myForwardIMP, method_getTypeEncoding(myForwardMethod));
+    IMP myForwardIMP = method_getImplementation(myForwardMethod);
+    class_addMethod(newMetaClass, @selector(forwardInvocation:), myForwardIMP, method_getTypeEncoding(myForwardMethod));
+
+    /* adding forwarder for most class methods (instance methods on meta class) to allow for verify after run */
+    NSArray *methodBlackList = @[@"class", @"forwardingTargetForSelector:", @"methodSignatureForSelector:", @"forwardInvocation:", @"isBlock",
+            @"instanceMethodForwarderForSelector:", @"instanceMethodSignatureForSelector:", @"resolveClassMethod:"];
+    [NSObject enumerateMethodsInClass:originalMetaClass usingBlock:^(Class cls, SEL sel) {
+        if((cls == object_getClass([NSObject class])) || (cls == [NSObject class]) || (cls == object_getClass(cls)))
+            return;
+        if(OCMIsApplePrivateMethod(cls, sel))
+            return;
+        if([methodBlackList containsObject:NSStringFromSelector(sel)])
+            return;
+        @try
+        {
+            [self setupForwarderForClassMethodSelector:sel];
+        }
+        @catch(NSException *e)
+        {
+            // ignore for now
+        }
+    }];
 }
+
 
 - (void)setupForwarderForClassMethodSelector:(SEL)selector
 {
-    if([replacedClassMethods objectForKey:NSStringFromSelector(selector)] != nil)
+    SEL aliasSelector = OCMAliasForOriginalSelector(selector);
+    if(class_getClassMethod(mockedClass, aliasSelector) != NULL)
         return;
 
-    // We're using class_replaceMethod and not method_setImplementation to make sure
-    // the stub is definitely added to the mocked class, and not a superclass. However,
-    // we still get the originalIMP from the method in case it was actually implemented
-    // in a superclass.
-    Method method = class_getClassMethod(mockedClass, selector);
-    IMP originalIMP = method_getImplementation(method);
-    [replacedClassMethods setObject:[NSValue valueWithPointer:originalIMP] forKey:NSStringFromSelector(selector)];
+    Method originalMethod = class_getClassMethod(mockedClass, selector);
+    IMP originalIMP = method_getImplementation(originalMethod);
+    const char *types = method_getTypeEncoding(originalMethod);
 
     Class metaClass = object_getClass(mockedClass);
-    IMP forwarderIMP = [metaClass instanceMethodForwarderForSelector:selector];
-    class_replaceMethod(metaClass, method_getName(method), forwarderIMP, method_getTypeEncoding(method));
-    
-    SEL aliasSelector = NSSelectorFromString([OCMRealMethodAliasPrefix stringByAppendingString:NSStringFromSelector(selector)]);
-    class_addMethod(metaClass, aliasSelector, originalIMP, method_getTypeEncoding(method));
+    IMP forwarderIMP = [originalMetaClass instanceMethodForwarderForSelector:selector];
+    class_addMethod(metaClass, aliasSelector, originalIMP, types);
+    class_replaceMethod(metaClass, selector, forwarderIMP, types);
 }
 
-- (void)removeForwarderForClassMethodSelector:(SEL)selector
-{
-    IMP originalIMP = [[replacedClassMethods objectForKey:NSStringFromSelector(selector)] pointerValue];
-	if(originalIMP == NULL)
-    {
-        [NSException raise:NSInternalInconsistencyException format:@"%@: Trying to remove stub for class method %@, but no previous implementation available.",
-            [self description], NSStringFromSelector(selector)];
-	}
-    Method method = class_getClassMethod(mockedClass, selector);
-    method_setImplementation(method, originalIMP);
-}
 
 - (void)forwardInvocationForClassObject:(NSInvocation *)anInvocation
 {
 	// in here "self" is a reference to the real class, not the mock
-	OCClassMockObject *mock = [OCClassMockObject existingMockForClass:(Class)self];
+	OCClassMockObject *mock = OCMGetAssociatedMockForClass((Class) self, YES);
+    if(mock == nil)
+    {
+        [NSException raise:NSInternalInconsistencyException format:@"No mock for class %@", NSStringFromClass((Class)self)];
+    }
 	if([mock handleInvocation:anInvocation] == NO)
     {
-        // if mock doesn't want to handle the invocation, maybe all expects have occurred, we remove the forwarder and try again
-        [mock removeForwarderForClassMethodSelector:[anInvocation selector]];
+        [anInvocation setSelector:OCMAliasForOriginalSelector([anInvocation selector])];
         [anInvocation invoke];
     }
 }
 
-- (void)stopMocking
+- (void)initializeForClassObject
 {
-	for(NSString *replacedMethod in replacedClassMethods)
-        [self removeForwarderForClassMethodSelector:NSSelectorFromString(replacedMethod)];
+    // we really just want to have an implementation so that the superclass's is not called
 }
 
 
@@ -163,7 +188,12 @@ static NSMutableDictionary *mockTable;
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {
-	return [mockedClass instanceMethodSignatureForSelector:aSelector];
+    NSMethodSignature *signature = [mockedClass instanceMethodSignatureForSelector:aSelector];
+    if(signature == nil)
+    {
+        signature = [NSMethodSignature signatureForDynamicPropertyAccessedWithSelector:aSelector inClass:mockedClass];
+    }
+    return signature;
 }
 
 - (Class)mockObjectClass
@@ -188,7 +218,14 @@ static NSMutableDictionary *mockTable;
 
 - (BOOL)conformsToProtocol:(Protocol *)aProtocol
 {
-    return class_conformsToProtocol(mockedClass, aProtocol);
+    Class clazz = mockedClass;
+    while (clazz != nil) {
+        if (class_conformsToProtocol(clazz, aProtocol)) {
+            return YES;
+        }
+        clazz = class_getSuperclass(clazz);
+    }
+    return NO;
 }
 
 @end
@@ -196,11 +233,11 @@ static NSMutableDictionary *mockTable;
 
 #pragma mark  -
 
-/**
+/*
  taken from:
  `class-dump -f isNS /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/System/Library/Frameworks/CoreFoundation.framework`
  
- @interface NSObject (__NSIsKinds)
+ @ interface NSObject (__NSIsKinds)
  - (_Bool)isNSValue__;
  - (_Bool)isNSTimeZone__;
  - (_Bool)isNSString__;
@@ -217,52 +254,52 @@ static NSMutableDictionary *mockTable;
 
 - (BOOL)isNSValue__
 {
-    return [mockedClass isKindOfClass:[NSValue class]];
+    return [mockedClass isSubclassOfClass:[NSValue class]];
 }
 
 - (BOOL)isNSTimeZone__
 {
-    return [mockedClass isKindOfClass:[NSTimeZone class]];
+    return [mockedClass isSubclassOfClass:[NSTimeZone class]];
 }
 
 - (BOOL)isNSSet__
 {
-    return [mockedClass isKindOfClass:[NSSet class]];
+    return [mockedClass isSubclassOfClass:[NSSet class]];
 }
 
 - (BOOL)isNSOrderedSet__
 {
-    return [mockedClass isKindOfClass:[NSOrderedSet class]];
+    return [mockedClass isSubclassOfClass:[NSOrderedSet class]];
 }
 
 - (BOOL)isNSNumber__
 {
-    return [mockedClass isKindOfClass:[NSNumber class]];
+    return [mockedClass isSubclassOfClass:[NSNumber class]];
 }
 
 - (BOOL)isNSDate__
 {
-    return [mockedClass isKindOfClass:[NSDate class]];
+    return [mockedClass isSubclassOfClass:[NSDate class]];
 }
 
 - (BOOL)isNSString__
 {
-    return [mockedClass isKindOfClass:[NSString class]];
+    return [mockedClass isSubclassOfClass:[NSString class]];
 }
 
 - (BOOL)isNSDictionary__
 {
-    return [mockedClass isKindOfClass:[NSDictionary class]];
+    return [mockedClass isSubclassOfClass:[NSDictionary class]];
 }
 
 - (BOOL)isNSData__
 {
-    return [mockedClass isKindOfClass:[NSData class]];
+    return [mockedClass isSubclassOfClass:[NSData class]];
 }
 
 - (BOOL)isNSArray__
 {
-    return [mockedClass isKindOfClass:[NSArray class]];
+    return [mockedClass isSubclassOfClass:[NSArray class]];
 }
 
 @end
